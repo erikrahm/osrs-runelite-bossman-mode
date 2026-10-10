@@ -436,7 +436,7 @@ public class BossmanPanel extends PluginPanel
 			}
 			any = true;
 			boolean have = plugin.isLogItemUnlocked(gi);
-			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, gi.rate, have ? OK : Color.WHITE, MUTED));
+			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate " + gi.rate, have ? OK : Color.WHITE, MUTED));
 		}
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
@@ -444,11 +444,11 @@ public class BossmanPanel extends PluginPanel
 			boolean have = plugin.isDebtItemUnlocked(d);
 			if (plugin.isDebtItemGating(d))
 			{
-				p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, d.rate + (plugin.isJar(d) ? " - jar, gating" : " - pet, gating"), have ? OK : Color.WHITE, MUTED));
+				p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate " + d.rate + (plugin.isJar(d) ? " - jar, gating" : " - pet, gating"), have ? OK : Color.WHITE, MUTED));
 				continue;
 			}
 			String note = have ? "obtained" : (kc >= d.debtAtKc ? "DEBT since KC " + d.debtAtKc : "not gating - debt-eligible at KC " + d.debtAtKc);
-			p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED));
+			p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate " + d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED));
 		}
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
@@ -458,7 +458,7 @@ public class BossmanPanel extends PluginPanel
 			}
 			any = true;
 			boolean have = plugin.isLogItemUnlocked(gi);
-			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, gi.rate + " - meme grind, optional", have ? OK : MUTED, MUTED));
+			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate " + gi.rate + " - meme grind, optional", have ? OK : MUTED, MUTED));
 		}
 		if (!any)
 		{
@@ -479,7 +479,7 @@ public class BossmanPanel extends PluginPanel
 			if (!plugin.isDebtItemGating(d) && kc >= d.debtAtKc && !plugin.isDebtItemUnlocked(d))
 			{
 				any = true;
-				p.add(wrapLabel(d.item + " " + d.rate + " - owed since KC " + d.debtAtKc, BAD));
+				p.add(wrapLabel(d.item + " (drop rate " + d.rate + ") - owed since KC " + d.debtAtKc, BAD));
 			}
 		}
 		if (!any)

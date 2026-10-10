@@ -258,7 +258,7 @@ public class BossmanPanel extends PluginPanel
 					break;
 				}
 			}
-			String state = have ? "obtained" : (kc >= d.debtAtKc ? "DEBT (KC " + kc + " >= " + d.debtAtKc + ")" : "pending - debt at KC " + d.debtAtKc);
+			String state = have ? "obtained" : (kc >= d.debtAtKc ? "DEBT since KC " + d.debtAtKc : "debt-eligible at KC " + d.debtAtKc);
 			p.add(wrapLabel(d.item + " " + d.rate + " - " + state, have ? OK : (kc >= d.debtAtKc ? BAD : MUTED)));
 		}
 		for (BossmanData.MemeItem m : r.log.memeItems)
@@ -276,8 +276,20 @@ public class BossmanPanel extends PluginPanel
 	private JPanel recentSection()
 	{
 		JPanel p = card();
-		p.add(sectionTitle("Recent unlocks (" + plugin.getLedger().unlocks.size() + " total)"));
-		List<Ledger.Entry> recent = new ArrayList<>(plugin.getLedger().recent(10));
+		List<Ledger.Entry> all = new ArrayList<>();
+		for (Ledger.Entry en : plugin.getLedger().unlocks.values())
+		{
+			if (!Ledger.KIND_DEFAULT.equals(en.kind))
+			{
+				all.add(en); // bonds etc. are housekeeping, not unlocks
+			}
+		}
+		p.add(sectionTitle("Recent unlocks (" + all.size() + " total)"));
+		List<Ledger.Entry> recent = new ArrayList<>();
+		for (int i = all.size() - 1; i >= 0 && recent.size() < 10; i--)
+		{
+			recent.add(all.get(i));
+		}
 		if (recent.isEmpty())
 		{
 			p.add(label("Nothing unlocked yet. Go hit Brutus.", MUTED));

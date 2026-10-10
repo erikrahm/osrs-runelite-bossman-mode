@@ -592,7 +592,8 @@ public class BossmanModePlugin extends Plugin
 			return;
 		}
 		long drops = ledger.unlocks.values().stream().filter(x -> Ledger.KIND_DROP.equals(x.kind)).count();
-		reply(chatMessage, "Bossman: " + ledger.unlocks.size() + " items unlocked (" + drops + " from boss drops), "
+		long real = ledger.unlocks.values().stream().filter(x -> !Ledger.KIND_DEFAULT.equals(x.kind)).count();
+		reply(chatMessage, "Bossman: " + real + " items unlocked (" + drops + " from boss drops), "
 			+ data.getFreeItems().size() + " free tools/access items.");
 	}
 

@@ -39,6 +39,7 @@ public class BossmanPanel extends PluginPanel
 	private final ItemManager itemManager;
 
 	private final JPanel body = new JPanel();
+	private final java.awt.image.BufferedImage questIcon;
 	/** null = follow the current rung; otherwise the rung being browsed */
 	private Integer browsing;
 
@@ -48,6 +49,16 @@ public class BossmanPanel extends PluginPanel
 		super(false);
 		this.plugin = plugin;
 		this.itemManager = itemManager;
+		java.awt.image.BufferedImage qi = null;
+		try
+		{
+			qi = net.runelite.client.util.ImageUtil.loadImageResource(BossmanPanel.class, "/bossman/quest_icon.png");
+			qi = net.runelite.client.util.ImageUtil.resizeImage(qi, 14, 14);
+		}
+		catch (Exception ignored)
+		{
+		}
+		this.questIcon = qi;
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 		body.setLayout(new BoxLayout(body, BoxLayout.Y_AXIS));
@@ -158,17 +169,40 @@ public class BossmanPanel extends PluginPanel
 		name.setForeground(complete ? OK : (isCurrent ? WARN : Color.WHITE));
 		name.setAlignmentX(LEFT_ALIGNMENT);
 		p.add(name);
-		p.add(label("Combat level " + (r.combatLevel != null ? r.combatLevel : "n/a"), MUTED));
-		if (r.gate != null && !r.gate.isEmpty())
+		p.add(Box.createVerticalStrut(3));
+
+		p.add(infoRow("Combat level", r.combatLevel != null ? String.valueOf(r.combatLevel) : "n/a", null, Color.WHITE));
+		String gate = (r.gate == null || r.gate.isEmpty()) ? "none" : r.gate;
+		p.add(infoRow("Gate", gate, r.gateIsQuest ? questIcon : null, Color.WHITE));
+
+		BossmanData.Rung cur = plugin.currentRung();
+		String status;
+		Color statusColor;
+		if (complete)
 		{
-			p.add(wrapLabel("Gate: " + r.gate, MUTED));
+			status = "COMPLETE";
+			statusColor = OK;
 		}
-		String status = complete ? "COMPLETE" : (isCurrent ? "IN PROGRESS" : (r.rung != null && plugin.currentRung() != null && r.rung < plugin.currentRung().rung ? "COMPLETE" : "LOCKED"));
-		p.add(wrapLabel(status + " - " + r.completion, complete ? OK : (isCurrent ? WARN : MUTED)));
+		else if (isCurrent)
+		{
+			status = r.isFirstKillOnly() ? "IN PROGRESS (first kill completes)" : "IN PROGRESS";
+			statusColor = WARN;
+		}
+		else if (cur != null && r.rung != null && cur.rung != null && r.rung < cur.rung)
+		{
+			status = "COMPLETE";
+			statusColor = OK;
+		}
+		else
+		{
+			status = "LOCKED";
+			statusColor = MUTED;
+		}
+		p.add(infoRow("Status", status, null, statusColor));
 
 		int kc = plugin.rungKc(r);
-		String kcText = "KC " + kc + (r.log.expectedKc != null && r.log.expectedKc > 0 ? "  (expected ~" + r.log.expectedKc + ")" : "");
-		p.add(wrapLabel(kcText, Color.WHITE));
+		String kcText = String.valueOf(kc) + (r.log.expectedKc != null && r.log.expectedKc > 0 ? " (expected: ~" + r.log.expectedKc + ")" : "");
+		p.add(infoRow("KC", kcText, null, Color.WHITE));
 
 		if (!r.log.gatingItems.isEmpty())
 		{
@@ -188,7 +222,7 @@ public class BossmanPanel extends PluginPanel
 			bar.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			bar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 18));
 			bar.setAlignmentX(LEFT_ALIGNMENT);
-			p.add(Box.createVerticalStrut(4));
+			p.add(Box.createVerticalStrut(5));
 			p.add(bar);
 		}
 		if (r.isFirstKillOnly() || r.log.gatingItems.isEmpty())
@@ -203,6 +237,33 @@ public class BossmanPanel extends PluginPanel
 			p.add(done);
 		}
 		return p;
+	}
+
+	/** "Key: value" line with an optional icon in front of the value. */
+	private JPanel infoRow(String key, String value, java.awt.image.BufferedImage icon, Color valueColor)
+	{
+		JPanel row = new JPanel();
+		row.setLayout(new BoxLayout(row, BoxLayout.X_AXIS));
+		row.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+		row.setAlignmentX(LEFT_ALIGNMENT);
+		JLabel k = new JLabel(key + ": ");
+		k.setFont(FontManager.getRunescapeSmallFont());
+		k.setForeground(MUTED);
+		row.add(k);
+		if (icon != null)
+		{
+			JLabel i = new JLabel(new javax.swing.ImageIcon(icon));
+			i.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 3));
+			row.add(i);
+		}
+		JLabel v = new JLabel("<html><body style='width:" + (icon != null ? 95 : 115) + "px'>" + escape(value) + "</body></html>");
+		v.setFont(FontManager.getRunescapeSmallFont());
+		v.setForeground(valueColor);
+		row.add(v);
+		row.add(Box.createHorizontalGlue());
+		Dimension pref = row.getPreferredSize();
+		row.setMaximumSize(new Dimension(Integer.MAX_VALUE, pref.height));
+		return row;
 	}
 
 	private JPanel logSection(BossmanData.Rung r)

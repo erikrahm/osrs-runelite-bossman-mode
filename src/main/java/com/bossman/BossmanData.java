@@ -108,6 +108,8 @@ public class BossmanData
 		@SerializedName("combat_level")
 		public Integer combatLevel;
 		public String gate;
+		@SerializedName("gate_is_quest")
+		public boolean gateIsQuest;
 		public Integer rung;          // null for floating (Tempoross / Wintertodt)
 		public boolean floating;
 		public boolean blocking;

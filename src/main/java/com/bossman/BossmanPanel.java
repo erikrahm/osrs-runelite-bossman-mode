@@ -211,7 +211,7 @@ public class BossmanPanel extends PluginPanel
 		name.setForeground(complete ? OK : (isCurrent ? WARN : Color.WHITE));
 		name.setAlignmentX(LEFT_ALIGNMENT);
 		p.add(name);
-		p.add(Box.createVerticalStrut(3));
+		p.add(Box.createVerticalStrut(6));
 
 		p.add(infoRow("Combat level", r.combatLevel != null ? String.valueOf(r.combatLevel) : "n/a", null, Color.WHITE));
 		if (r.gates == null || r.gates.isEmpty())
@@ -516,6 +516,7 @@ public class BossmanPanel extends PluginPanel
 		sb.setAlignmentX(LEFT_ALIGNMENT);
 		text.add(sb);
 		row.add(text, BorderLayout.CENTER);
+		row.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
 		Dimension pref = row.getPreferredSize();
 		row.setMaximumSize(new Dimension(Integer.MAX_VALUE, Math.max(36, pref.height)));
 		return row;
@@ -558,16 +559,17 @@ public class BossmanPanel extends PluginPanel
 		JPanel p = new JPanel();
 		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
 		p.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-		p.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
+		p.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 		return p;
 	}
 
 	private JLabel sectionTitle(String text)
 	{
 		JLabel l = new JLabel(text);
-		l.setFont(FontManager.getRunescapeSmallFont());
+		l.setFont(FontManager.getRunescapeBoldFont());
 		l.setForeground(WARN);
 		l.setAlignmentX(LEFT_ALIGNMENT);
+		l.setBorder(BorderFactory.createEmptyBorder(0, 0, 6, 0));
 		return l;
 	}
 

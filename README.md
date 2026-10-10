@@ -18,9 +18,10 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   results; and cannot be *sold* on the GE (the `Offer` option is removed) — only unlocked items may be sold.
 - **Unlock banner** captioned with the source and KC ("Crazy archaeologist — KC 14"), optional screenshot / chat / notification.
 - **Ladder panel.** The 69-rung boss ladder (`bossman/ladder.json`): current rung, gate, collection-log items gating it
-  (with drop rates and ✓), KC vs expected KC, and the **debt board** — pets/jars that become "debt" once KC reaches their
-  drop rate, and 1/5,000+ "meme" items. Browse other rungs with `<` / `>`; no-log rungs (Gemstone Crab, Mimic…) can be marked
-  complete by hand.
+  (with drop rates), KC vs expected KC, what the boss has unlocked for you and what it still could, and the **backlog** —
+  pets/jars that fall into it once KC reaches their drop rate, plus any log item you right-click → "Move to backlog" (it
+  stops gating; reversible). 1/5,000+ items are "meme grinds" (optional). Browse other bosses with `<` / `>`; no-log
+  bosses (Gemstone Crab, Mimic…) can be marked complete by hand.
 - Chat commands: `!bmcount`, `!bmboss`, `!bmbackup`, `!bmreset` (opt-in).
 - Config: "Meme-grind threshold" (default 5000) — log items rarer than 1/N are optional and never block the ladder; "Pets gate the ladder" / "Jars gate the ladder" (default off); "Tools / Access gear are always unlocked" toggles for stricter variants.
 

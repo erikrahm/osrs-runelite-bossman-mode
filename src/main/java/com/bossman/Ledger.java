@@ -47,6 +47,8 @@ public class Ledger
 	public Map<String, Integer> kc = new HashMap<>();
 	/** boss names of rungs the player marked complete by hand (no-log rungs like the Gemstone Crab) */
 	public Set<String> manualComplete = new HashSet<>();
+	/** collection-log items moved to the backlog by hand, as "boss|item" (they stop gating the ladder) */
+	public Set<String> backlog = new HashSet<>();
 
 	private transient File file;
 
@@ -79,6 +81,10 @@ public class Ledger
 		if (l.manualComplete == null)
 		{
 			l.manualComplete = new HashSet<>();
+		}
+		if (l.backlog == null)
+		{
+			l.backlog = new HashSet<>();
 		}
 		l.file = file;
 		return l;

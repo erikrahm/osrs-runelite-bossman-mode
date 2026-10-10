@@ -1,5 +1,5 @@
 /*
- * Bossman Mode — side panel: the ladder (current rung, log progress, KC, debt board) and recent unlocks.
+ * Bossman Mode — side panel: the ladder (current boss, log progress, KC, backlog) and per-boss unlocks.
  * BSD-2-Clause — see LICENSE.
  */
 package com.bossman;
@@ -155,7 +155,7 @@ public class BossmanPanel extends PluginPanel
 		body.add(Box.createVerticalStrut(6));
 		addBlock(logSection(r));
 		body.add(Box.createVerticalStrut(6));
-		addBlock(debtSection(r));
+		addBlock(backlogSection(r));
 		body.add(Box.createVerticalStrut(10));
 		addBlock(unlocksSection(r));
 		body.add(Box.createVerticalGlue());
@@ -260,7 +260,7 @@ public class BossmanPanel extends PluginPanel
 		int have = 0;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
-			if (plugin.isMeme(gi))
+			if (plugin.isMeme(gi) || plugin.isBacklogged(r, gi.item))
 			{
 				continue;
 			}
@@ -272,7 +272,7 @@ public class BossmanPanel extends PluginPanel
 		}
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
-			if (!plugin.isDebtItemGating(d))
+			if (!plugin.isDebtItemGating(d) || plugin.isBacklogged(r, d.item))
 			{
 				continue;
 			}
@@ -435,19 +435,36 @@ public class BossmanPanel extends PluginPanel
 			}
 			any = true;
 			boolean have = plugin.isLogItemUnlocked(gi);
-			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate: " + gi.rate, have ? OK : Color.WHITE, MUTED));
+			boolean bl = plugin.isBacklogged(r, gi.item);
+			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate: " + gi.rate + (bl && !have ? " - in backlog" : ""),
+				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
+			if (!have)
+			{
+				attachBacklogMenu(row, r, gi.item);
+			}
+			p.add(row);
 		}
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
 			any = true;
 			boolean have = plugin.isDebtItemUnlocked(d);
+			boolean bl = plugin.isBacklogged(r, d.item);
+			JPanel row;
 			if (plugin.isDebtItemGating(d))
 			{
-				p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate: " + d.rate + (plugin.isJar(d) ? " - jar, gating" : " - pet, gating"), have ? OK : Color.WHITE, MUTED));
-				continue;
+				row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate: " + d.rate + (plugin.isJar(d) ? " - jar, gating" : " - pet, gating") + (bl && !have ? " - in backlog" : ""),
+					have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
 			}
-			String note = have ? "obtained" : (kc >= d.debtAtKc ? "DEBT since KC " + d.debtAtKc : "not gating - debt-eligible at KC " + d.debtAtKc);
-			p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate: " + d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED));
+			else
+			{
+				String note = have ? "obtained" : (kc >= d.debtAtKc ? "in backlog since KC " + d.debtAtKc : "not gating - backlog at KC " + d.debtAtKc);
+				row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate: " + d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED);
+			}
+			if (!have && plugin.isDebtItemGating(d))
+			{
+				attachBacklogMenu(row, r, d.item);
+			}
+			p.add(row);
 		}
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
@@ -466,26 +483,77 @@ public class BossmanPanel extends PluginPanel
 		return p;
 	}
 
-	/** Items that are owed: pets/jars past their debt KC and not yet obtained. Memes are listed in the log, not here. */
-	private JPanel debtSection(BossmanData.Rung r)
+	/** The backlog: pets/jars past their KC that haven't dropped, plus anything moved here by hand. */
+	private JPanel backlogSection(BossmanData.Rung r)
 	{
 		JPanel p = card();
-		p.add(sectionTitle("Debt board"));
+		p.add(sectionTitle("Backlog"));
 		int kc = plugin.rungKc(r);
 		boolean any = false;
-		for (BossmanData.DebtItem d : r.log.debtPetsJars)
+		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
-			if (!plugin.isDebtItemGating(d) && kc >= d.debtAtKc && !plugin.isDebtItemUnlocked(d))
+			if (plugin.isBacklogged(r, gi.item) && !plugin.isLogItemUnlocked(gi))
 			{
 				any = true;
-				p.add(wrapLabel(d.item + " (drop rate: " + d.rate + ") - owed since KC " + d.debtAtKc, BAD));
+				JPanel row = logRow(gi.ids, gi.item, "Drop rate: " + gi.rate + " - moved here by hand", BAD, MUTED);
+				attachBacklogMenu(row, r, gi.item);
+				p.add(row);
+			}
+		}
+		for (BossmanData.DebtItem d : r.log.debtPetsJars)
+		{
+			if (plugin.isDebtItemUnlocked(d))
+			{
+				continue;
+			}
+			boolean manual = plugin.isBacklogged(r, d.item);
+			boolean auto = !plugin.isDebtItemGating(d) && kc >= d.debtAtKc;
+			if (manual || auto)
+			{
+				any = true;
+				JPanel row = logRow(d.ids, d.item, "Drop rate: " + d.rate + (manual ? " - moved here by hand" : " - since KC " + d.debtAtKc), BAD, MUTED);
+				if (manual)
+				{
+					attachBacklogMenu(row, r, d.item);
+				}
+				p.add(row);
 			}
 		}
 		if (!any)
 		{
-			p.add(label("Nothing owed for this boss.", MUTED));
+			p.add(label("Nothing in the backlog for this boss.", MUTED));
 		}
 		return p;
+	}
+
+	/** Right-click: move a log item to the backlog (it stops gating) or bring it back. */
+	private void attachBacklogMenu(JPanel row, BossmanData.Rung r, String item)
+	{
+		javax.swing.JPopupMenu menu = new javax.swing.JPopupMenu();
+		boolean bl = plugin.isBacklogged(r, item);
+		javax.swing.JMenuItem mi = new javax.swing.JMenuItem(bl ? "Remove from backlog" : "Move to backlog");
+		mi.setFont(FontManager.getRunescapeSmallFont());
+		mi.addActionListener(e -> plugin.setBacklogged(r, item, !bl));
+		menu.add(mi);
+		row.setComponentPopupMenu(menu);
+		for (java.awt.Component c : row.getComponents())
+		{
+			if (c instanceof javax.swing.JComponent)
+			{
+				((javax.swing.JComponent) c).setInheritsPopupMenu(true);
+				if (c instanceof java.awt.Container)
+				{
+					for (java.awt.Component cc : ((java.awt.Container) c).getComponents())
+					{
+						if (cc instanceof javax.swing.JComponent)
+						{
+							((javax.swing.JComponent) cc).setInheritsPopupMenu(true);
+						}
+					}
+				}
+			}
+		}
+		row.setToolTipText(bl ? "Right-click: remove from backlog" : "Right-click: move to backlog");
 	}
 
 	private JPanel logRow(List<Integer> ids, String title, String sub, Color titleColor, Color subColor)

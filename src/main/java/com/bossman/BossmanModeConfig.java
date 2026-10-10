@@ -62,21 +62,21 @@ public interface BossmanModeConfig extends Config
 
 	@net.runelite.client.config.Range(min = 1)
 	@ConfigItem(keyName = "memeThreshold", name = "Meme-grind threshold", position = 0, section = ladderSection,
-		description = "Collection-log items rarer than 1 in this many kills are 'meme grinds': shown in the log but optional, so they never block the next boss. Pets and jars are handled separately (debt board).")
+		description = "Collection-log items rarer than 1 in this many kills are 'meme grinds': shown in the log but optional, so they never block the next boss. Pets and jars are handled separately (backlog).")
 	default int memeThreshold()
 	{
 		return 5000;
 	}
 
 	@ConfigItem(keyName = "petsGate", name = "Pets gate the ladder", position = 1, section = ladderSection,
-		description = "Require a boss's pet before the next boss can be started. Off by default: pets go on the debt board once your KC reaches their drop rate.")
+		description = "Require a boss's pet before the next boss can be started. Off by default: pets go on the backlog once your KC reaches their drop rate.")
 	default boolean petsGate()
 	{
 		return false;
 	}
 
 	@ConfigItem(keyName = "jarsGate", name = "Jars gate the ladder", position = 2, section = ladderSection,
-		description = "Require a boss's jar before the next boss can be started. Off by default: jars go on the debt board once your KC reaches their drop rate.")
+		description = "Require a boss's jar before the next boss can be started. Off by default: jars go on the backlog once your KC reaches their drop rate.")
 	default boolean jarsGate()
 	{
 		return false;
@@ -153,7 +153,7 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "resetCommand", name = "Enable !bmreset", position = 7, section = displaySection,
-		description = "Enables the !bmreset chat command, which wipes the ledger (unlocks, KC, manual completions).")
+		description = "Enables the !bmreset chat command, which wipes the ledger (unlocks, KC, backlog, manual completions).")
 	default boolean resetCommand()
 	{
 		return false;

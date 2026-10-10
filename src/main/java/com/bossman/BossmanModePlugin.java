@@ -428,6 +428,30 @@ public class BossmanModePlugin extends Plugin
 		return kind;
 	}
 
+	public static String backlogKey(BossmanData.Rung r, String item)
+	{
+		return r.boss + "|" + item;
+	}
+
+	public boolean isBacklogged(BossmanData.Rung r, String item)
+	{
+		return ledger.backlog.contains(backlogKey(r, item));
+	}
+
+	public void setBacklogged(BossmanData.Rung r, String item, boolean backlogged)
+	{
+		if (backlogged)
+		{
+			ledger.backlog.add(backlogKey(r, item));
+		}
+		else
+		{
+			ledger.backlog.remove(backlogKey(r, item));
+		}
+		ledger.save(gson);
+		refreshPanel();
+	}
+
 	/** Rarer than the configured threshold → optional "meme grind", does not gate the ladder. */
 	public boolean isMeme(BossmanData.GatingItem gi)
 	{
@@ -499,7 +523,7 @@ public class BossmanModePlugin extends Plugin
 		boolean anyGating = false;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
-			if (isMeme(gi))
+			if (isMeme(gi) || isBacklogged(r, gi.item))
 			{
 				continue;
 			}
@@ -511,7 +535,7 @@ public class BossmanModePlugin extends Plugin
 		}
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
-			if (!isDebtItemGating(d))
+			if (!isDebtItemGating(d) || isBacklogged(r, d.item))
 			{
 				continue;
 			}
@@ -689,7 +713,7 @@ public class BossmanModePlugin extends Plugin
 		int need = 0;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
-			if (isMeme(gi))
+			if (isMeme(gi) || isBacklogged(r, gi.item))
 			{
 				continue;
 			}

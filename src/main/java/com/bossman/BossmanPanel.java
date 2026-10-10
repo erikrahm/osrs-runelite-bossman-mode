@@ -257,28 +257,34 @@ public class BossmanPanel extends PluginPanel
 		String kcText = String.valueOf(kc) + (r.log.expectedKc != null && r.log.expectedKc > 0 ? " (expected: ~" + r.log.expectedKc + ")" : "");
 		p.add(infoRow("KC", kcText, null, Color.WHITE));
 
-		if (!r.log.gatingItems.isEmpty())
+		int need = 0;
+		int have = 0;
+		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
-			int have = 0;
-			for (BossmanData.GatingItem gi : r.log.gatingItems)
+			if (plugin.isMeme(gi))
 			{
-				if (plugin.isLogItemUnlocked(gi))
-				{
-					have++;
-				}
+				continue;
 			}
-			JProgressBar bar = new JProgressBar(0, r.log.gatingItems.size());
+			need++;
+			if (plugin.isLogItemUnlocked(gi))
+			{
+				have++;
+			}
+		}
+		if (need > 0)
+		{
+			JProgressBar bar = new JProgressBar(0, need);
 			bar.setValue(have);
 			bar.setStringPainted(true);
-			bar.setString(have + "/" + r.log.gatingItems.size() + " gating items");
-			bar.setForeground(have == r.log.gatingItems.size() ? OK : WARN);
+			bar.setString(have + "/" + need + " gating items");
+			bar.setForeground(have == need ? OK : WARN);
 			bar.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			bar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 18));
 			bar.setAlignmentX(LEFT_ALIGNMENT);
 			p.add(Box.createVerticalStrut(5));
 			p.add(bar);
 		}
-		if (r.isFirstKillOnly() || r.log.gatingItems.isEmpty())
+		if (r.isFirstKillOnly() || need == 0)
 		{
 			JCheckBox done = new JCheckBox("Mark this boss complete by hand", plugin.getLedger().manualComplete.contains(r.boss));
 			done.setBackground(ColorScheme.DARKER_GRAY_COLOR);
@@ -412,6 +418,10 @@ public class BossmanPanel extends PluginPanel
 		boolean any = false;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
+			if (plugin.isMeme(gi))
+			{
+				continue;
+			}
 			any = true;
 			boolean have = plugin.isLogItemUnlocked(gi);
 			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, gi.rate, have ? OK : Color.WHITE, MUTED));
@@ -423,11 +433,15 @@ public class BossmanPanel extends PluginPanel
 			String note = have ? "obtained" : (kc >= d.debtAtKc ? "DEBT since KC " + d.debtAtKc : "not gating - debt-eligible at KC " + d.debtAtKc);
 			p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED));
 		}
-		for (BossmanData.MemeItem m : r.log.memeItems)
+		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
+			if (!plugin.isMeme(gi))
+			{
+				continue;
+			}
 			any = true;
-			boolean have = isUnlocked(m.ids, m.item);
-			p.add(logRow(m.ids, (have ? "[x] " : "[ ] ") + m.item, m.rate + " - meme grind, optional", have ? OK : MUTED, MUTED));
+			boolean have = plugin.isLogItemUnlocked(gi);
+			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, gi.rate + " - meme grind, optional", have ? OK : MUTED, MUTED));
 		}
 		if (!any)
 		{

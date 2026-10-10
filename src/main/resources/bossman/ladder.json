@@ -43,7 +43,8 @@
        33091,
        33089
       ],
-      "rate": "1/38"
+      "rate": "1/38",
+      "denominator": 38
      },
      {
       "item": "Cow slippers",
@@ -53,14 +54,16 @@
        33097,
        33098
       ],
-      "rate": "1/150"
+      "rate": "1/150",
+      "denominator": 150
      },
      {
       "item": "Mooleta",
       "ids": [
        33101
       ],
-      "rate": "1/30"
+      "rate": "1/30",
+      "denominator": 30
      }
     ],
     "debt_pets_jars": [
@@ -105,7 +108,8 @@
       "ids": [
        20756
       ],
-      "rate": "1/118"
+      "rate": "1/118",
+      "denominator": 118
      }
     ],
     "debt_pets_jars": [],
@@ -138,7 +142,8 @@
       "ids": [
        4708
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Ahrim's staff",
@@ -146,7 +151,8 @@
        4710,
        23653
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Ahrim's robetop",
@@ -154,7 +160,8 @@
        4712,
        20598
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Ahrim's robeskirt",
@@ -162,7 +169,8 @@
        4714,
        20599
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Dharok's helm",
@@ -170,7 +178,8 @@
        4716,
        23639
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Dharok's greataxe",
@@ -178,7 +187,8 @@
        4718,
        25516
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Dharok's platebody",
@@ -186,7 +196,8 @@
        4720,
        25515
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Dharok's platelegs",
@@ -194,7 +205,8 @@
        4722,
        23633
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Guthan's helm",
@@ -202,42 +214,48 @@
        4724,
        23638
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Guthan's warspear",
       "ids": [
        4726
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Guthan's platebody",
       "ids": [
        4728
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Guthan's chainskirt",
       "ids": [
        4730
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Karil's coif",
       "ids": [
        4732
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Karil's crossbow",
       "ids": [
        4734
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Karil's leathertop",
@@ -245,21 +263,24 @@
        4736,
        23632
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Karil's leatherskirt",
       "ids": [
        4738
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Bolt rack",
       "ids": [
        4740
       ],
-      "rate": "1/2"
+      "rate": "1/2",
+      "denominator": 2
      },
      {
       "item": "Torag's helm",
@@ -267,21 +288,24 @@
        4745,
        23637
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Torag's hammers",
       "ids": [
        4747
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Torag's platebody",
       "ids": [
        4749
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Torag's platelegs",
@@ -289,7 +313,8 @@
        4751,
        23634
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Verac's helm",
@@ -297,7 +322,8 @@
        4753,
        23636
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Verac's flail",
@@ -305,7 +331,8 @@
        4755,
        27189
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Verac's brassard",
@@ -313,7 +340,8 @@
        4757,
        27190
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      },
      {
       "item": "Verac's plateskirt",
@@ -321,7 +349,8 @@
        4759,
        23635
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      }
     ],
     "debt_pets_jars": [],
@@ -363,7 +392,8 @@
       "ids": [
        22372
       ],
-      "rate": "1/118"
+      "rate": "1/118",
+      "denominator": 118
      }
     ],
     "debt_pets_jars": [],
@@ -449,7 +479,8 @@
       "ids": [
        28798
       ],
-      "rate": "1/33"
+      "rate": "1/33",
+      "denominator": 33
      }
     ],
     "debt_pets_jars": [
@@ -491,14 +522,16 @@
       "ids": [
        11928
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Malediction shard 1",
       "ids": [
        11931
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      }
     ],
     "debt_pets_jars": [
@@ -540,21 +573,24 @@
       "ids": [
        11929
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Malediction shard 2",
       "ids": [
        11932
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Fedora",
       "ids": [
        11990
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      }
     ],
     "debt_pets_jars": [],
@@ -587,21 +623,24 @@
       "ids": [
        7158
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      },
      {
       "item": "Odium shard 3",
       "ids": [
        11930
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Malediction shard 3",
       "ids": [
        11933
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      }
     ],
     "debt_pets_jars": [
@@ -653,21 +692,24 @@
       "ids": [
        7416
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Mole skin",
       "ids": [
        7418
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Immaculate mole skin",
       "ids": [
        33382
       ],
-      "rate": "1/50"
+      "rate": "1/50",
+      "denominator": 50
      }
     ],
     "debt_pets_jars": [
@@ -724,14 +766,16 @@
       "ids": [
        31245
       ],
-      "rate": "1/75"
+      "rate": "1/75",
+      "denominator": 75
      },
      {
       "item": "Gryphon feather",
       "ids": [
        31235
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      }
     ],
     "debt_pets_jars": [
@@ -804,35 +848,40 @@
       "ids": [
        21726
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Black tourmaline core",
       "ids": [
        21730
       ],
-      "rate": "1/500"
+      "rate": "1/500",
+      "denominator": 500
      },
      {
       "item": "Granite gloves",
       "ids": [
        21736
       ],
-      "rate": "1/250"
+      "rate": "1/250",
+      "denominator": 250
      },
      {
       "item": "Granite ring",
       "ids": [
        21739
       ],
-      "rate": "1/250"
+      "rate": "1/250",
+      "denominator": 250
      },
      {
       "item": "Granite hammer",
       "ids": [
        21742
       ],
-      "rate": "1/375"
+      "rate": "1/375",
+      "denominator": 375
      }
     ],
     "debt_pets_jars": [
@@ -883,21 +932,24 @@
       "ids": [
        29889
       ],
-      "rate": "1/100"
+      "rate": "1/100",
+      "denominator": 100
      },
      {
       "item": "Pendant of Ates (inert)",
       "ids": [
        29892
       ],
-      "rate": "1/25"
+      "rate": "1/25",
+      "denominator": 25
      },
      {
       "item": "Frozen tear",
       "ids": [
        29895
       ],
-      "rate": "1/2"
+      "rate": "1/2",
+      "denominator": 2
      }
     ],
     "debt_pets_jars": [
@@ -939,7 +991,8 @@
       "ids": [
        7158
       ],
-      "rate": "1/358"
+      "rate": "1/358",
+      "denominator": 358
      },
      {
       "item": "Dragon pickaxe",
@@ -947,28 +1000,32 @@
        11920,
        12797
       ],
-      "rate": "1/358"
+      "rate": "1/358",
+      "denominator": 358
      },
      {
       "item": "Ring of the gods",
       "ids": [
        12601
       ],
-      "rate": "1/716"
+      "rate": "1/716",
+      "denominator": 716
      },
      {
       "item": "Skull of Vet'ion",
       "ids": [
        27673
       ],
-      "rate": "1/618"
+      "rate": "1/618",
+      "denominator": 618
      },
      {
       "item": "Voidwaker blade",
       "ids": [
        27684
       ],
-      "rate": "1/912"
+      "rate": "1/912",
+      "denominator": 912
      }
     ],
     "debt_pets_jars": [
@@ -1013,7 +1070,16 @@
       "ids": [
        7980
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
+     },
+     {
+      "item": "Draconic visage",
+      "ids": [
+       11286
+      ],
+      "rate": "1/5000",
+      "denominator": 5000
      },
      {
       "item": "Dragon pickaxe",
@@ -1021,7 +1087,8 @@
        11920,
        12797
       ],
-      "rate": "1/1000"
+      "rate": "1/1000",
+      "denominator": 1000
      }
     ],
     "debt_pets_jars": [
@@ -1034,15 +1101,7 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [
-     {
-      "item": "Draconic visage",
-      "ids": [
-       11286
-      ],
-      "rate": "1/5000"
-     }
-    ],
+    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 969
    },
@@ -1071,7 +1130,8 @@
       "ids": [
        30895
       ],
-      "rate": "1/44"
+      "rate": "1/44",
+      "denominator": 44
      }
     ],
     "debt_pets_jars": [],
@@ -1113,21 +1173,24 @@
       "ids": [
        22881
       ],
-      "rate": "1/3"
+      "rate": "1/3",
+      "denominator": 3
      },
      {
       "item": "Iasor seed",
       "ids": [
        22883
       ],
-      "rate": "1/3"
+      "rate": "1/3",
+      "denominator": 3
      },
      {
       "item": "Kronos seed",
       "ids": [
        22885
       ],
-      "rate": "1/3"
+      "rate": "1/3",
+      "denominator": 3
      },
      {
       "item": "Bottomless compost bucket",
@@ -1135,7 +1198,8 @@
        22994,
        22997
       ],
-      "rate": "1/35"
+      "rate": "1/35",
+      "denominator": 35
      }
     ],
     "debt_pets_jars": [],
@@ -1185,14 +1249,16 @@
       "ids": [
        11905
       ],
-      "rate": "1/512"
+      "rate": "1/512",
+      "denominator": 512
      },
      {
       "item": "Kraken tentacle",
       "ids": [
        12004
       ],
-      "rate": "1/400"
+      "rate": "1/400",
+      "denominator": 400
      }
     ],
     "debt_pets_jars": [
@@ -1253,14 +1319,16 @@
       "ids": [
        3140
       ],
-      "rate": "1/2000"
+      "rate": "1/2000",
+      "denominator": 2000
      },
      {
       "item": "Smoke battlestaff",
       "ids": [
        11998
       ],
-      "rate": "1/512"
+      "rate": "1/512",
+      "denominator": 512
      },
      {
       "item": "Occult necklace",
@@ -1268,7 +1336,8 @@
        12002,
        23654
       ],
-      "rate": "1/350"
+      "rate": "1/350",
+      "denominator": 350
      }
     ],
     "debt_pets_jars": [
@@ -1319,7 +1388,8 @@
       "ids": [
        7158
       ],
-      "rate": "1/358"
+      "rate": "1/358",
+      "denominator": 358
      },
      {
       "item": "Dragon pickaxe",
@@ -1327,28 +1397,32 @@
        11920,
        12797
       ],
-      "rate": "1/358"
+      "rate": "1/358",
+      "denominator": 358
      },
      {
       "item": "Treasonous ring",
       "ids": [
        12605
       ],
-      "rate": "1/716"
+      "rate": "1/716",
+      "denominator": 716
      },
      {
       "item": "Fangs of Venenatis",
       "ids": [
        27670
       ],
-      "rate": "1/618"
+      "rate": "1/618",
+      "denominator": 618
      },
      {
       "item": "Voidwaker gem",
       "ids": [
        27687
       ],
-      "rate": "1/912"
+      "rate": "1/912",
+      "denominator": 912
      }
     ],
     "debt_pets_jars": [
@@ -1391,21 +1465,24 @@
       "ids": [
        6724
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      },
      {
       "item": "Archers ring",
       "ids": [
        6733
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      },
      {
       "item": "Dragon axe",
       "ids": [
        6739
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      }
     ],
     "debt_pets_jars": [
@@ -1447,7 +1524,8 @@
       "ids": [
        6735
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      },
      {
       "item": "Berserker ring",
@@ -1455,14 +1533,16 @@
        6737,
        23595
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      },
      {
       "item": "Dragon axe",
       "ids": [
        6739
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      }
     ],
     "debt_pets_jars": [
@@ -1504,21 +1584,24 @@
       "ids": [
        6562
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      },
      {
       "item": "Seers ring",
       "ids": [
        6731
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      },
      {
       "item": "Dragon axe",
       "ids": [
        6739
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      }
     ],
     "debt_pets_jars": [
@@ -1560,7 +1643,8 @@
       "ids": [
        7158
       ],
-      "rate": "1/64"
+      "rate": "1/64",
+      "denominator": 64
      },
      {
       "item": "Dragon pickaxe",
@@ -1568,7 +1652,8 @@
        11920,
        12797
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      }
     ],
     "debt_pets_jars": [
@@ -1615,21 +1700,24 @@
       "ids": [
        23517
       ],
-      "rate": "1/20"
+      "rate": "1/20",
+      "denominator": 20
      },
      {
       "item": "Sarachnis cudgel",
       "ids": [
        23528
       ],
-      "rate": "1/384"
+      "rate": "1/384",
+      "denominator": 384
      },
      {
       "item": "Pristine spider silk",
       "ids": [
        33133
       ],
-      "rate": "1/50"
+      "rate": "1/50",
+      "denominator": 50
      }
     ],
     "debt_pets_jars": [
@@ -1692,35 +1780,40 @@
       "ids": [
        13227
       ],
-      "rate": "1/520"
+      "rate": "1/520",
+      "denominator": 520
      },
      {
       "item": "Pegasian crystal",
       "ids": [
        13229
       ],
-      "rate": "1/520"
+      "rate": "1/520",
+      "denominator": 520
      },
      {
       "item": "Primordial crystal",
       "ids": [
        13231
       ],
-      "rate": "1/520"
+      "rate": "1/520",
+      "denominator": 520
      },
      {
       "item": "Smouldering stone",
       "ids": [
        13233
       ],
-      "rate": "1/520"
+      "rate": "1/520",
+      "denominator": 520
      },
      {
       "item": "Key master teleport",
       "ids": [
        13249
       ],
-      "rate": "1/65"
+      "rate": "1/65",
+      "denominator": 65
      }
     ],
     "debt_pets_jars": [
@@ -1770,7 +1863,8 @@
       "ids": [
        7158
       ],
-      "rate": "1/358"
+      "rate": "1/358",
+      "denominator": 358
      },
      {
       "item": "Dragon pickaxe",
@@ -1778,28 +1872,32 @@
        11920,
        12797
       ],
-      "rate": "1/358"
+      "rate": "1/358",
+      "denominator": 358
      },
      {
       "item": "Tyrannical ring",
       "ids": [
        12603
       ],
-      "rate": "1/716"
+      "rate": "1/716",
+      "denominator": 716
      },
      {
       "item": "Claws of Callisto",
       "ids": [
        27667
       ],
-      "rate": "1/618"
+      "rate": "1/618",
+      "denominator": 618
      },
      {
       "item": "Voidwaker hilt",
       "ids": [
        27681
       ],
-      "rate": "1/912"
+      "rate": "1/912",
+      "denominator": 912
      }
     ],
     "debt_pets_jars": [
@@ -1845,28 +1943,32 @@
       "ids": [
        6571
       ],
-      "rate": "1/1000"
+      "rate": "1/1000",
+      "denominator": 1000
      },
      {
       "item": "Ancient shard",
       "ids": [
        19677
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Dark totem",
       "ids": [
        19685
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      },
      {
       "item": "Dark claw",
       "ids": [
        21275
       ],
-      "rate": "1/25"
+      "rate": "1/25",
+      "denominator": 25
      }
     ],
     "debt_pets_jars": [
@@ -1917,7 +2019,8 @@
        28988,
        29849
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      },
      {
       "item": "Atlatl dart",
@@ -1925,7 +2028,8 @@
        28991,
        29852
       ],
-      "rate": "1/2"
+      "rate": "1/2",
+      "denominator": 2
      },
      {
       "item": "Dual macuahuitl",
@@ -1933,7 +2037,8 @@
        28997,
        29850
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      },
      {
       "item": "Eclipse atlatl",
@@ -1941,7 +2046,8 @@
        29000,
        29851
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      },
      {
       "item": "Eclipse Moon chestplate",
@@ -1950,7 +2056,8 @@
        29031,
        29840
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      },
      {
       "item": "Eclipse Moon tassets",
@@ -1959,7 +2066,8 @@
        29033,
        29841
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      },
      {
       "item": "Eclipse Moon helm",
@@ -1968,7 +2076,8 @@
        29035,
        29842
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      },
      {
       "item": "Blue Moon chestplate",
@@ -1977,7 +2086,8 @@
        29037,
        29843
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      },
      {
       "item": "Blue Moon tassets",
@@ -1986,7 +2096,8 @@
        29039,
        29844
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      },
      {
       "item": "Blue Moon helm",
@@ -1995,7 +2106,8 @@
        29041,
        29845
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      },
      {
       "item": "Blood Moon chestplate",
@@ -2004,7 +2116,8 @@
        29043,
        29846
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      },
      {
       "item": "Blood Moon tassets",
@@ -2013,7 +2126,8 @@
        29045,
        29847
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      },
      {
       "item": "Blood Moon helm",
@@ -2022,7 +2136,8 @@
        29047,
        29848
       ],
-      "rate": "1/224"
+      "rate": "1/224",
+      "denominator": 224
      }
     ],
     "debt_pets_jars": [],
@@ -2065,21 +2180,24 @@
       "ids": [
        3140
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      },
      {
       "item": "Dragon 2h sword",
       "ids": [
        7158
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Kq head",
       "ids": [
        7981
       ],
-      "rate": "1/128"
+      "rate": "1/128",
+      "denominator": 128
      },
      {
       "item": "Dragon pickaxe",
@@ -2087,7 +2205,8 @@
        11920,
        12797
       ],
-      "rate": "1/400"
+      "rate": "1/400",
+      "denominator": 400
      }
     ],
     "debt_pets_jars": [
@@ -2134,18 +2253,28 @@
    "log": {
     "gating_items": [
      {
+      "item": "Uncut onyx",
+      "ids": [
+       6571
+      ],
+      "rate": "1/8000",
+      "denominator": 8000
+     },
+     {
       "item": "Zalcano shard",
       "ids": [
        23908
       ],
-      "rate": "1/750"
+      "rate": "1/750",
+      "denominator": 750
      },
      {
       "item": "Crystal tool seed",
       "ids": [
        23953
       ],
-      "rate": "1/205"
+      "rate": "1/205",
+      "denominator": 205
      }
     ],
     "debt_pets_jars": [
@@ -2158,15 +2287,7 @@
       "debt_at_kc": 2250
      }
     ],
-    "meme_items": [
-     {
-      "item": "Uncut onyx",
-      "ids": [
-       6571
-      ],
-      "rate": "1/8000"
-     }
-    ],
+    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 776
    },
@@ -2195,28 +2316,32 @@
       "ids": [
        30626
       ],
-      "rate": "1/75"
+      "rate": "1/75",
+      "denominator": 75
      },
      {
       "item": "Mystic vigour prayer scroll",
       "ids": [
        30627
       ],
-      "rate": "1/75"
+      "rate": "1/75",
+      "denominator": 75
      },
      {
       "item": "Ice element staff crown",
       "ids": [
        30628
       ],
-      "rate": "1/75"
+      "rate": "1/75",
+      "denominator": 75
      },
      {
       "item": "Fire element staff crown",
       "ids": [
        30631
       ],
-      "rate": "1/75"
+      "rate": "1/75",
+      "denominator": 75
      },
      {
       "item": "Giantsoul amulet",
@@ -2224,14 +2349,16 @@
        30637,
        30638
       ],
-      "rate": "1/16"
+      "rate": "1/16",
+      "denominator": 16
      },
      {
       "item": "Desiccated page",
       "ids": [
        30640
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      }
     ],
     "debt_pets_jars": [
@@ -2290,7 +2417,8 @@
       "ids": [
        13273
       ],
-      "rate": "1/100"
+      "rate": "1/100",
+      "denominator": 100
      }
     ],
     "debt_pets_jars": [],
@@ -2369,7 +2497,8 @@
       "ids": [
        20849
       ],
-      "rate": "1/2000"
+      "rate": "1/2000",
+      "denominator": 2000
      },
      {
       "item": "Dragon knife",
@@ -2379,56 +2508,64 @@
        22814,
        27157
       ],
-      "rate": "1/2001"
+      "rate": "1/2001",
+      "denominator": 2001
      },
      {
       "item": "Hydra's claw",
       "ids": [
        22966
       ],
-      "rate": "1/1001"
+      "rate": "1/1001",
+      "denominator": 1001
      },
      {
       "item": "Hydra's heart",
       "ids": [
        22969
       ],
-      "rate": "1/181"
+      "rate": "1/181",
+      "denominator": 181
      },
      {
       "item": "Hydra's fang",
       "ids": [
        22971
       ],
-      "rate": "1/181"
+      "rate": "1/181",
+      "denominator": 181
      },
      {
       "item": "Hydra's eye",
       "ids": [
        22973
       ],
-      "rate": "1/181"
+      "rate": "1/181",
+      "denominator": 181
      },
      {
       "item": "Hydra leather",
       "ids": [
        22983
       ],
-      "rate": "1/514"
+      "rate": "1/514",
+      "denominator": 514
      },
      {
       "item": "Hydra tail",
       "ids": [
        22988
       ],
-      "rate": "1/513"
+      "rate": "1/513",
+      "denominator": 513
      },
      {
       "item": "Alchemical hydra heads",
       "ids": [
        23077
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      }
     ],
     "debt_pets_jars": [
@@ -2481,7 +2618,8 @@
       "ids": [
        7158
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Dragon pickaxe",
@@ -2489,28 +2627,32 @@
        11920,
        12797
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Ring of the gods",
       "ids": [
        12601
       ],
-      "rate": "1/512"
+      "rate": "1/512",
+      "denominator": 512
      },
      {
       "item": "Skull of Vet'ion",
       "ids": [
        27673
       ],
-      "rate": "1/196"
+      "rate": "1/196",
+      "denominator": 196
      },
      {
       "item": "Voidwaker blade",
       "ids": [
        27684
       ],
-      "rate": "1/360"
+      "rate": "1/360",
+      "denominator": 360
      }
     ],
     "debt_pets_jars": [
@@ -2556,7 +2698,8 @@
       "ids": [
        7158
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Dragon pickaxe",
@@ -2564,28 +2707,32 @@
        11920,
        12797
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Treasonous ring",
       "ids": [
        12605
       ],
-      "rate": "1/512"
+      "rate": "1/512",
+      "denominator": 512
      },
      {
       "item": "Fangs of Venenatis",
       "ids": [
        27670
       ],
-      "rate": "1/196"
+      "rate": "1/196",
+      "denominator": 196
      },
      {
       "item": "Voidwaker gem",
       "ids": [
        27687
       ],
-      "rate": "1/360"
+      "rate": "1/360",
+      "denominator": 360
      }
     ],
     "debt_pets_jars": [
@@ -2629,7 +2776,8 @@
       "ids": [
        7158
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Dragon pickaxe",
@@ -2637,28 +2785,32 @@
        11920,
        12797
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Tyrannical ring",
       "ids": [
        12603
       ],
-      "rate": "1/512"
+      "rate": "1/512",
+      "denominator": 512
      },
      {
       "item": "Claws of Callisto",
       "ids": [
        27667
       ],
-      "rate": "1/196"
+      "rate": "1/196",
+      "denominator": 196
      },
      {
       "item": "Voidwaker hilt",
       "ids": [
        27681
       ],
-      "rate": "1/360"
+      "rate": "1/360",
+      "denominator": 360
      }
     ],
     "debt_pets_jars": [
@@ -2703,147 +2855,168 @@
        25975,
        27870
       ],
-      "rate": "1/3"
+      "rate": "1/3",
+      "denominator": 3
      },
      {
       "item": "Elidinis' ward",
       "ids": [
        25985
       ],
-      "rate": "1/8"
+      "rate": "1/8",
+      "denominator": 8
      },
      {
       "item": "Osmumten's fang",
       "ids": [
        26219
       ],
-      "rate": "1/3"
+      "rate": "1/3",
+      "denominator": 3
      },
      {
       "item": "Masori mask",
       "ids": [
        27226
       ],
-      "rate": "1/12"
+      "rate": "1/12",
+      "denominator": 12
      },
      {
       "item": "Masori body",
       "ids": [
        27229
       ],
-      "rate": "1/12"
+      "rate": "1/12",
+      "denominator": 12
      },
      {
       "item": "Masori chaps",
       "ids": [
        27232
       ],
-      "rate": "1/12"
+      "rate": "1/12",
+      "denominator": 12
      },
      {
       "item": "Cursed phalanx",
       "ids": [
        27248
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Menaphite ornament kit",
       "ids": [
        27255
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Tumeken's shadow (uncharged)",
       "ids": [
        27277
       ],
-      "rate": "1/24"
+      "rate": "1/24",
+      "denominator": 24
      },
      {
       "item": "Thread of Elidinis",
       "ids": [
        27279
       ],
-      "rate": "1/10"
+      "rate": "1/10",
+      "denominator": 10
      },
      {
       "item": "Breach of the Scarab",
       "ids": [
        27283
       ],
-      "rate": "1/50"
+      "rate": "1/50",
+      "denominator": 50
      },
      {
       "item": "Eye of the Corruptor",
       "ids": [
        27285
       ],
-      "rate": "1/50"
+      "rate": "1/50",
+      "denominator": 50
      },
      {
       "item": "Jewel of the Sun",
       "ids": [
        27289
       ],
-      "rate": "1/50"
+      "rate": "1/50",
+      "denominator": 50
      },
      {
       "item": "Cache of runes",
       "ids": [
        27293
       ],
-      "rate": "1/9"
+      "rate": "1/9",
+      "denominator": 9
      },
      {
       "item": "Masori crafting kit",
       "ids": [
        27372
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Remnant of Akkha",
       "ids": [
        27377
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Remnant of Ba-Ba",
       "ids": [
        27378
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Remnant of Kephri",
       "ids": [
        27379
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Remnant of Zebak",
       "ids": [
        27380
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Ancient remnant",
       "ids": [
        27381
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Jewel of Amascut",
       "ids": [
        30893
       ],
-      "rate": "1/50"
+      "rate": "1/50",
+      "denominator": 50
      }
     ],
     "debt_pets_jars": [],
@@ -2884,21 +3057,24 @@
        13652,
        20784
       ],
-      "rate": "1/19"
+      "rate": "1/19",
+      "denominator": 19
      },
      {
       "item": "Twisted bow",
       "ids": [
        20997
       ],
-      "rate": "1/28"
+      "rate": "1/28",
+      "denominator": 28
      },
      {
       "item": "Twisted buckler",
       "ids": [
        21000
       ],
-      "rate": "1/14"
+      "rate": "1/14",
+      "denominator": 14
      },
      {
       "item": "Elder maul",
@@ -2906,21 +3082,24 @@
        21003,
        21205
       ],
-      "rate": "1/28"
+      "rate": "1/28",
+      "denominator": 28
      },
      {
       "item": "Dragon hunter crossbow",
       "ids": [
        21012
       ],
-      "rate": "1/14"
+      "rate": "1/14",
+      "denominator": 14
      },
      {
       "item": "Dinh's bulwark",
       "ids": [
        21015
       ],
-      "rate": "1/19"
+      "rate": "1/19",
+      "denominator": 19
      },
      {
       "item": "Ancestral hat",
@@ -2928,7 +3107,8 @@
        21018,
        25518
       ],
-      "rate": "1/14"
+      "rate": "1/14",
+      "denominator": 14
      },
      {
       "item": "Ancestral robe top",
@@ -2936,7 +3116,8 @@
        21021,
        27193
       ],
-      "rate": "1/14"
+      "rate": "1/14",
+      "denominator": 14
      },
      {
       "item": "Ancestral robe bottom",
@@ -2944,56 +3125,64 @@
        21024,
        27194
       ],
-      "rate": "1/14"
+      "rate": "1/14",
+      "denominator": 14
      },
      {
       "item": "Dark relic",
       "ids": [
        21027
       ],
-      "rate": "1/17"
+      "rate": "1/17",
+      "denominator": 17
      },
      {
       "item": "Dexterous prayer scroll",
       "ids": [
        21034
       ],
-      "rate": "1/4"
+      "rate": "1/4",
+      "denominator": 4
      },
      {
       "item": "Kodai insignia",
       "ids": [
        21043
       ],
-      "rate": "1/28"
+      "rate": "1/28",
+      "denominator": 28
      },
      {
       "item": "Torn prayer scroll",
       "ids": [
        21047
       ],
-      "rate": "1/17"
+      "rate": "1/17",
+      "denominator": 17
      },
      {
       "item": "Arcane prayer scroll",
       "ids": [
        21079
       ],
-      "rate": "1/4"
+      "rate": "1/4",
+      "denominator": 4
      },
      {
       "item": "Metamorphic dust",
       "ids": [
        22386
       ],
-      "rate": "1/400"
+      "rate": "1/400",
+      "denominator": 400
      },
      {
       "item": "Twisted ancestral colour kit",
       "ids": [
        24670
       ],
-      "rate": "1/75"
+      "rate": "1/75",
+      "denominator": 75
      }
     ],
     "debt_pets_jars": [
@@ -3042,28 +3231,32 @@
       "ids": [
        31088
       ],
-      "rate": "1/1350"
+      "rate": "1/1350",
+      "denominator": 1350
      },
      {
       "item": "Mokhaiotl cloth",
       "ids": [
        31109
       ],
-      "rate": "1/2500"
+      "rate": "1/2500",
+      "denominator": 2500
      },
      {
       "item": "Mokhaiotl waystone",
       "ids": [
        31099
       ],
-      "rate": "1/15"
+      "rate": "1/15",
+      "denominator": 15
      },
      {
       "item": "Demon tear",
       "ids": [
        31111
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      }
     ],
     "debt_pets_jars": [
@@ -3117,49 +3310,56 @@
       "ids": [
        11810
       ],
-      "rate": "1/508"
+      "rate": "1/508",
+      "denominator": 508
      },
      {
       "item": "Godsword shard 1",
       "ids": [
        11818
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Godsword shard 2",
       "ids": [
        11820
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Godsword shard 3",
       "ids": [
        11822
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Armadyl helmet",
       "ids": [
        11826
       ],
-      "rate": "1/381"
+      "rate": "1/381",
+      "denominator": 381
      },
      {
       "item": "Armadyl chestplate",
       "ids": [
        11828
       ],
-      "rate": "1/381"
+      "rate": "1/381",
+      "denominator": 381
      },
      {
       "item": "Armadyl chainskirt",
       "ids": [
        11830
       ],
-      "rate": "1/381"
+      "rate": "1/381",
+      "denominator": 381
      }
     ],
     "debt_pets_jars": [
@@ -3201,21 +3401,24 @@
       "ids": [
        21726
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Hallowfell",
       "ids": [
        34027
       ],
-      "rate": "1/127"
+      "rate": "1/127",
+      "denominator": 127
      },
      {
       "item": "Ardeaglais teleport",
       "ids": [
        34033
       ],
-      "rate": "1/25"
+      "rate": "1/25",
+      "denominator": 25
      }
     ],
     "debt_pets_jars": [
@@ -3279,49 +3482,56 @@
        11785,
        23611
       ],
-      "rate": "1/508"
+      "rate": "1/508",
+      "denominator": 508
      },
      {
       "item": "Saradomin hilt",
       "ids": [
        11814
       ],
-      "rate": "1/508"
+      "rate": "1/508",
+      "denominator": 508
      },
      {
       "item": "Godsword shard 1",
       "ids": [
        11818
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Godsword shard 2",
       "ids": [
        11820
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Godsword shard 3",
       "ids": [
        11822
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Saradomin sword",
       "ids": [
        11838
       ],
-      "rate": "1/127"
+      "rate": "1/127",
+      "denominator": 127
      },
      {
       "item": "Saradomin's light",
       "ids": [
        13256
       ],
-      "rate": "1/254"
+      "rate": "1/254",
+      "denominator": 254
      }
     ],
     "debt_pets_jars": [
@@ -3372,35 +3582,40 @@
       "ids": [
        11812
       ],
-      "rate": "1/508"
+      "rate": "1/508",
+      "denominator": 508
      },
      {
       "item": "Godsword shard 1",
       "ids": [
        11818
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Godsword shard 2",
       "ids": [
        11820
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Godsword shard 3",
       "ids": [
        11822
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Bandos chestplate",
       "ids": [
        11832
       ],
-      "rate": "1/381"
+      "rate": "1/381",
+      "denominator": 381
      },
      {
       "item": "Bandos tassets",
@@ -3408,14 +3623,16 @@
        11834,
        23646
       ],
-      "rate": "1/381"
+      "rate": "1/381",
+      "denominator": 381
      },
      {
       "item": "Bandos boots",
       "ids": [
        11836
       ],
-      "rate": "1/381"
+      "rate": "1/381",
+      "denominator": 381
      }
     ],
     "debt_pets_jars": [
@@ -3457,35 +3674,40 @@
       "ids": [
        30066
       ],
-      "rate": "1/90"
+      "rate": "1/90",
+      "denominator": 90
      },
      {
       "item": "Soiled page",
       "ids": [
        30068
       ],
-      "rate": "1/14"
+      "rate": "1/14",
+      "denominator": 14
      },
      {
       "item": "Dragon hunter wand",
       "ids": [
        30070
       ],
-      "rate": "1/105"
+      "rate": "1/105",
+      "denominator": 105
      },
      {
       "item": "Hueycoatl hide",
       "ids": [
        30085
       ],
-      "rate": "1/29"
+      "rate": "1/29",
+      "denominator": 29
      },
      {
       "item": "Huasca seed",
       "ids": [
        30088
       ],
-      "rate": "1/34"
+      "rate": "1/34",
+      "denominator": 34
      }
     ],
     "debt_pets_jars": [
@@ -3530,7 +3752,8 @@
        11787,
        12795
       ],
-      "rate": "1/127"
+      "rate": "1/127",
+      "denominator": 127
      },
      {
       "item": "Staff of the Dead",
@@ -3538,42 +3761,48 @@
        11791,
        23613
       ],
-      "rate": "1/508"
+      "rate": "1/508",
+      "denominator": 508
      },
      {
       "item": "Zamorak hilt",
       "ids": [
        11816
       ],
-      "rate": "1/508"
+      "rate": "1/508",
+      "denominator": 508
      },
      {
       "item": "Godsword shard 1",
       "ids": [
        11818
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Godsword shard 2",
       "ids": [
        11820
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Godsword shard 3",
       "ids": [
        11822
       ],
-      "rate": "1/762"
+      "rate": "1/762",
+      "denominator": 762
      },
      {
       "item": "Zamorakian spear",
       "ids": [
        11824
       ],
-      "rate": "1/127"
+      "rate": "1/127",
+      "denominator": 127
      }
     ],
     "debt_pets_jars": [
@@ -3615,21 +3844,24 @@
       "ids": [
        4207
       ],
-      "rate": "1/120"
+      "rate": "1/120",
+      "denominator": 120
      },
      {
       "item": "Crystal armour seed",
       "ids": [
        23956
       ],
-      "rate": "1/120"
+      "rate": "1/120",
+      "denominator": 120
      },
      {
       "item": "Enhanced crystal weapon seed",
       "ids": [
        25859
       ],
-      "rate": "1/2000"
+      "rate": "1/2000",
+      "denominator": 2000
      }
     ],
     "debt_pets_jars": [
@@ -3711,42 +3943,64 @@
       "ids": [
        6571
       ],
-      "rate": "1/512"
+      "rate": "1/512",
+      "denominator": 512
      },
      {
       "item": "Tanzanite fang",
       "ids": [
        12922
       ],
-      "rate": "1/512"
+      "rate": "1/512",
+      "denominator": 512
      },
      {
       "item": "Serpentine visage",
       "ids": [
        12927
       ],
-      "rate": "1/512"
+      "rate": "1/512",
+      "denominator": 512
      },
      {
       "item": "Magic fang",
       "ids": [
        12932
       ],
-      "rate": "1/512"
+      "rate": "1/512",
+      "denominator": 512
      },
      {
       "item": "Zulrah's scales",
       "ids": [
        12934
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Zul-andra teleport",
       "ids": [
        12938
       ],
-      "rate": "1/9"
+      "rate": "1/9",
+      "denominator": 9
+     },
+     {
+      "item": "Tanzanite mutagen",
+      "ids": [
+       13200
+      ],
+      "rate": "1/6554",
+      "denominator": 6554
+     },
+     {
+      "item": "Magma mutagen",
+      "ids": [
+       13201
+      ],
+      "rate": "1/6554",
+      "denominator": 6554
      }
     ],
     "debt_pets_jars": [
@@ -3769,22 +4023,7 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [
-     {
-      "item": "Tanzanite mutagen",
-      "ids": [
-       13200
-      ],
-      "rate": "1/6554"
-     },
-     {
-      "item": "Magma mutagen",
-      "ids": [
-       13201
-      ],
-      "rate": "1/6554"
-     }
-    ],
+    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1085
    },
@@ -3809,19 +4048,37 @@
    "log": {
     "gating_items": [
      {
+      "item": "Draconic visage",
+      "ids": [
+       11286
+      ],
+      "rate": "1/5000",
+      "denominator": 5000
+     },
+     {
       "item": "Vorkath's head",
       "ids": [
        2425,
        21907
       ],
-      "rate": "1/50"
+      "rate": "1/50",
+      "denominator": 50
+     },
+     {
+      "item": "Skeletal visage",
+      "ids": [
+       22006
+      ],
+      "rate": "1/5000",
+      "denominator": 5000
      },
      {
       "item": "Dragonbone necklace",
       "ids": [
        22111
       ],
-      "rate": "1/1000"
+      "rate": "1/1000",
+      "denominator": 1000
      }
     ],
     "debt_pets_jars": [
@@ -3842,22 +4099,7 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [
-     {
-      "item": "Draconic visage",
-      "ids": [
-       11286
-      ],
-      "rate": "1/5000"
-     },
-     {
-      "item": "Skeletal visage",
-      "ids": [
-       22006
-      ],
-      "rate": "1/5000"
-     }
-    ],
+    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1002
    },
@@ -3886,35 +4128,40 @@
       "ids": [
        27614
       ],
-      "rate": "1/100"
+      "rate": "1/100",
+      "denominator": 100
      },
      {
       "item": "Ancient essence",
       "ids": [
        27616
       ],
-      "rate": "1/2"
+      "rate": "1/2",
+      "denominator": 2
      },
      {
       "item": "Frozen cache",
       "ids": [
        27622
       ],
-      "rate": "1/25"
+      "rate": "1/25",
+      "denominator": 25
      },
      {
       "item": "Ancient icon",
       "ids": [
        27627
       ],
-      "rate": "1/50"
+      "rate": "1/50",
+      "denominator": 50
      },
      {
       "item": "Charged ice",
       "ids": [
        27643
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      }
     ],
     "debt_pets_jars": [
@@ -3958,14 +4205,16 @@
       "ids": [
        33631
       ],
-      "rate": "1/520"
+      "rate": "1/520",
+      "denominator": 520
      },
      {
       "item": "Elder venator fang",
       "ids": [
        33634
       ],
-      "rate": "1/340"
+      "rate": "1/340",
+      "denominator": 340
      }
     ],
     "debt_pets_jars": [
@@ -4007,63 +4256,72 @@
       "ids": [
        26241
       ],
-      "rate": "1/2160"
+      "rate": "1/2160",
+      "denominator": 2160
      },
      {
       "item": "Virtus robe top",
       "ids": [
        26243
       ],
-      "rate": "1/2160"
+      "rate": "1/2160",
+      "denominator": 2160
      },
      {
       "item": "Virtus robe bottom",
       "ids": [
        26245
       ],
-      "rate": "1/2160"
+      "rate": "1/2160",
+      "denominator": 2160
      },
      {
       "item": "Ice quartz",
       "ids": [
        28270
       ],
-      "rate": "1/207"
+      "rate": "1/207",
+      "denominator": 207
      },
      {
       "item": "Chromium ingot",
       "ids": [
        28276
       ],
-      "rate": "1/240"
+      "rate": "1/240",
+      "denominator": 240
      },
      {
       "item": "Magus vestige",
       "ids": [
        28281
       ],
-      "rate": "1/720"
+      "rate": "1/720",
+      "denominator": 720
      },
      {
       "item": "Eye of the Duke",
       "ids": [
        28321
       ],
-      "rate": "1/720"
+      "rate": "1/720",
+      "denominator": 720
      },
      {
       "item": "Frozen tablet",
       "ids": [
        28333
       ],
-      "rate": "1/26"
+      "rate": "1/26",
+      "denominator": 26
      },
      {
       "item": "Awakener's orb",
       "ids": [
        28334
       ],
-      "rate": "1/48"
+      "rate": "1/48",
+      "denominator": 48
      }
     ],
     "debt_pets_jars": [
@@ -4105,63 +4363,72 @@
       "ids": [
        26241
       ],
-      "rate": "1/3264"
+      "rate": "1/3264",
+      "denominator": 3264
      },
      {
       "item": "Virtus robe top",
       "ids": [
        26243
       ],
-      "rate": "1/3264"
+      "rate": "1/3264",
+      "denominator": 3264
      },
      {
       "item": "Virtus robe bottom",
       "ids": [
        26245
       ],
-      "rate": "1/3264"
+      "rate": "1/3264",
+      "denominator": 3264
      },
      {
       "item": "Blood quartz",
       "ids": [
        28268
       ],
-      "rate": "1/204"
+      "rate": "1/204",
+      "denominator": 204
      },
      {
       "item": "Chromium ingot",
       "ids": [
        28276
       ],
-      "rate": "1/363"
+      "rate": "1/363",
+      "denominator": 363
      },
      {
       "item": "Ultor vestige",
       "ids": [
        28285
       ],
-      "rate": "1/1088"
+      "rate": "1/1088",
+      "denominator": 1088
      },
      {
       "item": "Executioner's axe head",
       "ids": [
        28319
       ],
-      "rate": "1/1088"
+      "rate": "1/1088",
+      "denominator": 1088
      },
      {
       "item": "Strangled tablet",
       "ids": [
        28330
       ],
-      "rate": "1/26"
+      "rate": "1/26",
+      "denominator": 26
      },
      {
       "item": "Awakener's orb",
       "ids": [
        28334
       ],
-      "rate": "1/81"
+      "rate": "1/81",
+      "denominator": 81
      }
     ],
     "debt_pets_jars": [
@@ -4203,21 +4470,24 @@
       "ids": [
        12819
       ],
-      "rate": "1/4095"
+      "rate": "1/4095",
+      "denominator": 4095
      },
      {
       "item": "Spectral sigil",
       "ids": [
        12823
       ],
-      "rate": "1/1365"
+      "rate": "1/1365",
+      "denominator": 1365
      },
      {
       "item": "Arcane sigil",
       "ids": [
        12827
       ],
-      "rate": "1/1365"
+      "rate": "1/1365",
+      "denominator": 1365
      },
      {
       "item": "Spirit shield",
@@ -4225,14 +4495,16 @@
        12829,
        23599
       ],
-      "rate": "1/64"
+      "rate": "1/64",
+      "denominator": 64
      },
      {
       "item": "Holy elixir",
       "ids": [
        12833
       ],
-      "rate": "1/171"
+      "rate": "1/171",
+      "denominator": 171
      }
     ],
     "debt_pets_jars": [
@@ -4282,63 +4554,72 @@
       "ids": [
        26241
       ],
-      "rate": "1/1536"
+      "rate": "1/1536",
+      "denominator": 1536
      },
      {
       "item": "Virtus robe top",
       "ids": [
        26243
       ],
-      "rate": "1/1536"
+      "rate": "1/1536",
+      "denominator": 1536
      },
      {
       "item": "Virtus robe bottom",
       "ids": [
        26245
       ],
-      "rate": "1/1536"
+      "rate": "1/1536",
+      "denominator": 1536
      },
      {
       "item": "Shadow quartz",
       "ids": [
        28272
       ],
-      "rate": "1/209"
+      "rate": "1/209",
+      "denominator": 209
      },
      {
       "item": "Chromium ingot",
       "ids": [
        28276
       ],
-      "rate": "1/171"
+      "rate": "1/171",
+      "denominator": 171
      },
      {
       "item": "Bellator vestige",
       "ids": [
        28279
       ],
-      "rate": "1/512"
+      "rate": "1/512",
+      "denominator": 512
      },
      {
       "item": "Siren's staff",
       "ids": [
        28323
       ],
-      "rate": "1/512"
+      "rate": "1/512",
+      "denominator": 512
      },
      {
       "item": "Sirenic tablet",
       "ids": [
        28331
       ],
-      "rate": "1/26"
+      "rate": "1/26",
+      "denominator": 26
      },
      {
       "item": "Awakener's orb",
       "ids": [
        28334
       ],
-      "rate": "1/34"
+      "rate": "1/34",
+      "denominator": 34
      }
     ],
     "debt_pets_jars": [
@@ -4380,63 +4661,72 @@
       "ids": [
        26241
       ],
-      "rate": "1/2304"
+      "rate": "1/2304",
+      "denominator": 2304
      },
      {
       "item": "Virtus robe top",
       "ids": [
        26243
       ],
-      "rate": "1/2304"
+      "rate": "1/2304",
+      "denominator": 2304
      },
      {
       "item": "Virtus robe bottom",
       "ids": [
        26245
       ],
-      "rate": "1/2304"
+      "rate": "1/2304",
+      "denominator": 2304
      },
      {
       "item": "Smoke quartz",
       "ids": [
        28274
       ],
-      "rate": "1/206"
+      "rate": "1/206",
+      "denominator": 206
      },
      {
       "item": "Chromium ingot",
       "ids": [
        28276
       ],
-      "rate": "1/256"
+      "rate": "1/256",
+      "denominator": 256
      },
      {
       "item": "Venator vestige",
       "ids": [
        28283
       ],
-      "rate": "1/768"
+      "rate": "1/768",
+      "denominator": 768
      },
      {
       "item": "Leviathan's lure",
       "ids": [
        28325
       ],
-      "rate": "1/768"
+      "rate": "1/768",
+      "denominator": 768
      },
      {
       "item": "Scarred tablet",
       "ids": [
        28332
       ],
-      "rate": "1/26"
+      "rate": "1/26",
+      "denominator": 26
      },
      {
       "item": "Awakener's orb",
       "ids": [
        28334
       ],
-      "rate": "1/54"
+      "rate": "1/54",
+      "denominator": 54
      }
     ],
     "debt_pets_jars": [
@@ -4479,7 +4769,8 @@
        24417,
        27198
       ],
-      "rate": "1/750"
+      "rate": "1/750",
+      "denominator": 750
      },
      {
       "item": "Inquisitor's great helm",
@@ -4487,7 +4778,8 @@
        24419,
        27195
       ],
-      "rate": "1/420"
+      "rate": "1/420",
+      "denominator": 420
      },
      {
       "item": "Inquisitor's hauberk",
@@ -4495,7 +4787,8 @@
        24420,
        27196
       ],
-      "rate": "1/420"
+      "rate": "1/420",
+      "denominator": 420
      },
      {
       "item": "Inquisitor's plateskirt",
@@ -4503,35 +4796,40 @@
        24421,
        27197
       ],
-      "rate": "1/420"
+      "rate": "1/420",
+      "denominator": 420
      },
      {
       "item": "Nightmare staff",
       "ids": [
        24422
       ],
-      "rate": "1/300"
+      "rate": "1/300",
+      "denominator": 300
      },
      {
       "item": "Harmonised orb",
       "ids": [
        24511
       ],
-      "rate": "1/960"
+      "rate": "1/960",
+      "denominator": 960
      },
      {
       "item": "Volatile orb",
       "ids": [
        24514
       ],
-      "rate": "1/960"
+      "rate": "1/960",
+      "denominator": 960
      },
      {
       "item": "Eldritch orb",
       "ids": [
        24517
       ],
-      "rate": "1/960"
+      "rate": "1/960",
+      "denominator": 960
      }
     ],
     "debt_pets_jars": [
@@ -4594,42 +4892,48 @@
       "ids": [
        29781
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Araxyte head",
       "ids": [
        29788
       ],
-      "rate": "1/250"
+      "rate": "1/250",
+      "denominator": 250
      },
      {
       "item": "Noxious point",
       "ids": [
        29790
       ],
-      "rate": "1/200"
+      "rate": "1/200",
+      "denominator": 200
      },
      {
       "item": "Noxious blade",
       "ids": [
        29792
       ],
-      "rate": "1/200"
+      "rate": "1/200",
+      "denominator": 200
      },
      {
       "item": "Noxious pommel",
       "ids": [
        29794
       ],
-      "rate": "1/200"
+      "rate": "1/200",
+      "denominator": 200
      },
      {
       "item": "Araxyte fang",
       "ids": [
        29799
       ],
-      "rate": "1/600"
+      "rate": "1/600",
+      "denominator": 600
      }
     ],
     "debt_pets_jars": [
@@ -4682,28 +4986,32 @@
       "ids": [
        4207
       ],
-      "rate": "1/50"
+      "rate": "1/50",
+      "denominator": 50
      },
      {
       "item": "Gauntlet cape",
       "ids": [
        23859
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Crystal armour seed",
       "ids": [
        23956
       ],
-      "rate": "1/50"
+      "rate": "1/50",
+      "denominator": 50
      },
      {
       "item": "Enhanced crystal weapon seed",
       "ids": [
        25859
       ],
-      "rate": "1/400"
+      "rate": "1/400",
+      "denominator": 400
      }
     ],
     "debt_pets_jars": [
@@ -4746,49 +5054,56 @@
       "ids": [
        26231
       ],
-      "rate": "1/16"
+      "rate": "1/16",
+      "denominator": 16
      },
      {
       "item": "Zaryte vambraces",
       "ids": [
        26235
       ],
-      "rate": "1/172"
+      "rate": "1/172",
+      "denominator": 172
      },
      {
       "item": "Ancient hilt",
       "ids": [
        26370
       ],
-      "rate": "1/516"
+      "rate": "1/516",
+      "denominator": 516
      },
      {
       "item": "Nihil horn",
       "ids": [
        26372
       ],
-      "rate": "1/258"
+      "rate": "1/258",
+      "denominator": 258
      },
      {
       "item": "Torva full helm (damaged)",
       "ids": [
        26376
       ],
-      "rate": "1/258"
+      "rate": "1/258",
+      "denominator": 258
      },
      {
       "item": "Torva platebody (damaged)",
       "ids": [
        26378
       ],
-      "rate": "1/258"
+      "rate": "1/258",
+      "denominator": 258
      },
      {
       "item": "Torva platelegs (damaged)",
       "ids": [
        26380
       ],
-      "rate": "1/258"
+      "rate": "1/258",
+      "denominator": 258
      }
     ],
     "debt_pets_jars": [
@@ -4835,7 +5150,8 @@
        24417,
        27198
       ],
-      "rate": "1/1129"
+      "rate": "1/1129",
+      "denominator": 1129
      },
      {
       "item": "Inquisitor's great helm",
@@ -4843,7 +5159,8 @@
        24419,
        27195
       ],
-      "rate": "1/700"
+      "rate": "1/700",
+      "denominator": 700
      },
      {
       "item": "Inquisitor's hauberk",
@@ -4851,7 +5168,8 @@
        24420,
        27196
       ],
-      "rate": "1/700"
+      "rate": "1/700",
+      "denominator": 700
      },
      {
       "item": "Inquisitor's plateskirt",
@@ -4859,49 +5177,56 @@
        24421,
        27197
       ],
-      "rate": "1/700"
+      "rate": "1/700",
+      "denominator": 700
      },
      {
       "item": "Nightmare staff",
       "ids": [
        24422
       ],
-      "rate": "1/507"
+      "rate": "1/507",
+      "denominator": 507
      },
      {
       "item": "Harmonised orb",
       "ids": [
        24511
       ],
-      "rate": "1/1600"
+      "rate": "1/1600",
+      "denominator": 1600
      },
      {
       "item": "Volatile orb",
       "ids": [
        24514
       ],
-      "rate": "1/1600"
+      "rate": "1/1600",
+      "denominator": 1600
      },
      {
       "item": "Eldritch orb",
       "ids": [
        24517
       ],
-      "rate": "1/1600"
+      "rate": "1/1600",
+      "denominator": 1600
      },
      {
       "item": "Slepey tablet",
       "ids": [
        25837
       ],
-      "rate": "1/25"
+      "rate": "1/25",
+      "denominator": 25
      },
      {
       "item": "Parasitic egg",
       "ids": [
        25838
       ],
-      "rate": "1/200"
+      "rate": "1/200",
+      "denominator": 200
      }
     ],
     "debt_pets_jars": [
@@ -4952,28 +5277,32 @@
        22324,
        23628
       ],
-      "rate": "1/9"
+      "rate": "1/9",
+      "denominator": 9
      },
      {
       "item": "Justiciar faceguard",
       "ids": [
        22326
       ],
-      "rate": "1/9"
+      "rate": "1/9",
+      "denominator": 9
      },
      {
       "item": "Justiciar chestguard",
       "ids": [
        22327
       ],
-      "rate": "1/9"
+      "rate": "1/9",
+      "denominator": 9
      },
      {
       "item": "Justiciar legguards",
       "ids": [
        22328
       ],
-      "rate": "1/9"
+      "rate": "1/9",
+      "denominator": 9
      },
      {
       "item": "Vial of blood",
@@ -4981,49 +5310,56 @@
        22405,
        22446
       ],
-      "rate": "1/5"
+      "rate": "1/5",
+      "denominator": 5
      },
      {
       "item": "Avernic defender hilt",
       "ids": [
        22477
       ],
-      "rate": "1/2"
+      "rate": "1/2",
+      "denominator": 2
      },
      {
       "item": "Sanguinesti staff (uncharged)",
       "ids": [
        22481
       ],
-      "rate": "1/9"
+      "rate": "1/9",
+      "denominator": 9
      },
      {
       "item": "Scythe of Vitur (uncharged)",
       "ids": [
        22486
       ],
-      "rate": "1/18"
+      "rate": "1/18",
+      "denominator": 18
      },
      {
       "item": "Holy ornament kit",
       "ids": [
        25742
       ],
-      "rate": "1/100"
+      "rate": "1/100",
+      "denominator": 100
      },
      {
       "item": "Sanguine ornament kit",
       "ids": [
        25744
       ],
-      "rate": "1/150"
+      "rate": "1/150",
+      "denominator": 150
      },
      {
       "item": "Sanguine dust",
       "ids": [
        25746
       ],
-      "rate": "1/275"
+      "rate": "1/275",
+      "denominator": 275
      }
     ],
     "debt_pets_jars": [
@@ -5100,49 +5436,56 @@
       "ids": [
        30775
       ],
-      "rate": "1/24"
+      "rate": "1/24",
+      "denominator": 24
      },
      {
       "item": "Oathplate helm",
       "ids": [
        30750
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Oathplate chest",
       "ids": [
        30753
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Oathplate legs",
       "ids": [
        30756
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Soulflame horn",
       "ids": [
        30759
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Oathplate shards",
       "ids": [
        30765
       ],
-      "rate": "1/1"
+      "rate": "1/1",
+      "denominator": 1
      },
      {
       "item": "Forgotten lockbox",
       "ids": [
        30763
       ],
-      "rate": "1/33"
+      "rate": "1/33",
+      "denominator": 33
      },
      {
       "item": "Dossier",
@@ -5150,7 +5493,8 @@
        9589,
        9590
       ],
-      "rate": "1/12"
+      "rate": "1/12",
+      "denominator": 12
      },
      {
       "item": "Barrel of demonic tallow (full)",
@@ -5158,7 +5502,8 @@
        30795,
        30798
       ],
-      "rate": "1/19"
+      "rate": "1/19",
+      "denominator": 19
      }
     ],
     "debt_pets_jars": [
@@ -5243,49 +5588,56 @@
       "ids": [
        6571
       ],
-      "rate": "1/44"
+      "rate": "1/44",
+      "denominator": 44
      },
      {
       "item": "Tonalztics of Ralos (uncharged)",
       "ids": [
        28919
       ],
-      "rate": "1/192"
+      "rate": "1/192",
+      "denominator": 192
      },
      {
       "item": "Sunfire splinters",
       "ids": [
        28924
       ],
-      "rate": "1/6"
+      "rate": "1/6",
+      "denominator": 6
      },
      {
       "item": "Sunfire fanatic helm",
       "ids": [
        28933
       ],
-      "rate": "1/64"
+      "rate": "1/64",
+      "denominator": 64
      },
      {
       "item": "Sunfire fanatic cuirass",
       "ids": [
        28936
       ],
-      "rate": "1/64"
+      "rate": "1/64",
+      "denominator": 64
      },
      {
       "item": "Sunfire fanatic chausses",
       "ids": [
        28939
       ],
-      "rate": "1/64"
+      "rate": "1/64",
+      "denominator": 64
      },
      {
       "item": "Echo crystal",
       "ids": [
        28942
       ],
-      "rate": "1/36"
+      "rate": "1/36",
+      "denominator": 36
      }
     ],
     "debt_pets_jars": [
@@ -5329,46 +5681,60 @@
    "log": {
     "gating_items": [
      {
+      "item": "Dragon harpoon",
+      "ids": [
+       21028
+      ],
+      "rate": "1/8000",
+      "denominator": 8000
+     },
+     {
       "item": "Big harpoonfish",
       "ids": [
        25559
       ],
-      "rate": "1/1600"
+      "rate": "1/1600",
+      "denominator": 1600
      },
      {
       "item": "Tome of Water (empty)",
       "ids": [
        25576
       ],
-      "rate": "1/1600"
+      "rate": "1/1600",
+      "denominator": 1600
      },
      {
       "item": "Soaked page",
       "ids": [
        25578
       ],
-      "rate": "1/54"
+      "rate": "1/54",
+      "denominator": 54
      },
      {
       "item": "Tackle box",
       "ids": [
        25580
       ],
-      "rate": "1/400"
+      "rate": "1/400",
+      "denominator": 400
      },
      {
       "item": "Fish barrel",
       "ids": [
        25582
       ],
-      "rate": "1/400"
+      "rate": "1/400",
+      "denominator": 400
      },
      {
       "item": "Spirit flakes",
       "ids": [
        25588
       ],
-      "rate": "1/4"
+      "rate": "1/4",
+      "denominator": 4
      }
     ],
     "debt_pets_jars": [
@@ -5381,15 +5747,7 @@
       "debt_at_kc": 8000
      }
     ],
-    "meme_items": [
-     {
-      "item": "Dragon harpoon",
-      "ids": [
-       21028
-      ],
-      "rate": "1/8000"
-     }
-    ],
+    "meme_items": [],
     "unmatched_rate": [
      "Spirit angler headband",
      "Spirit angler top",
@@ -5423,60 +5781,76 @@
    "log": {
     "gating_items": [
      {
+      "item": "Dragon axe",
+      "ids": [
+       6739
+      ],
+      "rate": "1/10000",
+      "denominator": 10000
+     },
+     {
       "item": "Pyromancer garb",
       "ids": [
        20704
       ],
-      "rate": "1/150"
+      "rate": "1/150",
+      "denominator": 150
      },
      {
       "item": "Pyromancer robe",
       "ids": [
        20706
       ],
-      "rate": "1/150"
+      "rate": "1/150",
+      "denominator": 150
      },
      {
       "item": "Pyromancer hood",
       "ids": [
        20708
       ],
-      "rate": "1/150"
+      "rate": "1/150",
+      "denominator": 150
      },
      {
       "item": "Pyromancer boots",
       "ids": [
        20710
       ],
-      "rate": "1/150"
+      "rate": "1/150",
+      "denominator": 150
      },
      {
       "item": "Warm gloves",
       "ids": [
        20712
       ],
-      "rate": "1/150"
+      "rate": "1/150",
+      "denominator": 150
      },
      {
       "item": "Tome of Fire (empty)",
       "ids": [
        20716
       ],
-      "rate": "1/1000"
+      "rate": "1/1000",
+      "denominator": 1000
      },
      {
       "item": "Burnt page",
       "ids": [
        20718
       ],
-      "rate": "1/45"
+      "rate": "1/45",
+      "denominator": 45
      },
      {
       "item": "Bruma torch",
       "ids": [
        20720
       ],
-      "rate": "1/150"
+      "rate": "1/150",
+      "denominator": 150
      }
     ],
     "debt_pets_jars": [
@@ -5493,15 +5867,7 @@
       "debt_at_kc": 5000
      }
     ],
-    "meme_items": [
-     {
-      "item": "Dragon axe",
-      "ids": [
-       6739
-      ],
-      "rate": "1/10000"
-     }
-    ],
+    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1103
    },

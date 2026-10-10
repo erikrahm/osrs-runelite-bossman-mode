@@ -72,6 +72,8 @@ public class BossmanData
 		public String item;
 		public List<Integer> ids = new ArrayList<>();
 		public String rate;
+		/** 1/denominator per kill; items at or above the configured meme threshold do not gate the ladder */
+		public Integer denominator;
 	}
 
 	public static class DebtItem

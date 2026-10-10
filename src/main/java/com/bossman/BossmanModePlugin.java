@@ -215,6 +215,11 @@ public class BossmanModePlugin extends Plugin
 			case "includeFrame":
 				unlockOverlay.updateScreenshotUnlock(config.screenshotUnlock(), config.includeFrame());
 				break;
+			case "memeThreshold":
+			case "freeTools":
+			case "freeAccessGear":
+				refreshPanel();
+				break;
 			case "resetCommand":
 				if (config.resetCommand())
 				{
@@ -421,6 +426,12 @@ public class BossmanModePlugin extends Plugin
 		return kind;
 	}
 
+	/** Rarer than the configured threshold → optional "meme grind", does not gate the ladder. */
+	public boolean isMeme(BossmanData.GatingItem gi)
+	{
+		return gi.denominator != null && gi.denominator >= config.memeThreshold();
+	}
+
 	public boolean isLogItemUnlocked(BossmanData.GatingItem gi)
 	{
 		for (int id : gi.ids)
@@ -453,16 +464,22 @@ public class BossmanModePlugin extends Plugin
 		{
 			return rungKc(r) >= 1;
 		}
-		if (r.log.gatingItems.isEmpty())
-		{
-			return rungKc(r) >= 1;
-		}
+		boolean anyGating = false;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
+			if (isMeme(gi))
+			{
+				continue;
+			}
+			anyGating = true;
 			if (!isLogItemUnlocked(gi))
 			{
 				return false;
 			}
+		}
+		if (!anyGating)
+		{
+			return rungKc(r) >= 1;
 		}
 		return true;
 	}
@@ -625,14 +642,20 @@ public class BossmanModePlugin extends Plugin
 			return;
 		}
 		int have = 0;
+		int need = 0;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
+			if (isMeme(gi))
+			{
+				continue;
+			}
+			need++;
 			if (isLogItemUnlocked(gi))
 			{
 				have++;
 			}
 		}
-		reply(chatMessage, "Bossman boss " + r.rung + ": " + r.boss + " - " + have + "/" + r.log.gatingItems.size()
+		reply(chatMessage, "Bossman boss " + r.rung + ": " + r.boss + " - " + have + "/" + need
 			+ " log items, KC " + rungKc(r) + (r.log.expectedKc != null ? " (expected ~" + r.log.expectedKc + ")" : ""));
 	}
 

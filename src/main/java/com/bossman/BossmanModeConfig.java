@@ -16,10 +16,13 @@ public interface BossmanModeConfig extends Config
 	@ConfigSection(name = "Unlocks", description = "How items get unlocked", position = 0)
 	String unlocksSection = "unlocks";
 
-	@ConfigSection(name = "Restrictions", description = "What locked items can't do", position = 1)
+	@ConfigSection(name = "Ladder", description = "How the boss ladder decides a boss is done", position = 1)
+	String ladderSection = "ladder";
+
+	@ConfigSection(name = "Restrictions", description = "What locked items can't do", position = 2)
 	String restrictionsSection = "restrictions";
 
-	@ConfigSection(name = "Display", description = "Popups, overlays and chat", position = 2)
+	@ConfigSection(name = "Display", description = "Popups, overlays and chat", position = 3)
 	String displaySection = "display";
 
 	@ConfigItem(keyName = "extraSources", name = "Extra unlock sources", position = 0, section = unlocksSection,
@@ -55,6 +58,14 @@ public interface BossmanModeConfig extends Config
 	default boolean unlockBond()
 	{
 		return true;
+	}
+
+	@net.runelite.client.config.Range(min = 1)
+	@ConfigItem(keyName = "memeThreshold", name = "Meme-grind threshold", position = 0, section = ladderSection,
+		description = "Collection-log items rarer than 1 in this many kills are 'meme grinds': shown in the log but optional, so they never block the next boss. Pets and jars are handled separately (debt board).")
+	default int memeThreshold()
+	{
+		return 5000;
 	}
 
 	@ConfigItem(keyName = "restrictGeBuy", name = "Hide locked items in GE search", position = 0, section = restrictionsSection,

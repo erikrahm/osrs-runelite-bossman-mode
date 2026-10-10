@@ -43,3 +43,11 @@ task createProperties(dependsOn: processResources) {
 classes {
     dependsOn createProperties
 }
+// Launches a RuneLite client with this plugin loaded (same as running BossmanModePluginTest from an IDE).
+task runClient(type: JavaExec, dependsOn: testClasses) {
+    group = 'application'
+    description = 'Run RuneLite with Bossman Mode loaded'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.bossman.BossmanModePluginTest'
+    args = ['--developer-mode']
+}

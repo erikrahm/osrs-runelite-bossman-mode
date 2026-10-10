@@ -83,13 +83,6 @@
    "log": {
     "gating_items": [
      {
-      "item": "Giant key",
-      "ids": [
-       20754
-      ],
-      "rate": "1/16"
-     },
-     {
       "item": "Hill giant club",
       "ids": [
        20756
@@ -100,7 +93,7 @@
     "debt_pets_jars": [],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 122
+    "expected_kc": 114
    },
    "sources": [
     "Obor"
@@ -310,7 +303,7 @@
     "debt_pets_jars": [],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1339
+    "expected_kc": 1341
    },
    "sources": [
     "Barrows",
@@ -333,40 +326,17 @@
    "log": {
     "gating_items": [
      {
-      "item": "Long bone",
-      "ids": [
-       10976
-      ],
-      "rate": "1/400"
-     },
-     {
       "item": "Bryophyta's essence",
       "ids": [
        22372
       ],
       "rate": "1/118"
-     },
-     {
-      "item": "Mossy key",
-      "ids": [
-       22374
-      ],
-      "rate": "1/16"
      }
     ],
     "debt_pets_jars": [],
-    "meme_items": [
-     {
-      "item": "Giant champion scroll",
-      "rate": "1/5000"
-     },
-     {
-      "item": "Curved bone",
-      "rate": "1/5012"
-     }
-    ],
+    "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 431
+    "expected_kc": 115
    },
    "sources": [
     "Bryophyta"
@@ -477,7 +447,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 373
+    "expected_kc": 379
    },
    "sources": [
     "Chaos Fanatic"
@@ -518,7 +488,7 @@
     "debt_pets_jars": [],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 402
+    "expected_kc": 395
    },
    "sources": [
     "Crazy archaeologist"
@@ -565,7 +535,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 415
+    "expected_kc": 399
    },
    "sources": [
     "Scorpia"
@@ -612,7 +582,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 51
+    "expected_kc": 50
    },
    "sources": [
     "Giant Mole"
@@ -657,7 +627,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 74
+    "expected_kc": 76
    },
    "sources": [
     "Shellbane gryphon"
@@ -673,24 +643,6 @@
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
     "gating_items": [
-     {
-      "item": "Adamant boots",
-      "ids": [
-       4129
-      ],
-      "rate": "1/71"
-     },
-     {
-      "item": "Granite maul",
-      "ids": [
-       4153,
-       12848,
-       20557,
-       24225,
-       24227
-      ],
-      "rate": "1/125"
-     },
      {
       "item": "Granite dust",
       "ids": [
@@ -741,7 +693,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 753
+    "expected_kc": 754
    },
    "sources": [
     "Dusk",
@@ -778,13 +730,6 @@
        29895
       ],
       "rate": "1/2"
-     },
-     {
-      "item": "Huasca seed",
-      "ids": [
-       30088
-      ],
-      "rate": "1/29"
      }
     ],
     "debt_pets_jars": [
@@ -796,7 +741,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 106
+    "expected_kc": 104
    },
    "sources": [
     "Amoxliatl"
@@ -858,7 +803,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1439
+    "expected_kc": 1421
    },
    "sources": [
     "Calvar'ion"
@@ -904,7 +849,7 @@
      }
     ],
     "unmatched_rate": [],
-    "expected_kc": 1027
+    "expected_kc": 969
    },
    "sources": [
     "King Black Dragon"
@@ -931,7 +876,7 @@
     "debt_pets_jars": [],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 43
+    "expected_kc": 45
    },
    "sources": [
     "Deranged Archaeologist"
@@ -980,7 +925,7 @@
     "debt_pets_jars": [],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 35
+    "expected_kc": 33
    },
    "sources": [
     "Hespori"
@@ -1025,7 +970,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 690
+    "expected_kc": 682
    },
    "sources": [
     "Kraken"
@@ -1078,7 +1023,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 2160
+    "expected_kc": 2168
    },
    "sources": [
     "Thermonuclear smoke devil"
@@ -1140,7 +1085,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1457
+    "expected_kc": 1447
    },
    "sources": [
     "Spindel"
@@ -1187,7 +1132,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 235
+    "expected_kc": 234
    },
    "sources": [
     "Dagannoth Supreme"
@@ -1235,7 +1180,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 231
+    "expected_kc": 235
    },
    "sources": [
     "Dagannoth Rex"
@@ -1282,7 +1227,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 239
+    "expected_kc": 235
    },
    "sources": [
     "Dagannoth Prime"
@@ -1323,7 +1268,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 278
+    "expected_kc": 259
    },
    "sources": [
     "Chaos Elemental"
@@ -1375,7 +1320,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 377
+    "expected_kc": 408
    },
    "sources": [
     "Sarachnis"
@@ -1441,7 +1386,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1073
+    "expected_kc": 1069
    },
    "sources": [
     "Cerberus"
@@ -1503,7 +1448,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1445
+    "expected_kc": 1426
    },
    "sources": [
     "Artio"
@@ -1520,13 +1465,6 @@
    "log": {
     "gating_items": [
      {
-      "item": "Shield left half",
-      "ids": [
-       2366
-      ],
-      "rate": "1/100"
-     },
-     {
       "item": "Uncut onyx",
       "ids": [
        6571
@@ -1539,27 +1477,6 @@
        19677
       ],
       "rate": "1/1"
-     },
-     {
-      "item": "Dark totem base",
-      "ids": [
-       19679
-      ],
-      "rate": "1/43"
-     },
-     {
-      "item": "Dark totem middle",
-      "ids": [
-       19681
-      ],
-      "rate": "1/43"
-     },
-     {
-      "item": "Dark totem top",
-      "ids": [
-       19683
-      ],
-      "rate": "1/43"
      },
      {
       "item": "Dark totem",
@@ -1590,7 +1507,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1040
+    "expected_kc": 1034
    },
    "sources": [
     "Skotizo"
@@ -1723,7 +1640,7 @@
     "debt_pets_jars": [],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 691
+    "expected_kc": 689
    },
    "sources": [
     "Lunar Chest",
@@ -1786,7 +1703,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 521
+    "expected_kc": 533
    },
    "sources": [
     "Kalphite Queen"
@@ -1831,7 +1748,7 @@
      }
     ],
     "unmatched_rate": [],
-    "expected_kc": 777
+    "expected_kc": 776
    },
    "sources": [
     "Zalcano"
@@ -1900,7 +1817,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 158
+    "expected_kc": 156
    },
    "sources": [
     "Branda the Fire Queen",
@@ -1937,7 +1854,7 @@
      "Bludgeon axon",
      "Jar of Miasma"
     ],
-    "expected_kc": 97
+    "expected_kc": 101
    },
    "sources": [
     "Abyssal Sire",
@@ -1973,22 +1890,6 @@
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
     "gating_items": [
-     {
-      "item": "Mystic robe top (light)",
-      "ids": [
-       4111,
-       27160
-      ],
-      "rate": "1/51"
-     },
-     {
-      "item": "Mystic robe bottom (light)",
-      "ids": [
-       4113,
-       27161
-      ],
-      "rate": "1/51"
-     },
      {
       "item": "Dragon thrownaxe",
       "ids": [
@@ -2070,7 +1971,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 3337
+    "expected_kc": 3227
    },
    "sources": [
     "Alchemical Hydra"
@@ -2132,7 +2033,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 762
+    "expected_kc": 772
    },
    "sources": [
     "Vet'ion",
@@ -2195,7 +2096,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 777
+    "expected_kc": 788
    },
    "sources": [
     "Venenatis",
@@ -2258,7 +2159,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 763
+    "expected_kc": 775
    },
    "sources": [
     "Callisto",
@@ -2434,7 +2335,7 @@
      "Icthlarin's shroud (tier 5)",
      "Tumeken's guardian"
     ],
-    "expected_kc": 104
+    "expected_kc": 105
    },
    "sources": [
     "Tombs of Amascut"
@@ -2584,7 +2485,7 @@
      "Xeric's general",
      "Xeric's champion"
     ],
-    "expected_kc": 411
+    "expected_kc": 419
    },
    "sources": [
     "Chambers of Xeric"
@@ -2640,7 +2541,7 @@
     "unmatched_rate": [
      "Eye of Ayak"
     ],
-    "expected_kc": 2908
+    "expected_kc": 2941
    },
    "sources": [
     "Doom of Mokhaiotl"
@@ -2715,7 +2616,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1527
+    "expected_kc": 1538
    },
    "sources": [
     "Kree'arra"
@@ -2767,7 +2668,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 130
+    "expected_kc": 129
    },
    "sources": [
     "Mad Angel"
@@ -2843,7 +2744,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1571
+    "expected_kc": 1556
    },
    "sources": [
     "Commander Zilyana"
@@ -2919,7 +2820,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1559
+    "expected_kc": 1549
    },
    "sources": [
     "General Graardor"
@@ -2935,13 +2836,6 @@
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
     "gating_items": [
-     {
-      "item": "Sunfire splinters",
-      "ids": [
-       28924
-      ],
-      "rate": "1/23"
-     },
      {
       "item": "Tome of Earth (empty)",
       "ids": [
@@ -2987,7 +2881,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 154
+    "expected_kc": 153
    },
    "sources": [
     "The Hueycoatl"
@@ -3064,7 +2958,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1551
+    "expected_kc": 1541
    },
    "sources": [
     "K'ril Tsutsaroth"
@@ -3113,7 +3007,7 @@
     "unmatched_rate": [
      "Gauntlet cape"
     ],
-    "expected_kc": 2082
+    "expected_kc": 2044
    },
    "sources": [
     "The Gauntlet",
@@ -3224,7 +3118,7 @@
      }
     ],
     "unmatched_rate": [],
-    "expected_kc": 1030
+    "expected_kc": 1085
    },
    "sources": [
     "Zulrah"
@@ -3279,7 +3173,7 @@
      }
     ],
     "unmatched_rate": [],
-    "expected_kc": 1018
+    "expected_kc": 1002
    },
    "sources": [
     "Vorkath"
@@ -3369,20 +3263,6 @@
        33634
       ],
       "rate": "1/340"
-     },
-     {
-      "item": "Venator tooth",
-      "ids": [
-       33663
-      ],
-      "rate": "1/80"
-     },
-     {
-      "item": "Venator fang",
-      "ids": [
-       33661
-      ],
-      "rate": "1/80"
      }
     ],
     "debt_pets_jars": [
@@ -3394,7 +3274,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 668
+    "expected_kc": 659
    },
    "sources": [
     "Maggot King"
@@ -3483,7 +3363,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 3953
+    "expected_kc": 3920
    },
    "sources": [
     "Duke Sucellus"
@@ -3572,7 +3452,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 6036
+    "expected_kc": 6174
    },
    "sources": [
     "Vardorvis"
@@ -3639,7 +3519,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 4742
+    "expected_kc": 4594
    },
    "sources": [
     "Corporeal Beast"
@@ -3728,7 +3608,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 2932
+    "expected_kc": 2877
    },
    "sources": [
     "The Whisperer"
@@ -3817,7 +3697,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 4312
+    "expected_kc": 4354
    },
    "sources": [
     "The Leviathan"
@@ -3911,7 +3791,7 @@
      "Slepey tablet",
      "Parasitic egg"
     ],
-    "expected_kc": 1998
+    "expected_kc": 1997
    },
    "sources": [
     "The Nightmare"
@@ -3987,7 +3867,7 @@
      "Spider cave teleport",
      "Araxyte venom sac"
     ],
-    "expected_kc": 764
+    "expected_kc": 748
    },
    "sources": [
     "Araxxor"
@@ -4041,7 +3921,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 405
+    "expected_kc": 392
    },
    "sources": [
     "The Gauntlet",
@@ -4117,7 +3997,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 759
+    "expected_kc": 771
    },
    "sources": [
     "Nex"
@@ -4222,7 +4102,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 3279
+    "expected_kc": 3254
    },
    "sources": [
     "Phosani's Nightmare"
@@ -4333,7 +4213,7 @@
      "Sinhaza shroud tier 4",
      "Sinhaza shroud tier 5"
     ],
-    "expected_kc": 330
+    "expected_kc": 357
    },
    "sources": [
     "Theatre of Blood"
@@ -4550,7 +4430,7 @@
     "unmatched_rate": [
      "Dizana's quiver (uncharged)"
     ],
-    "expected_kc": 238
+    "expected_kc": 228
    },
    "sources": [
     "Fortis Colosseum",
@@ -4630,7 +4510,7 @@
      "Spirit angler waders",
      "Spirit angler boots"
     ],
-    "expected_kc": 2494
+    "expected_kc": 2477
    },
    "sources": [
     "Reward pool (Tempoross)",
@@ -4719,7 +4599,7 @@
      }
     ],
     "unmatched_rate": [],
-    "expected_kc": 1079
+    "expected_kc": 1103
    },
    "sources": [
     "Supply crate (Wintertodt)",

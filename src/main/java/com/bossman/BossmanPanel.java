@@ -32,6 +32,7 @@ import net.runelite.client.util.AsyncBufferedImage;
 
 public class BossmanPanel extends PluginPanel
 {
+	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(BossmanPanel.class);
 	private static final Color OK = new Color(90, 200, 120);
 	private static final Color WARN = new Color(255, 200, 80);
 	private static final Color BAD = new Color(220, 90, 90);
@@ -93,7 +94,7 @@ public class BossmanPanel extends PluginPanel
 		}
 		catch (Exception e)
 		{
-			// ledger may be mid-write on the client thread; the next refresh will catch up
+			log.warn("panel refresh failed (browsing={})", browsing, e);
 		}
 	}
 

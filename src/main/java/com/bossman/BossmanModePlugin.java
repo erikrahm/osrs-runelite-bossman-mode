@@ -216,6 +216,8 @@ public class BossmanModePlugin extends Plugin
 				unlockOverlay.updateScreenshotUnlock(config.screenshotUnlock(), config.includeFrame());
 				break;
 			case "memeThreshold":
+			case "petsGate":
+			case "jarsGate":
 			case "freeTools":
 			case "freeAccessGear":
 				refreshPanel();
@@ -432,6 +434,36 @@ public class BossmanModePlugin extends Plugin
 		return gi.denominator != null && gi.denominator >= config.memeThreshold();
 	}
 
+	public boolean isJar(BossmanData.DebtItem d)
+	{
+		return d.item != null && d.item.toLowerCase(java.util.Locale.ROOT).startsWith("jar of");
+	}
+
+	/** Pets/jars gate only when the matching option is on. */
+	public boolean isDebtItemGating(BossmanData.DebtItem d)
+	{
+		return isJar(d) ? config.jarsGate() : config.petsGate();
+	}
+
+	public boolean isDebtItemUnlocked(BossmanData.DebtItem d)
+	{
+		for (int id : d.ids)
+		{
+			if (ledger.isUnlocked(id))
+			{
+				return true;
+			}
+		}
+		for (Ledger.Entry en : ledger.unlocks.values())
+		{
+			if (en.name != null && en.name.equalsIgnoreCase(d.item))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean isLogItemUnlocked(BossmanData.GatingItem gi)
 	{
 		for (int id : gi.ids)
@@ -473,6 +505,18 @@ public class BossmanModePlugin extends Plugin
 			}
 			anyGating = true;
 			if (!isLogItemUnlocked(gi))
+			{
+				return false;
+			}
+		}
+		for (BossmanData.DebtItem d : r.log.debtPetsJars)
+		{
+			if (!isDebtItemGating(d))
+			{
+				continue;
+			}
+			anyGating = true;
+			if (!isDebtItemUnlocked(d))
 			{
 				return false;
 			}

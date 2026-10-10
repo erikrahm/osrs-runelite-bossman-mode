@@ -68,6 +68,20 @@ public interface BossmanModeConfig extends Config
 		return 5000;
 	}
 
+	@ConfigItem(keyName = "petsGate", name = "Pets gate the ladder", position = 1, section = ladderSection,
+		description = "Require a boss's pet before the next boss can be started. Off by default: pets go on the debt board once your KC reaches their drop rate.")
+	default boolean petsGate()
+	{
+		return false;
+	}
+
+	@ConfigItem(keyName = "jarsGate", name = "Jars gate the ladder", position = 2, section = ladderSection,
+		description = "Require a boss's jar before the next boss can be started. Off by default: jars go on the debt board once your KC reaches their drop rate.")
+	default boolean jarsGate()
+	{
+		return false;
+	}
+
 	@ConfigItem(keyName = "restrictGeBuy", name = "Hide locked items in GE search", position = 0, section = restrictionsSection,
 		description = "Locked items are greyed out and unclickable in the Grand Exchange search results.")
 	default boolean restrictGeBuy()

@@ -271,6 +271,18 @@ public class BossmanPanel extends PluginPanel
 				have++;
 			}
 		}
+		for (BossmanData.DebtItem d : r.log.debtPetsJars)
+		{
+			if (!plugin.isDebtItemGating(d))
+			{
+				continue;
+			}
+			need++;
+			if (plugin.isDebtItemUnlocked(d))
+			{
+				have++;
+			}
+		}
 		if (need > 0)
 		{
 			JProgressBar bar = new JProgressBar(0, need);
@@ -429,7 +441,12 @@ public class BossmanPanel extends PluginPanel
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
 			any = true;
-			boolean have = isUnlocked(d.ids, d.item);
+			boolean have = plugin.isDebtItemUnlocked(d);
+			if (plugin.isDebtItemGating(d))
+			{
+				p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, d.rate + (plugin.isJar(d) ? " - jar, gating" : " - pet, gating"), have ? OK : Color.WHITE, MUTED));
+				continue;
+			}
 			String note = have ? "obtained" : (kc >= d.debtAtKc ? "DEBT since KC " + d.debtAtKc : "not gating - debt-eligible at KC " + d.debtAtKc);
 			p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED));
 		}
@@ -459,7 +476,7 @@ public class BossmanPanel extends PluginPanel
 		boolean any = false;
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
-			if (kc >= d.debtAtKc && !isUnlocked(d.ids, d.item))
+			if (!plugin.isDebtItemGating(d) && kc >= d.debtAtKc && !plugin.isDebtItemUnlocked(d))
 			{
 				any = true;
 				p.add(wrapLabel(d.item + " " + d.rate + " - owed since KC " + d.debtAtKc, BAD));
@@ -470,25 +487,6 @@ public class BossmanPanel extends PluginPanel
 			p.add(label("Nothing owed for this boss.", MUTED));
 		}
 		return p;
-	}
-
-	private boolean isUnlocked(List<Integer> ids, String name)
-	{
-		for (int id : ids)
-		{
-			if (plugin.getLedger().isUnlocked(id))
-			{
-				return true;
-			}
-		}
-		for (Ledger.Entry en : plugin.getLedger().unlocks.values())
-		{
-			if (en.name != null && en.name.equalsIgnoreCase(name))
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private JPanel logRow(List<Integer> ids, String title, String sub, Color titleColor, Color subColor)

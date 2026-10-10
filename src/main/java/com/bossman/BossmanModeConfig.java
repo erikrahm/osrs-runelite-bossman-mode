@@ -53,7 +53,14 @@ public interface BossmanModeConfig extends Config
 		return true;
 	}
 
-	@ConfigItem(keyName = "unlockBond", name = "Bonds are always unlocked", position = 4, section = unlocksSection,
+	@ConfigItem(keyName = "importCollectionLog", name = "Import from collection log", position = 4, section = unlocksSection,
+		description = "When you open a boss tab in the in-game collection log, items shown as obtained are recorded as unlocks (for drops you had before installing the plugin).")
+	default boolean importCollectionLog()
+	{
+		return true;
+	}
+
+	@ConfigItem(keyName = "unlockBond", name = "Bonds are always unlocked", position = 5, section = unlocksSection,
 		description = "Keep Old School bonds unlocked so membership can be bought.")
 	default boolean unlockBond()
 	{

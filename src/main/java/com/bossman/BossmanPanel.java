@@ -155,6 +155,12 @@ public class BossmanPanel extends PluginPanel
 		body.add(Box.createVerticalStrut(6));
 		addBlock(logSection(r));
 		body.add(Box.createVerticalStrut(6));
+		JPanel memes = memeSection(r);
+		if (memes != null)
+		{
+			addBlock(memes);
+			body.add(Box.createVerticalStrut(6));
+		}
 		addBlock(backlogSection(r));
 		body.add(Box.createVerticalStrut(10));
 		addBlock(unlocksSection(r));
@@ -438,10 +444,7 @@ public class BossmanPanel extends PluginPanel
 			boolean bl = plugin.isBacklogged(r, gi.item);
 			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate: " + gi.rate + (bl && !have ? " - in backlog" : ""),
 				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
-			if (!have)
-			{
-				attachBacklogMenu(row, r, gi.item);
-			}
+			attachMenu(row, r, gi.item, gi.ids, have, true);
 			p.add(row);
 		}
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
@@ -460,25 +463,39 @@ public class BossmanPanel extends PluginPanel
 				String note = have ? "obtained" : (kc >= d.debtAtKc ? "in backlog since KC " + d.debtAtKc : "not gating - backlog at KC " + d.debtAtKc);
 				row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate: " + d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED);
 			}
-			if (!have && plugin.isDebtItemGating(d))
-			{
-				attachBacklogMenu(row, r, d.item);
-			}
+			attachMenu(row, r, d.item, d.ids, have, plugin.isDebtItemGating(d));
 			p.add(row);
-		}
-		for (BossmanData.GatingItem gi : r.log.gatingItems)
-		{
-			if (!plugin.isMeme(gi))
-			{
-				continue;
-			}
-			any = true;
-			boolean have = plugin.isLogItemUnlocked(gi);
-			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate: " + gi.rate + " - meme grind, optional", have ? OK : MUTED, MUTED));
 		}
 		if (!any)
 		{
 			p.add(label("This boss has no collection log; first kill completes it.", MUTED));
+		}
+		return p;
+	}
+
+	/** Items rarer than the configured threshold: shown for completeness, never gating. */
+	private JPanel memeSection(BossmanData.Rung r)
+	{
+		List<BossmanData.GatingItem> memes = new ArrayList<>();
+		for (BossmanData.GatingItem gi : r.log.gatingItems)
+		{
+			if (plugin.isMeme(gi))
+			{
+				memes.add(gi);
+			}
+		}
+		if (memes.isEmpty())
+		{
+			return null;
+		}
+		JPanel p = card();
+		p.add(sectionTitle("Optional meme items"));
+		for (BossmanData.GatingItem gi : memes)
+		{
+			boolean have = plugin.isLogItemUnlocked(gi);
+			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate: " + gi.rate, have ? OK : MUTED, MUTED);
+			attachMenu(row, r, gi.item, gi.ids, have, false);
+			p.add(row);
 		}
 		return p;
 	}
@@ -496,7 +513,7 @@ public class BossmanPanel extends PluginPanel
 			{
 				any = true;
 				JPanel row = logRow(gi.ids, gi.item, "Drop rate: " + gi.rate + " - moved here by hand", BAD, MUTED);
-				attachBacklogMenu(row, r, gi.item);
+				attachMenu(row, r, gi.item, gi.ids, false, true);
 				p.add(row);
 			}
 		}
@@ -514,7 +531,7 @@ public class BossmanPanel extends PluginPanel
 				JPanel row = logRow(d.ids, d.item, "Drop rate: " + d.rate + (manual ? " - moved here by hand" : " - since KC " + d.debtAtKc), BAD, MUTED);
 				if (manual)
 				{
-					attachBacklogMenu(row, r, d.item);
+					attachMenu(row, r, d.item, d.ids, false, true);
 				}
 				p.add(row);
 			}
@@ -526,15 +543,22 @@ public class BossmanPanel extends PluginPanel
 		return p;
 	}
 
-	/** Right-click: move a log item to the backlog (it stops gating) or bring it back. */
-	private void attachBacklogMenu(JPanel row, BossmanData.Rung r, String item)
+	/** Right-click on a log row: backlog toggle (gating items) and "Mark as obtained" for pre-plugin drops. */
+	private void attachMenu(JPanel row, BossmanData.Rung r, String item, List<Integer> ids, boolean have, boolean backlogable)
 	{
 		javax.swing.JPopupMenu menu = new javax.swing.JPopupMenu();
-		boolean bl = plugin.isBacklogged(r, item);
-		javax.swing.JMenuItem mi = new javax.swing.JMenuItem(bl ? "Remove from backlog" : "Move to backlog");
-		mi.setFont(FontManager.getRunescapeSmallFont());
-		mi.addActionListener(e -> plugin.setBacklogged(r, item, !bl));
-		menu.add(mi);
+		if (backlogable && !have)
+		{
+			boolean bl = plugin.isBacklogged(r, item);
+			javax.swing.JMenuItem mi = new javax.swing.JMenuItem(bl ? "Remove from backlog" : "Move to backlog");
+			mi.setFont(FontManager.getRunescapeSmallFont());
+			mi.addActionListener(e -> plugin.setBacklogged(r, item, !bl));
+			menu.add(mi);
+		}
+		javax.swing.JMenuItem ob = new javax.swing.JMenuItem(have ? "Unmark obtained (manual/imported only)" : "Mark as obtained (had it before the plugin)");
+		ob.setFont(FontManager.getRunescapeSmallFont());
+		ob.addActionListener(e -> plugin.markObtained(r, item, ids, !have));
+		menu.add(ob);
 		row.setComponentPopupMenu(menu);
 		for (java.awt.Component c : row.getComponents())
 		{
@@ -553,7 +577,7 @@ public class BossmanPanel extends PluginPanel
 				}
 			}
 		}
-		row.setToolTipText(bl ? "Right-click: remove from backlog" : "Right-click: move to backlog");
+		row.setToolTipText("Right-click for options");
 	}
 
 	private JPanel logRow(List<Integer> ids, String title, String sub, Color titleColor, Color subColor)

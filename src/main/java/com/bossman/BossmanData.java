@@ -135,6 +135,8 @@ public class BossmanData
 		public boolean blocking;
 		public String completion;
 		public List<String> sources = new ArrayList<>();
+		@SerializedName("clog_tab")
+		public String clogTab;
 		public RungLog log = new RungLog();
 		/** everything the boss (or its chest) can drop, best rate first */
 		public List<Drop> drops = new ArrayList<>();

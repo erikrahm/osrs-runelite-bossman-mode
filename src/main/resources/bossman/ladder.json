@@ -83,6 +83,7 @@
    "sources": [
     "Brutus"
    ],
+   "clog_tab": "Brutus",
    "drops": [
     {
      "item": "Bull bones",
@@ -476,6 +477,7 @@
    "sources": [
     "Obor"
    ],
+   "clog_tab": "Obor",
    "drops": [
     {
      "item": "Giant bones",
@@ -1473,6 +1475,7 @@
     "Torag the Corrupted",
     "Verac the Defiled"
    ],
+   "clog_tab": "Barrows Chests",
    "drops": [
     {
      "item": "Coins",
@@ -1930,6 +1933,7 @@
    "sources": [
     "Bryophyta"
    ],
+   "clog_tab": "Bryophyta",
    "drops": [
     {
      "item": "Giant bones",
@@ -2600,6 +2604,7 @@
    "sources": [
     "Gemstone Crab"
    ],
+   "clog_tab": "Gemstone Crab",
    "drops": [
     {
      "item": "Uncut opal",
@@ -2694,6 +2699,7 @@
    "sources": [
     "The Mimic"
    ],
+   "clog_tab": "The Mimic",
    "drops": [
     {
      "item": "Mahogany plank",
@@ -2996,6 +3002,7 @@
    "sources": [
     "Scurrius"
    ],
+   "clog_tab": "Scurrius",
    "drops": [
     {
      "item": "Big bones",
@@ -3438,6 +3445,7 @@
    "sources": [
     "Chaos Fanatic"
    ],
+   "clog_tab": "Chaos Fanatic",
    "drops": [
     {
      "item": "Bones",
@@ -4153,6 +4161,7 @@
    "sources": [
     "Crazy archaeologist"
    ],
+   "clog_tab": "Crazy archaeologist",
    "drops": [
     {
      "item": "Bones",
@@ -4858,6 +4867,7 @@
    "sources": [
     "Scorpia"
    ],
+   "clog_tab": "Scorpia",
    "drops": [
     {
      "item": "Looting bag",
@@ -5447,6 +5457,7 @@
    "sources": [
     "Giant Mole"
    ],
+   "clog_tab": "Giant Mole",
    "drops": [
     {
      "item": "Big bones",
@@ -6087,6 +6098,7 @@
    "sources": [
     "Shellbane gryphon"
    ],
+   "clog_tab": "Shellbane gryphon",
    "drops": [
     {
      "item": "Big bones",
@@ -6739,6 +6751,7 @@
     "Dusk",
     "Dawn"
    ],
+   "clog_tab": "Grotesque Guardians",
    "drops": [
     {
      "item": "Granite dust",
@@ -7288,6 +7301,7 @@
    "sources": [
     "Amoxliatl"
    ],
+   "clog_tab": "Amoxliatl",
    "drops": [
     {
      "item": "Clue scroll (elite)",
@@ -7804,6 +7818,7 @@
    "sources": [
     "Calvar'ion"
    ],
+   "clog_tab": "Vet'ion and Calvar'ion",
    "drops": [
     {
      "item": "Big bones",
@@ -8387,6 +8402,7 @@
    "sources": [
     "King Black Dragon"
    ],
+   "clog_tab": "King Black Dragon",
    "drops": [
     {
      "item": "Dragon bones",
@@ -9014,6 +9030,7 @@
    "sources": [
     "Deranged Archaeologist"
    ],
+   "clog_tab": "Deranged Archaeologist",
    "drops": [
     {
      "item": "Bones",
@@ -9802,6 +9819,7 @@
    "sources": [
     "Hespori"
    ],
+   "clog_tab": "Hespori",
    "drops": [
     {
      "item": "Attas seed",
@@ -10182,6 +10200,7 @@
    "sources": [
     "Kraken"
    ],
+   "clog_tab": "Kraken",
    "drops": [
     {
      "item": "Coins",
@@ -10819,6 +10838,7 @@
    "sources": [
     "Thermonuclear smoke devil"
    ],
+   "clog_tab": "Thermonuclear smoke devil",
    "drops": [
     {
      "item": "Ashes",
@@ -11684,6 +11704,7 @@
    "sources": [
     "Spindel"
    ],
+   "clog_tab": "Venenatis and Spindel",
    "drops": [
     {
      "item": "Big bones",
@@ -12239,6 +12260,7 @@
    "sources": [
     "Dagannoth Supreme"
    ],
+   "clog_tab": "Dagannoth Kings",
    "drops": [
     {
      "item": "Dagannoth bones",
@@ -13285,6 +13307,7 @@
    "sources": [
     "Dagannoth Rex"
    ],
+   "clog_tab": "Dagannoth Kings",
    "drops": [
     {
      "item": "Dagannoth bones",
@@ -14298,6 +14321,7 @@
    "sources": [
     "Dagannoth Prime"
    ],
+   "clog_tab": "Dagannoth Kings",
    "drops": [
     {
      "item": "Dagannoth bones",
@@ -15307,6 +15331,7 @@
    "sources": [
     "Chaos Elemental"
    ],
+   "clog_tab": "Chaos Elemental",
    "drops": [
     {
      "item": "Looting bag",
@@ -16034,6 +16059,7 @@
    "sources": [
     "Sarachnis"
    ],
+   "clog_tab": "Sarachnis",
    "drops": [
     {
      "item": "Tattered moon page",
@@ -17015,6 +17041,7 @@
    "sources": [
     "Cerberus"
    ],
+   "clog_tab": "Cerberus",
    "drops": [
     {
      "item": "Infernal ashes",
@@ -17771,6 +17798,7 @@
    "sources": [
     "Artio"
    ],
+   "clog_tab": "Callisto and Artio",
    "drops": [
     {
      "item": "Big bones",
@@ -18360,6 +18388,7 @@
    "sources": [
     "Skotizo"
    ],
+   "clog_tab": "Skotizo",
    "drops": [
     {
      "item": "Infernal ashes",
@@ -19064,6 +19093,7 @@
     "Blue Moon",
     "Eclipse Moon"
    ],
+   "clog_tab": "Moons of Peril",
    "drops": [
     {
      "item": "Atlatl dart",
@@ -19364,6 +19394,7 @@
    "sources": [
     "Kalphite Queen"
    ],
+   "clog_tab": "Kalphite Queen",
    "drops": [
     {
      "item": "Monkfish",
@@ -20138,6 +20169,7 @@
    "sources": [
     "Zalcano"
    ],
+   "clog_tab": "Zalcano",
    "drops": [
     {
      "item": "Crystal shard",
@@ -20440,6 +20472,7 @@
     "Branda the Fire Queen",
     "Eldric the Ice King"
    ],
+   "clog_tab": "Royal Titans",
    "drops": [
     {
      "item": "Desiccated page",
@@ -21232,6 +21265,7 @@
     "Abyssal Sire",
     "Unsired"
    ],
+   "clog_tab": "Abyssal Sire",
    "drops": [
     {
      "item": "Abyssal ashes",
@@ -22060,6 +22094,7 @@
    "sources": [
     "Revenant maledictus"
    ],
+   "clog_tab": "Revenant maledictus",
    "drops": [
     {
      "item": "Revenant ether",
@@ -22634,6 +22669,7 @@
    "sources": [
     "Alchemical Hydra"
    ],
+   "clog_tab": "Alchemical Hydra",
    "drops": [
     {
      "item": "Hydra bones",
@@ -23750,6 +23786,7 @@
     "Vet'ion",
     "Calvar'ion"
    ],
+   "clog_tab": "Vet'ion and Calvar'ion",
    "drops": [
     {
      "item": "Big bones",
@@ -24404,6 +24441,7 @@
     "Venenatis",
     "Spindel"
    ],
+   "clog_tab": "Venenatis and Spindel",
    "drops": [
     {
      "item": "Big bones",
@@ -25048,6 +25086,7 @@
     "Callisto",
     "Artio"
    ],
+   "clog_tab": "Callisto and Artio",
    "drops": [
     {
      "item": "Big bones",
@@ -25831,6 +25870,7 @@
    "sources": [
     "Tombs of Amascut"
    ],
+   "clog_tab": "Tombs of Amascut",
    "drops": [
     {
      "item": "Fossilised dung",
@@ -26401,6 +26441,7 @@
    "sources": [
     "Chambers of Xeric"
    ],
+   "clog_tab": "Chambers of Xeric",
    "drops": [
     {
      "item": "Dark journal",
@@ -27009,6 +27050,7 @@
    "sources": [
     "Doom of Mokhaiotl"
    ],
+   "clog_tab": "Doom of Mokhaiotl",
    "drops": [
     {
      "item": "Demon tear",
@@ -27473,6 +27515,7 @@
    "sources": [
     "Kree'arra"
    ],
+   "clog_tab": "Kree'arra",
    "drops": [
     {
      "item": "Big bones",
@@ -28111,6 +28154,7 @@
    "sources": [
     "Mad Angel"
    ],
+   "clog_tab": "The Mad Angel",
    "drops": [
     {
      "item": "Granite dust",
@@ -28809,6 +28853,7 @@
    "sources": [
     "Commander Zilyana"
    ],
+   "clog_tab": "Commander Zilyana",
    "drops": [
     {
      "item": "Bones",
@@ -29467,6 +29512,7 @@
    "sources": [
     "General Graardor"
    ],
+   "clog_tab": "General Graardor",
    "drops": [
     {
      "item": "Big bones",
@@ -30086,6 +30132,7 @@
    "sources": [
     "The Hueycoatl"
    ],
+   "clog_tab": "The Hueycoatl",
    "drops": [
     {
      "item": "Big bones",
@@ -30638,6 +30685,7 @@
    "sources": [
     "K'ril Tsutsaroth"
    ],
+   "clog_tab": "K'ril Tsutsaroth",
    "drops": [
     {
      "item": "Infernal ashes",
@@ -31258,6 +31306,7 @@
     "The Gauntlet",
     "Crystalline Hunllef"
    ],
+   "clog_tab": "The Gauntlet",
    "drops": [
     {
      "item": "Crystal shard",
@@ -31337,6 +31386,7 @@
     "TzTok-Jad",
     "TzHaar Fight Cave"
    ],
+   "clog_tab": "The Fight Caves",
    "drops": [
     {
      "item": "TzRek-Jad",
@@ -31456,6 +31506,7 @@
    "sources": [
     "Zulrah"
    ],
+   "clog_tab": "Zulrah",
    "drops": [
     {
      "item": "Zulrah's scales",
@@ -32252,6 +32303,7 @@
    "sources": [
     "Vorkath"
    ],
+   "clog_tab": "Vorkath",
    "drops": [
     {
      "item": "Superior dragon bones",
@@ -33147,6 +33199,7 @@
    "sources": [
     "Phantom Muspah"
    ],
+   "clog_tab": "Phantom Muspah",
    "drops": [
     {
      "item": "Charged ice",
@@ -34223,6 +34276,7 @@
    "sources": [
     "Maggot King"
    ],
+   "clog_tab": "Maggot King",
    "drops": [
     {
      "item": "Stymphike tartare",
@@ -34754,6 +34808,7 @@
    "sources": [
     "Duke Sucellus"
    ],
+   "clog_tab": "Duke Sucellus",
    "drops": [
     {
      "item": "Odd key",
@@ -35850,6 +35905,7 @@
    "sources": [
     "Vardorvis"
    ],
+   "clog_tab": "Vardorvis",
    "drops": [
     {
      "item": "Temple key (Desert Treasure II)",
@@ -36932,6 +36988,7 @@
    "sources": [
     "Corporeal Beast"
    ],
+   "clog_tab": "Corporeal Beast",
    "drops": [
     {
      "item": "Soul rune",
@@ -37565,6 +37622,7 @@
    "sources": [
     "The Whisperer"
    ],
+   "clog_tab": "The Whisperer",
    "drops": [
     {
      "item": "Ancient blood ornament kit",
@@ -38660,6 +38718,7 @@
    "sources": [
     "The Leviathan"
    ],
+   "clog_tab": "The Leviathan",
    "drops": [
     {
      "item": "Ancient blood ornament kit",
@@ -39764,6 +39823,7 @@
    "sources": [
     "The Nightmare"
    ],
+   "clog_tab": "The Nightmare",
    "drops": [
     {
      "item": "Big bones",
@@ -40315,6 +40375,7 @@
    "sources": [
     "Araxxor"
    ],
+   "clog_tab": "Araxxor",
    "drops": [
     {
      "item": "Coagulated venom",
@@ -40585,6 +40646,7 @@
     "The Gauntlet",
     "Corrupted Hunllef"
    ],
+   "clog_tab": "The Gauntlet",
    "drops": [
     {
      "item": "Gauntlet cape",
@@ -40726,6 +40788,7 @@
    "sources": [
     "Nex"
    ],
+   "clog_tab": "Nex",
    "drops": [
     {
      "item": "Big bones",
@@ -41075,6 +41138,7 @@
    "sources": [
     "Phosani's Nightmare"
    ],
+   "clog_tab": "The Nightmare",
    "drops": [
     {
      "item": "Big bones",
@@ -41657,6 +41721,7 @@
    "sources": [
     "Theatre of Blood"
    ],
+   "clog_tab": "Theatre of Blood",
    "drops": [
     {
      "item": "Cabbage",
@@ -42167,6 +42232,7 @@
    "sources": [
     "Demonic Brutus"
    ],
+   "clog_tab": "Demonic Brutus",
    "drops": [
     {
      "item": "Brutus slippers",
@@ -42288,6 +42354,7 @@
    "sources": [
     "Yama"
    ],
+   "clog_tab": "Yama",
    "drops": [
     {
      "item": "Soulflame horn",
@@ -42865,6 +42932,7 @@
     "TzKal-Zuk",
     "Inferno"
    ],
+   "clog_tab": "The Inferno",
    "drops": [
     {
      "item": "Jal-Nib-Rek",
@@ -42969,6 +43037,7 @@
     "Fortis Colosseum",
     "Sol Heredit"
    ],
+   "clog_tab": "Fortis Colosseum",
    "drops": [
     {
      "item": "Dizana's quiver",
@@ -43200,6 +43269,7 @@
     "Reward pool (Tempoross)",
     "Casket (Tempoross)"
    ],
+   "clog_tab": "Tempoross",
    "drops": [
     {
      "item": "Spirit flakes",
@@ -43526,6 +43596,7 @@
     "Supply crate (Wintertodt)",
     "Reward cart (Wintertodt)"
    ],
+   "clog_tab": "Wintertodt",
    "drops": [
     {
      "item": "Coins",

@@ -22,6 +22,7 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   pets/jars that fall into it once KC reaches their drop rate, plus any log item you right-click → "Move to backlog" (it
   stops gating; reversible). 1/5,000+ items are "meme grinds" (optional). Browse other bosses with `<` / `>`; no-log
   bosses (Gemstone Crab, Mimic…) can be marked complete by hand.
+- **Pre-plugin drops.** Open a boss tab in the in-game collection log and every obtained item there is imported as an unlock (toggle: "Import from collection log"); or right-click a log row → "Mark as obtained".
 - Chat commands: `!bmcount`, `!bmboss`, `!bmbackup`, `!bmreset` (opt-in).
 - Config: "Meme-grind threshold" (default 5000) — log items rarer than 1/N are optional and never block the ladder; "Pets gate the ladder" / "Jars gate the ladder" (default off); "Tools / Access gear are always unlocked" toggles for stricter variants.
 

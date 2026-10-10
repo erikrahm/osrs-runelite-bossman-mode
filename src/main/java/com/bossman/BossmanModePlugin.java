@@ -61,7 +61,9 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.ScriptID;
 import net.runelite.api.events.ScriptPostFired;
+import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.widgets.ComponentID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.Notifier;
@@ -588,6 +590,93 @@ public class BossmanModePlugin extends Plugin
 		{
 			killSearchResults();
 		}
+		else if (e.getScriptId() == ScriptID.COLLECTION_DRAW_LIST && config.importCollectionLog())
+		{
+			importCollectionLogTab();
+		}
+	}
+
+	/**
+	 * When a boss tab of the in-game collection log is drawn, record every obtained item in it as an unlock
+	 * (kind "clog"): the account may have had the drop before the plugin was installed.
+	 */
+	private void importCollectionLogTab()
+	{
+		Widget header = client.getWidget(InterfaceID.Collection.HEADER_TEXT);
+		Widget items = client.getWidget(InterfaceID.Collection.ITEMS_CONTENTS);
+		if (header == null || header.getChildren() == null || header.getChildren().length == 0 || items == null || items.getChildren() == null)
+		{
+			return;
+		}
+		String tab = Text.removeTags(header.getChild(0).getText()).trim();
+		BossmanData.Rung rung = null;
+		for (BossmanData.Rung r : data.getLadder().rungs)
+		{
+			if (r.clogTab != null && r.clogTab.equalsIgnoreCase(tab))
+			{
+				rung = r;
+				break;
+			}
+		}
+		if (rung == null)
+		{
+			return; // not a tab we track (Slayer, Miscellaneous, All Pets, ...)
+		}
+		int imported = 0;
+		for (Widget child : items.getChildren())
+		{
+			int id = child.getItemId();
+			if (id <= 0 || child.getOpacity() != 0)
+			{
+				continue; // unobtained items are drawn translucent
+			}
+			int canon = itemManager.canonicalize(id);
+			if (ledger.isUnlocked(canon))
+			{
+				continue;
+			}
+			recordUnlock(canon, Ledger.KIND_CLOG, rung.sources.isEmpty() ? rung.boss : rung.sources.get(0), null,
+				"imported from the collection log (" + tab + ")", false);
+			imported++;
+		}
+		if (imported > 0)
+		{
+			sendChatMessage("Bossman: imported " + imported + " item" + (imported == 1 ? "" : "s") + " from your " + tab + " collection log.");
+			refreshPanel();
+		}
+	}
+
+	/** Right-click "Mark as obtained": the account had this drop before the plugin was installed. */
+	public void markObtained(BossmanData.Rung r, String item, List<Integer> ids, boolean obtained)
+	{
+		clientThread.invoke(() ->
+		{
+			if (obtained)
+			{
+				if (ids == null || ids.isEmpty())
+				{
+					return;
+				}
+				int id = itemManager.canonicalize(ids.get(0));
+				if (!ledger.isUnlocked(id))
+				{
+					recordUnlock(id, Ledger.KIND_MANUAL, r.sources.isEmpty() ? r.boss : r.sources.get(0), null, "marked obtained by hand", false);
+				}
+			}
+			else
+			{
+				for (int id : ids)
+				{
+					Ledger.Entry en = ledger.unlocks.get(itemManager.canonicalize(id));
+					if (en != null && (Ledger.KIND_MANUAL.equals(en.kind) || Ledger.KIND_CLOG.equals(en.kind)))
+					{
+						ledger.unlocks.remove(itemManager.canonicalize(id));
+					}
+				}
+				ledger.save(gson);
+			}
+			refreshPanel();
+		});
 	}
 
 	@Subscribe

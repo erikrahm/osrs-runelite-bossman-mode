@@ -8,7 +8,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -184,7 +183,7 @@ public class BossmanPanel extends PluginPanel
 			JProgressBar bar = new JProgressBar(0, r.log.gatingItems.size());
 			bar.setValue(have);
 			bar.setStringPainted(true);
-			bar.setString(have + "/" + r.log.gatingItems.size() + " items");
+			bar.setString(have + "/" + r.log.gatingItems.size() + " gating items");
 			bar.setForeground(have == r.log.gatingItems.size() ? OK : WARN);
 			bar.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			bar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 18));
@@ -209,37 +208,36 @@ public class BossmanPanel extends PluginPanel
 	private JPanel logSection(BossmanData.Rung r)
 	{
 		JPanel p = card();
-		p.add(sectionTitle("Collection log (gating)"));
-		if (r.log.gatingItems.isEmpty())
-		{
-			p.add(label("No log items gate this boss.", MUTED));
-			return p;
-		}
+		p.add(sectionTitle("Collection log"));
+		int kc = plugin.rungKc(r);
+		boolean any = false;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
+			any = true;
 			boolean have = plugin.isLogItemUnlocked(gi);
-			JPanel row = new JPanel(new BorderLayout(4, 0));
-			row.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-			row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
-			row.setAlignmentX(LEFT_ALIGNMENT);
-			JLabel icon = new JLabel();
-			icon.setPreferredSize(new Dimension(36, 32));
-			if (!gi.ids.isEmpty())
-			{
-				AsyncBufferedImage img = itemManager.getImage(gi.ids.get(0));
-				img.addTo(icon);
-			}
-			row.add(icon, BorderLayout.WEST);
-			JPanel text = new JPanel(new GridLayout(2, 1));
-			text.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-			text.add(label((have ? "[x] " : "[ ] ") + gi.item, have ? OK : Color.WHITE));
-			text.add(label(gi.rate != null ? gi.rate : "", MUTED));
-			row.add(text, BorderLayout.CENTER);
-			p.add(row);
+			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, gi.rate, have ? OK : Color.WHITE, MUTED));
+		}
+		for (BossmanData.DebtItem d : r.log.debtPetsJars)
+		{
+			any = true;
+			boolean have = isUnlocked(d.ids, d.item);
+			String note = have ? "obtained" : (kc >= d.debtAtKc ? "DEBT since KC " + d.debtAtKc : "not gating - debt-eligible at KC " + d.debtAtKc);
+			p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED));
+		}
+		for (BossmanData.MemeItem m : r.log.memeItems)
+		{
+			any = true;
+			boolean have = isUnlocked(m.ids, m.item);
+			p.add(logRow(m.ids, (have ? "[x] " : "[ ] ") + m.item, m.rate + " - meme grind, optional", have ? OK : MUTED, MUTED));
+		}
+		if (!any)
+		{
+			p.add(label("This boss has no collection log; first kill completes it.", MUTED));
 		}
 		return p;
 	}
 
+	/** Items that are owed: pets/jars past their debt KC and not yet obtained. Memes are listed in the log, not here. */
 	private JPanel debtSection(BossmanData.Rung r)
 	{
 		JPanel p = card();
@@ -248,29 +246,60 @@ public class BossmanPanel extends PluginPanel
 		boolean any = false;
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
-			any = true;
-			boolean have = false;
-			for (Ledger.Entry en : plugin.getLedger().unlocks.values())
+			if (kc >= d.debtAtKc && !isUnlocked(d.ids, d.item))
 			{
-				if (en.name != null && en.name.equalsIgnoreCase(d.item))
-				{
-					have = true;
-					break;
-				}
+				any = true;
+				p.add(wrapLabel(d.item + " " + d.rate + " - owed since KC " + d.debtAtKc, BAD));
 			}
-			String state = have ? "obtained" : (kc >= d.debtAtKc ? "DEBT since KC " + d.debtAtKc : "debt-eligible at KC " + d.debtAtKc);
-			p.add(wrapLabel(d.item + " " + d.rate + " - " + state, have ? OK : (kc >= d.debtAtKc ? BAD : MUTED)));
-		}
-		for (BossmanData.MemeItem m : r.log.memeItems)
-		{
-			any = true;
-			p.add(wrapLabel(m.item + " " + m.rate + " - meme grind (optional)", MUTED));
 		}
 		if (!any)
 		{
-			p.add(label("Nothing on the board for this boss.", MUTED));
+			p.add(label("Nothing owed for this boss.", MUTED));
 		}
 		return p;
+	}
+
+	private boolean isUnlocked(List<Integer> ids, String name)
+	{
+		for (int id : ids)
+		{
+			if (plugin.getLedger().isUnlocked(id))
+			{
+				return true;
+			}
+		}
+		for (Ledger.Entry en : plugin.getLedger().unlocks.values())
+		{
+			if (en.name != null && en.name.equalsIgnoreCase(name))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private JPanel logRow(List<Integer> ids, String title, String sub, Color titleColor, Color subColor)
+	{
+		JPanel row = new JPanel(new BorderLayout(4, 0));
+		row.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+		row.setAlignmentX(LEFT_ALIGNMENT);
+		JLabel icon = new JLabel();
+		icon.setPreferredSize(new Dimension(36, 32));
+		if (ids != null && !ids.isEmpty())
+		{
+			AsyncBufferedImage img = itemManager.getImage(ids.get(0));
+			img.addTo(icon);
+		}
+		row.add(icon, BorderLayout.WEST);
+		JPanel text = new JPanel();
+		text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
+		text.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+		text.add(label(title, titleColor));
+		text.add(wrapLabel(sub, subColor));
+		row.add(text, BorderLayout.CENTER);
+		Dimension pref = row.getPreferredSize();
+		row.setMaximumSize(new Dimension(Integer.MAX_VALUE, Math.max(36, pref.height)));
+		return row;
 	}
 
 	private JPanel recentSection()

@@ -60,6 +60,9 @@
     "debt_pets_jars": [
      {
       "item": "Beef",
+      "ids": [
+       33124
+      ],
       "rate": "1/1000",
       "debt_at_kc": 1000
      }
@@ -401,6 +404,9 @@
     "debt_pets_jars": [
      {
       "item": "Scurry",
+      "ids": [
+       28801
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -441,6 +447,9 @@
     "debt_pets_jars": [
      {
       "item": "Pet chaos elemental",
+      "ids": [
+       11995
+      ],
       "rate": "1/1000",
       "debt_at_kc": 1000
      }
@@ -529,6 +538,9 @@
     "debt_pets_jars": [
      {
       "item": "Scorpia's offspring",
+      "ids": [
+       13181
+      ],
       "rate": "1/2016",
       "debt_at_kc": 2016
      }
@@ -576,6 +588,9 @@
     "debt_pets_jars": [
      {
       "item": "Baby Mole",
+      "ids": [
+       12646
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -616,11 +631,18 @@
     "debt_pets_jars": [
      {
       "item": "Gull (pet)",
+      "ids": [
+       31285,
+       31287
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      },
      {
       "item": "Jar of Feathers",
+      "ids": [
+       32921
+      ],
       "rate": "1/2000",
       "debt_at_kc": 2000
      }
@@ -682,11 +704,17 @@
     "debt_pets_jars": [
      {
       "item": "Jar of Stone",
+      "ids": [
+       21745
+      ],
       "rate": "1/5000",
       "debt_at_kc": 5000
      },
      {
       "item": "Noon",
+      "ids": [
+       21748
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -735,6 +763,9 @@
     "debt_pets_jars": [
      {
       "item": "Moxi",
+      "ids": [
+       30154
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -797,6 +828,12 @@
     "debt_pets_jars": [
      {
       "item": "Vet'ion Jr.",
+      "ids": [
+       13179,
+       13180,
+       27650,
+       27651
+      ],
       "rate": "1/2800",
       "debt_at_kc": 2800
      }
@@ -838,6 +875,9 @@
     "debt_pets_jars": [
      {
       "item": "Prince Black Dragon",
+      "ids": [
+       12653
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -845,6 +885,9 @@
     "meme_items": [
      {
       "item": "Draconic visage",
+      "ids": [
+       11286
+      ],
       "rate": "1/5000"
      }
     ],
@@ -959,11 +1002,17 @@
     "debt_pets_jars": [
      {
       "item": "Jar of Dirt",
+      "ids": [
+       12007
+      ],
       "rate": "1/1000",
       "debt_at_kc": 1000
      },
      {
       "item": "Pet Kraken",
+      "ids": [
+       12655
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -1012,11 +1061,18 @@
     "debt_pets_jars": [
      {
       "item": "Pet Smoke Devil",
+      "ids": [
+       12648,
+       22663
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      },
      {
       "item": "Jar of Smoke",
+      "ids": [
+       25524
+      ],
       "rate": "1/2000",
       "debt_at_kc": 2000
      }
@@ -1079,6 +1135,10 @@
     "debt_pets_jars": [
      {
       "item": "Venenatis spiderling",
+      "ids": [
+       13177,
+       27648
+      ],
       "rate": "1/2800",
       "debt_at_kc": 2800
      }
@@ -1126,6 +1186,9 @@
     "debt_pets_jars": [
      {
       "item": "Pet Dagannoth Supreme",
+      "ids": [
+       12643
+      ],
       "rate": "1/5000",
       "debt_at_kc": 5000
      }
@@ -1174,6 +1237,9 @@
     "debt_pets_jars": [
      {
       "item": "Pet Dagannoth Rex",
+      "ids": [
+       12645
+      ],
       "rate": "1/5000",
       "debt_at_kc": 5000
      }
@@ -1221,6 +1287,9 @@
     "debt_pets_jars": [
      {
       "item": "Pet Dagannoth Prime",
+      "ids": [
+       12644
+      ],
       "rate": "1/5000",
       "debt_at_kc": 5000
      }
@@ -1262,6 +1331,9 @@
     "debt_pets_jars": [
      {
       "item": "Pet chaos elemental",
+      "ids": [
+       11995
+      ],
       "rate": "1/300",
       "debt_at_kc": 300
      }
@@ -1309,11 +1381,19 @@
     "debt_pets_jars": [
      {
       "item": "Sraracha",
+      "ids": [
+       23495,
+       25842,
+       25843
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      },
      {
       "item": "Jar of Eyes",
+      "ids": [
+       23525
+      ],
       "rate": "1/2000",
       "debt_at_kc": 2000
      }
@@ -1375,11 +1455,17 @@
     "debt_pets_jars": [
      {
       "item": "Jar of Souls",
+      "ids": [
+       13245
+      ],
       "rate": "1/2000",
       "debt_at_kc": 2000
      },
      {
       "item": "Hellpuppy",
+      "ids": [
+       13247
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -1442,6 +1528,10 @@
     "debt_pets_jars": [
      {
       "item": "Callisto cub",
+      "ids": [
+       13178,
+       27649
+      ],
       "rate": "1/2800",
       "debt_at_kc": 2800
      }
@@ -1496,11 +1586,17 @@
     "debt_pets_jars": [
      {
       "item": "Jar of Darkness",
+      "ids": [
+       19701
+      ],
       "rate": "1/200",
       "debt_at_kc": 200
      },
      {
       "item": "Skotos",
+      "ids": [
+       21273
+      ],
       "rate": "1/65",
       "debt_at_kc": 65
      }
@@ -1692,11 +1788,18 @@
     "debt_pets_jars": [
      {
       "item": "Kalphite Princess",
+      "ids": [
+       12647,
+       12654
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      },
      {
       "item": "Jar of Sand",
+      "ids": [
+       12885
+      ],
       "rate": "1/2000",
       "debt_at_kc": 2000
      }
@@ -1737,6 +1840,9 @@
     "debt_pets_jars": [
      {
       "item": "Smolcano",
+      "ids": [
+       23760
+      ],
       "rate": "1/2250",
       "debt_at_kc": 2250
      }
@@ -1744,6 +1850,9 @@
     "meme_items": [
      {
       "item": "Uncut onyx",
+      "ids": [
+       6571
+      ],
       "rate": "1/8000"
      }
     ],
@@ -1811,6 +1920,10 @@
     "debt_pets_jars": [
      {
       "item": "Bran",
+      "ids": [
+       30622,
+       30624
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -1960,11 +2073,20 @@
     "debt_pets_jars": [
      {
       "item": "Ikkle Hydra",
+      "ids": [
+       22746,
+       22748,
+       22750,
+       22752
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      },
      {
       "item": "Jar of Chemicals",
+      "ids": [
+       23064
+      ],
       "rate": "1/2000",
       "debt_at_kc": 2000
      }
@@ -2027,6 +2149,12 @@
     "debt_pets_jars": [
      {
       "item": "Vet'ion Jr.",
+      "ids": [
+       13179,
+       13180,
+       27650,
+       27651
+      ],
       "rate": "1/1500",
       "debt_at_kc": 1500
      }
@@ -2090,6 +2218,10 @@
     "debt_pets_jars": [
      {
       "item": "Venenatis spiderling",
+      "ids": [
+       13177,
+       27648
+      ],
       "rate": "1/1500",
       "debt_at_kc": 1500
      }
@@ -2153,6 +2285,10 @@
     "debt_pets_jars": [
      {
       "item": "Callisto cub",
+      "ids": [
+       13178,
+       27649
+      ],
       "rate": "1/1500",
       "debt_at_kc": 1500
      }
@@ -2472,6 +2608,9 @@
     "debt_pets_jars": [
      {
       "item": "Olmlet",
+      "ids": [
+       20851
+      ],
       "rate": "1/53",
       "debt_at_kc": 53
      }
@@ -2533,6 +2672,9 @@
     "debt_pets_jars": [
      {
       "item": "Dom",
+      "ids": [
+       31130
+      ],
       "rate": "1/1000",
       "debt_at_kc": 1000
      }
@@ -2610,6 +2752,9 @@
     "debt_pets_jars": [
      {
       "item": "Pet Kree'arra",
+      "ids": [
+       12649
+      ],
       "rate": "1/5000",
       "debt_at_kc": 5000
      }
@@ -2657,11 +2802,17 @@
     "debt_pets_jars": [
      {
       "item": "Aggy",
+      "ids": [
+       34042
+      ],
       "rate": "1/2000",
       "debt_at_kc": 2000
      },
      {
       "item": "Jar of Light",
+      "ids": [
+       34030
+      ],
       "rate": "1/1000",
       "debt_at_kc": 1000
      }
@@ -2738,6 +2889,9 @@
     "debt_pets_jars": [
      {
       "item": "Pet Zilyana",
+      "ids": [
+       12651
+      ],
       "rate": "1/5000",
       "debt_at_kc": 5000
      }
@@ -2814,6 +2968,9 @@
     "debt_pets_jars": [
      {
       "item": "Pet General Graardor",
+      "ids": [
+       12650
+      ],
       "rate": "1/5000",
       "debt_at_kc": 5000
      }
@@ -2875,6 +3032,9 @@
     "debt_pets_jars": [
      {
       "item": "Huberte",
+      "ids": [
+       30152
+      ],
       "rate": "1/400",
       "debt_at_kc": 400
      }
@@ -2952,6 +3112,9 @@
     "debt_pets_jars": [
      {
       "item": "Pet K'ril Tsutsaroth",
+      "ids": [
+       12652
+      ],
       "rate": "1/5000",
       "debt_at_kc": 5000
      }
@@ -2999,6 +3162,9 @@
     "debt_pets_jars": [
      {
       "item": "Youngllef",
+      "ids": [
+       23757
+      ],
       "rate": "1/2000",
       "debt_at_kc": 2000
      }
@@ -3027,6 +3193,9 @@
     "debt_pets_jars": [
      {
       "item": "TzRek-Jad",
+      "ids": [
+       13225
+      ],
       "rate": "1/200",
       "debt_at_kc": 200
      }
@@ -3098,11 +3267,19 @@
     "debt_pets_jars": [
      {
       "item": "Pet Snakeling",
+      "ids": [
+       12921,
+       12939,
+       12940
+      ],
       "rate": "1/4000",
       "debt_at_kc": 4000
      },
      {
       "item": "Jar of Swamp",
+      "ids": [
+       12936
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -3110,10 +3287,16 @@
     "meme_items": [
      {
       "item": "Tanzanite mutagen",
+      "ids": [
+       13200
+      ],
       "rate": "1/6554"
      },
      {
       "item": "Magma mutagen",
+      "ids": [
+       13201
+      ],
       "rate": "1/6554"
      }
     ],
@@ -3153,11 +3336,17 @@
     "debt_pets_jars": [
      {
       "item": "Vorki",
+      "ids": [
+       21992
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      },
      {
       "item": "Jar of Decay",
+      "ids": [
+       22106
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -3165,10 +3354,16 @@
     "meme_items": [
      {
       "item": "Draconic visage",
+      "ids": [
+       11286
+      ],
       "rate": "1/5000"
      },
      {
       "item": "Skeletal visage",
+      "ids": [
+       22006
+      ],
       "rate": "1/5000"
      }
     ],
@@ -3228,6 +3423,11 @@
     "debt_pets_jars": [
      {
       "item": "Muphin",
+      "ids": [
+       27590,
+       27592,
+       27593
+      ],
       "rate": "1/2500",
       "debt_at_kc": 2500
      }
@@ -3268,6 +3468,9 @@
     "debt_pets_jars": [
      {
       "item": "Maggot marquess",
+      "ids": [
+       33642
+      ],
       "rate": "1/3500",
       "debt_at_kc": 3500
      }
@@ -3357,6 +3560,9 @@
     "debt_pets_jars": [
      {
       "item": "Baron",
+      "ids": [
+       28250
+      ],
       "rate": "1/2500",
       "debt_at_kc": 2500
      }
@@ -3446,6 +3652,9 @@
     "debt_pets_jars": [
      {
       "item": "Butch",
+      "ids": [
+       28248
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -3508,11 +3717,17 @@
     "debt_pets_jars": [
      {
       "item": "Pet dark core",
+      "ids": [
+       12816
+      ],
       "rate": "1/5000",
       "debt_at_kc": 5000
      },
      {
       "item": "Jar of Spirits",
+      "ids": [
+       25521
+      ],
       "rate": "1/1000",
       "debt_at_kc": 1000
      }
@@ -3602,6 +3817,9 @@
     "debt_pets_jars": [
      {
       "item": "Wisp",
+      "ids": [
+       28246
+      ],
       "rate": "1/2000",
       "debt_at_kc": 2000
      }
@@ -3691,6 +3909,9 @@
     "debt_pets_jars": [
      {
       "item": "Lil'viathan",
+      "ids": [
+       28252
+      ],
       "rate": "1/2500",
       "debt_at_kc": 2500
      }
@@ -3777,11 +3998,17 @@
     "debt_pets_jars": [
      {
       "item": "Little Nightmare",
+      "ids": [
+       24491
+      ],
       "rate": "1/800",
       "debt_at_kc": 800
      },
      {
       "item": "Jar of Dreams",
+      "ids": [
+       24495
+      ],
       "rate": "1/1900",
       "debt_at_kc": 1900
      }
@@ -3853,11 +4080,17 @@
     "debt_pets_jars": [
      {
       "item": "Jar of Venom",
+      "ids": [
+       29786
+      ],
       "rate": "1/1500",
       "debt_at_kc": 1500
      },
      {
       "item": "Nid",
+      "ids": [
+       29836
+      ],
       "rate": "1/3000",
       "debt_at_kc": 3000
      }
@@ -3915,6 +4148,9 @@
     "debt_pets_jars": [
      {
       "item": "Youngllef",
+      "ids": [
+       23757
+      ],
       "rate": "1/800",
       "debt_at_kc": 800
      }
@@ -3991,6 +4227,9 @@
     "debt_pets_jars": [
      {
       "item": "Nexling",
+      "ids": [
+       26348
+      ],
       "rate": "1/500",
       "debt_at_kc": 500
      }
@@ -4091,11 +4330,17 @@
     "debt_pets_jars": [
      {
       "item": "Little Nightmare",
+      "ids": [
+       24491
+      ],
       "rate": "1/1400",
       "debt_at_kc": 1400
      },
      {
       "item": "Jar of Dreams",
+      "ids": [
+       24495
+      ],
       "rate": "1/4000",
       "debt_at_kc": 4000
      }
@@ -4201,6 +4446,9 @@
     "debt_pets_jars": [
      {
       "item": "Lil' Zik",
+      "ids": [
+       22473
+      ],
       "rate": "1/650",
       "debt_at_kc": 650
      }
@@ -4317,6 +4565,9 @@
     "debt_pets_jars": [
      {
       "item": "Yami",
+      "ids": [
+       30888
+      ],
       "rate": "1/100",
       "debt_at_kc": 100
      }
@@ -4344,6 +4595,9 @@
     "debt_pets_jars": [
      {
       "item": "Jal-Nib-Rek",
+      "ids": [
+       21291
+      ],
       "rate": "1/100",
       "debt_at_kc": 100
      }
@@ -4422,6 +4676,9 @@
     "debt_pets_jars": [
      {
       "item": "Smol Heredit",
+      "ids": [
+       28960
+      ],
       "rate": "1/200",
       "debt_at_kc": 200
      }
@@ -4494,6 +4751,9 @@
     "debt_pets_jars": [
      {
       "item": "Tiny tempor",
+      "ids": [
+       25602
+      ],
       "rate": "1/8000",
       "debt_at_kc": 8000
      }
@@ -4501,6 +4761,9 @@
     "meme_items": [
      {
       "item": "Dragon harpoon",
+      "ids": [
+       21028
+      ],
       "rate": "1/8000"
      }
     ],
@@ -4588,6 +4851,13 @@
     "debt_pets_jars": [
      {
       "item": "Phoenix",
+      "ids": [
+       20693,
+       24483,
+       24484,
+       24485,
+       24486
+      ],
       "rate": "1/5000",
       "debt_at_kc": 5000
      }
@@ -4595,6 +4865,9 @@
     "meme_items": [
      {
       "item": "Dragon axe",
+      "ids": [
+       6739
+      ],
       "rate": "1/10000"
      }
     ],

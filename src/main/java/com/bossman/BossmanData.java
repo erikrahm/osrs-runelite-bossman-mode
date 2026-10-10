@@ -77,6 +77,7 @@ public class BossmanData
 	public static class DebtItem
 	{
 		public String item;
+		public List<Integer> ids = new ArrayList<>();
 		public String rate;
 		@SerializedName("debt_at_kc")
 		public int debtAtKc;
@@ -85,6 +86,7 @@ public class BossmanData
 	public static class MemeItem
 	{
 		public String item;
+		public List<Integer> ids = new ArrayList<>();
 		public String rate;
 	}
 

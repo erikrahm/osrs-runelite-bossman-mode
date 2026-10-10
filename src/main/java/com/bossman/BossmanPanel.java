@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Rectangle;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,7 +42,7 @@ public class BossmanPanel extends PluginPanel
 	private final BossmanModePlugin plugin;
 	private final ItemManager itemManager;
 
-	private final JPanel body = new JPanel();
+	private final JPanel body = new ScrollableBody();
 	private final SkillIconManager skillIconManager;
 	private final java.util.Map<String, java.awt.image.BufferedImage> icons = new java.util.HashMap<>();
 	/** null = follow the current rung; otherwise the rung being browsed */
@@ -74,11 +75,46 @@ public class BossmanPanel extends PluginPanel
 		refresh();
 	}
 
+	/** A vertical stack that always fits the panel's width, so nothing is clipped on the right. */
+	private static class ScrollableBody extends JPanel implements javax.swing.Scrollable
+	{
+		@Override
+		public Dimension getPreferredScrollableViewportSize()
+		{
+			return getPreferredSize();
+		}
+
+		@Override
+		public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction)
+		{
+			return 16;
+		}
+
+		@Override
+		public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction)
+		{
+			return visibleRect.height;
+		}
+
+		@Override
+		public boolean getScrollableTracksViewportWidth()
+		{
+			return true;
+		}
+
+		@Override
+		public boolean getScrollableTracksViewportHeight()
+		{
+			return false;
+		}
+	}
+
 	private JPanel wrapScroll(JPanel inner)
 	{
 		JPanel outer = new JPanel(new BorderLayout());
 		outer.setBackground(ColorScheme.DARK_GRAY_COLOR);
 		javax.swing.JScrollPane scroll = new javax.swing.JScrollPane(inner);
+		scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setBorder(null);
 		scroll.setBackground(ColorScheme.DARK_GRAY_COLOR);
 		scroll.getVerticalScrollBar().setUnitIncrement(16);
@@ -143,7 +179,7 @@ public class BossmanPanel extends PluginPanel
 	{
 		JPanel p = new JPanel(new BorderLayout());
 		p.setBackground(ColorScheme.DARK_GRAY_COLOR);
-		JLabel title = new JLabel("Bossman ladder");
+		JLabel title = new JLabel("Bossman");
 		title.setFont(FontManager.getRunescapeBoldFont());
 		title.setForeground(Color.WHITE);
 		p.add(title, BorderLayout.WEST);
@@ -310,7 +346,7 @@ public class BossmanPanel extends PluginPanel
 		}
 		i.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 3));
 		row.add(i);
-		JLabel v = new JLabel("<html><body style='width:95px'>" + escape(g.text) + "</body></html>");
+		JLabel v = new JLabel("<html><body style='width:105px'>" + escape(g.text) + "</body></html>");
 		v.setFont(FontManager.getRunescapeSmallFont());
 		v.setForeground(Color.WHITE);
 		row.add(v);
@@ -358,7 +394,7 @@ public class BossmanPanel extends PluginPanel
 			i.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 3));
 			row.add(i);
 		}
-		JLabel v = new JLabel("<html><body style='width:" + (icon != null ? 95 : 115) + "px'>" + escape(value) + "</body></html>");
+		JLabel v = new JLabel("<html><body style='width:" + (icon != null ? 105 : 125) + "px'>" + escape(value) + "</body></html>");
 		v.setFont(FontManager.getRunescapeSmallFont());
 		v.setForeground(valueColor);
 		row.add(v);
@@ -457,8 +493,16 @@ public class BossmanPanel extends PluginPanel
 		JPanel text = new JPanel();
 		text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
 		text.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-		text.add(label(title, titleColor));
-		text.add(wrapLabel(sub, subColor));
+		JLabel t = new JLabel("<html><body style='width:135px'>" + escape(title) + "</body></html>");
+		t.setFont(FontManager.getRunescapeSmallFont());
+		t.setForeground(titleColor);
+		t.setAlignmentX(LEFT_ALIGNMENT);
+		text.add(t);
+		JLabel sb = new JLabel("<html><body style='width:135px'>" + escape(sub) + "</body></html>");
+		sb.setFont(FontManager.getRunescapeSmallFont());
+		sb.setForeground(subColor);
+		sb.setAlignmentX(LEFT_ALIGNMENT);
+		text.add(sb);
 		row.add(text, BorderLayout.CENTER);
 		Dimension pref = row.getPreferredSize();
 		row.setMaximumSize(new Dimension(Integer.MAX_VALUE, Math.max(36, pref.height)));
@@ -527,7 +571,7 @@ public class BossmanPanel extends PluginPanel
 
 	private JLabel wrapLabel(String text, Color color)
 	{
-		JLabel l = new JLabel("<html><body style='width:160px'>" + escape(text) + "</body></html>");
+		JLabel l = new JLabel("<html><body style='width:150px'>" + escape(text) + "</body></html>");
 		l.setFont(FontManager.getRunescapeSmallFont());
 		l.setForeground(color);
 		l.setAlignmentX(LEFT_ALIGNMENT);

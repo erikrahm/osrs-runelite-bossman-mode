@@ -148,7 +148,7 @@ public class BossmanModePlugin extends Plugin
 		overlayManager.add(lockedItemOverlay);
 
 		chatCommandManager.registerCommand("!bmcount", this::onCountCommand);
-		chatCommandManager.registerCommand("!bmrung", this::onRungCommand);
+		chatCommandManager.registerCommand("!bmboss", this::onRungCommand);
 		chatCommandManager.registerCommand("!bmbackup", this::onBackupCommand);
 		if (config.resetCommand())
 		{
@@ -175,7 +175,7 @@ public class BossmanModePlugin extends Plugin
 		overlayManager.remove(unlockOverlay);
 		overlayManager.remove(lockedItemOverlay);
 		chatCommandManager.unregisterCommand("!bmcount");
-		chatCommandManager.unregisterCommand("!bmrung");
+		chatCommandManager.unregisterCommand("!bmboss");
 		chatCommandManager.unregisterCommand("!bmbackup");
 		chatCommandManager.unregisterCommand("!bmreset");
 		clientToolbar.removeNavigation(navButton);
@@ -617,7 +617,7 @@ public class BossmanModePlugin extends Plugin
 				have++;
 			}
 		}
-		reply(chatMessage, "Bossman rung " + r.rung + ": " + r.boss + " — " + have + "/" + r.log.gatingItems.size()
+		reply(chatMessage, "Bossman boss " + r.rung + ": " + r.boss + " - " + have + "/" + r.log.gatingItems.size()
 			+ " log items, KC " + rungKc(r) + (r.log.expectedKc != null ? " (expected ~" + r.log.expectedKc + ")" : ""));
 	}
 

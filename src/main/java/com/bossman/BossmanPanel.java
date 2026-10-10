@@ -154,7 +154,7 @@ public class BossmanPanel extends PluginPanel
 	{
 		JPanel p = card();
 		boolean complete = plugin.isRungComplete(r);
-		JLabel name = new JLabel("Rung " + r.rung + ": " + r.boss);
+		JLabel name = new JLabel("Boss " + r.rung + ": " + r.boss);
 		name.setFont(FontManager.getRunescapeBoldFont());
 		name.setForeground(complete ? OK : (isCurrent ? WARN : Color.WHITE));
 		name.setAlignmentX(LEFT_ALIGNMENT);
@@ -194,7 +194,7 @@ public class BossmanPanel extends PluginPanel
 		}
 		if (r.isFirstKillOnly() || r.log.gatingItems.isEmpty())
 		{
-			JCheckBox done = new JCheckBox("Mark rung complete by hand", plugin.getLedger().manualComplete.contains(r.boss));
+			JCheckBox done = new JCheckBox("Mark this boss complete by hand", plugin.getLedger().manualComplete.contains(r.boss));
 			done.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			done.setForeground(MUTED);
 			done.setAlignmentX(LEFT_ALIGNMENT);
@@ -212,7 +212,7 @@ public class BossmanPanel extends PluginPanel
 		p.add(sectionTitle("Collection log (gating)"));
 		if (r.log.gatingItems.isEmpty())
 		{
-			p.add(label("No log items gate this rung.", MUTED));
+			p.add(label("No log items gate this boss.", MUTED));
 			return p;
 		}
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
@@ -268,7 +268,7 @@ public class BossmanPanel extends PluginPanel
 		}
 		if (!any)
 		{
-			p.add(label("Nothing on the board for this rung.", MUTED));
+			p.add(label("Nothing on the board for this boss.", MUTED));
 		}
 		return p;
 	}

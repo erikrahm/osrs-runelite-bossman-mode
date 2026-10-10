@@ -20,7 +20,7 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   (with drop rates and ✓), KC vs expected KC, and the **debt board** — pets/jars that become "debt" once KC reaches their
   drop rate, and 1/5,000+ "meme" items. Browse other rungs with `<` / `>`; no-log rungs (Gemstone Crab, Mimic…) can be marked
   complete by hand.
-- Chat commands: `!bmcount`, `!bmrung`, `!bmbackup`, `!bmreset` (opt-in).
+- Chat commands: `!bmcount`, `!bmboss`, `!bmbackup`, `!bmreset` (opt-in).
 
 Requires the **Loot Tracker** plugin to be enabled for chest/event sources (NPC kills work without it).
 

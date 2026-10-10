@@ -114,6 +114,15 @@ public class BossmanData
 		public Integer expectedKc;
 	}
 
+	public static class Drop
+	{
+		public String item;
+		public List<Integer> ids = new ArrayList<>();
+		public String rate;
+		@SerializedName("in_log")
+		public boolean inLog;
+	}
+
 	public static class Rung
 	{
 		public String boss;
@@ -127,6 +136,8 @@ public class BossmanData
 		public String completion;
 		public List<String> sources = new ArrayList<>();
 		public RungLog log = new RungLog();
+		/** everything the boss (or its chest) can drop, best rate first */
+		public List<Drop> drops = new ArrayList<>();
 
 		public boolean isFirstKillOnly()
 		{

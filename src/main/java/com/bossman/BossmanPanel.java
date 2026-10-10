@@ -9,9 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Rectangle;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.swing.BorderFactory;
@@ -38,6 +36,7 @@ public class BossmanPanel extends PluginPanel
 	private static final Color WARN = new Color(255, 200, 80);
 	private static final Color BAD = new Color(220, 90, 90);
 	private static final Color MUTED = new Color(160, 160, 160);
+	private static final int MAX_LOCKED_SHOWN = 40;
 
 	private final BossmanModePlugin plugin;
 	private final ItemManager itemManager;
@@ -158,7 +157,7 @@ public class BossmanPanel extends PluginPanel
 		body.add(Box.createVerticalStrut(6));
 		addBlock(debtSection(r));
 		body.add(Box.createVerticalStrut(10));
-		addBlock(recentSection());
+		addBlock(unlocksSection(r));
 		body.add(Box.createVerticalGlue());
 		revalidate();
 		repaint();
@@ -436,7 +435,7 @@ public class BossmanPanel extends PluginPanel
 			}
 			any = true;
 			boolean have = plugin.isLogItemUnlocked(gi);
-			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate " + gi.rate, have ? OK : Color.WHITE, MUTED));
+			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate: " + gi.rate, have ? OK : Color.WHITE, MUTED));
 		}
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
@@ -444,11 +443,11 @@ public class BossmanPanel extends PluginPanel
 			boolean have = plugin.isDebtItemUnlocked(d);
 			if (plugin.isDebtItemGating(d))
 			{
-				p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate " + d.rate + (plugin.isJar(d) ? " - jar, gating" : " - pet, gating"), have ? OK : Color.WHITE, MUTED));
+				p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate: " + d.rate + (plugin.isJar(d) ? " - jar, gating" : " - pet, gating"), have ? OK : Color.WHITE, MUTED));
 				continue;
 			}
 			String note = have ? "obtained" : (kc >= d.debtAtKc ? "DEBT since KC " + d.debtAtKc : "not gating - debt-eligible at KC " + d.debtAtKc);
-			p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate " + d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED));
+			p.add(logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate: " + d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED));
 		}
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
@@ -458,7 +457,7 @@ public class BossmanPanel extends PluginPanel
 			}
 			any = true;
 			boolean have = plugin.isLogItemUnlocked(gi);
-			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate " + gi.rate + " - meme grind, optional", have ? OK : MUTED, MUTED));
+			p.add(logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate: " + gi.rate + " - meme grind, optional", have ? OK : MUTED, MUTED));
 		}
 		if (!any)
 		{
@@ -479,7 +478,7 @@ public class BossmanPanel extends PluginPanel
 			if (!plugin.isDebtItemGating(d) && kc >= d.debtAtKc && !plugin.isDebtItemUnlocked(d))
 			{
 				any = true;
-				p.add(wrapLabel(d.item + " (drop rate " + d.rate + ") - owed since KC " + d.debtAtKc, BAD));
+				p.add(wrapLabel(d.item + " (drop rate: " + d.rate + ") - owed since KC " + d.debtAtKc, BAD));
 			}
 		}
 		if (!any)
@@ -522,34 +521,90 @@ public class BossmanPanel extends PluginPanel
 		return row;
 	}
 
-	private JPanel recentSection()
+	/** What this boss has unlocked for you, then what it still could. */
+	private JPanel unlocksSection(BossmanData.Rung r)
 	{
 		JPanel p = card();
-		List<Ledger.Entry> all = new ArrayList<>();
+		java.util.Set<String> sources = new java.util.HashSet<>();
+		for (String src : r.sources)
+		{
+			sources.add(src.toLowerCase(java.util.Locale.ROOT));
+		}
+		// unlocked by one of this boss's sources, in unlock order
+		List<Ledger.Entry> mine = new ArrayList<>();
+		java.util.Set<Integer> mineIds = new java.util.HashSet<>();
 		for (Ledger.Entry en : plugin.getLedger().unlocks.values())
 		{
-			if (!Ledger.KIND_DEFAULT.equals(en.kind))
+			if (en.source != null && sources.contains(en.source.toLowerCase(java.util.Locale.ROOT)))
 			{
-				all.add(en); // bonds etc. are housekeeping, not unlocks
+				mine.add(en);
+				mineIds.add(en.itemId);
 			}
 		}
-		p.add(sectionTitle("Recent unlocks (" + all.size() + " total)"));
-		List<Ledger.Entry> recent = new ArrayList<>();
-		for (int i = all.size() - 1; i >= 0 && recent.size() < 10; i--)
+		int possible = 0;
+		List<BossmanData.Drop> locked = new ArrayList<>();
+		for (BossmanData.Drop d : r.drops)
 		{
-			recent.add(all.get(i));
+			if (d.inLog)
+			{
+				continue; // already listed in the collection log section
+			}
+			possible++;
+			boolean have = false;
+			for (int id : d.ids)
+			{
+				if (mineIds.contains(id) || plugin.getLedger().isUnlocked(id))
+				{
+					have = true;
+					break;
+				}
+			}
+			if (!have)
+			{
+				locked.add(d);
+			}
 		}
-		if (recent.isEmpty())
+		p.add(sectionTitle("Unlocks (" + mine.size() + " from this boss)"));
+		if (mine.isEmpty())
 		{
-			p.add(label("Nothing unlocked yet. Go hit Brutus.", MUTED));
+			p.add(label("Nothing unlocked from this boss yet.", MUTED));
 		}
-		SimpleDateFormat fmt = new SimpleDateFormat("MM-dd HH:mm");
-		for (Ledger.Entry en : recent)
+		for (Ledger.Entry en : mine)
 		{
-			String src = en.source + (en.kc != null ? " KC " + en.kc : "");
-			p.add(wrapLabel(en.name + " - " + src + " - " + fmt.format(new Date(en.time)), Color.WHITE));
+			String rate = rateFor(r, en.itemId);
+			p.add(logRow(java.util.Collections.singletonList(en.itemId), "[x] " + en.name,
+				(rate != null ? "Drop rate: " + rate + " - " : "") + "KC " + (en.kc != null ? en.kc : "?"), OK, MUTED));
+		}
+		if (!locked.isEmpty())
+		{
+			p.add(Box.createVerticalStrut(6));
+			JLabel sub = label("Still to unlock here (" + locked.size() + " of " + possible + ")", WARN);
+			p.add(sub);
+			p.add(Box.createVerticalStrut(4));
+			int shown = 0;
+			for (BossmanData.Drop d : locked)
+			{
+				if (shown++ >= MAX_LOCKED_SHOWN)
+				{
+					p.add(label("... and " + (locked.size() - MAX_LOCKED_SHOWN) + " more", MUTED));
+					break;
+				}
+				p.add(logRow(d.ids, "[ ] " + d.item, "Drop rate: " + d.rate, Color.WHITE, MUTED));
+			}
 		}
 		return p;
+	}
+
+	private String rateFor(BossmanData.Rung r, int itemId)
+	{
+		for (BossmanData.Drop d : r.drops)
+		{
+			if (d.ids.contains(itemId))
+			{
+				return d.rate;
+			}
+		}
+		return null;
 	}
 
 	// ------------------------------------------------------------------ widgets

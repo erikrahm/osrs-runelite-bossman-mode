@@ -656,7 +656,7 @@ public class BossmanPanel extends PluginPanel
 				locked.add(d);
 			}
 		}
-		p.add(sectionTitle("Unlocks (" + mine.size() + " from this boss)"));
+		p.add(sectionTitle("Unlocks (" + mine.size() + "/" + possible + ")"));
 		if (mine.isEmpty())
 		{
 			p.add(label("Nothing unlocked from this boss yet.", MUTED));
@@ -670,7 +670,10 @@ public class BossmanPanel extends PluginPanel
 		if (!locked.isEmpty())
 		{
 			p.add(Box.createVerticalStrut(6));
-			JLabel sub = label("Still to unlock here (" + locked.size() + " of " + possible + ")", WARN);
+			JLabel sub = new JLabel("Still Locked (" + locked.size() + ")");
+			sub.setFont(FontManager.getRunescapeBoldFont());
+			sub.setForeground(Color.WHITE);
+			sub.setAlignmentX(LEFT_ALIGNMENT);
 			p.add(sub);
 			p.add(Box.createVerticalStrut(4));
 			int shown = 0;

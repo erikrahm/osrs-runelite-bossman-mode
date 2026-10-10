@@ -98,17 +98,27 @@ public class BossmanPanel extends PluginPanel
 		int idx = browsing == null ? currentIdx : Math.max(0, Math.min(browsing, rungs.size() - 1));
 		BossmanData.Rung r = rungs.get(idx);
 
-		body.add(header(idx, rungs.size(), current, r));
+		addBlock(header(idx, rungs.size(), current, r));
 		body.add(Box.createVerticalStrut(6));
-		body.add(rungCard(r, r == current));
+		addBlock(rungCard(r, r == current));
 		body.add(Box.createVerticalStrut(6));
-		body.add(logSection(r));
+		addBlock(logSection(r));
 		body.add(Box.createVerticalStrut(6));
-		body.add(debtSection(r));
+		addBlock(debtSection(r));
 		body.add(Box.createVerticalStrut(10));
-		body.add(recentSection());
+		addBlock(recentSection());
+		body.add(Box.createVerticalGlue());
 		revalidate();
 		repaint();
+	}
+
+	/** Left-align and stop BoxLayout from stretching a block vertically. */
+	private void addBlock(JPanel block)
+	{
+		block.setAlignmentX(LEFT_ALIGNMENT);
+		Dimension pref = block.getPreferredSize();
+		block.setMaximumSize(new Dimension(Integer.MAX_VALUE, pref.height));
+		body.add(block);
 	}
 
 	// ------------------------------------------------------------------ sections
@@ -144,9 +154,10 @@ public class BossmanPanel extends PluginPanel
 	{
 		JPanel p = card();
 		boolean complete = plugin.isRungComplete(r);
-		JLabel name = new JLabel("Rung " + r.rung + " — " + r.boss);
+		JLabel name = new JLabel("Rung " + r.rung + ": " + r.boss);
 		name.setFont(FontManager.getRunescapeBoldFont());
 		name.setForeground(complete ? OK : (isCurrent ? WARN : Color.WHITE));
+		name.setAlignmentX(LEFT_ALIGNMENT);
 		p.add(name);
 		p.add(label("Combat level " + (r.combatLevel != null ? r.combatLevel : "n/a"), MUTED));
 		if (r.gate != null && !r.gate.isEmpty())
@@ -154,11 +165,11 @@ public class BossmanPanel extends PluginPanel
 			p.add(wrapLabel("Gate: " + r.gate, MUTED));
 		}
 		String status = complete ? "COMPLETE" : (isCurrent ? "IN PROGRESS" : (r.rung != null && plugin.currentRung() != null && r.rung < plugin.currentRung().rung ? "COMPLETE" : "LOCKED"));
-		p.add(label(status + "  ·  " + r.completion, complete ? OK : (isCurrent ? WARN : MUTED)));
+		p.add(wrapLabel(status + " - " + r.completion, complete ? OK : (isCurrent ? WARN : MUTED)));
 
 		int kc = plugin.rungKc(r);
 		String kcText = "KC " + kc + (r.log.expectedKc != null && r.log.expectedKc > 0 ? "  (expected ~" + r.log.expectedKc + ")" : "");
-		p.add(label(kcText, Color.WHITE));
+		p.add(wrapLabel(kcText, Color.WHITE));
 
 		if (!r.log.gatingItems.isEmpty())
 		{
@@ -173,10 +184,11 @@ public class BossmanPanel extends PluginPanel
 			JProgressBar bar = new JProgressBar(0, r.log.gatingItems.size());
 			bar.setValue(have);
 			bar.setStringPainted(true);
-			bar.setString(have + " / " + r.log.gatingItems.size() + " log items");
+			bar.setString(have + "/" + r.log.gatingItems.size() + " items");
 			bar.setForeground(have == r.log.gatingItems.size() ? OK : WARN);
 			bar.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			bar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 18));
+			bar.setAlignmentX(LEFT_ALIGNMENT);
 			p.add(Box.createVerticalStrut(4));
 			p.add(bar);
 		}
@@ -185,6 +197,8 @@ public class BossmanPanel extends PluginPanel
 			JCheckBox done = new JCheckBox("Mark rung complete by hand", plugin.getLedger().manualComplete.contains(r.boss));
 			done.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			done.setForeground(MUTED);
+			done.setAlignmentX(LEFT_ALIGNMENT);
+			done.setFont(FontManager.getRunescapeSmallFont());
 			done.addActionListener(e -> plugin.markRungComplete(r, done.isSelected()));
 			p.add(Box.createVerticalStrut(4));
 			p.add(done);
@@ -207,6 +221,7 @@ public class BossmanPanel extends PluginPanel
 			JPanel row = new JPanel(new BorderLayout(4, 0));
 			row.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
+			row.setAlignmentX(LEFT_ALIGNMENT);
 			JLabel icon = new JLabel();
 			icon.setPreferredSize(new Dimension(36, 32));
 			if (!gi.ids.isEmpty())
@@ -217,7 +232,7 @@ public class BossmanPanel extends PluginPanel
 			row.add(icon, BorderLayout.WEST);
 			JPanel text = new JPanel(new GridLayout(2, 1));
 			text.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-			text.add(label((have ? "✓ " : "• ") + gi.item, have ? OK : Color.WHITE));
+			text.add(label((have ? "[x] " : "[ ] ") + gi.item, have ? OK : Color.WHITE));
 			text.add(label(gi.rate != null ? gi.rate : "", MUTED));
 			row.add(text, BorderLayout.CENTER);
 			p.add(row);
@@ -243,13 +258,13 @@ public class BossmanPanel extends PluginPanel
 					break;
 				}
 			}
-			String state = have ? "✓ obtained" : (kc >= d.debtAtKc ? "DEBT (KC " + kc + " ≥ " + d.debtAtKc + ")" : "pending — debt at KC " + d.debtAtKc);
-			p.add(wrapLabel(d.item + "  " + d.rate + "  ·  " + state, have ? OK : (kc >= d.debtAtKc ? BAD : MUTED)));
+			String state = have ? "obtained" : (kc >= d.debtAtKc ? "DEBT (KC " + kc + " >= " + d.debtAtKc + ")" : "pending - debt at KC " + d.debtAtKc);
+			p.add(wrapLabel(d.item + " " + d.rate + " - " + state, have ? OK : (kc >= d.debtAtKc ? BAD : MUTED)));
 		}
 		for (BossmanData.MemeItem m : r.log.memeItems)
 		{
 			any = true;
-			p.add(wrapLabel(m.item + "  " + m.rate + "  ·  meme grind (optional)", MUTED));
+			p.add(wrapLabel(m.item + " " + m.rate + " - meme grind (optional)", MUTED));
 		}
 		if (!any)
 		{
@@ -261,7 +276,7 @@ public class BossmanPanel extends PluginPanel
 	private JPanel recentSection()
 	{
 		JPanel p = card();
-		p.add(sectionTitle("Recent unlocks  ·  " + plugin.getLedger().unlocks.size() + " total"));
+		p.add(sectionTitle("Recent unlocks (" + plugin.getLedger().unlocks.size() + " total)"));
 		List<Ledger.Entry> recent = new ArrayList<>(plugin.getLedger().recent(10));
 		if (recent.isEmpty())
 		{
@@ -271,7 +286,7 @@ public class BossmanPanel extends PluginPanel
 		for (Ledger.Entry en : recent)
 		{
 			String src = en.source + (en.kc != null ? " KC " + en.kc : "");
-			p.add(wrapLabel(en.name + "  —  " + src + "  ·  " + fmt.format(new Date(en.time)), Color.WHITE));
+			p.add(wrapLabel(en.name + " - " + src + " - " + fmt.format(new Date(en.time)), Color.WHITE));
 		}
 		return p;
 	}
@@ -292,6 +307,7 @@ public class BossmanPanel extends PluginPanel
 		JLabel l = new JLabel(text);
 		l.setFont(FontManager.getRunescapeSmallFont());
 		l.setForeground(WARN);
+		l.setAlignmentX(LEFT_ALIGNMENT);
 		return l;
 	}
 
@@ -301,14 +317,16 @@ public class BossmanPanel extends PluginPanel
 		l.setFont(FontManager.getRunescapeSmallFont());
 		l.setForeground(color);
 		l.setHorizontalAlignment(SwingConstants.LEFT);
+		l.setAlignmentX(LEFT_ALIGNMENT);
 		return l;
 	}
 
 	private JLabel wrapLabel(String text, Color color)
 	{
-		JLabel l = new JLabel("<html><body style='width:170px'>" + escape(text) + "</body></html>");
+		JLabel l = new JLabel("<html><body style='width:160px'>" + escape(text) + "</body></html>");
 		l.setFont(FontManager.getRunescapeSmallFont());
 		l.setForeground(color);
+		l.setAlignmentX(LEFT_ALIGNMENT);
 		return l;
 	}
 

@@ -1,0 +1,14 @@
+// Local-only init script (not part of the Plugin Hub build): lets Gradle download a JDK 11 for compiling when the
+// machine only has a JRE or a different JDK. Used by build.command / run-client.command via --init-script.
+initscript {
+    repositories { gradlePluginPortal() }
+    dependencies { classpath 'org.gradle.toolchains:foojay-resolver:0.8.0' }
+}
+settingsEvaluated { settings ->
+    settings.pluginManager.apply(org.gradle.toolchains.foojay.FoojayToolchainsConventionPlugin)
+}
+allprojects {
+    plugins.withId('java') {
+        java.toolchain.languageVersion = JavaLanguageVersion.of(11)
+    }
+}

@@ -50,4 +50,5 @@ task runClient(type: JavaExec, dependsOn: testClasses) {
     classpath = sourceSets.test.runtimeClasspath
     mainClass = 'com.bossman.BossmanModePluginTest'
     args = ['--developer-mode']
+    jvmArgs = ['-ea', '--add-exports', 'java.desktop/com.apple.eawt=ALL-UNNAMED', '--add-opens', 'java.desktop/sun.awt=ALL-UNNAMED']
 }

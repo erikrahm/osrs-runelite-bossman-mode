@@ -90,6 +90,16 @@ public class BossmanData
 		public String rate;
 	}
 
+	public static class Gate
+	{
+		public String type;     // quest / diary / skill / combat / task / item / wilderness / kc / none / other
+		public String text;
+		public String skill;    // for type=skill
+		public Integer level;
+		@SerializedName("item_ids")
+		public List<Integer> itemIds = new ArrayList<>();
+	}
+
 	public static class RungLog
 	{
 		@SerializedName("gating_items")
@@ -108,8 +118,7 @@ public class BossmanData
 		@SerializedName("combat_level")
 		public Integer combatLevel;
 		public String gate;
-		@SerializedName("gate_is_quest")
-		public boolean gateIsQuest;
+		public List<Gate> gates = new ArrayList<>();
 		public Integer rung;          // null for floating (Tempoross / Wintertodt)
 		public boolean floating;
 		public boolean blocking;

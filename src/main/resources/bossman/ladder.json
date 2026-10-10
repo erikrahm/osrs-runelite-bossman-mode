@@ -25,7 +25,12 @@
    "boss": "Brutus",
    "combat_level": 30,
    "gate": "The Ides of Milk",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "The Ides of Milk"
+    }
+   ],
    "wiki_page": "Brutus",
    "rung": 1,
    "blocking": true,
@@ -80,7 +85,15 @@
    "boss": "Obor",
    "combat_level": 106,
    "gate": "Giant key (first time only)",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "item",
+     "text": "Giant key",
+     "item_ids": [
+      20754
+     ]
+    }
+   ],
    "wiki_page": "Obor",
    "rung": 2,
    "blocking": true,
@@ -108,7 +121,12 @@
    "boss": "Barrows (6 brothers)",
    "combat_level": 115,
    "gate": "Priest in Peril",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Priest in Peril"
+    }
+   ],
    "wiki_page": "Barrows",
    "rung": 3,
    "blocking": true,
@@ -325,7 +343,15 @@
    "boss": "Bryophyta",
    "combat_level": 128,
    "gate": "Mossy key (first time only)",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "item",
+     "text": "Mossy key",
+     "item_ids": [
+      22374
+     ]
+    }
+   ],
    "wiki_page": "Bryophyta",
    "rung": 4,
    "blocking": true,
@@ -353,7 +379,12 @@
    "boss": "Gemstone Crab",
    "combat_level": 160,
    "gate": "Children of the Sun",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Children of the Sun"
+    }
+   ],
    "wiki_page": "Gemstone_Crab",
    "rung": 5,
    "blocking": false,
@@ -373,7 +404,15 @@
    "boss": "The Mimic",
    "combat_level": 186,
    "gate": "Mimic casket from an elite/master clue",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "item",
+     "text": "Mimic casket from an elite/master clue",
+     "item_ids": [
+      20543
+     ]
+    }
+   ],
    "wiki_page": "The_Mimic",
    "rung": 6,
    "blocking": false,
@@ -393,7 +432,12 @@
    "boss": "Scurrius",
    "combat_level": 200,
    "gate": "None",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "none",
+     "text": "none"
+    }
+   ],
    "wiki_page": "Scurrius",
    "rung": 7,
    "blocking": true,
@@ -430,7 +474,12 @@
    "boss": "Chaos Fanatic",
    "combat_level": 202,
    "gate": "None (Wilderness)",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "wilderness",
+     "text": "Wilderness"
+    }
+   ],
    "wiki_page": "Chaos_Fanatic",
    "rung": 8,
    "blocking": true,
@@ -474,7 +523,12 @@
    "boss": "Crazy archaeologist",
    "combat_level": 204,
    "gate": "None (Wilderness)",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "wilderness",
+     "text": "Wilderness"
+    }
+   ],
    "wiki_page": "Crazy_archaeologist",
    "rung": 9,
    "blocking": true,
@@ -516,7 +570,12 @@
    "boss": "Scorpia",
    "combat_level": 225,
    "gate": "None (Wilderness)",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "wilderness",
+     "text": "Wilderness"
+    }
+   ],
    "wiki_page": "Scorpia",
    "rung": 10,
    "blocking": true,
@@ -567,7 +626,22 @@
    "boss": "Giant Mole",
    "combat_level": 230,
    "gate": "Light source; Spade",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "item",
+     "text": "Light source",
+     "item_ids": [
+      36
+     ]
+    },
+    {
+     "type": "item",
+     "text": "Spade",
+     "item_ids": [
+      952
+     ]
+    }
+   ],
    "wiki_page": "Giant_Mole",
    "rung": 11,
    "blocking": true,
@@ -618,7 +692,27 @@
    "boss": "Shellbane gryphon",
    "combat_level": 235,
    "gate": "51 Slayer; 60 Combat; Troubled Tortugans; Gryphon Slayer task",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "51 Slayer",
+     "skill": "Slayer",
+     "level": 51
+    },
+    {
+     "type": "combat",
+     "text": "60 Combat",
+     "level": 60
+    },
+    {
+     "type": "quest",
+     "text": "Troubled Tortugans"
+    },
+    {
+     "type": "task",
+     "text": "Gryphon Slayer task"
+    }
+   ],
    "wiki_page": "Shellbane_gryphon",
    "rung": 12,
    "blocking": true,
@@ -671,7 +765,34 @@
    "boss": "Grotesque Guardians",
    "combat_level": 248,
    "gate": "75 Slayer; 70 Combat; Priest in Peril; Brittle key (first time only); Gargoyle or Grotesque Guardians Slayer task",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "75 Slayer",
+     "skill": "Slayer",
+     "level": 75
+    },
+    {
+     "type": "combat",
+     "text": "70 Combat",
+     "level": 70
+    },
+    {
+     "type": "quest",
+     "text": "Priest in Peril"
+    },
+    {
+     "type": "item",
+     "text": "Brittle key",
+     "item_ids": [
+      21724
+     ]
+    },
+    {
+     "type": "task",
+     "text": "Gargoyle or Grotesque Guardians Slayer task"
+    }
+   ],
    "wiki_page": "Grotesque_Guardians",
    "rung": 13,
    "blocking": true,
@@ -745,7 +866,12 @@
    "boss": "Amoxliatl",
    "combat_level": 263,
    "gate": "The Heart of Darkness",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "The Heart of Darkness"
+    }
+   ],
    "wiki_page": "Amoxliatl",
    "rung": 14,
    "blocking": true,
@@ -795,8 +921,13 @@
   {
    "boss": "Calvar'ion",
    "combat_level": 264,
-   "gate": "Wilderness Hard Diary (for Calvar'ion's lair)",
-   "gate_is_quest": false,
+   "gate": "Krystilia Wilderness-boss task (Hard Diary is rule-blocked)",
+   "gates": [
+    {
+     "type": "task",
+     "text": "Krystilia Wilderness-boss task (Hard Diary is rule-blocked)"
+    }
+   ],
    "wiki_page": "Calvar'ion",
    "rung": 15,
    "blocking": false,
@@ -865,7 +996,12 @@
    "boss": "King Black Dragon",
    "combat_level": 276,
    "gate": "None (Wilderness lever)",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "wilderness",
+     "text": "Wilderness"
+    }
+   ],
    "wiki_page": "King_Black_Dragon",
    "rung": 16,
    "blocking": true,
@@ -918,7 +1054,12 @@
    "boss": "Deranged Archaeologist",
    "combat_level": 276,
    "gate": "Bone Voyage",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Bone Voyage"
+    }
+   ],
    "wiki_page": "Deranged_Archaeologist",
    "rung": 17,
    "blocking": true,
@@ -946,7 +1087,21 @@
    "boss": "Hespori",
    "combat_level": 284,
    "gate": "Hespori seed; 65 Farming",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "item",
+     "text": "Hespori seed",
+     "item_ids": [
+      22875
+     ]
+    },
+    {
+     "type": "skill",
+     "text": "65 Farming",
+     "skill": "Farming",
+     "level": 65
+    }
+   ],
    "wiki_page": "Hespori",
    "rung": 18,
    "blocking": true,
@@ -996,7 +1151,29 @@
    "boss": "Kraken",
    "combat_level": 291,
    "gate": "87 Slayer; 50 Magic; 80 Combat; Cave kraken or Kraken Slayer task",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "87 Slayer",
+     "skill": "Slayer",
+     "level": 87
+    },
+    {
+     "type": "skill",
+     "text": "50 Magic",
+     "skill": "Magic",
+     "level": 50
+    },
+    {
+     "type": "combat",
+     "text": "80 Combat",
+     "level": 80
+    },
+    {
+     "type": "task",
+     "text": "Cave kraken or Kraken Slayer task"
+    }
+   ],
    "wiki_page": "Kraken",
    "rung": 19,
    "blocking": true,
@@ -1048,7 +1225,23 @@
    "boss": "Thermonuclear smoke devil",
    "combat_level": 301,
    "gate": "93 Slayer; 85 Combat; Smoke devil or Thermonuclear smoke devil Slayer task",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "93 Slayer",
+     "skill": "Slayer",
+     "level": 93
+    },
+    {
+     "type": "combat",
+     "text": "85 Combat",
+     "level": 85
+    },
+    {
+     "type": "task",
+     "text": "Smoke devil or Thermonuclear smoke devil Slayer task"
+    }
+   ],
    "wiki_page": "Thermonuclear_smoke_devil",
    "rung": 20,
    "blocking": true,
@@ -1108,8 +1301,13 @@
   {
    "boss": "Spindel",
    "combat_level": 302,
-   "gate": "Wilderness Hard Diary (for Spindel's lair)",
-   "gate_is_quest": false,
+   "gate": "Krystilia Wilderness-boss task (Hard Diary is rule-blocked)",
+   "gates": [
+    {
+     "type": "task",
+     "text": "Krystilia Wilderness-boss task (Hard Diary is rule-blocked)"
+    }
+   ],
    "wiki_page": "Spindel",
    "rung": 21,
    "blocking": false,
@@ -1175,8 +1373,13 @@
   {
    "boss": "Dagannoth Supreme",
    "combat_level": 303,
-   "gate": "Another player, or Pet rock + Rune thrownaxe, or 85 Agility",
-   "gate_is_quest": false,
+   "gate": "Another player (alt) or 85 Agility",
+   "gates": [
+    {
+     "type": "other",
+     "text": "Another player (alt) or 85 Agility"
+    }
+   ],
    "wiki_page": "Dagannoth_Supreme",
    "rung": 22,
    "blocking": true,
@@ -1226,8 +1429,13 @@
   {
    "boss": "Dagannoth Rex",
    "combat_level": 303,
-   "gate": "Another player, or Pet rock + Rune thrownaxe, or 85 Agility",
-   "gate_is_quest": false,
+   "gate": "Another player (alt) or 85 Agility",
+   "gates": [
+    {
+     "type": "other",
+     "text": "Another player (alt) or 85 Agility"
+    }
+   ],
    "wiki_page": "Dagannoth_Rex",
    "rung": 23,
    "blocking": true,
@@ -1278,8 +1486,13 @@
   {
    "boss": "Dagannoth Prime",
    "combat_level": 303,
-   "gate": "Another player, or Pet rock + Rune thrownaxe, or 85 Agility",
-   "gate_is_quest": false,
+   "gate": "Another player (alt) or 85 Agility",
+   "gates": [
+    {
+     "type": "other",
+     "text": "Another player (alt) or 85 Agility"
+    }
+   ],
    "wiki_page": "Dagannoth_Prime",
    "rung": 24,
    "blocking": true,
@@ -1330,7 +1543,12 @@
    "boss": "Chaos Elemental",
    "combat_level": 305,
    "gate": "None (Wilderness)",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "wilderness",
+     "text": "Wilderness"
+    }
+   ],
    "wiki_page": "Chaos_Elemental",
    "rung": 25,
    "blocking": true,
@@ -1375,7 +1593,17 @@
    "boss": "Sarachnis",
    "combat_level": 318,
    "gate": "Slash weapon or Knife or Aranea boots",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "item",
+     "text": "Slash weapon or Knife or Aranea boots",
+     "item_ids": [
+      946,
+      5605,
+      28413
+     ]
+    }
+   ],
    "wiki_page": "Sarachnis",
    "rung": 26,
    "blocking": true,
@@ -1436,7 +1664,23 @@
    "boss": "Cerberus",
    "combat_level": 318,
    "gate": "91 Slayer; 75 Combat; Hellhound or Cerberus Slayer task",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "91 Slayer",
+     "skill": "Slayer",
+     "level": 91
+    },
+    {
+     "type": "combat",
+     "text": "75 Combat",
+     "level": 75
+    },
+    {
+     "type": "task",
+     "text": "Hellhound or Cerberus Slayer task"
+    }
+   ],
    "wiki_page": "Cerberus",
    "rung": 27,
    "blocking": true,
@@ -1508,8 +1752,13 @@
   {
    "boss": "Artio",
    "combat_level": 320,
-   "gate": "Wilderness Hard Diary (for Artio's lair)",
-   "gate_is_quest": false,
+   "gate": "Krystilia Wilderness-boss task (Hard Diary is rule-blocked)",
+   "gates": [
+    {
+     "type": "task",
+     "text": "Krystilia Wilderness-boss task (Hard Diary is rule-blocked)"
+    }
+   ],
    "wiki_page": "Artio",
    "rung": 28,
    "blocking": false,
@@ -1576,7 +1825,15 @@
    "boss": "Skotizo",
    "combat_level": 321,
    "gate": "Dark totem",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "item",
+     "text": "Dark totem",
+     "item_ids": [
+      19685
+     ]
+    }
+   ],
    "wiki_page": "Skotizo",
    "rung": 29,
    "blocking": true,
@@ -1642,7 +1899,12 @@
    "boss": "Blood Moon / Blue Moon / Eclipse Moon",
    "combat_level": 329,
    "gate": "Perilous Moons",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Perilous Moons"
+    }
+   ],
    "wiki_page": "Perilous_Moons",
    "rung": 30,
    "blocking": true,
@@ -1778,8 +2040,20 @@
   {
    "boss": "Kalphite Queen",
    "combat_level": 333,
-   "gate": "Rope (x2) or Hard Desert Diary",
-   "gate_is_quest": false,
+   "gate": "Rope (x2)",
+   "gates": [
+    {
+     "type": "item",
+     "text": "Rope (x2)",
+     "item_ids": [
+      954,
+      4498,
+      7155,
+      11046,
+      20587
+     ]
+    }
+   ],
    "wiki_page": "Kalphite_Queen",
    "rung": 31,
    "blocking": true,
@@ -1847,7 +2121,12 @@
    "boss": "Zalcano",
    "combat_level": 336,
    "gate": "Song of the Elves",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Song of the Elves"
+    }
+   ],
    "wiki_page": "Zalcano",
    "rung": 32,
    "blocking": true,
@@ -1899,7 +2178,12 @@
    "boss": "Royal Titans (Branda & Eldric)",
    "combat_level": 350,
    "gate": "None",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "none",
+     "text": "none"
+    }
+   ],
    "wiki_page": "Royal_Titans",
    "rung": 33,
    "blocking": true,
@@ -1973,8 +2257,28 @@
   {
    "boss": "Abyssal Sire",
    "combat_level": 350,
-   "gate": "85 Slayer; 85 Combat; Enter the Abyss or Fairytale II (partial); Abyssal demon or Abyssal Sire Slayer task",
-   "gate_is_quest": false,
+   "gate": "85 Slayer; 85 Combat; Enter the Abyss; Abyssal demon or Abyssal Sire Slayer task",
+   "gates": [
+    {
+     "type": "skill",
+     "text": "85 Slayer",
+     "skill": "Slayer",
+     "level": 85
+    },
+    {
+     "type": "combat",
+     "text": "85 Combat",
+     "level": 85
+    },
+    {
+     "type": "quest",
+     "text": "Enter the Abyss"
+    },
+    {
+     "type": "task",
+     "text": "Abyssal demon or Abyssal Sire Slayer task"
+    }
+   ],
    "wiki_page": "Abyssal_Sire",
    "rung": 34,
    "blocking": true,
@@ -2012,7 +2316,12 @@
    "boss": "Revenant maledictus",
    "combat_level": 397,
    "gate": "None (Wilderness)",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "wilderness",
+     "text": "Wilderness"
+    }
+   ],
    "wiki_page": "Revenant_maledictus",
    "rung": 35,
    "blocking": false,
@@ -2032,7 +2341,23 @@
    "boss": "Alchemical Hydra",
    "combat_level": 426,
    "gate": "95 Slayer; 75 Combat; Hydra or Alchemical Hydra Slayer task",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "95 Slayer",
+     "skill": "Slayer",
+     "level": 95
+    },
+    {
+     "type": "combat",
+     "text": "75 Combat",
+     "level": 75
+    },
+    {
+     "type": "task",
+     "text": "Hydra or Alchemical Hydra Slayer task"
+    }
+   ],
    "wiki_page": "Alchemical_Hydra",
    "rung": 36,
    "blocking": true,
@@ -2138,8 +2463,13 @@
   {
    "boss": "Vet'ion",
    "combat_level": 454,
-   "gate": "Wilderness Medium Diary (for Vet'ion's Rest)",
-   "gate_is_quest": false,
+   "gate": "Wilderness Medium Diary or boss task",
+   "gates": [
+    {
+     "type": "diary",
+     "text": "Wilderness Medium Diary or boss task"
+    }
+   ],
    "wiki_page": "Vet'ion",
    "rung": 37,
    "blocking": true,
@@ -2208,8 +2538,13 @@
   {
    "boss": "Venenatis",
    "combat_level": 464,
-   "gate": "Wilderness Medium Diary (for Silk Chasm)",
-   "gate_is_quest": false,
+   "gate": "Wilderness Medium Diary or boss task",
+   "gates": [
+    {
+     "type": "diary",
+     "text": "Wilderness Medium Diary or boss task"
+    }
+   ],
    "wiki_page": "Venenatis",
    "rung": 38,
    "blocking": true,
@@ -2276,8 +2611,13 @@
   {
    "boss": "Callisto",
    "combat_level": 470,
-   "gate": "Wilderness Medium Diary (for Callisto's Den)",
-   "gate_is_quest": false,
+   "gate": "Wilderness Medium Diary or boss task",
+   "gates": [
+    {
+     "type": "diary",
+     "text": "Wilderness Medium Diary or boss task"
+    }
+   ],
    "wiki_page": "Callisto",
    "rung": 39,
    "blocking": true,
@@ -2345,7 +2685,12 @@
    "boss": "Tombs of Amascut (raid)",
    "combat_level": 544,
    "gate": "Beneath Cursed Sands",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Beneath Cursed Sands"
+    }
+   ],
    "wiki_page": "Tombs_of_Amascut",
    "rung": 40,
    "blocking": true,
@@ -2521,7 +2866,12 @@
    "boss": "Chambers of Xeric (raid)",
    "combat_level": 549,
    "gate": "None (Kourend access)",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "none",
+     "text": "none"
+    }
+   ],
    "wiki_page": "Chambers_of_Xeric",
    "rung": 41,
    "blocking": true,
@@ -2675,7 +3025,12 @@
    "boss": "Doom of Mokhaiotl",
    "combat_level": 558,
    "gate": "The Final Dawn",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "The Final Dawn"
+    }
+   ],
    "wiki_page": "Doom_of_Mokhaiotl",
    "rung": 42,
    "blocking": true,
@@ -2735,7 +3090,22 @@
    "boss": "Kree'arra",
    "combat_level": 580,
    "gate": "70 Ranged; Mith grapple",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "70 Ranged",
+     "skill": "Ranged",
+     "level": 70
+    },
+    {
+     "type": "item",
+     "text": "Mith grapple",
+     "item_ids": [
+      9418,
+      9419
+     ]
+    }
+   ],
    "wiki_page": "Kree'arra",
    "rung": 43,
    "blocking": true,
@@ -2814,7 +3184,12 @@
    "boss": "Mad Angel",
    "combat_level": 588,
    "gate": "Fallen From Grace",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Fallen From Grace"
+    }
+   ],
    "wiki_page": "Mad_Angel",
    "rung": 44,
    "blocking": true,
@@ -2873,7 +3248,25 @@
    "boss": "Commander Zilyana",
    "combat_level": 596,
    "gate": "70 Agility; Rope (x2) (first time only)",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "70 Agility",
+     "skill": "Agility",
+     "level": 70
+    },
+    {
+     "type": "item",
+     "text": "Rope (x2)",
+     "item_ids": [
+      954,
+      4498,
+      7155,
+      11046,
+      20587
+     ]
+    }
+   ],
    "wiki_page": "Commander_Zilyana",
    "rung": 45,
    "blocking": true,
@@ -2952,8 +3345,22 @@
   {
    "boss": "General Graardor",
    "combat_level": 624,
-   "gate": "70 Strength; Hammer or Dragon warhammer or Elder maul",
-   "gate_is_quest": false,
+   "gate": "70 Strength; Hammer",
+   "gates": [
+    {
+     "type": "skill",
+     "text": "70 Strength",
+     "skill": "Strength",
+     "level": 70
+    },
+    {
+     "type": "item",
+     "text": "Hammer",
+     "item_ids": [
+      2347
+     ]
+    }
+   ],
    "wiki_page": "General_Graardor",
    "rung": 46,
    "blocking": true,
@@ -3033,7 +3440,12 @@
    "boss": "The Hueycoatl",
    "combat_level": 642,
    "gate": "Children of the Sun",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Children of the Sun"
+    }
+   ],
    "wiki_page": "The_Hueycoatl",
    "rung": 47,
    "blocking": true,
@@ -3098,7 +3510,14 @@
    "boss": "K'ril Tsutsaroth",
    "combat_level": 650,
    "gate": "70 Hitpoints",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "70 Hitpoints",
+     "skill": "Hitpoints",
+     "level": 70
+    }
+   ],
    "wiki_page": "K'ril_Tsutsaroth",
    "rung": 48,
    "blocking": true,
@@ -3179,7 +3598,12 @@
    "boss": "Crystalline Hunllef",
    "combat_level": 674,
    "gate": "Song of the Elves",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Song of the Elves"
+    }
+   ],
    "wiki_page": "Crystalline_Hunllef",
    "rung": 49,
    "blocking": true,
@@ -3233,7 +3657,12 @@
    "boss": "TzTok-Jad",
    "combat_level": 702,
    "gate": "None",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "none",
+     "text": "none"
+    }
+   ],
    "wiki_page": "TzTok-Jad",
    "rung": 50,
    "blocking": true,
@@ -3265,7 +3694,12 @@
    "boss": "Zulrah",
    "combat_level": 725,
    "gate": "Regicide",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Regicide"
+    }
+   ],
    "wiki_page": "Zulrah",
    "rung": 51,
    "blocking": true,
@@ -3362,7 +3796,12 @@
    "boss": "Vorkath",
    "combat_level": 732,
    "gate": "Dragon Slayer II",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Dragon Slayer II"
+    }
+   ],
    "wiki_page": "Vorkath",
    "rung": 52,
    "blocking": true,
@@ -3430,7 +3869,12 @@
    "boss": "Phantom Muspah",
    "combat_level": 741,
    "gate": "Secrets of the North",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Secrets of the North"
+    }
+   ],
    "wiki_page": "Phantom_Muspah",
    "rung": 53,
    "blocking": true,
@@ -3497,7 +3941,12 @@
    "boss": "Maggot King",
    "combat_level": 741,
    "gate": "The Blood Moon Rises",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "The Blood Moon Rises"
+    }
+   ],
    "wiki_page": "Maggot_King",
    "rung": 54,
    "blocking": true,
@@ -3541,7 +3990,12 @@
    "boss": "Duke Sucellus",
    "combat_level": 758,
    "gate": "Desert Treasure II - The Fallen Empire",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Desert Treasure II - The Fallen Empire"
+    }
+   ],
    "wiki_page": "Duke_Sucellus",
    "rung": 55,
    "blocking": true,
@@ -3634,7 +4088,12 @@
    "boss": "Vardorvis",
    "combat_level": 784,
    "gate": "Desert Treasure II - The Fallen Empire",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Desert Treasure II - The Fallen Empire"
+    }
+   ],
    "wiki_page": "Vardorvis",
    "rung": 56,
    "blocking": true,
@@ -3727,7 +4186,12 @@
    "boss": "Corporeal Beast",
    "combat_level": 785,
    "gate": "None",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "none",
+     "text": "none"
+    }
+   ],
    "wiki_page": "Corporeal_Beast",
    "rung": 57,
    "blocking": true,
@@ -3801,7 +4265,12 @@
    "boss": "The Whisperer",
    "combat_level": 791,
    "gate": "Desert Treasure II - The Fallen Empire",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Desert Treasure II - The Fallen Empire"
+    }
+   ],
    "wiki_page": "The_Whisperer",
    "rung": 58,
    "blocking": true,
@@ -3894,7 +4363,12 @@
    "boss": "The Leviathan",
    "combat_level": 798,
    "gate": "Desert Treasure II - The Fallen Empire",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Desert Treasure II - The Fallen Empire"
+    }
+   ],
    "wiki_page": "The_Leviathan",
    "rung": 59,
    "blocking": true,
@@ -3987,7 +4461,12 @@
    "boss": "The Nightmare",
    "combat_level": 814,
    "gate": "Priest in Peril",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Priest in Peril"
+    }
+   ],
    "wiki_page": "The_Nightmare",
    "rung": 60,
    "blocking": true,
@@ -4088,7 +4567,22 @@
    "boss": "Araxxor",
    "combat_level": 890,
    "gate": "92 Slayer; Priest in Peril; Araxyte or spider Slayer task",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "92 Slayer",
+     "skill": "Slayer",
+     "level": 92
+    },
+    {
+     "type": "quest",
+     "text": "Priest in Peril"
+    },
+    {
+     "type": "task",
+     "text": "Araxyte or spider Slayer task"
+    }
+   ],
    "wiki_page": "Araxxor",
    "rung": 61,
    "blocking": true,
@@ -4171,7 +4665,12 @@
    "boss": "Corrupted Hunllef",
    "combat_level": 894,
    "gate": "Song of the Elves",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Song of the Elves"
+    }
+   ],
    "wiki_page": "Corrupted_Hunllef",
    "rung": 62,
    "blocking": true,
@@ -4230,7 +4729,12 @@
    "boss": "Nex",
    "combat_level": 1001,
    "gate": "The Frozen Door",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "The Frozen Door"
+    }
+   ],
    "wiki_page": "Nex",
    "rung": 63,
    "blocking": true,
@@ -4309,7 +4813,16 @@
    "boss": "Phosani's Nightmare",
    "combat_level": 1024,
    "gate": "Priest in Peril; 50 Nightmare kills",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Priest in Peril"
+    },
+    {
+     "type": "kc",
+     "text": "50 Nightmare kills"
+    }
+   ],
    "wiki_page": "Phosani's_Nightmare",
    "rung": 64,
    "blocking": true,
@@ -4420,8 +4933,13 @@
   {
    "boss": "Theatre of Blood (raid)",
    "combat_level": 1040,
-   "gate": "A Taste of Hope (Priest in Peril → Darkness of Hallowvale → A Taste of Hope)",
-   "gate_is_quest": true,
+   "gate": "A Taste of Hope",
+   "gates": [
+    {
+     "type": "quest",
+     "text": "A Taste of Hope"
+    }
+   ],
    "wiki_page": "Theatre_of_Blood",
    "rung": 65,
    "blocking": true,
@@ -4536,7 +5054,16 @@
    "boss": "Demonic Brutus",
    "combat_level": 1224,
    "gate": "The Ides of Milk; Desert Treasure II",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "The Ides of Milk"
+    },
+    {
+     "type": "quest",
+     "text": "Desert Treasure II - The Fallen Empire"
+    }
+   ],
    "wiki_page": "Demonic_Brutus",
    "rung": 66,
    "blocking": false,
@@ -4556,7 +5083,12 @@
    "boss": "Yama",
    "combat_level": 1238,
    "gate": "A Kingdom Divided",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "A Kingdom Divided"
+    }
+   ],
    "wiki_page": "Yama",
    "rung": 67,
    "blocking": true,
@@ -4653,7 +5185,16 @@
    "boss": "TzKal-Zuk",
    "combat_level": 1400,
    "gate": "Fire cape (first time only)",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "item",
+     "text": "Fire cape",
+     "item_ids": [
+      6570,
+      10566
+     ]
+    }
+   ],
    "wiki_page": "TzKal-Zuk",
    "rung": 68,
    "blocking": true,
@@ -4685,7 +5226,12 @@
    "boss": "Sol Heredit",
    "combat_level": 1563,
    "gate": "Children of the Sun",
-   "gate_is_quest": true,
+   "gates": [
+    {
+     "type": "quest",
+     "text": "Children of the Sun"
+    }
+   ],
    "wiki_page": "Sol_Heredit",
    "rung": 69,
    "blocking": true,
@@ -4767,7 +5313,14 @@
    "boss": "Tempoross",
    "combat_level": null,
    "gate": "35 Fishing",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "35 Fishing",
+     "skill": "Fishing",
+     "level": 35
+    }
+   ],
    "wiki_page": "Tempoross",
    "rung": null,
    "floating": true,
@@ -4854,7 +5407,14 @@
    "boss": "Wintertodt",
    "combat_level": null,
    "gate": "50 Firemaking",
-   "gate_is_quest": false,
+   "gates": [
+    {
+     "type": "skill",
+     "text": "50 Firemaking",
+     "skill": "Firemaking",
+     "level": 50
+    }
+   ],
    "wiki_page": "Wintertodt",
    "rung": null,
    "floating": true,

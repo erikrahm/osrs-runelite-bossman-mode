@@ -22,7 +22,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
+import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
+import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
@@ -39,26 +41,29 @@ public class BossmanPanel extends PluginPanel
 	private final ItemManager itemManager;
 
 	private final JPanel body = new JPanel();
-	private final java.awt.image.BufferedImage questIcon;
+	private final SkillIconManager skillIconManager;
+	private final java.util.Map<String, java.awt.image.BufferedImage> icons = new java.util.HashMap<>();
 	/** null = follow the current rung; otherwise the rung being browsed */
 	private Integer browsing;
 
 	@Inject
-	public BossmanPanel(BossmanModePlugin plugin, ItemManager itemManager)
+	public BossmanPanel(BossmanModePlugin plugin, ItemManager itemManager, SkillIconManager skillIconManager)
 	{
 		super(false);
 		this.plugin = plugin;
 		this.itemManager = itemManager;
-		java.awt.image.BufferedImage qi = null;
-		try
+		this.skillIconManager = skillIconManager;
+		for (String n : new String[]{"quest", "diary", "combat", "wilderness"})
 		{
-			qi = net.runelite.client.util.ImageUtil.loadImageResource(BossmanPanel.class, "/bossman/quest_icon.png");
-			qi = net.runelite.client.util.ImageUtil.resizeImage(qi, 14, 14);
+			try
+			{
+				java.awt.image.BufferedImage img = net.runelite.client.util.ImageUtil.loadImageResource(BossmanPanel.class, "/bossman/" + n + "_icon.png");
+				icons.put(n, net.runelite.client.util.ImageUtil.resizeImage(img, 14, 14));
+			}
+			catch (Exception ignored)
+			{
+			}
 		}
-		catch (Exception ignored)
-		{
-		}
-		this.questIcon = qi;
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 		body.setLayout(new BoxLayout(body, BoxLayout.Y_AXIS));
@@ -172,8 +177,19 @@ public class BossmanPanel extends PluginPanel
 		p.add(Box.createVerticalStrut(3));
 
 		p.add(infoRow("Combat level", r.combatLevel != null ? String.valueOf(r.combatLevel) : "n/a", null, Color.WHITE));
-		String gate = (r.gate == null || r.gate.isEmpty()) ? "none" : r.gate;
-		p.add(infoRow("Gate", gate, r.gateIsQuest ? questIcon : null, Color.WHITE));
+		if (r.gates == null || r.gates.isEmpty())
+		{
+			p.add(infoRow("Gate", (r.gate == null || r.gate.isEmpty()) ? "none" : r.gate, null, Color.WHITE));
+		}
+		else
+		{
+			boolean first = true;
+			for (BossmanData.Gate g : r.gates)
+			{
+				p.add(gateRow(first ? "Gate" : null, g));
+				first = false;
+			}
+		}
 
 		BossmanData.Rung cur = plugin.currentRung();
 		String status;
@@ -239,6 +255,87 @@ public class BossmanPanel extends PluginPanel
 		return p;
 	}
 
+	/** One gate requirement: key (first line only), icon by gate type, text. */
+	private JPanel gateRow(String key, BossmanData.Gate g)
+	{
+		java.awt.image.BufferedImage icon = null;
+		switch (g.type == null ? "" : g.type)
+		{
+			case "quest":
+				icon = icons.get("quest");
+				break;
+			case "diary":
+				icon = icons.get("diary");
+				break;
+			case "combat":
+				icon = icons.get("combat");
+				break;
+			case "wilderness":
+				icon = icons.get("wilderness");
+				break;
+			case "skill":
+				icon = skillIcon(g.skill);
+				break;
+			case "task":
+				icon = skillIcon("Slayer");
+				break;
+			case "item":
+				// item icons are async; use a label the ItemManager fills in
+				return itemGateRow(key, g);
+			default:
+				break;
+		}
+		return infoRow(key != null ? key : "", g.text, icon, Color.WHITE);
+	}
+
+	private JPanel itemGateRow(String key, BossmanData.Gate g)
+	{
+		JPanel row = new JPanel();
+		row.setLayout(new BoxLayout(row, BoxLayout.X_AXIS));
+		row.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+		row.setAlignmentX(LEFT_ALIGNMENT);
+		JLabel k = new JLabel(key != null ? key + ": " : "");
+		k.setFont(FontManager.getRunescapeSmallFont());
+		k.setForeground(MUTED);
+		row.add(k);
+		JLabel i = new JLabel();
+		i.setPreferredSize(new Dimension(18, 16));
+		i.setMaximumSize(new Dimension(18, 16));
+		if (g.itemIds != null && !g.itemIds.isEmpty())
+		{
+			AsyncBufferedImage img = itemManager.getImage(g.itemIds.get(0));
+			img.onLoaded(() -> i.setIcon(new javax.swing.ImageIcon(net.runelite.client.util.ImageUtil.resizeImage(img, 16, 16))));
+			i.setIcon(new javax.swing.ImageIcon(net.runelite.client.util.ImageUtil.resizeImage(img, 16, 16)));
+		}
+		i.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 3));
+		row.add(i);
+		JLabel v = new JLabel("<html><body style='width:95px'>" + escape(g.text) + "</body></html>");
+		v.setFont(FontManager.getRunescapeSmallFont());
+		v.setForeground(Color.WHITE);
+		row.add(v);
+		row.add(Box.createHorizontalGlue());
+		Dimension pref = row.getPreferredSize();
+		row.setMaximumSize(new Dimension(Integer.MAX_VALUE, pref.height));
+		return row;
+	}
+
+	private java.awt.image.BufferedImage skillIcon(String name)
+	{
+		if (name == null)
+		{
+			return null;
+		}
+		try
+		{
+			Skill sk = Skill.valueOf(name.toUpperCase(java.util.Locale.ROOT));
+			return skillIconManager.getSkillImage(sk, true);
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
+	}
+
 	/** "Key: value" line with an optional icon in front of the value. */
 	private JPanel infoRow(String key, String value, java.awt.image.BufferedImage icon, Color valueColor)
 	{
@@ -246,10 +343,14 @@ public class BossmanPanel extends PluginPanel
 		row.setLayout(new BoxLayout(row, BoxLayout.X_AXIS));
 		row.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		row.setAlignmentX(LEFT_ALIGNMENT);
-		JLabel k = new JLabel(key + ": ");
+		JLabel k = new JLabel(key.isEmpty() ? "" : key + ": ");
 		k.setFont(FontManager.getRunescapeSmallFont());
 		k.setForeground(MUTED);
 		row.add(k);
+		if (key.isEmpty())
+		{
+			row.add(Box.createHorizontalStrut(30));
+		}
 		if (icon != null)
 		{
 			JLabel i = new JLabel(new javax.swing.ImageIcon(icon));

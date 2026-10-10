@@ -1,0 +1,404 @@
+{
+ "source": "https://oldschool.runescape.wiki/w/Tool (base/shop tier only)",
+ "rule": 2,
+ "groups": {
+  "general": [
+   {
+    "id": 1351,
+    "name": "Bronze axe"
+   },
+   {
+    "id": 28196,
+    "name": "Bronze felling axe",
+    "note": "base tier of the felling axe line"
+   },
+   {
+    "id": 1265,
+    "name": "Bronze pickaxe"
+   },
+   {
+    "id": 1755,
+    "name": "Chisel"
+   },
+   {
+    "id": 5601,
+    "name": "Chisel"
+   },
+   {
+    "id": 28414,
+    "name": "Chisel"
+   },
+   {
+    "id": 2347,
+    "name": "Hammer"
+   },
+   {
+    "id": 946,
+    "name": "Knife"
+   },
+   {
+    "id": 5605,
+    "name": "Knife"
+   },
+   {
+    "id": 28413,
+    "name": "Knife"
+   },
+   {
+    "id": 1523,
+    "name": "Lockpick"
+   },
+   {
+    "id": 28415,
+    "name": "Lockpick"
+   },
+   {
+    "id": 975,
+    "name": "Machete"
+   },
+   {
+    "id": 1733,
+    "name": "Needle"
+   },
+   {
+    "id": 233,
+    "name": "Pestle and mortar"
+   },
+   {
+    "id": 23865,
+    "name": "Pestle and mortar"
+   },
+   {
+    "id": 8794,
+    "name": "Saw"
+   },
+   {
+    "id": 1735,
+    "name": "Shears"
+   },
+   {
+    "id": 5603,
+    "name": "Shears"
+   },
+   {
+    "id": 676,
+    "name": "Trowel"
+   },
+   {
+    "id": 590,
+    "name": "Tinderbox"
+   },
+   {
+    "id": 7156,
+    "name": "Tinderbox"
+   },
+   {
+    "id": 1785,
+    "name": "Glassblowing pipe"
+   },
+   {
+    "id": 1925,
+    "name": "Bucket",
+    "note": "empty bucket only — bucket of water etc. are containers (gated for use)"
+   },
+   {
+    "id": 8986,
+    "name": "Bucket",
+    "note": "empty bucket only — bucket of water etc. are containers (gated for use)"
+   },
+   {
+    "id": 9660,
+    "name": "Bucket",
+    "note": "empty bucket only — bucket of water etc. are containers (gated for use)"
+   }
+  ],
+  "light sources": [
+   {
+    "id": 36,
+    "name": "Candle"
+   },
+   {
+    "id": 33,
+    "name": "Lit candle"
+   },
+   {
+    "id": 38,
+    "name": "Black candle"
+   },
+   {
+    "id": 32,
+    "name": "Lit black candle"
+   },
+   {
+    "id": 4529,
+    "name": "Candle lantern"
+   },
+   {
+    "id": 4531,
+    "name": "Candle lantern"
+   },
+   {
+    "id": 4532,
+    "name": "Candle lantern"
+   },
+   {
+    "id": 4534,
+    "name": "Candle lantern"
+   },
+   {
+    "id": 4522,
+    "name": "Oil lamp"
+   },
+   {
+    "id": 4524,
+    "name": "Oil lamp"
+   },
+   {
+    "id": 4537,
+    "name": "Oil lantern"
+   },
+   {
+    "id": 4539,
+    "name": "Oil lantern"
+   },
+   {
+    "id": 4548,
+    "name": "Bullseye lantern"
+   },
+   {
+    "id": 4550,
+    "name": "Bullseye lantern"
+   },
+   {
+    "id": 4546,
+    "name": "Bullseye lantern (empty)"
+   },
+   {
+    "id": 4544,
+    "name": "Bullseye lantern (unf)"
+   },
+   {
+    "id": 595,
+    "name": "Torch"
+   },
+   {
+    "id": 8987,
+    "name": "Torch"
+   },
+   {
+    "id": 9665,
+    "name": "Torch"
+   },
+   {
+    "id": 594,
+    "name": "Lit torch"
+   }
+  ],
+  "moulds": [
+   {
+    "id": 4,
+    "name": "Ammo mould"
+   },
+   {
+    "id": 1595,
+    "name": "Amulet mould"
+   },
+   {
+    "id": 9434,
+    "name": "Bolt mould"
+   },
+   {
+    "id": 11065,
+    "name": "Bracelet mould"
+   },
+   {
+    "id": 1599,
+    "name": "Holy mould"
+   },
+   {
+    "id": 1597,
+    "name": "Necklace mould"
+   },
+   {
+    "id": 1592,
+    "name": "Ring mould"
+   },
+   {
+    "id": 2976,
+    "name": "Sickle mould"
+   },
+   {
+    "id": 5523,
+    "name": "Tiara mould"
+   },
+   {
+    "id": 1594,
+    "name": "Unholy mould"
+   }
+  ],
+  "farming": [
+   {
+    "id": 5325,
+    "name": "Gardening trowel"
+   },
+   {
+    "id": 5350,
+    "name": "Empty plant pot"
+   },
+   {
+    "id": 5341,
+    "name": "Rake"
+   },
+   {
+    "id": 5329,
+    "name": "Secateurs"
+   },
+   {
+    "id": 5343,
+    "name": "Seed dibber"
+   },
+   {
+    "id": 952,
+    "name": "Spade"
+   },
+   {
+    "id": 5331,
+    "name": "Watering can"
+   },
+   {
+    "id": 5333,
+    "name": "Watering can(1)"
+   },
+   {
+    "id": 5334,
+    "name": "Watering can(2)"
+   },
+   {
+    "id": 5335,
+    "name": "Watering can(3)"
+   },
+   {
+    "id": 5336,
+    "name": "Watering can(4)"
+   },
+   {
+    "id": 5337,
+    "name": "Watering can(5)"
+   },
+   {
+    "id": 5338,
+    "name": "Watering can(6)"
+   },
+   {
+    "id": 5339,
+    "name": "Watering can(7)"
+   },
+   {
+    "id": 5340,
+    "name": "Watering can(8)"
+   }
+  ],
+  "fishing": [
+   {
+    "id": 311,
+    "name": "Harpoon"
+   },
+   {
+    "id": 303,
+    "name": "Small fishing net"
+   },
+   {
+    "id": 6209,
+    "name": "Small fishing net"
+   },
+   {
+    "id": 305,
+    "name": "Big fishing net"
+   },
+   {
+    "id": 301,
+    "name": "Lobster pot"
+   },
+   {
+    "id": 3157,
+    "name": "Karambwan vessel"
+   },
+   {
+    "id": 3159,
+    "name": "Karambwan vessel"
+   },
+   {
+    "id": 307,
+    "name": "Fishing rod"
+   },
+   {
+    "id": 309,
+    "name": "Fly fishing rod"
+   },
+   {
+    "id": 11323,
+    "name": "Barbarian rod"
+   },
+   {
+    "id": 1585,
+    "name": "Oily fishing rod"
+   }
+  ],
+  "hunter": [
+   {
+    "id": 10006,
+    "name": "Bird snare"
+   },
+   {
+    "id": 10008,
+    "name": "Box trap"
+   },
+   {
+    "id": 10010,
+    "name": "Butterfly net"
+   },
+   {
+    "id": 10012,
+    "name": "Butterfly jar",
+    "note": "needed to catch butterflies; treated as hunter tool"
+   },
+   {
+    "id": 10025,
+    "name": "Magic box"
+   },
+   {
+    "id": 10150,
+    "name": "Noose wand"
+   },
+   {
+    "id": 10031,
+    "name": "Rabbit snare"
+   },
+   {
+    "id": 10029,
+    "name": "Teasing stick"
+   }
+  ]
+ },
+ "excluded_upgrades_must_drop": [
+  "Imcando hammer",
+  "Amy's saw",
+  "Crystal saw",
+  "Jeweller's chisel",
+  "Fletching knife",
+  "Magic secateurs",
+  "Gricoller's can",
+  "Bruma torch",
+  "Dragon/Infernal/Crystal/3rd age axe, pickaxe, harpoon",
+  "Barb-tail harpoon",
+  "Pearl rods",
+  "Magic butterfly net",
+  "Sapphire/Emerald lantern",
+  "Bottomless compost/milk bucket",
+  "Double ammo mould",
+  "Crystal tool seed",
+  "Opal/Jade/Red topaz machete",
+  "Kandarin headgear",
+  "Firemaking cape"
+ ]
+}

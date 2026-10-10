@@ -15,8 +15,8 @@ def runeLiteVersion = 'latest.release'
 dependencies {
     compileOnly group: 'net.runelite', name:'client', version: runeLiteVersion
 
-    compileOnly 'org.projectlombok:lombok:1.18.4'
-    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.slf4j:slf4j-simple:1.7.12'
@@ -25,9 +25,9 @@ dependencies {
     }
 }
 
-group = 'codepanter.anotherbronzemanmode'
-version = '1.2'
-sourceCompatibility = '1.8'
+group = 'com.bossman'
+version = '0.1.0'
+sourceCompatibility = '11'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -35,7 +35,7 @@ tasks.withType(JavaCompile) {
 
 task createProperties(dependsOn: processResources) {
     doLast {
-        def bronzeFile = layout.buildDirectory.file("resources/main/anotherbronzemanmode_version.txt").get().asFile
+        def bronzeFile = layout.buildDirectory.file("resources/main/bossmanmode_version.txt").get().asFile
         bronzeFile.text = "version=$project.version"
     }
 }

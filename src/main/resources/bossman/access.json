@@ -1,0 +1,177 @@
+{
+ "rule": "2 (access-equipment extension)",
+ "groups": {
+  "slayer access gear": {
+   "note": "wear to reach/engage the monster; take off for the fight when the game allows",
+   "items": [
+    {
+     "id": 4164,
+     "name": "Facemask"
+    },
+    {
+     "id": 4168,
+     "name": "Nose peg"
+    },
+    {
+     "id": 4166,
+     "name": "Earmuffs"
+    },
+    {
+     "id": 4551,
+     "name": "Spiny helmet"
+    },
+    {
+     "id": 8923,
+     "name": "Witchwood icon"
+    },
+    {
+     "id": 7159,
+     "name": "Insulated boots"
+    },
+    {
+     "id": 23037,
+     "name": "Boots of stone"
+    }
+   ]
+  },
+  "slayer tools": {
+   "note": "consumable tools required to finish a task monster — PENDING ERIK (same spirit as access gear)",
+   "items": [
+    {
+     "id": 4162,
+     "name": "Rock hammer"
+    },
+    {
+     "id": 4161,
+     "name": "Bag of salt"
+    },
+    {
+     "id": 6696,
+     "name": "Ice cooler"
+    },
+    {
+     "id": 7421,
+     "name": "Fungicide spray 10"
+    },
+    {
+     "id": 7422,
+     "name": "Fungicide spray 9"
+    },
+    {
+     "id": 7423,
+     "name": "Fungicide spray 8"
+    },
+    {
+     "id": 7424,
+     "name": "Fungicide spray 7"
+    },
+    {
+     "id": 7425,
+     "name": "Fungicide spray 6"
+    },
+    {
+     "id": 7426,
+     "name": "Fungicide spray 5"
+    },
+    {
+     "id": 7427,
+     "name": "Fungicide spray 4"
+    },
+    {
+     "id": 7428,
+     "name": "Fungicide spray 3"
+    },
+    {
+     "id": 7429,
+     "name": "Fungicide spray 2"
+    },
+    {
+     "id": 7430,
+     "name": "Fungicide spray 1"
+    },
+    {
+     "id": 7431,
+     "name": "Fungicide spray 0"
+    },
+    {
+     "id": 10952,
+     "name": "Slayer bell"
+    },
+    {
+     "id": 7053,
+     "name": "Lit bug lantern"
+    }
+   ]
+  },
+  "keys and totems": {
+   "note": "entry items from their normal source",
+   "items": [
+    {
+     "id": 20754,
+     "name": "Giant key"
+    },
+    {
+     "id": 22374,
+     "name": "Mossy key"
+    },
+    {
+     "id": 21724,
+     "name": "Brittle key"
+    },
+    {
+     "id": 19685,
+     "name": "Dark totem"
+    },
+    {
+     "id": 19679,
+     "name": "Dark totem base"
+    },
+    {
+     "id": 19681,
+     "name": "Dark totem middle"
+    },
+    {
+     "id": 19683,
+     "name": "Dark totem top"
+    }
+   ]
+  },
+  "shortcuts and lairs": {
+   "note": "GWD Armadyl grapple; KQ/Zilyana ropes. Rope is not on the Tool page — treated as access",
+   "items": [
+    {
+     "id": 9418,
+     "name": "Mith grapple"
+    },
+    {
+     "id": 9419,
+     "name": "Mith grapple"
+    },
+    {
+     "id": 954,
+     "name": "Rope"
+    },
+    {
+     "id": 4498,
+     "name": "Rope"
+    },
+    {
+     "id": 7155,
+     "name": "Rope"
+    },
+    {
+     "id": 11046,
+     "name": "Rope"
+    },
+    {
+     "id": 20587,
+     "name": "Rope"
+    }
+   ]
+  }
+ },
+ "open": [
+  "Clue emote-step gear is access equipment but is an open list (resolved per clue, manual unlock with reason \"clue\").",
+  "Stock boat parts (Pandemonium raft, shop skiff/sloop) — identify item/object IDs when Sailing data is scraped."
+ ]
+}

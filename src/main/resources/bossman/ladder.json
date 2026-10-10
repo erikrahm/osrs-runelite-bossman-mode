@@ -1,0 +1,4730 @@
+{
+ "rule": 8,
+ "rules": {
+  "order": "combat level ascending; a rung is complete when its completion condition holds; next rung first-kill only after that",
+  "debt_board": "pets and jars move to the debt board once KC at that boss >= 1/rate; items 1/5000+ are meme (on the board from the start); CAs never gate",
+  "no_log_bosses": [
+   "Demonic Brutus",
+   "Gemstone Crab",
+   "Revenant maledictus",
+   "The Mimic"
+  ],
+  "shared_logs": {
+   "Calvar'ion": "Vet'ion",
+   "Spindel": "Venenatis",
+   "Artio": "Callisto"
+  },
+  "floating": [
+   "Tempoross",
+   "Wintertodt"
+  ],
+  "corp": "teams allowed; elysian stays gating"
+ },
+ "rungs": [
+  {
+   "boss": "Brutus",
+   "combat_level": 30,
+   "gate": "The Ides of Milk",
+   "wiki_page": "Brutus",
+   "rung": 1,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Bottomless milk bucket (empty)",
+      "ids": [
+       33091,
+       33089
+      ],
+      "rate": "1/38"
+     },
+     {
+      "item": "Cow slippers",
+      "ids": [
+       33093,
+       33096,
+       33097,
+       33098
+      ],
+      "rate": "1/150"
+     },
+     {
+      "item": "Mooleta",
+      "ids": [
+       33101
+      ],
+      "rate": "1/30"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Beef",
+      "rate": "1/1000",
+      "debt_at_kc": 1000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 164
+   },
+   "sources": [
+    "Brutus"
+   ]
+  },
+  {
+   "boss": "Obor",
+   "combat_level": 106,
+   "gate": "Giant key (first time only)",
+   "wiki_page": "Obor",
+   "rung": 2,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Giant key",
+      "ids": [
+       20754
+      ],
+      "rate": "1/16"
+     },
+     {
+      "item": "Hill giant club",
+      "ids": [
+       20756
+      ],
+      "rate": "1/118"
+     }
+    ],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 122
+   },
+   "sources": [
+    "Obor"
+   ]
+  },
+  {
+   "boss": "Barrows (6 brothers)",
+   "combat_level": 115,
+   "gate": "Priest in Peril",
+   "wiki_page": "Barrows",
+   "rung": 3,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Ahrim's hood",
+      "ids": [
+       4708
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Ahrim's staff",
+      "ids": [
+       4710,
+       23653
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Ahrim's robetop",
+      "ids": [
+       4712,
+       20598
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Ahrim's robeskirt",
+      "ids": [
+       4714,
+       20599
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Dharok's helm",
+      "ids": [
+       4716,
+       23639
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Dharok's greataxe",
+      "ids": [
+       4718,
+       25516
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Dharok's platebody",
+      "ids": [
+       4720,
+       25515
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Dharok's platelegs",
+      "ids": [
+       4722,
+       23633
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Guthan's helm",
+      "ids": [
+       4724,
+       23638
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Guthan's warspear",
+      "ids": [
+       4726
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Guthan's platebody",
+      "ids": [
+       4728
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Guthan's chainskirt",
+      "ids": [
+       4730
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Karil's coif",
+      "ids": [
+       4732
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Karil's crossbow",
+      "ids": [
+       4734
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Karil's leathertop",
+      "ids": [
+       4736,
+       23632
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Karil's leatherskirt",
+      "ids": [
+       4738
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Bolt rack",
+      "ids": [
+       4740
+      ],
+      "rate": "1/2"
+     },
+     {
+      "item": "Torag's helm",
+      "ids": [
+       4745,
+       23637
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Torag's hammers",
+      "ids": [
+       4747
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Torag's platebody",
+      "ids": [
+       4749
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Torag's platelegs",
+      "ids": [
+       4751,
+       23634
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Verac's helm",
+      "ids": [
+       4753,
+       23636
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Verac's flail",
+      "ids": [
+       4755,
+       27189
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Verac's brassard",
+      "ids": [
+       4757,
+       27190
+      ],
+      "rate": "1/350"
+     },
+     {
+      "item": "Verac's plateskirt",
+      "ids": [
+       4759,
+       23635
+      ],
+      "rate": "1/350"
+     }
+    ],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 1339
+   },
+   "sources": [
+    "Barrows",
+    "Ahrim the Blighted",
+    "Dharok the Wretched",
+    "Guthan the Infested",
+    "Karil the Tainted",
+    "Torag the Corrupted",
+    "Verac the Defiled"
+   ]
+  },
+  {
+   "boss": "Bryophyta",
+   "combat_level": 128,
+   "gate": "Mossy key (first time only)",
+   "wiki_page": "Bryophyta",
+   "rung": 4,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Long bone",
+      "ids": [
+       10976
+      ],
+      "rate": "1/400"
+     },
+     {
+      "item": "Bryophyta's essence",
+      "ids": [
+       22372
+      ],
+      "rate": "1/118"
+     },
+     {
+      "item": "Mossy key",
+      "ids": [
+       22374
+      ],
+      "rate": "1/16"
+     }
+    ],
+    "debt_pets_jars": [],
+    "meme_items": [
+     {
+      "item": "Giant champion scroll",
+      "rate": "1/5000"
+     },
+     {
+      "item": "Curved bone",
+      "rate": "1/5012"
+     }
+    ],
+    "unmatched_rate": [],
+    "expected_kc": 431
+   },
+   "sources": [
+    "Bryophyta"
+   ]
+  },
+  {
+   "boss": "Gemstone Crab",
+   "combat_level": 160,
+   "gate": "Children of the Sun",
+   "wiki_page": "Gemstone_Crab",
+   "rung": 5,
+   "blocking": false,
+   "completion": "first kill",
+   "log": {
+    "gating_items": [],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 0
+   },
+   "sources": [
+    "Gemstone Crab"
+   ]
+  },
+  {
+   "boss": "The Mimic",
+   "combat_level": 186,
+   "gate": "Mimic casket from an elite/master clue",
+   "wiki_page": "The_Mimic",
+   "rung": 6,
+   "blocking": false,
+   "completion": "first kill",
+   "log": {
+    "gating_items": [],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 0
+   },
+   "sources": [
+    "The Mimic"
+   ]
+  },
+  {
+   "boss": "Scurrius",
+   "combat_level": 200,
+   "gate": "None",
+   "wiki_page": "Scurrius",
+   "rung": 7,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Scurrius' spine",
+      "ids": [
+       28798
+      ],
+      "rate": "1/33"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Scurry",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 33
+   },
+   "sources": [
+    "Scurrius"
+   ]
+  },
+  {
+   "boss": "Chaos Fanatic",
+   "combat_level": 202,
+   "gate": "None (Wilderness)",
+   "wiki_page": "Chaos_Fanatic",
+   "rung": 8,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Odium shard 1",
+      "ids": [
+       11928
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Malediction shard 1",
+      "ids": [
+       11931
+      ],
+      "rate": "1/256"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet chaos elemental",
+      "rate": "1/1000",
+      "debt_at_kc": 1000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 373
+   },
+   "sources": [
+    "Chaos Fanatic"
+   ]
+  },
+  {
+   "boss": "Crazy archaeologist",
+   "combat_level": 204,
+   "gate": "None (Wilderness)",
+   "wiki_page": "Crazy_archaeologist",
+   "rung": 9,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Odium shard 2",
+      "ids": [
+       11929
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Malediction shard 2",
+      "ids": [
+       11932
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Fedora",
+      "ids": [
+       11990
+      ],
+      "rate": "1/128"
+     }
+    ],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 402
+   },
+   "sources": [
+    "Crazy archaeologist"
+   ]
+  },
+  {
+   "boss": "Scorpia",
+   "combat_level": 225,
+   "gate": "None (Wilderness)",
+   "wiki_page": "Scorpia",
+   "rung": 10,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Dragon 2h sword",
+      "ids": [
+       7158
+      ],
+      "rate": "1/128"
+     },
+     {
+      "item": "Odium shard 3",
+      "ids": [
+       11930
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Malediction shard 3",
+      "ids": [
+       11933
+      ],
+      "rate": "1/256"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Scorpia's offspring",
+      "rate": "1/2016",
+      "debt_at_kc": 2016
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 415
+   },
+   "sources": [
+    "Scorpia"
+   ]
+  },
+  {
+   "boss": "Giant Mole",
+   "combat_level": 230,
+   "gate": "Light source; Spade",
+   "wiki_page": "Giant_Mole",
+   "rung": 11,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Mole claw",
+      "ids": [
+       7416
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Mole skin",
+      "ids": [
+       7418
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Immaculate mole skin",
+      "ids": [
+       33382
+      ],
+      "rate": "1/50"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Baby Mole",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 51
+   },
+   "sources": [
+    "Giant Mole"
+   ]
+  },
+  {
+   "boss": "Shellbane gryphon",
+   "combat_level": 235,
+   "gate": "51 Slayer; 60 Combat; Troubled Tortugans; Gryphon Slayer task",
+   "wiki_page": "Shellbane_gryphon",
+   "rung": 12,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Belle's folly (tarnished)",
+      "ids": [
+       31245
+      ],
+      "rate": "1/75"
+     },
+     {
+      "item": "Gryphon feather",
+      "ids": [
+       31235
+      ],
+      "rate": "1/1"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Gull (pet)",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     },
+     {
+      "item": "Jar of Feathers",
+      "rate": "1/2000",
+      "debt_at_kc": 2000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 74
+   },
+   "sources": [
+    "Shellbane gryphon"
+   ]
+  },
+  {
+   "boss": "Grotesque Guardians",
+   "combat_level": 248,
+   "gate": "75 Slayer; 70 Combat; Priest in Peril; Brittle key (first time only); Gargoyle or Grotesque Guardians Slayer task",
+   "wiki_page": "Grotesque_Guardians",
+   "rung": 13,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Adamant boots",
+      "ids": [
+       4129
+      ],
+      "rate": "1/71"
+     },
+     {
+      "item": "Granite maul",
+      "ids": [
+       4153,
+       12848,
+       20557,
+       24225,
+       24227
+      ],
+      "rate": "1/125"
+     },
+     {
+      "item": "Granite dust",
+      "ids": [
+       21726
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Black tourmaline core",
+      "ids": [
+       21730
+      ],
+      "rate": "1/500"
+     },
+     {
+      "item": "Granite gloves",
+      "ids": [
+       21736
+      ],
+      "rate": "1/250"
+     },
+     {
+      "item": "Granite ring",
+      "ids": [
+       21739
+      ],
+      "rate": "1/250"
+     },
+     {
+      "item": "Granite hammer",
+      "ids": [
+       21742
+      ],
+      "rate": "1/375"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Jar of Stone",
+      "rate": "1/5000",
+      "debt_at_kc": 5000
+     },
+     {
+      "item": "Noon",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 753
+   },
+   "sources": [
+    "Dusk",
+    "Dawn"
+   ]
+  },
+  {
+   "boss": "Amoxliatl",
+   "combat_level": 263,
+   "gate": "The Heart of Darkness",
+   "wiki_page": "Amoxliatl",
+   "rung": 14,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Glacial temotli",
+      "ids": [
+       29889
+      ],
+      "rate": "1/100"
+     },
+     {
+      "item": "Pendant of Ates (inert)",
+      "ids": [
+       29892
+      ],
+      "rate": "1/25"
+     },
+     {
+      "item": "Frozen tear",
+      "ids": [
+       29895
+      ],
+      "rate": "1/2"
+     },
+     {
+      "item": "Huasca seed",
+      "ids": [
+       30088
+      ],
+      "rate": "1/29"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Moxi",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 106
+   },
+   "sources": [
+    "Amoxliatl"
+   ]
+  },
+  {
+   "boss": "Calvar'ion",
+   "combat_level": 264,
+   "gate": "Wilderness Hard Diary (for Calvar'ion's lair)",
+   "wiki_page": "Calvar'ion",
+   "rung": 15,
+   "blocking": false,
+   "completion": "first kill (shared log greened at Vet'ion)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Dragon 2h sword",
+      "ids": [
+       7158
+      ],
+      "rate": "1/358"
+     },
+     {
+      "item": "Dragon pickaxe",
+      "ids": [
+       11920,
+       12797
+      ],
+      "rate": "1/358"
+     },
+     {
+      "item": "Ring of the gods",
+      "ids": [
+       12601
+      ],
+      "rate": "1/716"
+     },
+     {
+      "item": "Skull of Vet'ion",
+      "ids": [
+       27673
+      ],
+      "rate": "1/618"
+     },
+     {
+      "item": "Voidwaker blade",
+      "ids": [
+       27684
+      ],
+      "rate": "1/912"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Vet'ion Jr.",
+      "rate": "1/2800",
+      "debt_at_kc": 2800
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 1439
+   },
+   "sources": [
+    "Calvar'ion"
+   ]
+  },
+  {
+   "boss": "King Black Dragon",
+   "combat_level": 276,
+   "gate": "None (Wilderness lever)",
+   "wiki_page": "King_Black_Dragon",
+   "rung": 16,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Kbd heads",
+      "ids": [
+       7980
+      ],
+      "rate": "1/128"
+     },
+     {
+      "item": "Dragon pickaxe",
+      "ids": [
+       11920,
+       12797
+      ],
+      "rate": "1/1000"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Prince Black Dragon",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [
+     {
+      "item": "Draconic visage",
+      "rate": "1/5000"
+     }
+    ],
+    "unmatched_rate": [],
+    "expected_kc": 1027
+   },
+   "sources": [
+    "King Black Dragon"
+   ]
+  },
+  {
+   "boss": "Deranged Archaeologist",
+   "combat_level": 276,
+   "gate": "Bone Voyage",
+   "wiki_page": "Deranged_Archaeologist",
+   "rung": 17,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Steel ring",
+      "ids": [
+       30895
+      ],
+      "rate": "1/44"
+     }
+    ],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 43
+   },
+   "sources": [
+    "Deranged Archaeologist"
+   ]
+  },
+  {
+   "boss": "Hespori",
+   "combat_level": 284,
+   "gate": "Hespori seed; 65 Farming",
+   "wiki_page": "Hespori",
+   "rung": 18,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Attas seed",
+      "ids": [
+       22881
+      ],
+      "rate": "1/3"
+     },
+     {
+      "item": "Iasor seed",
+      "ids": [
+       22883
+      ],
+      "rate": "1/3"
+     },
+     {
+      "item": "Kronos seed",
+      "ids": [
+       22885
+      ],
+      "rate": "1/3"
+     },
+     {
+      "item": "Bottomless compost bucket",
+      "ids": [
+       22994,
+       22997
+      ],
+      "rate": "1/35"
+     }
+    ],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 35
+   },
+   "sources": [
+    "Hespori"
+   ]
+  },
+  {
+   "boss": "Kraken",
+   "combat_level": 291,
+   "gate": "87 Slayer; 50 Magic; 80 Combat; Cave kraken or Kraken Slayer task",
+   "wiki_page": "Kraken",
+   "rung": 19,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Trident of the Seas (full)",
+      "ids": [
+       11905
+      ],
+      "rate": "1/512"
+     },
+     {
+      "item": "Kraken tentacle",
+      "ids": [
+       12004
+      ],
+      "rate": "1/400"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Jar of Dirt",
+      "rate": "1/1000",
+      "debt_at_kc": 1000
+     },
+     {
+      "item": "Pet Kraken",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 690
+   },
+   "sources": [
+    "Kraken"
+   ]
+  },
+  {
+   "boss": "Thermonuclear smoke devil",
+   "combat_level": 301,
+   "gate": "93 Slayer; 85 Combat; Smoke devil or Thermonuclear smoke devil Slayer task",
+   "wiki_page": "Thermonuclear_smoke_devil",
+   "rung": 20,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Dragon chainbody",
+      "ids": [
+       3140
+      ],
+      "rate": "1/2000"
+     },
+     {
+      "item": "Smoke battlestaff",
+      "ids": [
+       11998
+      ],
+      "rate": "1/512"
+     },
+     {
+      "item": "Occult necklace",
+      "ids": [
+       12002,
+       23654
+      ],
+      "rate": "1/350"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet Smoke Devil",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     },
+     {
+      "item": "Jar of Smoke",
+      "rate": "1/2000",
+      "debt_at_kc": 2000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 2160
+   },
+   "sources": [
+    "Thermonuclear smoke devil"
+   ]
+  },
+  {
+   "boss": "Spindel",
+   "combat_level": 302,
+   "gate": "Wilderness Hard Diary (for Spindel's lair)",
+   "wiki_page": "Spindel",
+   "rung": 21,
+   "blocking": false,
+   "completion": "first kill (shared log greened at Venenatis)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Dragon 2h sword",
+      "ids": [
+       7158
+      ],
+      "rate": "1/358"
+     },
+     {
+      "item": "Dragon pickaxe",
+      "ids": [
+       11920,
+       12797
+      ],
+      "rate": "1/358"
+     },
+     {
+      "item": "Treasonous ring",
+      "ids": [
+       12605
+      ],
+      "rate": "1/716"
+     },
+     {
+      "item": "Fangs of Venenatis",
+      "ids": [
+       27670
+      ],
+      "rate": "1/618"
+     },
+     {
+      "item": "Voidwaker gem",
+      "ids": [
+       27687
+      ],
+      "rate": "1/912"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Venenatis spiderling",
+      "rate": "1/2800",
+      "debt_at_kc": 2800
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 1457
+   },
+   "sources": [
+    "Spindel"
+   ]
+  },
+  {
+   "boss": "Dagannoth Supreme",
+   "combat_level": 303,
+   "gate": "Another player, or Pet rock + Rune thrownaxe, or 85 Agility",
+   "wiki_page": "Dagannoth_Supreme",
+   "rung": 22,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Seercull",
+      "ids": [
+       6724
+      ],
+      "rate": "1/128"
+     },
+     {
+      "item": "Archers ring",
+      "ids": [
+       6733
+      ],
+      "rate": "1/128"
+     },
+     {
+      "item": "Dragon axe",
+      "ids": [
+       6739
+      ],
+      "rate": "1/128"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet Dagannoth Supreme",
+      "rate": "1/5000",
+      "debt_at_kc": 5000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 235
+   },
+   "sources": [
+    "Dagannoth Supreme"
+   ]
+  },
+  {
+   "boss": "Dagannoth Rex",
+   "combat_level": 303,
+   "gate": "Another player, or Pet rock + Rune thrownaxe, or 85 Agility",
+   "wiki_page": "Dagannoth_Rex",
+   "rung": 23,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Warrior ring",
+      "ids": [
+       6735
+      ],
+      "rate": "1/128"
+     },
+     {
+      "item": "Berserker ring",
+      "ids": [
+       6737,
+       23595
+      ],
+      "rate": "1/128"
+     },
+     {
+      "item": "Dragon axe",
+      "ids": [
+       6739
+      ],
+      "rate": "1/128"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet Dagannoth Rex",
+      "rate": "1/5000",
+      "debt_at_kc": 5000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 231
+   },
+   "sources": [
+    "Dagannoth Rex"
+   ]
+  },
+  {
+   "boss": "Dagannoth Prime",
+   "combat_level": 303,
+   "gate": "Another player, or Pet rock + Rune thrownaxe, or 85 Agility",
+   "wiki_page": "Dagannoth_Prime",
+   "rung": 24,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Mud battlestaff",
+      "ids": [
+       6562
+      ],
+      "rate": "1/128"
+     },
+     {
+      "item": "Seers ring",
+      "ids": [
+       6731
+      ],
+      "rate": "1/128"
+     },
+     {
+      "item": "Dragon axe",
+      "ids": [
+       6739
+      ],
+      "rate": "1/128"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet Dagannoth Prime",
+      "rate": "1/5000",
+      "debt_at_kc": 5000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 239
+   },
+   "sources": [
+    "Dagannoth Prime"
+   ]
+  },
+  {
+   "boss": "Chaos Elemental",
+   "combat_level": 305,
+   "gate": "None (Wilderness)",
+   "wiki_page": "Chaos_Elemental",
+   "rung": 25,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Dragon 2h sword",
+      "ids": [
+       7158
+      ],
+      "rate": "1/64"
+     },
+     {
+      "item": "Dragon pickaxe",
+      "ids": [
+       11920,
+       12797
+      ],
+      "rate": "1/256"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet chaos elemental",
+      "rate": "1/300",
+      "debt_at_kc": 300
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 278
+   },
+   "sources": [
+    "Chaos Elemental"
+   ]
+  },
+  {
+   "boss": "Sarachnis",
+   "combat_level": 318,
+   "gate": "Slash weapon or Knife or Aranea boots",
+   "wiki_page": "Sarachnis",
+   "rung": 26,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Giant egg sac(full)",
+      "ids": [
+       23517
+      ],
+      "rate": "1/20"
+     },
+     {
+      "item": "Sarachnis cudgel",
+      "ids": [
+       23528
+      ],
+      "rate": "1/384"
+     },
+     {
+      "item": "Pristine spider silk",
+      "ids": [
+       33133
+      ],
+      "rate": "1/50"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Sraracha",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     },
+     {
+      "item": "Jar of Eyes",
+      "rate": "1/2000",
+      "debt_at_kc": 2000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 377
+   },
+   "sources": [
+    "Sarachnis"
+   ]
+  },
+  {
+   "boss": "Cerberus",
+   "combat_level": 318,
+   "gate": "91 Slayer; 75 Combat; Hellhound or Cerberus Slayer task",
+   "wiki_page": "Cerberus",
+   "rung": 27,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Eternal crystal",
+      "ids": [
+       13227
+      ],
+      "rate": "1/520"
+     },
+     {
+      "item": "Pegasian crystal",
+      "ids": [
+       13229
+      ],
+      "rate": "1/520"
+     },
+     {
+      "item": "Primordial crystal",
+      "ids": [
+       13231
+      ],
+      "rate": "1/520"
+     },
+     {
+      "item": "Smouldering stone",
+      "ids": [
+       13233
+      ],
+      "rate": "1/520"
+     },
+     {
+      "item": "Key master teleport",
+      "ids": [
+       13249
+      ],
+      "rate": "1/65"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Jar of Souls",
+      "rate": "1/2000",
+      "debt_at_kc": 2000
+     },
+     {
+      "item": "Hellpuppy",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 1073
+   },
+   "sources": [
+    "Cerberus"
+   ]
+  },
+  {
+   "boss": "Artio",
+   "combat_level": 320,
+   "gate": "Wilderness Hard Diary (for Artio's lair)",
+   "wiki_page": "Artio",
+   "rung": 28,
+   "blocking": false,
+   "completion": "first kill (shared log greened at Callisto)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Dragon 2h sword",
+      "ids": [
+       7158
+      ],
+      "rate": "1/358"
+     },
+     {
+      "item": "Dragon pickaxe",
+      "ids": [
+       11920,
+       12797
+      ],
+      "rate": "1/358"
+     },
+     {
+      "item": "Tyrannical ring",
+      "ids": [
+       12603
+      ],
+      "rate": "1/716"
+     },
+     {
+      "item": "Claws of Callisto",
+      "ids": [
+       27667
+      ],
+      "rate": "1/618"
+     },
+     {
+      "item": "Voidwaker hilt",
+      "ids": [
+       27681
+      ],
+      "rate": "1/912"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Callisto cub",
+      "rate": "1/2800",
+      "debt_at_kc": 2800
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 1445
+   },
+   "sources": [
+    "Artio"
+   ]
+  },
+  {
+   "boss": "Skotizo",
+   "combat_level": 321,
+   "gate": "Dark totem",
+   "wiki_page": "Skotizo",
+   "rung": 29,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Shield left half",
+      "ids": [
+       2366
+      ],
+      "rate": "1/100"
+     },
+     {
+      "item": "Uncut onyx",
+      "ids": [
+       6571
+      ],
+      "rate": "1/1000"
+     },
+     {
+      "item": "Ancient shard",
+      "ids": [
+       19677
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Dark totem base",
+      "ids": [
+       19679
+      ],
+      "rate": "1/43"
+     },
+     {
+      "item": "Dark totem middle",
+      "ids": [
+       19681
+      ],
+      "rate": "1/43"
+     },
+     {
+      "item": "Dark totem top",
+      "ids": [
+       19683
+      ],
+      "rate": "1/43"
+     },
+     {
+      "item": "Dark totem",
+      "ids": [
+       19685
+      ],
+      "rate": "1/128"
+     },
+     {
+      "item": "Dark claw",
+      "ids": [
+       21275
+      ],
+      "rate": "1/25"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Jar of Darkness",
+      "rate": "1/200",
+      "debt_at_kc": 200
+     },
+     {
+      "item": "Skotos",
+      "rate": "1/65",
+      "debt_at_kc": 65
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 1040
+   },
+   "sources": [
+    "Skotizo"
+   ]
+  },
+  {
+   "boss": "Blood Moon / Blue Moon / Eclipse Moon",
+   "combat_level": 329,
+   "gate": "Perilous Moons",
+   "wiki_page": "Perilous_Moons",
+   "rung": 30,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Blue Moon spear",
+      "ids": [
+       28988,
+       29849
+      ],
+      "rate": "1/224"
+     },
+     {
+      "item": "Atlatl dart",
+      "ids": [
+       28991,
+       29852
+      ],
+      "rate": "1/2"
+     },
+     {
+      "item": "Dual macuahuitl",
+      "ids": [
+       28997,
+       29850
+      ],
+      "rate": "1/224"
+     },
+     {
+      "item": "Eclipse atlatl",
+      "ids": [
+       29000,
+       29851
+      ],
+      "rate": "1/224"
+     },
+     {
+      "item": "Eclipse Moon chestplate",
+      "ids": [
+       29004,
+       29031,
+       29840
+      ],
+      "rate": "1/224"
+     },
+     {
+      "item": "Eclipse Moon tassets",
+      "ids": [
+       29007,
+       29033,
+       29841
+      ],
+      "rate": "1/224"
+     },
+     {
+      "item": "Eclipse Moon helm",
+      "ids": [
+       29010,
+       29035,
+       29842
+      ],
+      "rate": "1/224"
+     },
+     {
+      "item": "Blue Moon chestplate",
+      "ids": [
+       29013,
+       29037,
+       29843
+      ],
+      "rate": "1/224"
+     },
+     {
+      "item": "Blue Moon tassets",
+      "ids": [
+       29016,
+       29039,
+       29844
+      ],
+      "rate": "1/224"
+     },
+     {
+      "item": "Blue Moon helm",
+      "ids": [
+       29019,
+       29041,
+       29845
+      ],
+      "rate": "1/224"
+     },
+     {
+      "item": "Blood Moon chestplate",
+      "ids": [
+       29022,
+       29043,
+       29846
+      ],
+      "rate": "1/224"
+     },
+     {
+      "item": "Blood Moon tassets",
+      "ids": [
+       29025,
+       29045,
+       29847
+      ],
+      "rate": "1/224"
+     },
+     {
+      "item": "Blood Moon helm",
+      "ids": [
+       29028,
+       29047,
+       29848
+      ],
+      "rate": "1/224"
+     }
+    ],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 691
+   },
+   "sources": [
+    "Lunar Chest",
+    "Blood Moon",
+    "Blue Moon",
+    "Eclipse Moon"
+   ]
+  },
+  {
+   "boss": "Kalphite Queen",
+   "combat_level": 333,
+   "gate": "Rope (x2) or Hard Desert Diary",
+   "wiki_page": "Kalphite_Queen",
+   "rung": 31,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Dragon chainbody",
+      "ids": [
+       3140
+      ],
+      "rate": "1/128"
+     },
+     {
+      "item": "Dragon 2h sword",
+      "ids": [
+       7158
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Kq head",
+      "ids": [
+       7981
+      ],
+      "rate": "1/128"
+     },
+     {
+      "item": "Dragon pickaxe",
+      "ids": [
+       11920,
+       12797
+      ],
+      "rate": "1/400"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Kalphite Princess",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     },
+     {
+      "item": "Jar of Sand",
+      "rate": "1/2000",
+      "debt_at_kc": 2000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 521
+   },
+   "sources": [
+    "Kalphite Queen"
+   ]
+  },
+  {
+   "boss": "Zalcano",
+   "combat_level": 336,
+   "gate": "Song of the Elves",
+   "wiki_page": "Zalcano",
+   "rung": 32,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Zalcano shard",
+      "ids": [
+       23908
+      ],
+      "rate": "1/750"
+     },
+     {
+      "item": "Crystal tool seed",
+      "ids": [
+       23953
+      ],
+      "rate": "1/205"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Smolcano",
+      "rate": "1/2250",
+      "debt_at_kc": 2250
+     }
+    ],
+    "meme_items": [
+     {
+      "item": "Uncut onyx",
+      "rate": "1/8000"
+     }
+    ],
+    "unmatched_rate": [],
+    "expected_kc": 777
+   },
+   "sources": [
+    "Zalcano"
+   ]
+  },
+  {
+   "boss": "Royal Titans (Branda & Eldric)",
+   "combat_level": 350,
+   "gate": "None",
+   "wiki_page": "Royal_Titans",
+   "rung": 33,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Deadeye prayer scroll",
+      "ids": [
+       30626
+      ],
+      "rate": "1/75"
+     },
+     {
+      "item": "Mystic vigour prayer scroll",
+      "ids": [
+       30627
+      ],
+      "rate": "1/75"
+     },
+     {
+      "item": "Ice element staff crown",
+      "ids": [
+       30628
+      ],
+      "rate": "1/75"
+     },
+     {
+      "item": "Fire element staff crown",
+      "ids": [
+       30631
+      ],
+      "rate": "1/75"
+     },
+     {
+      "item": "Giantsoul amulet",
+      "ids": [
+       30637,
+       30638
+      ],
+      "rate": "1/16"
+     },
+     {
+      "item": "Desiccated page",
+      "ids": [
+       30640
+      ],
+      "rate": "1/1"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Bran",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 158
+   },
+   "sources": [
+    "Branda the Fire Queen",
+    "Eldric the Ice King"
+   ]
+  },
+  {
+   "boss": "Abyssal Sire",
+   "combat_level": 350,
+   "gate": "85 Slayer; 85 Combat; Enter the Abyss or Fairytale II (partial); Abyssal demon or Abyssal Sire Slayer task",
+   "wiki_page": "Abyssal_Sire",
+   "rung": 34,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Unsired",
+      "ids": [
+       13273
+      ],
+      "rate": "1/100"
+     }
+    ],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Abyssal whip",
+     "Abyssal head",
+     "Abyssal orphan",
+     "Abyssal dagger",
+     "Bludgeon spine",
+     "Bludgeon claw",
+     "Bludgeon axon",
+     "Jar of Miasma"
+    ],
+    "expected_kc": 97
+   },
+   "sources": [
+    "Abyssal Sire",
+    "Unsired"
+   ]
+  },
+  {
+   "boss": "Revenant maledictus",
+   "combat_level": 397,
+   "gate": "None (Wilderness)",
+   "wiki_page": "Revenant_maledictus",
+   "rung": 35,
+   "blocking": false,
+   "completion": "first kill",
+   "log": {
+    "gating_items": [],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 0
+   },
+   "sources": [
+    "Revenant maledictus"
+   ]
+  },
+  {
+   "boss": "Alchemical Hydra",
+   "combat_level": 426,
+   "gate": "95 Slayer; 75 Combat; Hydra or Alchemical Hydra Slayer task",
+   "wiki_page": "Alchemical_Hydra",
+   "rung": 36,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Mystic robe top (light)",
+      "ids": [
+       4111,
+       27160
+      ],
+      "rate": "1/51"
+     },
+     {
+      "item": "Mystic robe bottom (light)",
+      "ids": [
+       4113,
+       27161
+      ],
+      "rate": "1/51"
+     },
+     {
+      "item": "Dragon thrownaxe",
+      "ids": [
+       20849
+      ],
+      "rate": "1/2000"
+     },
+     {
+      "item": "Dragon knife",
+      "ids": [
+       22804,
+       22812,
+       22814,
+       27157
+      ],
+      "rate": "1/2001"
+     },
+     {
+      "item": "Hydra's claw",
+      "ids": [
+       22966
+      ],
+      "rate": "1/1001"
+     },
+     {
+      "item": "Hydra's heart",
+      "ids": [
+       22969
+      ],
+      "rate": "1/181"
+     },
+     {
+      "item": "Hydra's fang",
+      "ids": [
+       22971
+      ],
+      "rate": "1/181"
+     },
+     {
+      "item": "Hydra's eye",
+      "ids": [
+       22973
+      ],
+      "rate": "1/181"
+     },
+     {
+      "item": "Hydra leather",
+      "ids": [
+       22983
+      ],
+      "rate": "1/514"
+     },
+     {
+      "item": "Hydra tail",
+      "ids": [
+       22988
+      ],
+      "rate": "1/513"
+     },
+     {
+      "item": "Alchemical hydra heads",
+      "ids": [
+       23077
+      ],
+      "rate": "1/256"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Ikkle Hydra",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     },
+     {
+      "item": "Jar of Chemicals",
+      "rate": "1/2000",
+      "debt_at_kc": 2000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 3337
+   },
+   "sources": [
+    "Alchemical Hydra"
+   ]
+  },
+  {
+   "boss": "Vet'ion",
+   "combat_level": 454,
+   "gate": "Wilderness Medium Diary (for Vet'ion's Rest)",
+   "wiki_page": "Vet'ion",
+   "rung": 37,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Dragon 2h sword",
+      "ids": [
+       7158
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Dragon pickaxe",
+      "ids": [
+       11920,
+       12797
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Ring of the gods",
+      "ids": [
+       12601
+      ],
+      "rate": "1/512"
+     },
+     {
+      "item": "Skull of Vet'ion",
+      "ids": [
+       27673
+      ],
+      "rate": "1/196"
+     },
+     {
+      "item": "Voidwaker blade",
+      "ids": [
+       27684
+      ],
+      "rate": "1/360"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Vet'ion Jr.",
+      "rate": "1/1500",
+      "debt_at_kc": 1500
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 762
+   },
+   "sources": [
+    "Vet'ion",
+    "Calvar'ion"
+   ]
+  },
+  {
+   "boss": "Venenatis",
+   "combat_level": 464,
+   "gate": "Wilderness Medium Diary (for Silk Chasm)",
+   "wiki_page": "Venenatis",
+   "rung": 38,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Dragon 2h sword",
+      "ids": [
+       7158
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Dragon pickaxe",
+      "ids": [
+       11920,
+       12797
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Treasonous ring",
+      "ids": [
+       12605
+      ],
+      "rate": "1/512"
+     },
+     {
+      "item": "Fangs of Venenatis",
+      "ids": [
+       27670
+      ],
+      "rate": "1/196"
+     },
+     {
+      "item": "Voidwaker gem",
+      "ids": [
+       27687
+      ],
+      "rate": "1/360"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Venenatis spiderling",
+      "rate": "1/1500",
+      "debt_at_kc": 1500
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 777
+   },
+   "sources": [
+    "Venenatis",
+    "Spindel"
+   ]
+  },
+  {
+   "boss": "Callisto",
+   "combat_level": 470,
+   "gate": "Wilderness Medium Diary (for Callisto's Den)",
+   "wiki_page": "Callisto",
+   "rung": 39,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Dragon 2h sword",
+      "ids": [
+       7158
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Dragon pickaxe",
+      "ids": [
+       11920,
+       12797
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Tyrannical ring",
+      "ids": [
+       12603
+      ],
+      "rate": "1/512"
+     },
+     {
+      "item": "Claws of Callisto",
+      "ids": [
+       27667
+      ],
+      "rate": "1/196"
+     },
+     {
+      "item": "Voidwaker hilt",
+      "ids": [
+       27681
+      ],
+      "rate": "1/360"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Callisto cub",
+      "rate": "1/1500",
+      "debt_at_kc": 1500
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 763
+   },
+   "sources": [
+    "Callisto",
+    "Artio"
+   ]
+  },
+  {
+   "boss": "Tombs of Amascut (raid)",
+   "combat_level": 544,
+   "gate": "Beneath Cursed Sands",
+   "wiki_page": "Tombs_of_Amascut",
+   "rung": 40,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Lightbearer",
+      "ids": [
+       25975,
+       27870
+      ],
+      "rate": "1/3"
+     },
+     {
+      "item": "Elidinis' ward",
+      "ids": [
+       25985
+      ],
+      "rate": "1/8"
+     },
+     {
+      "item": "Osmumten's fang",
+      "ids": [
+       26219
+      ],
+      "rate": "1/3"
+     },
+     {
+      "item": "Masori mask",
+      "ids": [
+       27226
+      ],
+      "rate": "1/12"
+     },
+     {
+      "item": "Masori body",
+      "ids": [
+       27229
+      ],
+      "rate": "1/12"
+     },
+     {
+      "item": "Masori chaps",
+      "ids": [
+       27232
+      ],
+      "rate": "1/12"
+     },
+     {
+      "item": "Cursed phalanx",
+      "ids": [
+       27248
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Menaphite ornament kit",
+      "ids": [
+       27255
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Tumeken's shadow (uncharged)",
+      "ids": [
+       27277
+      ],
+      "rate": "1/24"
+     },
+     {
+      "item": "Thread of Elidinis",
+      "ids": [
+       27279
+      ],
+      "rate": "1/10"
+     },
+     {
+      "item": "Breach of the Scarab",
+      "ids": [
+       27283
+      ],
+      "rate": "1/50"
+     },
+     {
+      "item": "Eye of the Corruptor",
+      "ids": [
+       27285
+      ],
+      "rate": "1/50"
+     },
+     {
+      "item": "Jewel of the Sun",
+      "ids": [
+       27289
+      ],
+      "rate": "1/50"
+     },
+     {
+      "item": "Cache of runes",
+      "ids": [
+       27293
+      ],
+      "rate": "1/9"
+     },
+     {
+      "item": "Masori crafting kit",
+      "ids": [
+       27372
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Remnant of Akkha",
+      "ids": [
+       27377
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Remnant of Ba-Ba",
+      "ids": [
+       27378
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Remnant of Kephri",
+      "ids": [
+       27379
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Remnant of Zebak",
+      "ids": [
+       27380
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Ancient remnant",
+      "ids": [
+       27381
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Jewel of Amascut",
+      "ids": [
+       30893
+      ],
+      "rate": "1/50"
+     }
+    ],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Icthlarin's shroud (tier 1)",
+     "Icthlarin's shroud (tier 2)",
+     "Icthlarin's shroud (tier 3)",
+     "Icthlarin's shroud (tier 4)",
+     "Icthlarin's shroud (tier 5)",
+     "Tumeken's guardian"
+    ],
+    "expected_kc": 104
+   },
+   "sources": [
+    "Tombs of Amascut"
+   ]
+  },
+  {
+   "boss": "Chambers of Xeric (raid)",
+   "combat_level": 549,
+   "gate": "None (Kourend access)",
+   "wiki_page": "Chambers_of_Xeric",
+   "rung": 41,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Dragon claws",
+      "ids": [
+       13652,
+       20784
+      ],
+      "rate": "1/19"
+     },
+     {
+      "item": "Twisted bow",
+      "ids": [
+       20997
+      ],
+      "rate": "1/28"
+     },
+     {
+      "item": "Twisted buckler",
+      "ids": [
+       21000
+      ],
+      "rate": "1/14"
+     },
+     {
+      "item": "Elder maul",
+      "ids": [
+       21003,
+       21205
+      ],
+      "rate": "1/28"
+     },
+     {
+      "item": "Dragon hunter crossbow",
+      "ids": [
+       21012
+      ],
+      "rate": "1/14"
+     },
+     {
+      "item": "Dinh's bulwark",
+      "ids": [
+       21015
+      ],
+      "rate": "1/19"
+     },
+     {
+      "item": "Ancestral hat",
+      "ids": [
+       21018,
+       25518
+      ],
+      "rate": "1/14"
+     },
+     {
+      "item": "Ancestral robe top",
+      "ids": [
+       21021,
+       27193
+      ],
+      "rate": "1/14"
+     },
+     {
+      "item": "Ancestral robe bottom",
+      "ids": [
+       21024,
+       27194
+      ],
+      "rate": "1/14"
+     },
+     {
+      "item": "Dark relic",
+      "ids": [
+       21027
+      ],
+      "rate": "1/17"
+     },
+     {
+      "item": "Dexterous prayer scroll",
+      "ids": [
+       21034
+      ],
+      "rate": "1/4"
+     },
+     {
+      "item": "Kodai insignia",
+      "ids": [
+       21043
+      ],
+      "rate": "1/28"
+     },
+     {
+      "item": "Torn prayer scroll",
+      "ids": [
+       21047
+      ],
+      "rate": "1/17"
+     },
+     {
+      "item": "Arcane prayer scroll",
+      "ids": [
+       21079
+      ],
+      "rate": "1/4"
+     },
+     {
+      "item": "Metamorphic dust",
+      "ids": [
+       22386
+      ],
+      "rate": "1/400"
+     },
+     {
+      "item": "Twisted ancestral colour kit",
+      "ids": [
+       24670
+      ],
+      "rate": "1/75"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Olmlet",
+      "rate": "1/53",
+      "debt_at_kc": 53
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Onyx",
+     "Xeric's guard",
+     "Xeric's warrior",
+     "Xeric's sentinel",
+     "Xeric's general",
+     "Xeric's champion"
+    ],
+    "expected_kc": 411
+   },
+   "sources": [
+    "Chambers of Xeric"
+   ]
+  },
+  {
+   "boss": "Doom of Mokhaiotl",
+   "combat_level": 558,
+   "gate": "The Final Dawn",
+   "wiki_page": "Doom_of_Mokhaiotl",
+   "rung": 42,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Avernic treads",
+      "ids": [
+       31088
+      ],
+      "rate": "1/1350"
+     },
+     {
+      "item": "Mokhaiotl cloth",
+      "ids": [
+       31109
+      ],
+      "rate": "1/2500"
+     },
+     {
+      "item": "Mokhaiotl waystone",
+      "ids": [
+       31099
+      ],
+      "rate": "1/15"
+     },
+     {
+      "item": "Demon tear",
+      "ids": [
+       31111
+      ],
+      "rate": "1/1"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Dom",
+      "rate": "1/1000",
+      "debt_at_kc": 1000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Eye of Ayak"
+    ],
+    "expected_kc": 2908
+   },
+   "sources": [
+    "Doom of Mokhaiotl"
+   ]
+  },
+  {
+   "boss": "Kree'arra",
+   "combat_level": 580,
+   "gate": "70 Ranged; Mith grapple",
+   "wiki_page": "Kree'arra",
+   "rung": 43,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Armadyl hilt",
+      "ids": [
+       11810
+      ],
+      "rate": "1/508"
+     },
+     {
+      "item": "Godsword shard 1",
+      "ids": [
+       11818
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Godsword shard 2",
+      "ids": [
+       11820
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Godsword shard 3",
+      "ids": [
+       11822
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Armadyl helmet",
+      "ids": [
+       11826
+      ],
+      "rate": "1/381"
+     },
+     {
+      "item": "Armadyl chestplate",
+      "ids": [
+       11828
+      ],
+      "rate": "1/381"
+     },
+     {
+      "item": "Armadyl chainskirt",
+      "ids": [
+       11830
+      ],
+      "rate": "1/381"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet Kree'arra",
+      "rate": "1/5000",
+      "debt_at_kc": 5000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 1527
+   },
+   "sources": [
+    "Kree'arra"
+   ]
+  },
+  {
+   "boss": "Mad Angel",
+   "combat_level": 588,
+   "gate": "Fallen From Grace",
+   "wiki_page": "Mad_Angel",
+   "rung": 44,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Granite dust",
+      "ids": [
+       21726
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Hallowfell",
+      "ids": [
+       34027
+      ],
+      "rate": "1/127"
+     },
+     {
+      "item": "Ardeaglais teleport",
+      "ids": [
+       34033
+      ],
+      "rate": "1/25"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Aggy",
+      "rate": "1/2000",
+      "debt_at_kc": 2000
+     },
+     {
+      "item": "Jar of Light",
+      "rate": "1/1000",
+      "debt_at_kc": 1000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 130
+   },
+   "sources": [
+    "Mad Angel"
+   ]
+  },
+  {
+   "boss": "Commander Zilyana",
+   "combat_level": 596,
+   "gate": "70 Agility; Rope (x2) (first time only)",
+   "wiki_page": "Commander_Zilyana",
+   "rung": 45,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Armadyl crossbow",
+      "ids": [
+       11785,
+       23611
+      ],
+      "rate": "1/508"
+     },
+     {
+      "item": "Saradomin hilt",
+      "ids": [
+       11814
+      ],
+      "rate": "1/508"
+     },
+     {
+      "item": "Godsword shard 1",
+      "ids": [
+       11818
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Godsword shard 2",
+      "ids": [
+       11820
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Godsword shard 3",
+      "ids": [
+       11822
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Saradomin sword",
+      "ids": [
+       11838
+      ],
+      "rate": "1/127"
+     },
+     {
+      "item": "Saradomin's light",
+      "ids": [
+       13256
+      ],
+      "rate": "1/254"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet Zilyana",
+      "rate": "1/5000",
+      "debt_at_kc": 5000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 1571
+   },
+   "sources": [
+    "Commander Zilyana"
+   ]
+  },
+  {
+   "boss": "General Graardor",
+   "combat_level": 624,
+   "gate": "70 Strength; Hammer or Dragon warhammer or Elder maul",
+   "wiki_page": "General_Graardor",
+   "rung": 46,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Bandos hilt",
+      "ids": [
+       11812
+      ],
+      "rate": "1/508"
+     },
+     {
+      "item": "Godsword shard 1",
+      "ids": [
+       11818
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Godsword shard 2",
+      "ids": [
+       11820
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Godsword shard 3",
+      "ids": [
+       11822
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Bandos chestplate",
+      "ids": [
+       11832
+      ],
+      "rate": "1/381"
+     },
+     {
+      "item": "Bandos tassets",
+      "ids": [
+       11834,
+       23646
+      ],
+      "rate": "1/381"
+     },
+     {
+      "item": "Bandos boots",
+      "ids": [
+       11836
+      ],
+      "rate": "1/381"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet General Graardor",
+      "rate": "1/5000",
+      "debt_at_kc": 5000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 1559
+   },
+   "sources": [
+    "General Graardor"
+   ]
+  },
+  {
+   "boss": "The Hueycoatl",
+   "combat_level": 642,
+   "gate": "Children of the Sun",
+   "wiki_page": "The_Hueycoatl",
+   "rung": 47,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Sunfire splinters",
+      "ids": [
+       28924
+      ],
+      "rate": "1/23"
+     },
+     {
+      "item": "Tome of Earth (empty)",
+      "ids": [
+       30066
+      ],
+      "rate": "1/90"
+     },
+     {
+      "item": "Soiled page",
+      "ids": [
+       30068
+      ],
+      "rate": "1/14"
+     },
+     {
+      "item": "Dragon hunter wand",
+      "ids": [
+       30070
+      ],
+      "rate": "1/105"
+     },
+     {
+      "item": "Hueycoatl hide",
+      "ids": [
+       30085
+      ],
+      "rate": "1/29"
+     },
+     {
+      "item": "Huasca seed",
+      "ids": [
+       30088
+      ],
+      "rate": "1/34"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Huberte",
+      "rate": "1/400",
+      "debt_at_kc": 400
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 154
+   },
+   "sources": [
+    "The Hueycoatl"
+   ]
+  },
+  {
+   "boss": "K'ril Tsutsaroth",
+   "combat_level": 650,
+   "gate": "70 Hitpoints",
+   "wiki_page": "K'ril_Tsutsaroth",
+   "rung": 48,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Steam battlestaff",
+      "ids": [
+       11787,
+       12795
+      ],
+      "rate": "1/127"
+     },
+     {
+      "item": "Staff of the Dead",
+      "ids": [
+       11791,
+       23613
+      ],
+      "rate": "1/508"
+     },
+     {
+      "item": "Zamorak hilt",
+      "ids": [
+       11816
+      ],
+      "rate": "1/508"
+     },
+     {
+      "item": "Godsword shard 1",
+      "ids": [
+       11818
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Godsword shard 2",
+      "ids": [
+       11820
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Godsword shard 3",
+      "ids": [
+       11822
+      ],
+      "rate": "1/762"
+     },
+     {
+      "item": "Zamorakian spear",
+      "ids": [
+       11824
+      ],
+      "rate": "1/127"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet K'ril Tsutsaroth",
+      "rate": "1/5000",
+      "debt_at_kc": 5000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 1551
+   },
+   "sources": [
+    "K'ril Tsutsaroth"
+   ]
+  },
+  {
+   "boss": "Crystalline Hunllef",
+   "combat_level": 674,
+   "gate": "Song of the Elves",
+   "wiki_page": "Crystalline_Hunllef",
+   "rung": 49,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Crystal weapon seed",
+      "ids": [
+       4207
+      ],
+      "rate": "1/120"
+     },
+     {
+      "item": "Crystal armour seed",
+      "ids": [
+       23956
+      ],
+      "rate": "1/120"
+     },
+     {
+      "item": "Enhanced crystal weapon seed",
+      "ids": [
+       25859
+      ],
+      "rate": "1/2000"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Youngllef",
+      "rate": "1/2000",
+      "debt_at_kc": 2000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Gauntlet cape"
+    ],
+    "expected_kc": 2082
+   },
+   "sources": [
+    "The Gauntlet",
+    "Crystalline Hunllef"
+   ]
+  },
+  {
+   "boss": "TzTok-Jad",
+   "combat_level": 702,
+   "gate": "None",
+   "wiki_page": "TzTok-Jad",
+   "rung": 50,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [],
+    "debt_pets_jars": [
+     {
+      "item": "TzRek-Jad",
+      "rate": "1/200",
+      "debt_at_kc": 200
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Fire cape"
+    ],
+    "expected_kc": 0
+   },
+   "sources": [
+    "TzTok-Jad",
+    "TzHaar Fight Cave"
+   ]
+  },
+  {
+   "boss": "Zulrah",
+   "combat_level": 725,
+   "gate": "Regicide",
+   "wiki_page": "Zulrah",
+   "rung": 51,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Uncut onyx",
+      "ids": [
+       6571
+      ],
+      "rate": "1/512"
+     },
+     {
+      "item": "Tanzanite fang",
+      "ids": [
+       12922
+      ],
+      "rate": "1/512"
+     },
+     {
+      "item": "Serpentine visage",
+      "ids": [
+       12927
+      ],
+      "rate": "1/512"
+     },
+     {
+      "item": "Magic fang",
+      "ids": [
+       12932
+      ],
+      "rate": "1/512"
+     },
+     {
+      "item": "Zulrah's scales",
+      "ids": [
+       12934
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Zul-andra teleport",
+      "ids": [
+       12938
+      ],
+      "rate": "1/9"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet Snakeling",
+      "rate": "1/4000",
+      "debt_at_kc": 4000
+     },
+     {
+      "item": "Jar of Swamp",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [
+     {
+      "item": "Tanzanite mutagen",
+      "rate": "1/6554"
+     },
+     {
+      "item": "Magma mutagen",
+      "rate": "1/6554"
+     }
+    ],
+    "unmatched_rate": [],
+    "expected_kc": 1030
+   },
+   "sources": [
+    "Zulrah"
+   ]
+  },
+  {
+   "boss": "Vorkath",
+   "combat_level": 732,
+   "gate": "Dragon Slayer II",
+   "wiki_page": "Vorkath",
+   "rung": 52,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Vorkath's head",
+      "ids": [
+       2425,
+       21907
+      ],
+      "rate": "1/50"
+     },
+     {
+      "item": "Dragonbone necklace",
+      "ids": [
+       22111
+      ],
+      "rate": "1/1000"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Vorki",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     },
+     {
+      "item": "Jar of Decay",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [
+     {
+      "item": "Draconic visage",
+      "rate": "1/5000"
+     },
+     {
+      "item": "Skeletal visage",
+      "rate": "1/5000"
+     }
+    ],
+    "unmatched_rate": [],
+    "expected_kc": 1018
+   },
+   "sources": [
+    "Vorkath"
+   ]
+  },
+  {
+   "boss": "Phantom Muspah",
+   "combat_level": 741,
+   "gate": "Secrets of the North",
+   "wiki_page": "Phantom_Muspah",
+   "rung": 53,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Venator shard",
+      "ids": [
+       27614
+      ],
+      "rate": "1/100"
+     },
+     {
+      "item": "Ancient essence",
+      "ids": [
+       27616
+      ],
+      "rate": "1/2"
+     },
+     {
+      "item": "Frozen cache",
+      "ids": [
+       27622
+      ],
+      "rate": "1/25"
+     },
+     {
+      "item": "Ancient icon",
+      "ids": [
+       27627
+      ],
+      "rate": "1/50"
+     },
+     {
+      "item": "Charged ice",
+      "ids": [
+       27643
+      ],
+      "rate": "1/1"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Muphin",
+      "rate": "1/2500",
+      "debt_at_kc": 2500
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 119
+   },
+   "sources": [
+    "Phantom Muspah"
+   ]
+  },
+  {
+   "boss": "Maggot King",
+   "combat_level": 741,
+   "gate": "The Blood Moon Rises",
+   "wiki_page": "Maggot_King",
+   "rung": 54,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Crimson kisten",
+      "ids": [
+       33631
+      ],
+      "rate": "1/520"
+     },
+     {
+      "item": "Elder venator fang",
+      "ids": [
+       33634
+      ],
+      "rate": "1/340"
+     },
+     {
+      "item": "Venator tooth",
+      "ids": [
+       33663
+      ],
+      "rate": "1/80"
+     },
+     {
+      "item": "Venator fang",
+      "ids": [
+       33661
+      ],
+      "rate": "1/80"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Maggot marquess",
+      "rate": "1/3500",
+      "debt_at_kc": 3500
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 668
+   },
+   "sources": [
+    "Maggot King"
+   ]
+  },
+  {
+   "boss": "Duke Sucellus",
+   "combat_level": 758,
+   "gate": "Desert Treasure II - The Fallen Empire",
+   "wiki_page": "Duke_Sucellus",
+   "rung": 55,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Virtus mask",
+      "ids": [
+       26241
+      ],
+      "rate": "1/2160"
+     },
+     {
+      "item": "Virtus robe top",
+      "ids": [
+       26243
+      ],
+      "rate": "1/2160"
+     },
+     {
+      "item": "Virtus robe bottom",
+      "ids": [
+       26245
+      ],
+      "rate": "1/2160"
+     },
+     {
+      "item": "Ice quartz",
+      "ids": [
+       28270
+      ],
+      "rate": "1/207"
+     },
+     {
+      "item": "Chromium ingot",
+      "ids": [
+       28276
+      ],
+      "rate": "1/240"
+     },
+     {
+      "item": "Magus vestige",
+      "ids": [
+       28281
+      ],
+      "rate": "1/720"
+     },
+     {
+      "item": "Eye of the Duke",
+      "ids": [
+       28321
+      ],
+      "rate": "1/720"
+     },
+     {
+      "item": "Frozen tablet",
+      "ids": [
+       28333
+      ],
+      "rate": "1/26"
+     },
+     {
+      "item": "Awakener's orb",
+      "ids": [
+       28334
+      ],
+      "rate": "1/48"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Baron",
+      "rate": "1/2500",
+      "debt_at_kc": 2500
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 3953
+   },
+   "sources": [
+    "Duke Sucellus"
+   ]
+  },
+  {
+   "boss": "Vardorvis",
+   "combat_level": 784,
+   "gate": "Desert Treasure II - The Fallen Empire",
+   "wiki_page": "Vardorvis",
+   "rung": 56,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Virtus mask",
+      "ids": [
+       26241
+      ],
+      "rate": "1/3264"
+     },
+     {
+      "item": "Virtus robe top",
+      "ids": [
+       26243
+      ],
+      "rate": "1/3264"
+     },
+     {
+      "item": "Virtus robe bottom",
+      "ids": [
+       26245
+      ],
+      "rate": "1/3264"
+     },
+     {
+      "item": "Blood quartz",
+      "ids": [
+       28268
+      ],
+      "rate": "1/204"
+     },
+     {
+      "item": "Chromium ingot",
+      "ids": [
+       28276
+      ],
+      "rate": "1/363"
+     },
+     {
+      "item": "Ultor vestige",
+      "ids": [
+       28285
+      ],
+      "rate": "1/1088"
+     },
+     {
+      "item": "Executioner's axe head",
+      "ids": [
+       28319
+      ],
+      "rate": "1/1088"
+     },
+     {
+      "item": "Strangled tablet",
+      "ids": [
+       28330
+      ],
+      "rate": "1/26"
+     },
+     {
+      "item": "Awakener's orb",
+      "ids": [
+       28334
+      ],
+      "rate": "1/81"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Butch",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 6036
+   },
+   "sources": [
+    "Vardorvis"
+   ]
+  },
+  {
+   "boss": "Corporeal Beast",
+   "combat_level": 785,
+   "gate": "None",
+   "wiki_page": "Corporeal_Beast",
+   "rung": 57,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Elysian sigil",
+      "ids": [
+       12819
+      ],
+      "rate": "1/4095"
+     },
+     {
+      "item": "Spectral sigil",
+      "ids": [
+       12823
+      ],
+      "rate": "1/1365"
+     },
+     {
+      "item": "Arcane sigil",
+      "ids": [
+       12827
+      ],
+      "rate": "1/1365"
+     },
+     {
+      "item": "Spirit shield",
+      "ids": [
+       12829,
+       23599
+      ],
+      "rate": "1/64"
+     },
+     {
+      "item": "Holy elixir",
+      "ids": [
+       12833
+      ],
+      "rate": "1/171"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Pet dark core",
+      "rate": "1/5000",
+      "debt_at_kc": 5000
+     },
+     {
+      "item": "Jar of Spirits",
+      "rate": "1/1000",
+      "debt_at_kc": 1000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 4742
+   },
+   "sources": [
+    "Corporeal Beast"
+   ]
+  },
+  {
+   "boss": "The Whisperer",
+   "combat_level": 791,
+   "gate": "Desert Treasure II - The Fallen Empire",
+   "wiki_page": "The_Whisperer",
+   "rung": 58,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Virtus mask",
+      "ids": [
+       26241
+      ],
+      "rate": "1/1536"
+     },
+     {
+      "item": "Virtus robe top",
+      "ids": [
+       26243
+      ],
+      "rate": "1/1536"
+     },
+     {
+      "item": "Virtus robe bottom",
+      "ids": [
+       26245
+      ],
+      "rate": "1/1536"
+     },
+     {
+      "item": "Shadow quartz",
+      "ids": [
+       28272
+      ],
+      "rate": "1/209"
+     },
+     {
+      "item": "Chromium ingot",
+      "ids": [
+       28276
+      ],
+      "rate": "1/171"
+     },
+     {
+      "item": "Bellator vestige",
+      "ids": [
+       28279
+      ],
+      "rate": "1/512"
+     },
+     {
+      "item": "Siren's staff",
+      "ids": [
+       28323
+      ],
+      "rate": "1/512"
+     },
+     {
+      "item": "Sirenic tablet",
+      "ids": [
+       28331
+      ],
+      "rate": "1/26"
+     },
+     {
+      "item": "Awakener's orb",
+      "ids": [
+       28334
+      ],
+      "rate": "1/34"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Wisp",
+      "rate": "1/2000",
+      "debt_at_kc": 2000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 2932
+   },
+   "sources": [
+    "The Whisperer"
+   ]
+  },
+  {
+   "boss": "The Leviathan",
+   "combat_level": 798,
+   "gate": "Desert Treasure II - The Fallen Empire",
+   "wiki_page": "The_Leviathan",
+   "rung": 59,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Virtus mask",
+      "ids": [
+       26241
+      ],
+      "rate": "1/2304"
+     },
+     {
+      "item": "Virtus robe top",
+      "ids": [
+       26243
+      ],
+      "rate": "1/2304"
+     },
+     {
+      "item": "Virtus robe bottom",
+      "ids": [
+       26245
+      ],
+      "rate": "1/2304"
+     },
+     {
+      "item": "Smoke quartz",
+      "ids": [
+       28274
+      ],
+      "rate": "1/206"
+     },
+     {
+      "item": "Chromium ingot",
+      "ids": [
+       28276
+      ],
+      "rate": "1/256"
+     },
+     {
+      "item": "Venator vestige",
+      "ids": [
+       28283
+      ],
+      "rate": "1/768"
+     },
+     {
+      "item": "Leviathan's lure",
+      "ids": [
+       28325
+      ],
+      "rate": "1/768"
+     },
+     {
+      "item": "Scarred tablet",
+      "ids": [
+       28332
+      ],
+      "rate": "1/26"
+     },
+     {
+      "item": "Awakener's orb",
+      "ids": [
+       28334
+      ],
+      "rate": "1/54"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Lil'viathan",
+      "rate": "1/2500",
+      "debt_at_kc": 2500
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 4312
+   },
+   "sources": [
+    "The Leviathan"
+   ]
+  },
+  {
+   "boss": "The Nightmare",
+   "combat_level": 814,
+   "gate": "Priest in Peril",
+   "wiki_page": "The_Nightmare",
+   "rung": 60,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Inquisitor's mace",
+      "ids": [
+       24417,
+       27198
+      ],
+      "rate": "1/750"
+     },
+     {
+      "item": "Inquisitor's great helm",
+      "ids": [
+       24419,
+       27195
+      ],
+      "rate": "1/420"
+     },
+     {
+      "item": "Inquisitor's hauberk",
+      "ids": [
+       24420,
+       27196
+      ],
+      "rate": "1/420"
+     },
+     {
+      "item": "Inquisitor's plateskirt",
+      "ids": [
+       24421,
+       27197
+      ],
+      "rate": "1/420"
+     },
+     {
+      "item": "Nightmare staff",
+      "ids": [
+       24422
+      ],
+      "rate": "1/300"
+     },
+     {
+      "item": "Harmonised orb",
+      "ids": [
+       24511
+      ],
+      "rate": "1/960"
+     },
+     {
+      "item": "Volatile orb",
+      "ids": [
+       24514
+      ],
+      "rate": "1/960"
+     },
+     {
+      "item": "Eldritch orb",
+      "ids": [
+       24517
+      ],
+      "rate": "1/960"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Little Nightmare",
+      "rate": "1/800",
+      "debt_at_kc": 800
+     },
+     {
+      "item": "Jar of Dreams",
+      "rate": "1/1900",
+      "debt_at_kc": 1900
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Slepey tablet",
+     "Parasitic egg"
+    ],
+    "expected_kc": 1998
+   },
+   "sources": [
+    "The Nightmare"
+   ]
+  },
+  {
+   "boss": "Araxxor",
+   "combat_level": 890,
+   "gate": "92 Slayer; Priest in Peril; Araxyte or spider Slayer task",
+   "wiki_page": "Araxxor",
+   "rung": 61,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Coagulated venom",
+      "ids": [
+       29781
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Araxyte head",
+      "ids": [
+       29788
+      ],
+      "rate": "1/250"
+     },
+     {
+      "item": "Noxious point",
+      "ids": [
+       29790
+      ],
+      "rate": "1/200"
+     },
+     {
+      "item": "Noxious blade",
+      "ids": [
+       29792
+      ],
+      "rate": "1/200"
+     },
+     {
+      "item": "Noxious pommel",
+      "ids": [
+       29794
+      ],
+      "rate": "1/200"
+     },
+     {
+      "item": "Araxyte fang",
+      "ids": [
+       29799
+      ],
+      "rate": "1/600"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Jar of Venom",
+      "rate": "1/1500",
+      "debt_at_kc": 1500
+     },
+     {
+      "item": "Nid",
+      "rate": "1/3000",
+      "debt_at_kc": 3000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Spider cave teleport",
+     "Araxyte venom sac"
+    ],
+    "expected_kc": 764
+   },
+   "sources": [
+    "Araxxor"
+   ]
+  },
+  {
+   "boss": "Corrupted Hunllef",
+   "combat_level": 894,
+   "gate": "Song of the Elves",
+   "wiki_page": "Corrupted_Hunllef",
+   "rung": 62,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Crystal weapon seed",
+      "ids": [
+       4207
+      ],
+      "rate": "1/50"
+     },
+     {
+      "item": "Gauntlet cape",
+      "ids": [
+       23859
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Crystal armour seed",
+      "ids": [
+       23956
+      ],
+      "rate": "1/50"
+     },
+     {
+      "item": "Enhanced crystal weapon seed",
+      "ids": [
+       25859
+      ],
+      "rate": "1/400"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Youngllef",
+      "rate": "1/800",
+      "debt_at_kc": 800
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 405
+   },
+   "sources": [
+    "The Gauntlet",
+    "Corrupted Hunllef"
+   ]
+  },
+  {
+   "boss": "Nex",
+   "combat_level": 1001,
+   "gate": "The Frozen Door",
+   "wiki_page": "Nex",
+   "rung": 63,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Nihil shard",
+      "ids": [
+       26231
+      ],
+      "rate": "1/16"
+     },
+     {
+      "item": "Zaryte vambraces",
+      "ids": [
+       26235
+      ],
+      "rate": "1/172"
+     },
+     {
+      "item": "Ancient hilt",
+      "ids": [
+       26370
+      ],
+      "rate": "1/516"
+     },
+     {
+      "item": "Nihil horn",
+      "ids": [
+       26372
+      ],
+      "rate": "1/258"
+     },
+     {
+      "item": "Torva full helm (damaged)",
+      "ids": [
+       26376
+      ],
+      "rate": "1/258"
+     },
+     {
+      "item": "Torva platebody (damaged)",
+      "ids": [
+       26378
+      ],
+      "rate": "1/258"
+     },
+     {
+      "item": "Torva platelegs (damaged)",
+      "ids": [
+       26380
+      ],
+      "rate": "1/258"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Nexling",
+      "rate": "1/500",
+      "debt_at_kc": 500
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 759
+   },
+   "sources": [
+    "Nex"
+   ]
+  },
+  {
+   "boss": "Phosani's Nightmare",
+   "combat_level": 1024,
+   "gate": "Priest in Peril; 50 Nightmare kills",
+   "wiki_page": "Phosani's_Nightmare",
+   "rung": 64,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Inquisitor's mace",
+      "ids": [
+       24417,
+       27198
+      ],
+      "rate": "1/1129"
+     },
+     {
+      "item": "Inquisitor's great helm",
+      "ids": [
+       24419,
+       27195
+      ],
+      "rate": "1/700"
+     },
+     {
+      "item": "Inquisitor's hauberk",
+      "ids": [
+       24420,
+       27196
+      ],
+      "rate": "1/700"
+     },
+     {
+      "item": "Inquisitor's plateskirt",
+      "ids": [
+       24421,
+       27197
+      ],
+      "rate": "1/700"
+     },
+     {
+      "item": "Nightmare staff",
+      "ids": [
+       24422
+      ],
+      "rate": "1/507"
+     },
+     {
+      "item": "Harmonised orb",
+      "ids": [
+       24511
+      ],
+      "rate": "1/1600"
+     },
+     {
+      "item": "Volatile orb",
+      "ids": [
+       24514
+      ],
+      "rate": "1/1600"
+     },
+     {
+      "item": "Eldritch orb",
+      "ids": [
+       24517
+      ],
+      "rate": "1/1600"
+     },
+     {
+      "item": "Slepey tablet",
+      "ids": [
+       25837
+      ],
+      "rate": "1/25"
+     },
+     {
+      "item": "Parasitic egg",
+      "ids": [
+       25838
+      ],
+      "rate": "1/200"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Little Nightmare",
+      "rate": "1/1400",
+      "debt_at_kc": 1400
+     },
+     {
+      "item": "Jar of Dreams",
+      "rate": "1/4000",
+      "debt_at_kc": 4000
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 3279
+   },
+   "sources": [
+    "Phosani's Nightmare"
+   ]
+  },
+  {
+   "boss": "Theatre of Blood (raid)",
+   "combat_level": 1040,
+   "gate": "A Taste of Hope (Priest in Peril → Darkness of Hallowvale → A Taste of Hope)",
+   "wiki_page": "Theatre_of_Blood",
+   "rung": 65,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Ghrazi rapier",
+      "ids": [
+       22324,
+       23628
+      ],
+      "rate": "1/9"
+     },
+     {
+      "item": "Justiciar faceguard",
+      "ids": [
+       22326
+      ],
+      "rate": "1/9"
+     },
+     {
+      "item": "Justiciar chestguard",
+      "ids": [
+       22327
+      ],
+      "rate": "1/9"
+     },
+     {
+      "item": "Justiciar legguards",
+      "ids": [
+       22328
+      ],
+      "rate": "1/9"
+     },
+     {
+      "item": "Vial of blood",
+      "ids": [
+       22405,
+       22446
+      ],
+      "rate": "1/5"
+     },
+     {
+      "item": "Avernic defender hilt",
+      "ids": [
+       22477
+      ],
+      "rate": "1/2"
+     },
+     {
+      "item": "Sanguinesti staff (uncharged)",
+      "ids": [
+       22481
+      ],
+      "rate": "1/9"
+     },
+     {
+      "item": "Scythe of Vitur (uncharged)",
+      "ids": [
+       22486
+      ],
+      "rate": "1/18"
+     },
+     {
+      "item": "Holy ornament kit",
+      "ids": [
+       25742
+      ],
+      "rate": "1/100"
+     },
+     {
+      "item": "Sanguine ornament kit",
+      "ids": [
+       25744
+      ],
+      "rate": "1/150"
+     },
+     {
+      "item": "Sanguine dust",
+      "ids": [
+       25746
+      ],
+      "rate": "1/275"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Lil' Zik",
+      "rate": "1/650",
+      "debt_at_kc": 650
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Sinhaza shroud tier 1",
+     "Sinhaza shroud tier 2",
+     "Sinhaza shroud tier 3",
+     "Sinhaza shroud tier 4",
+     "Sinhaza shroud tier 5"
+    ],
+    "expected_kc": 330
+   },
+   "sources": [
+    "Theatre of Blood"
+   ]
+  },
+  {
+   "boss": "Demonic Brutus",
+   "combat_level": 1224,
+   "gate": "The Ides of Milk; Desert Treasure II",
+   "wiki_page": "Demonic_Brutus",
+   "rung": 66,
+   "blocking": false,
+   "completion": "first kill",
+   "log": {
+    "gating_items": [],
+    "debt_pets_jars": [],
+    "meme_items": [],
+    "unmatched_rate": [],
+    "expected_kc": 0
+   },
+   "sources": [
+    "Demonic Brutus"
+   ]
+  },
+  {
+   "boss": "Yama",
+   "combat_level": 1238,
+   "gate": "A Kingdom Divided",
+   "wiki_page": "Yama",
+   "rung": 67,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Chasm teleport scroll",
+      "ids": [
+       30775
+      ],
+      "rate": "1/24"
+     },
+     {
+      "item": "Oathplate helm",
+      "ids": [
+       30750
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Oathplate chest",
+      "ids": [
+       30753
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Oathplate legs",
+      "ids": [
+       30756
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Soulflame horn",
+      "ids": [
+       30759
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Oathplate shards",
+      "ids": [
+       30765
+      ],
+      "rate": "1/1"
+     },
+     {
+      "item": "Forgotten lockbox",
+      "ids": [
+       30763
+      ],
+      "rate": "1/33"
+     },
+     {
+      "item": "Dossier",
+      "ids": [
+       9589,
+       9590
+      ],
+      "rate": "1/12"
+     },
+     {
+      "item": "Barrel of demonic tallow (full)",
+      "ids": [
+       30795,
+       30798
+      ],
+      "rate": "1/19"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Yami",
+      "rate": "1/100",
+      "debt_at_kc": 100
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Rite of vile transference"
+    ],
+    "expected_kc": 48
+   },
+   "sources": [
+    "Yama"
+   ]
+  },
+  {
+   "boss": "TzKal-Zuk",
+   "combat_level": 1400,
+   "gate": "Fire cape (first time only)",
+   "wiki_page": "TzKal-Zuk",
+   "rung": 68,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [],
+    "debt_pets_jars": [
+     {
+      "item": "Jal-Nib-Rek",
+      "rate": "1/100",
+      "debt_at_kc": 100
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Infernal cape"
+    ],
+    "expected_kc": 0
+   },
+   "sources": [
+    "TzKal-Zuk",
+    "Inferno"
+   ]
+  },
+  {
+   "boss": "Sol Heredit",
+   "combat_level": 1563,
+   "gate": "Children of the Sun",
+   "wiki_page": "Sol_Heredit",
+   "rung": 69,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Uncut onyx",
+      "ids": [
+       6571
+      ],
+      "rate": "1/44"
+     },
+     {
+      "item": "Tonalztics of Ralos (uncharged)",
+      "ids": [
+       28919
+      ],
+      "rate": "1/192"
+     },
+     {
+      "item": "Sunfire splinters",
+      "ids": [
+       28924
+      ],
+      "rate": "1/6"
+     },
+     {
+      "item": "Sunfire fanatic helm",
+      "ids": [
+       28933
+      ],
+      "rate": "1/64"
+     },
+     {
+      "item": "Sunfire fanatic cuirass",
+      "ids": [
+       28936
+      ],
+      "rate": "1/64"
+     },
+     {
+      "item": "Sunfire fanatic chausses",
+      "ids": [
+       28939
+      ],
+      "rate": "1/64"
+     },
+     {
+      "item": "Echo crystal",
+      "ids": [
+       28942
+      ],
+      "rate": "1/36"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Smol Heredit",
+      "rate": "1/200",
+      "debt_at_kc": 200
+     }
+    ],
+    "meme_items": [],
+    "unmatched_rate": [
+     "Dizana's quiver (uncharged)"
+    ],
+    "expected_kc": 238
+   },
+   "sources": [
+    "Fortis Colosseum",
+    "Sol Heredit"
+   ]
+  },
+  {
+   "boss": "Tempoross",
+   "combat_level": null,
+   "gate": "35 Fishing",
+   "wiki_page": "Tempoross",
+   "rung": null,
+   "floating": true,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Big harpoonfish",
+      "ids": [
+       25559
+      ],
+      "rate": "1/1600"
+     },
+     {
+      "item": "Tome of Water (empty)",
+      "ids": [
+       25576
+      ],
+      "rate": "1/1600"
+     },
+     {
+      "item": "Soaked page",
+      "ids": [
+       25578
+      ],
+      "rate": "1/54"
+     },
+     {
+      "item": "Tackle box",
+      "ids": [
+       25580
+      ],
+      "rate": "1/400"
+     },
+     {
+      "item": "Fish barrel",
+      "ids": [
+       25582
+      ],
+      "rate": "1/400"
+     },
+     {
+      "item": "Spirit flakes",
+      "ids": [
+       25588
+      ],
+      "rate": "1/4"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Tiny tempor",
+      "rate": "1/8000",
+      "debt_at_kc": 8000
+     }
+    ],
+    "meme_items": [
+     {
+      "item": "Dragon harpoon",
+      "rate": "1/8000"
+     }
+    ],
+    "unmatched_rate": [
+     "Spirit angler headband",
+     "Spirit angler top",
+     "Spirit angler waders",
+     "Spirit angler boots"
+    ],
+    "expected_kc": 2494
+   },
+   "sources": [
+    "Reward pool (Tempoross)",
+    "Casket (Tempoross)"
+   ]
+  },
+  {
+   "boss": "Wintertodt",
+   "combat_level": null,
+   "gate": "50 Firemaking",
+   "wiki_page": "Wintertodt",
+   "rung": null,
+   "floating": true,
+   "blocking": true,
+   "completion": "collection log complete (ex pets/jars/meme)",
+   "log": {
+    "gating_items": [
+     {
+      "item": "Pyromancer garb",
+      "ids": [
+       20704
+      ],
+      "rate": "1/150"
+     },
+     {
+      "item": "Pyromancer robe",
+      "ids": [
+       20706
+      ],
+      "rate": "1/150"
+     },
+     {
+      "item": "Pyromancer hood",
+      "ids": [
+       20708
+      ],
+      "rate": "1/150"
+     },
+     {
+      "item": "Pyromancer boots",
+      "ids": [
+       20710
+      ],
+      "rate": "1/150"
+     },
+     {
+      "item": "Warm gloves",
+      "ids": [
+       20712
+      ],
+      "rate": "1/150"
+     },
+     {
+      "item": "Tome of Fire (empty)",
+      "ids": [
+       20716
+      ],
+      "rate": "1/1000"
+     },
+     {
+      "item": "Burnt page",
+      "ids": [
+       20718
+      ],
+      "rate": "1/45"
+     },
+     {
+      "item": "Bruma torch",
+      "ids": [
+       20720
+      ],
+      "rate": "1/150"
+     }
+    ],
+    "debt_pets_jars": [
+     {
+      "item": "Phoenix",
+      "rate": "1/5000",
+      "debt_at_kc": 5000
+     }
+    ],
+    "meme_items": [
+     {
+      "item": "Dragon axe",
+      "rate": "1/10000"
+     }
+    ],
+    "unmatched_rate": [],
+    "expected_kc": 1079
+   },
+   "sources": [
+    "Supply crate (Wintertodt)",
+    "Reward cart (Wintertodt)"
+   ]
+  }
+ ]
+}

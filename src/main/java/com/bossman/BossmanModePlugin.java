@@ -398,12 +398,27 @@ public class BossmanModePlugin extends Plugin
 		{
 			return ledger.isUnlocked(ITEM_COINS);
 		}
-		return ledger.isUnlocked(id) || data.getFreeItems().containsKey(id);
+		if (ledger.isUnlocked(id))
+		{
+			return true;
+		}
+		String kind = freeKind(id);
+		return kind != null;
 	}
 
+	/** "tool" / "access" if the item is free under a rule that is switched on, else null. */
 	public String freeKind(int itemId)
 	{
-		return data.getFreeItems().get(itemManager.canonicalize(itemId));
+		String kind = data.getFreeItems().get(itemManager.canonicalize(itemId));
+		if ("tool".equals(kind) && !config.freeTools())
+		{
+			return null;
+		}
+		if ("access".equals(kind) && !config.freeAccessGear())
+		{
+			return null;
+		}
+		return kind;
 	}
 
 	public boolean isLogItemUnlocked(BossmanData.GatingItem gi)
@@ -593,8 +608,8 @@ public class BossmanModePlugin extends Plugin
 		}
 		long drops = ledger.unlocks.values().stream().filter(x -> Ledger.KIND_DROP.equals(x.kind)).count();
 		long real = ledger.unlocks.values().stream().filter(x -> !Ledger.KIND_DEFAULT.equals(x.kind)).count();
-		reply(chatMessage, "Bossman: " + real + " items unlocked (" + drops + " from boss drops), "
-			+ data.getFreeItems().size() + " free tools/access items.");
+		long free = data.getFreeItems().keySet().stream().filter(id -> freeKind(id) != null).count();
+		reply(chatMessage, "Bossman: " + real + " items unlocked (" + drops + " from boss drops), " + free + " free tools/access items.");
 	}
 
 	private void onRungCommand(ChatMessage chatMessage, String message)

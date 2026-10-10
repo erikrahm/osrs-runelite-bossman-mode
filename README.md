@@ -10,7 +10,8 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   received in the Gauntlet lobby. Slayer drops, clue caskets, shops, skilling and sea loot never unlock anything.
   Once unlocked, copies from any source are fine (bronzeman semantics). Coins are locked until Brutus drops some.
 - **Free items.** Everything on the wiki Tool page at base tier (`bossman/tools.json`) and access equipment
-  (`bossman/access.json`: slayer gear, keys/totems, grapple, rope) is always allowed.
+  (`bossman/access.json`: slayer gear, keys/totems, grapple, rope) is allowed by default. Both are config toggles
+  ("Tools are always unlocked", "Access gear is always unlocked") for stricter variants of the mode.
 - **Ledger.** Every unlock is written to `~/.runelite/profiles/<profile>/bossman-mode-ledger.json` with its source, the KC
   at that source, and a timestamp; per-source kill counts are tracked too (and synced from "Your X kill count is" messages).
 - **Restrictions.** Locked items are dimmed with a lock marker in the inventory, bank and equipment; hidden in GE search

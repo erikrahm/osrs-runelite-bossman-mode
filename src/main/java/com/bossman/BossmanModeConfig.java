@@ -29,14 +29,28 @@ public interface BossmanModeConfig extends Config
 		return "";
 	}
 
-	@ConfigItem(keyName = "receiptRules", name = "Completion-reward unlocks", position = 1, section = unlocksSection,
+	@ConfigItem(keyName = "freeTools", name = "Tools are always unlocked", position = 1, section = unlocksSection,
+		description = "Every base-tier item on the wiki Tool page (axes, pickaxes, nets, rods, moulds, farming and hunter kit, light sources) is usable without a boss drop. Turn off for a stricter mode where even tools must drop.")
+	default boolean freeTools()
+	{
+		return true;
+	}
+
+	@ConfigItem(keyName = "freeAccessGear", name = "Access gear is always unlocked", position = 2, section = unlocksSection,
+		description = "Slayer access gear, keys/totems, grapple and rope are usable without a boss drop (they only get you to the boss). Turn off for a stricter mode.")
+	default boolean freeAccessGear()
+	{
+		return true;
+	}
+
+	@ConfigItem(keyName = "receiptRules", name = "Completion-reward unlocks", position = 3, section = unlocksSection,
 		description = "Unlock Fire/Infernal cape + Tokkul on receipt, and anything received in the Gauntlet lobby (the Gauntlet chest is not a tracked loot source).")
 	default boolean receiptRules()
 	{
 		return true;
 	}
 
-	@ConfigItem(keyName = "unlockBond", name = "Bonds are always unlocked", position = 2, section = unlocksSection,
+	@ConfigItem(keyName = "unlockBond", name = "Bonds are always unlocked", position = 4, section = unlocksSection,
 		description = "Keep Old School bonds unlocked so membership can be bought.")
 	default boolean unlockBond()
 	{

@@ -659,39 +659,6 @@ public class BossmanModePlugin extends Plugin
 		}
 	}
 
-	/** Right-click "Mark as obtained": the account had this drop before the plugin was installed. */
-	public void markObtained(BossmanData.Rung r, String item, List<Integer> ids, boolean obtained)
-	{
-		clientThread.invoke(() ->
-		{
-			if (obtained)
-			{
-				if (ids == null || ids.isEmpty())
-				{
-					return;
-				}
-				int id = itemManager.canonicalize(ids.get(0));
-				if (!ledger.isUnlocked(id))
-				{
-					recordUnlock(id, Ledger.KIND_MANUAL, r.sources.isEmpty() ? r.boss : r.sources.get(0), null, "marked obtained by hand", false);
-				}
-			}
-			else
-			{
-				for (int id : ids)
-				{
-					Ledger.Entry en = ledger.unlocks.get(itemManager.canonicalize(id));
-					if (en != null && (Ledger.KIND_MANUAL.equals(en.kind) || Ledger.KIND_CLOG.equals(en.kind)))
-					{
-						ledger.unlocks.remove(itemManager.canonicalize(id));
-					}
-				}
-				ledger.save(gson);
-			}
-			refreshPanel();
-		});
-	}
-
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded e)
 	{

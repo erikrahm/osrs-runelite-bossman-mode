@@ -584,7 +584,7 @@ public class BossmanPanel extends PluginPanel
 		return p;
 	}
 
-	/** Right-click on a log row: backlog toggle (gating items) and "Mark as obtained" for pre-plugin drops. */
+	/** Right-click on a log row: backlog toggle (gating items) and the wiki link. Pre-plugin drops come in via the collection-log import. */
 	private void attachMenu(JPanel row, BossmanData.Rung r, String item, List<Integer> ids, boolean have, boolean backlogable)
 	{
 		javax.swing.JPopupMenu menu = new javax.swing.JPopupMenu();
@@ -596,10 +596,6 @@ public class BossmanPanel extends PluginPanel
 			mi.addActionListener(e -> plugin.setBacklogged(r, item, !bl));
 			menu.add(mi);
 		}
-		javax.swing.JMenuItem ob = new javax.swing.JMenuItem(have ? "Unmark obtained (manual/imported only)" : "Mark as obtained (had it before the plugin)");
-		ob.setFont(FontManager.getRunescapeSmallFont());
-		ob.addActionListener(e -> plugin.markObtained(r, item, ids, !have));
-		menu.add(ob);
 		menu.add(wikiItem(item, ids));
 		installMenu(row, menu);
 	}

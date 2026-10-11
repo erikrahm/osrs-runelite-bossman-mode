@@ -55,7 +55,7 @@ public class BossmanPanel extends PluginPanel
 		this.plugin = plugin;
 		this.itemManager = itemManager;
 		this.skillIconManager = skillIconManager;
-		for (String n : new String[]{"quest", "diary", "combat", "wilderness", "ca"})
+		for (String n : new String[]{"quest", "diary", "combat", "wilderness"})
 		{
 			try
 			{
@@ -250,17 +250,14 @@ public class BossmanPanel extends PluginPanel
 		if (r.ca != null && r.ca.tasks > 0)
 		{
 			int done = 0;
-			int donePts = 0;
 			for (BossmanData.CaTask t : r.ca.list)
 			{
 				if (plugin.isCaDone(t))
 				{
 					done++;
-					donePts += t.points;
 				}
 			}
-			JPanel caRow = infoRow("Combat Achievements", done + "/" + r.ca.tasks + " (" + donePts + "/" + r.ca.points + " pts)", icons.get("ca"),
-				done == r.ca.tasks ? OK : Color.WHITE);
+			JPanel caRow = infoRow("Combat Achievements", done + "/" + r.ca.tasks, null, done == r.ca.tasks ? OK : Color.WHITE);
 			javax.swing.JPopupMenu caMenu = new javax.swing.JPopupMenu();
 			javax.swing.JMenuItem caWiki = new javax.swing.JMenuItem("Open Wiki (Combat Achievements)");
 			caWiki.setFont(FontManager.getRunescapeSmallFont());
@@ -271,7 +268,7 @@ public class BossmanPanel extends PluginPanel
 			StringBuilder tip = new StringBuilder("<html>");
 			for (BossmanData.CaTask t : r.ca.list)
 			{
-				tip.append(plugin.isCaDone(t) ? "[x] " : "[ ] ").append(escape(t.name)).append(" (").append(t.tier).append(", ").append(t.points).append(")<br>");
+				tip.append(plugin.isCaDone(t) ? "[x] " : "[ ] ").append(escape(t.name)).append(" (").append(t.tier).append(")<br>");
 			}
 			caRow.setToolTipText(tip.append("</html>").toString());
 			p.add(caRow);

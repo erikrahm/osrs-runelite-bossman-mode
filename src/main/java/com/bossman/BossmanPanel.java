@@ -308,7 +308,7 @@ public class BossmanPanel extends PluginPanel
 			JProgressBar bar = new JProgressBar(0, need);
 			bar.setValue(have);
 			bar.setStringPainted(true);
-			bar.setString(have + "/" + need + " gating items");
+			bar.setString(have + "/" + need + " Gating Items");
 			bar.setForeground(have == need ? OK : WARN);
 			bar.setBackground(TRACK);                 // visible track so an empty bar still reads as a bar
 			bar.setBorderPainted(true);

@@ -140,6 +140,7 @@ public class BossmanModePlugin extends Plugin
 	@Inject private Gson gson;
 	@Inject private UnlockOverlay unlockOverlay;
 	@Inject private LockedItemOverlay lockedItemOverlay;
+	@Inject private LockedBankEdgeOverlay lockedBankEdgeOverlay;
 	@Inject private ScheduledExecutorService executor;
 
 	private final BossmanData data = new BossmanData();
@@ -193,6 +194,7 @@ public class BossmanModePlugin extends Plugin
 		unlockOverlay.updateScreenshotUnlock(config.screenshotUnlock(), config.includeFrame());
 		overlayManager.add(unlockOverlay);
 		overlayManager.add(lockedItemOverlay);
+		overlayManager.add(lockedBankEdgeOverlay);
 
 		chatCommandManager.registerCommand("!bmcount", this::onCountCommand);
 		chatCommandManager.registerCommand("!bmboss", this::onRungCommand);
@@ -223,6 +225,7 @@ public class BossmanModePlugin extends Plugin
 	{
 		overlayManager.remove(unlockOverlay);
 		overlayManager.remove(lockedItemOverlay);
+		overlayManager.remove(lockedBankEdgeOverlay);
 		chatCommandManager.unregisterCommand("!bmcount");
 		chatCommandManager.unregisterCommand("!bmboss");
 		chatCommandManager.unregisterCommand("!bmbackup");

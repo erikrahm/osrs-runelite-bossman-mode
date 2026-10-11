@@ -39,12 +39,17 @@ public class LockedItemOverlay extends WidgetItemOverlay
 	@Override
 	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem widgetItem)
 	{
-		if (itemId <= 1 || itemId == ItemID.BANK_FILLER)
-		{
-			return;
-		}
 		Rectangle b = widgetItem.getCanvasBounds();
-		if (b == null)
+		if (b != null)
+		{
+			drawMarks(graphics, itemId, b);
+		}
+	}
+
+	/** Dim + lock marker on a locked item, or the free-item marker; shared with {@link LockedBankEdgeOverlay}. */
+	void drawMarks(Graphics2D graphics, int itemId, Rectangle b)
+	{
+		if (itemId <= 1 || itemId == ItemID.BANK_FILLER)
 		{
 			return;
 		}
@@ -62,12 +67,16 @@ public class LockedItemOverlay extends WidgetItemOverlay
 			}
 			return;
 		}
-		if (!config.dimLocked() || isPlaceholder(itemId))
+		if (!config.dimLocked())
 		{
-			return;   // the game already greys a placeholder out
+			return;
 		}
-		graphics.setColor(DIM);
-		graphics.fillRect(b.x, b.y, b.width, b.height);
+		if (!isPlaceholder(itemId))
+		{
+			// the game already greys a placeholder out; it only needs the lock marker
+			graphics.setColor(DIM);
+			graphics.fillRect(b.x, b.y, b.width, b.height);
+		}
 		// small padlock-ish marker in the bottom-right corner, clear of the stack count drawn top-left
 		graphics.setColor(LOCK);
 		int lx = b.x + b.width - 9;

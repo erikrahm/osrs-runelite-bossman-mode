@@ -17,7 +17,7 @@ public class BossmanDataTest
 		assertFalse(d.isNpcSource("Hill Giant"));
 		assertTrue(d.isEventSource("Barrows"));
 		assertFalse(d.isEventSource("Brimstone Chest"));
-		assertEquals(69, d.orderedRungs().size());
+		assertEquals(67, d.orderedRungs().size());
 		assertEquals("Brutus", d.orderedRungs().get(0).boss);
 		assertTrue(d.orderedRungs().get(5).isFirstKillOnly()); // The Mimic
 		assertEquals(1351, (int) d.getTools().groups.get("general").get(0).id); // bronze axe

@@ -39,6 +39,8 @@ public class UnlockOverlay extends Overlay
 	private static final Logger log = LoggerFactory.getLogger(UnlockOverlay.class);
 
 	private static final long DISPLAY_MS = 5000;
+	private static final Color CAPTION_BG = new Color(0, 0, 0, 170);
+	private static final Color CAPTION_FG = new Color(255, 200, 80);
 
 	private static class Pending
 	{
@@ -60,6 +62,7 @@ public class UnlockOverlay extends Overlay
 	private int displayY;
 	private boolean screenshotUnlock;
 	private boolean includeFrame;
+	private Font captionFont;
 
 	@Inject private ItemManager itemManager;
 	@Inject private ImageCapture imageCapture;
@@ -82,6 +85,16 @@ public class UnlockOverlay extends Overlay
 		{
 			queue.add(new Pending(itemId, caption));
 		}
+	}
+
+	/** Drop anything still queued (plugin shutdown). */
+	public void clear()
+	{
+		synchronized (queue)
+		{
+			queue.clear();
+		}
+		current = null;
 	}
 
 	public void updateScreenshotUnlock(boolean doScreenshotUnlock, boolean doIncludeFrame)
@@ -119,14 +132,18 @@ public class UnlockOverlay extends Overlay
 		if (current.caption != null && !current.caption.isEmpty())
 		{
 			Font old = graphics.getFont();
-			graphics.setFont(old.deriveFont(Font.BOLD, 11f));
+			if (captionFont == null)
+			{
+				captionFont = old.deriveFont(Font.BOLD, 11f);
+			}
+			graphics.setFont(captionFont);
 			FontMetrics fm = graphics.getFontMetrics();
 			int w = fm.stringWidth(current.caption);
 			int x = -62 + (banner.getWidth() - w) / 2;
 			int y = displayY + banner.getHeight() + 12;
-			graphics.setColor(new Color(0, 0, 0, 170));
+			graphics.setColor(CAPTION_BG);
 			graphics.fillRoundRect(x - 5, y - fm.getAscent() - 2, w + 10, fm.getHeight() + 4, 6, 6);
-			graphics.setColor(new Color(255, 200, 80));
+			graphics.setColor(CAPTION_FG);
 			graphics.drawString(current.caption, x, y);
 			graphics.setFont(old);
 		}

@@ -40,6 +40,7 @@ public class BossmanPanel extends PluginPanel
 	private static final int MAX_LOCKED_SHOWN = 40;
 
 	private final BossmanModePlugin plugin;
+	private final LadderRules rules;
 	private final ItemManager itemManager;
 
 	private final JPanel body = new ScrollableBody();
@@ -55,6 +56,7 @@ public class BossmanPanel extends PluginPanel
 	{
 		super(false);
 		this.plugin = plugin;
+		this.rules = plugin.getRules();
 		this.itemManager = itemManager;
 		this.skillIconManager = skillIconManager;
 		for (String n : new String[]{"quest", "diary", "combat", "wilderness"})
@@ -139,7 +141,7 @@ public class BossmanPanel extends PluginPanel
 	private void refreshInner()
 	{
 		body.removeAll();
-		BossmanData.Rung current = plugin.currentRung();
+		BossmanData.Rung current = rules.currentRung();
 		List<BossmanData.Rung> rungs = plugin.getData().orderedRungs();
 		if (rungs.isEmpty())
 		{
@@ -272,8 +274,8 @@ public class BossmanPanel extends PluginPanel
 			{
 				JLabel l = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 				BossmanData.Rung rr = (BossmanData.Rung) value;
-				int i = rungs.indexOf(rr);
-				Color c = index == -1 ? titleColor : (i < currentIdx || current == null ? OK : (i == currentIdx ? WARN : MUTED));
+				// list cells come with their index (the model is the rung list in order); the closed box passes -1
+				Color c = index == -1 ? titleColor : (index < currentIdx || current == null ? OK : (index == currentIdx ? WARN : MUTED));
 				l.setFont(FontManager.getRunescapeBoldFont());
 				// the closed box has the arrow button on its right; list cells have the scrollbar
 				int boxW = box.getWidth() > 0 ? box.getWidth() : TITLE_WIDTH + 30;
@@ -318,7 +320,7 @@ public class BossmanPanel extends PluginPanel
 	private JPanel rungCard(BossmanData.Rung r, boolean isCurrent, List<BossmanData.Rung> rungs, int idx, BossmanData.Rung current)
 	{
 		JPanel p = card();
-		boolean complete = plugin.isRungComplete(r);
+		boolean complete = rules.isRungComplete(r);
 		p.add(bossTitle(r, isCurrent, complete, rungs, idx, current));
 		p.add(Box.createVerticalStrut(6));
 
@@ -338,7 +340,7 @@ public class BossmanPanel extends PluginPanel
 		}
 
 
-		int kc = plugin.rungKc(r);
+		int kc = rules.rungKc(r);
 		boolean hasExpected = r.log.expectedKc != null && r.log.expectedKc > 0;
 		String kcText = hasExpected ? kc + "/~" + r.log.expectedKc : String.valueOf(kc);
 		// past the expected KC without the log done = dry
@@ -355,12 +357,12 @@ public class BossmanPanel extends PluginPanel
 			int done = 0;
 			for (BossmanData.CaTask t : r.ca.list)
 			{
-				if (plugin.isCaDone(t))
+				if (rules.isCaDone(t))
 				{
 					done++;
 				}
 			}
-			JPanel caRow = infoRow("Combat Achievements", done + "/" + r.ca.tasks + (plugin.isCaGating() ? " (gating)" : ""), null, done == r.ca.tasks ? OK : Color.WHITE);
+			JPanel caRow = infoRow("Combat Achievements", done + "/" + r.ca.tasks + (rules.isCaGating() ? " (gating)" : ""), null, done == r.ca.tasks ? OK : Color.WHITE);
 			javax.swing.JPopupMenu caMenu = new javax.swing.JPopupMenu();
 			javax.swing.JMenuItem caWiki = new javax.swing.JMenuItem("Open Wiki (Combat Achievements)");
 			caWiki.setFont(FontManager.getRunescapeSmallFont());
@@ -371,7 +373,7 @@ public class BossmanPanel extends PluginPanel
 			StringBuilder tip = new StringBuilder("<html>");
 			for (BossmanData.CaTask t : r.ca.list)
 			{
-				tip.append(plugin.isCaDone(t) ? "[x] " : "[ ] ").append(escape(t.name)).append(" (").append(t.tier).append(")<br>");
+				tip.append(rules.isCaDone(t) ? "[x] " : "[ ] ").append(escape(t.name)).append(" (").append(t.tier).append(")<br>");
 			}
 			caRow.setToolTipText(tip.append("</html>").toString());
 			p.add(caRow);
@@ -381,24 +383,24 @@ public class BossmanPanel extends PluginPanel
 		int have = 0;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
-			if (plugin.isMeme(gi) || plugin.isBacklogged(r, gi.item))
+			if (rules.isMeme(gi) || rules.isBacklogged(r, gi.item))
 			{
 				continue;
 			}
 			need++;
-			if (plugin.isLogItemUnlocked(gi))
+			if (rules.isLogItemUnlocked(gi))
 			{
 				have++;
 			}
 		}
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
-			if (!plugin.isDebtItemGating(d) || plugin.isBacklogged(r, d.item))
+			if (!rules.isDebtItemGating(d) || rules.isBacklogged(r, d.item))
 			{
 				continue;
 			}
 			need++;
-			if (plugin.isDebtItemUnlocked(d))
+			if (rules.isDebtItemUnlocked(d))
 			{
 				have++;
 			}
@@ -575,17 +577,17 @@ public class BossmanPanel extends PluginPanel
 	{
 		JPanel p = card();
 		p.add(sectionTitle("Collection Log"));
-		int kc = plugin.rungKc(r);
+		int kc = rules.rungKc(r);
 		boolean any = false;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
-			if (plugin.isMeme(gi))
+			if (rules.isMeme(gi))
 			{
 				continue;
 			}
 			any = true;
-			boolean have = plugin.isLogItemUnlocked(gi);
-			boolean bl = plugin.isBacklogged(r, gi.item);
+			boolean have = rules.isLogItemUnlocked(gi);
+			boolean bl = rules.isBacklogged(r, gi.item);
 			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate + (bl && !have ? " - in backlog" : ""),
 				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
 			attachMenu(row, r, gi.item, gi.ids, have, true);
@@ -594,13 +596,13 @@ public class BossmanPanel extends PluginPanel
 		// gating pets/jars sit with the other gating items
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
-			if (!plugin.isDebtItemGating(d))
+			if (!rules.isDebtItemGating(d))
 			{
 				continue;
 			}
 			any = true;
-			boolean have = plugin.isDebtItemUnlocked(d);
-			boolean bl = plugin.isBacklogged(r, d.item);
+			boolean have = rules.isDebtItemUnlocked(d);
+			boolean bl = rules.isBacklogged(r, d.item);
 			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + (bl && !have ? " - in backlog" : ""),
 				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
 			attachMenu(row, r, d.item, d.ids, have, true);
@@ -610,7 +612,7 @@ public class BossmanPanel extends PluginPanel
 		boolean subHeader = false;
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
-			if (plugin.isDebtItemGating(d))
+			if (rules.isDebtItemGating(d))
 			{
 				continue;
 			}
@@ -622,7 +624,7 @@ public class BossmanPanel extends PluginPanel
 				p.add(subTitle("Not Gating"));
 				p.add(Box.createVerticalStrut(4));
 			}
-			boolean have = plugin.isDebtItemUnlocked(d);
+			boolean have = rules.isDebtItemUnlocked(d);
 			String note = have ? "" : (kc >= d.debtAtKc ? " - in backlog since KC " + d.debtAtKc : " - backlog at KC " + d.debtAtKc);
 			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED);
 			attachMenu(row, r, d.item, d.ids, have, false);
@@ -630,7 +632,7 @@ public class BossmanPanel extends PluginPanel
 		}
 		if (!any)
 		{
-			p.add(label("This boss has no collection log; first kill completes it.", MUTED));
+			p.add(wrapped("This boss has no collection log; first kill completes it.", MUTED, 160));
 		}
 		return p;
 	}
@@ -641,7 +643,7 @@ public class BossmanPanel extends PluginPanel
 		List<BossmanData.GatingItem> memes = new ArrayList<>();
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
-			if (plugin.isMeme(gi))
+			if (rules.isMeme(gi))
 			{
 				memes.add(gi);
 			}
@@ -654,7 +656,7 @@ public class BossmanPanel extends PluginPanel
 		p.add(sectionTitle("Optional Meme Items"));
 		for (BossmanData.GatingItem gi : memes)
 		{
-			boolean have = plugin.isLogItemUnlocked(gi);
+			boolean have = rules.isLogItemUnlocked(gi);
 			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate, have ? OK : MUTED, MUTED);
 			attachMenu(row, r, gi.item, gi.ids, have, false);
 			p.add(row);
@@ -667,11 +669,11 @@ public class BossmanPanel extends PluginPanel
 	{
 		JPanel p = card();
 		p.add(sectionTitle("Backlog"));
-		int kc = plugin.rungKc(r);
+		int kc = rules.rungKc(r);
 		boolean any = false;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
-			if (plugin.isBacklogged(r, gi.item) && !plugin.isLogItemUnlocked(gi))
+			if (rules.isBacklogged(r, gi.item) && !rules.isLogItemUnlocked(gi))
 			{
 				any = true;
 				JPanel row = logRow(gi.ids, gi.item, "Drop Rate: " + gi.rate + " - moved here by hand", BAD, MUTED);
@@ -681,12 +683,12 @@ public class BossmanPanel extends PluginPanel
 		}
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
-			if (plugin.isDebtItemUnlocked(d))
+			if (rules.isDebtItemUnlocked(d))
 			{
 				continue;
 			}
-			boolean manual = plugin.isBacklogged(r, d.item);
-			boolean auto = !plugin.isDebtItemGating(d) && kc >= d.debtAtKc;
+			boolean manual = rules.isBacklogged(r, d.item);
+			boolean auto = !rules.isDebtItemGating(d) && kc >= d.debtAtKc;
 			if (manual || auto)
 			{
 				any = true;
@@ -704,53 +706,82 @@ public class BossmanPanel extends PluginPanel
 		}
 		if (!any)
 		{
-			p.add(label("Nothing in the backlog for this boss.", MUTED));
+			p.add(wrapped("Nothing in the backlog for this boss.", MUTED, 160));
 		}
 		return p;
 	}
 
-	/** Right-click on a log row: backlog toggle (gating items) and the wiki link. Pre-plugin drops come in via the collection-log import. */
+	// ------------------------------------------------------------------ row context menu
+
+	/** Client-property keys that describe a row to the shared context menu. */
+	private static final String ROW_ITEM = "bm.item";
+	private static final String ROW_IDS = "bm.ids";
+	private static final String ROW_RUNG = "bm.rung";
+	private static final String ROW_BACKLOGABLE = "bm.backlogable";
+
+	/**
+	 * One popup menu for every row. Swing hands show() the component that was clicked; we find the row it
+	 * belongs to and build the entries for it on the spot. Saves allocating a menu per row per rebuild.
+	 */
+	private final javax.swing.JPopupMenu rowMenu = new javax.swing.JPopupMenu()
+	{
+		@Override
+		public void show(java.awt.Component invoker, int x, int y)
+		{
+			java.awt.Component c = invoker;
+			while (c != null && !(c instanceof JPanel && ((JPanel) c).getClientProperty(ROW_ITEM) != null))
+			{
+				c = c.getParent();
+			}
+			if (c == null)
+			{
+				return;
+			}
+			JPanel row = (JPanel) c;
+			String item = (String) row.getClientProperty(ROW_ITEM);
+			@SuppressWarnings("unchecked")
+			List<Integer> ids = (List<Integer>) row.getClientProperty(ROW_IDS);
+			BossmanData.Rung r = (BossmanData.Rung) row.getClientProperty(ROW_RUNG);
+			removeAll();
+			if (r != null && Boolean.TRUE.equals(row.getClientProperty(ROW_BACKLOGABLE)))
+			{
+				boolean bl = rules.isBacklogged(r, item);
+				javax.swing.JMenuItem mi = new javax.swing.JMenuItem(bl ? "Remove from Backlog" : "Move to Backlog");
+				mi.setFont(FontManager.getRunescapeSmallFont());
+				mi.addActionListener(e -> plugin.setBacklogged(r, item, !bl));
+				add(mi);
+			}
+			javax.swing.JMenuItem wiki = new javax.swing.JMenuItem("Open Wiki");
+			wiki.setFont(FontManager.getRunescapeSmallFont());
+			wiki.addActionListener(e -> net.runelite.client.util.LinkBrowser.browse(itemWikiUrl(item, ids)));
+			add(wiki);
+			super.show(invoker, x, y);
+		}
+	};
+
+	/** Backlog toggle (only while the item is still locked and gating) plus the wiki link. */
 	private void attachMenu(JPanel row, BossmanData.Rung r, String item, List<Integer> ids, boolean have, boolean backlogable)
 	{
-		javax.swing.JPopupMenu menu = new javax.swing.JPopupMenu();
-		if (backlogable && !have)
-		{
-			boolean bl = plugin.isBacklogged(r, item);
-			javax.swing.JMenuItem mi = new javax.swing.JMenuItem(bl ? "Remove from Backlog" : "Move to Backlog");
-			mi.setFont(FontManager.getRunescapeSmallFont());
-			mi.addActionListener(e -> plugin.setBacklogged(r, item, !bl));
-			menu.add(mi);
-		}
-		menu.add(wikiItem(item, ids));
-		installMenu(row, menu);
+		row.putClientProperty(ROW_RUNG, r);
+		row.putClientProperty(ROW_BACKLOGABLE, backlogable && !have);
+		attachWikiMenu(row, item, ids);
 	}
 
-	/** Right-click with only "Open wiki" (unlock / still-locked rows). */
+	/** Right-click with only "Open Wiki" (unlock / still-locked rows). */
 	private void attachWikiMenu(JPanel row, String item, List<Integer> ids)
 	{
-		javax.swing.JPopupMenu menu = new javax.swing.JPopupMenu();
-		menu.add(wikiItem(item, ids));
-		installMenu(row, menu);
+		row.putClientProperty(ROW_ITEM, item);
+		row.putClientProperty(ROW_IDS, ids);
+		installMenu(row, rowMenu);
 	}
 
-	private javax.swing.JMenuItem wikiItem(String item, List<Integer> ids)
+	private static String itemWikiUrl(String item, List<Integer> ids)
 	{
-		javax.swing.JMenuItem wiki = new javax.swing.JMenuItem("Open Wiki");
-		wiki.setFont(FontManager.getRunescapeSmallFont());
-		wiki.addActionListener(e ->
+		if (ids != null && !ids.isEmpty())
 		{
-			String url;
-			if (ids != null && !ids.isEmpty())
-			{
-				url = "https://oldschool.runescape.wiki/w/Special:Lookup?type=item&id=" + ids.get(0) + "&name=" + urlEncode(item);
-			}
-			else
-			{
-				url = "https://oldschool.runescape.wiki/w/" + urlEncode(item.replace(' ', '_'));
-			}
-			net.runelite.client.util.LinkBrowser.browse(url);
-		});
-		return wiki;
+			return "https://oldschool.runescape.wiki/w/Special:Lookup?type=item&id=" + ids.get(0) + "&name=" + urlEncode(item);
+		}
+		return "https://oldschool.runescape.wiki/w/" + urlEncode(item.replace(' ', '_'));
 	}
 
 	private static String urlEncode(String s)
@@ -765,6 +796,7 @@ public class BossmanPanel extends PluginPanel
 		}
 	}
 
+	/** Make the whole row (and its labels) open the menu on right-click. */
 	private void installMenu(JPanel row, javax.swing.JPopupMenu menu)
 	{
 		row.setComponentPopupMenu(menu);
@@ -792,7 +824,12 @@ public class BossmanPanel extends PluginPanel
 
 	private JLabel wrapped(String text, Color color)
 	{
-		JLabel l = new JLabel("<html><body style='width:" + LOG_TEXT_WIDTH + "px'>" + escape(text) + "</body></html>");
+		return wrapped(text, color, LOG_TEXT_WIDTH);
+	}
+
+	private JLabel wrapped(String text, Color color, int width)
+	{
+		JLabel l = new JLabel("<html><body style='width:" + width + "px'>" + escape(text) + "</body></html>");
 		l.setFont(FontManager.getRunescapeSmallFont());
 		l.setForeground(color);
 		l.setAlignmentX(LEFT_ALIGNMENT);
@@ -888,7 +925,7 @@ public class BossmanPanel extends PluginPanel
 		p.add(sectionTitle("Unlocks (" + mine.size() + "/" + possible + ")"));
 		if (mine.isEmpty())
 		{
-			p.add(label("Nothing unlocked from this boss yet.", MUTED));
+			p.add(wrapped("Nothing unlocked from this boss yet.", MUTED, 160));
 		}
 		// same order as the drop table: commonest first (items without a known rate go last, in unlock order)
 		mine.sort((a, b) -> Integer.compare(dropIndex(r, a.itemId), dropIndex(r, b.itemId)));
@@ -985,16 +1022,6 @@ public class BossmanPanel extends PluginPanel
 		return l;
 	}
 
-	private JLabel wrapLabel(String text, Color color)
-	{
-		JLabel l = new JLabel("<html><body style='width:150px'>" + escape(text) + "</body></html>");
-		l.setFont(FontManager.getRunescapeSmallFont());
-		l.setForeground(color);
-		l.setAlignmentX(LEFT_ALIGNMENT);
-		return l;
-	}
-
-	/** The RuneScape font draws < and > above centre; use the default UI font for the arrows so they line up with "Current". */
 	/** A drawn chevron, so the arrows match at any font and grey out when the button is disabled. */
 	private static class ChevronIcon implements javax.swing.Icon
 	{

@@ -28,6 +28,15 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
 
 Requires the **Loot Tracker** plugin to be enabled for chest/event sources (NPC kills work without it).
 
+## Code layout
+- `BossmanModePlugin` — RuneLite event handling (loot, inventory, chat, scripts, menus) and the only writes to the ledger.
+  Writes are coalesced: a change marks the ledger dirty, one save runs ~1.5 s later on RuneLite's executor (and on logout,
+  shutdown, backup), and one panel rebuild is queued on the Swing thread however many events arrive meanwhile.
+- `LadderRules` — the ruleset as pure queries (what is allowed, what gates a rung, which rung is current). No state of its own; reads data + ledger + config and is safe from any thread.
+- `Ledger` — the persisted state (unlocks, KC, backlog, manual completions, combat tasks). Concurrent collections, since the client thread writes while the panel reads.
+- `BossmanData` — the bundled JSON (tools, access gear, sources, ladder) and lookups over it.
+- `BossmanPanel` — the side panel, rebuilt from scratch on each refresh. `LockedItemOverlay` / `UnlockOverlay` — the in-game marks and the unlock banner.
+
 ## Building
 ```
 ./gradlew build

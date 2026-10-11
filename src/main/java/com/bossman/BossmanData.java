@@ -178,17 +178,18 @@ public class BossmanData
 
 	/** item id → "tool" / "access" */
 	private final Map<Integer, String> freeItems = new HashMap<>();
-	/** lower-cased NPC names that may unlock items */
-	private final Set<String> npcSources = new HashSet<>();
+	/** lower-cased NPC name → name as written in the bundled list (the key KC is tracked under) */
+	private final Map<String, String> npcSources = new HashMap<>();
 	/** loot-tracker event names (exact) that may unlock items */
 	private final Set<String> eventSources = new HashSet<>();
+	/** the user's "extra sources" config, kept so the source sets can be rebuilt without re-reading the bundled files */
+	private String extraSources = "";
 
 	public Tools getTools() { return tools; }
 	public Access getAccess() { return access; }
 	public Sources getSources() { return sources; }
 	public Ladder getLadder() { return ladder; }
 	public Map<Integer, String> getFreeItems() { return freeItems; }
-	public Set<String> getNpcSources() { return npcSources; }
 	public Set<String> getEventSources() { return eventSources; }
 
 	public void load(Gson gson)
@@ -213,29 +214,33 @@ public class BossmanData
 				freeItems.putIfAbsent(r.id, "access");
 			}
 		}
-		npcSources.clear();
-		for (String n : sources.npcNames)
-		{
-			npcSources.add(n.toLowerCase(Locale.ROOT));
-		}
-		eventSources.clear();
-		eventSources.addAll(sources.lootTrackerEvents.keySet());
+		rebuildSources();
 		log.info("Bossman data loaded: {} free items, {} npc sources, {} event sources, {} rungs",
 			freeItems.size(), npcSources.size(), eventSources.size(), ladder.rungs.size());
 	}
 
-	public void addExtraSources(String csv)
+	/** Comma-separated NPC / event names from config that may unlock items on top of the bundled list. */
+	public void setExtraSources(String csv)
 	{
-		if (csv == null)
+		extraSources = csv == null ? "" : csv;
+		rebuildSources();
+	}
+
+	private void rebuildSources()
+	{
+		npcSources.clear();
+		eventSources.clear();
+		for (String n : sources.npcNames)
 		{
-			return;
+			npcSources.put(n.toLowerCase(Locale.ROOT), n);
 		}
-		for (String s : csv.split(","))
+		eventSources.addAll(sources.lootTrackerEvents.keySet());
+		for (String s : extraSources.split(","))
 		{
 			String t = s.trim();
 			if (!t.isEmpty())
 			{
-				npcSources.add(t.toLowerCase(Locale.ROOT));
+				npcSources.putIfAbsent(t.toLowerCase(Locale.ROOT), t);
 				eventSources.add(t);
 			}
 		}
@@ -243,12 +248,18 @@ public class BossmanData
 
 	public boolean isNpcSource(String npcName)
 	{
-		return npcName != null && npcSources.contains(npcName.toLowerCase(Locale.ROOT));
+		return npcName != null && npcSources.containsKey(npcName.toLowerCase(Locale.ROOT));
+	}
+
+	/** The bundled spelling of an NPC source name (KC and unlocks are keyed by it), or null if it isn't a source. */
+	public String canonicalNpcName(String npcName)
+	{
+		return npcName == null ? null : npcSources.get(npcName.toLowerCase(Locale.ROOT));
 	}
 
 	public boolean isEventSource(String eventName)
 	{
-		return eventName != null && (eventSources.contains(eventName) || npcSources.contains(eventName.toLowerCase(Locale.ROOT)));
+		return eventName != null && (eventSources.contains(eventName) || npcSources.containsKey(eventName.toLowerCase(Locale.ROOT)));
 	}
 
 	public List<Rung> orderedRungs()

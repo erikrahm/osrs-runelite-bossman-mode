@@ -43,11 +43,12 @@ public class LockedItemOverlay extends WidgetItemOverlay
 		{
 			return;
 		}
-		if (plugin.isAllowed(itemId))
+		LadderRules rules = plugin.getRules();
+		if (rules.isAllowed(itemId))
 		{
 			if (config.markFree())
 			{
-				String kind = plugin.freeKind(itemId);
+				String kind = rules.freeKind(itemId);
 				if (kind != null)
 				{
 					graphics.setColor("tool".equals(kind) ? TOOL : ACCESS);

@@ -1,6 +1,10 @@
 /*
  * Bossman Mode — the unlock ledger: every unlocked item with its provenance, per-source kill counts,
- * and rungs the player marked complete by hand. Persisted as JSON in the RuneLite profile folder.
+ * rungs the player marked complete by hand, the backlog and completed combat tasks.
+ * Persisted as JSON in the RuneLite profile folder.
+ *
+ * Mutated on the client thread, read on the Swing thread by the panel: every collection is concurrent so
+ * a rebuild never trips over a write. Saving is the plugin's job (debounced), this class only does the I/O.
  */
 package com.bossman;
 
@@ -11,13 +15,11 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.nio.file.StandardCopyOption;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +29,6 @@ public class Ledger
 
 	public static final String KIND_DROP = "drop";
 	public static final String KIND_RECEIPT = "receipt";
-	public static final String KIND_MANUAL = "manual";
 	public static final String KIND_DEFAULT = "default";
 	public static final String KIND_CLOG = "clog";       // imported from the in-game collection log (obtained before the plugin)
 
@@ -35,23 +36,23 @@ public class Ledger
 	{
 		public int itemId;
 		public String name;
-		public String kind;     // drop / receipt / manual / default
+		public String kind;     // drop / receipt / default / clog
 		public String source;   // boss or event name
 		public Integer kc;      // KC at the source when it dropped
 		public long time;       // epoch millis
-		public String reason;   // for manual unlocks
+		public String reason;   // for default / clog unlocks
 	}
 
-	/** item id → entry (insertion order = unlock order) */
-	public Map<Integer, Entry> unlocks = new LinkedHashMap<>();
+	/** item id → entry */
+	public ConcurrentMap<Integer, Entry> unlocks = new ConcurrentHashMap<>();
 	/** source name → kills seen */
-	public Map<String, Integer> kc = new HashMap<>();
+	public ConcurrentMap<String, Integer> kc = new ConcurrentHashMap<>();
 	/** boss names of rungs the player marked complete by hand (no-log rungs like the Gemstone Crab) */
-	public Set<String> manualComplete = new HashSet<>();
+	public Set<String> manualComplete = ConcurrentHashMap.newKeySet();
 	/** collection-log items moved to the backlog by hand, as "boss|item" (they stop gating the ladder) */
-	public Set<String> backlog = new HashSet<>();
+	public Set<String> backlog = ConcurrentHashMap.newKeySet();
 	/** combat achievement task names seen completed in chat */
-	public Set<String> caDone = new HashSet<>();
+	public Set<String> caDone = ConcurrentHashMap.newKeySet();
 
 	private transient File file;
 
@@ -73,30 +74,37 @@ public class Ledger
 		{
 			l = new Ledger();
 		}
-		if (l.unlocks == null)
-		{
-			l.unlocks = new LinkedHashMap<>();
-		}
-		if (l.kc == null)
-		{
-			l.kc = new HashMap<>();
-		}
-		if (l.manualComplete == null)
-		{
-			l.manualComplete = new HashSet<>();
-		}
-		if (l.backlog == null)
-		{
-			l.backlog = new HashSet<>();
-		}
-		if (l.caDone == null)
-		{
-			l.caDone = new HashSet<>();
-		}
+		// Gson builds whatever it likes for interface-typed fields; re-home everything in concurrent collections
+		l.unlocks = concurrent(l.unlocks);
+		l.kc = concurrent(l.kc);
+		l.manualComplete = concurrentSet(l.manualComplete);
+		l.backlog = concurrentSet(l.backlog);
+		l.caDone = concurrentSet(l.caDone);
 		l.file = file;
 		return l;
 	}
 
+	private static <K, V> ConcurrentMap<K, V> concurrent(Map<K, V> m)
+	{
+		ConcurrentMap<K, V> out = new ConcurrentHashMap<>();
+		if (m != null)
+		{
+			out.putAll(m);
+		}
+		return out;
+	}
+
+	private static <T> Set<T> concurrentSet(Set<T> s)
+	{
+		Set<T> out = ConcurrentHashMap.newKeySet();
+		if (s != null)
+		{
+			out.addAll(s);
+		}
+		return out;
+	}
+
+	/** Write atomically (temp file + rename). Safe to call while the client thread keeps writing: a write that lands mid-save is picked up by the next one. */
 	public void save(Gson gson)
 	{
 		if (file == null)
@@ -115,7 +123,7 @@ public class Ledger
 			{
 				gson.toJson(this, w);
 			}
-			Files.move(tmp.toPath(), file.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+			Files.move(tmp.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		}
 		catch (IOException e)
 		{
@@ -135,9 +143,7 @@ public class Ledger
 
 	public int incrementKc(String source)
 	{
-		int n = kc.getOrDefault(source, 0) + 1;
-		kc.put(source, n);
-		return n;
+		return kc.merge(source, 1, Integer::sum);
 	}
 
 	public int getKc(String source)
@@ -147,18 +153,6 @@ public class Ledger
 
 	public void setKcIfHigher(String source, int n)
 	{
-		if (n > kc.getOrDefault(source, 0))
-		{
-			kc.put(source, n);
-		}
-	}
-
-	public List<Entry> recent(int n)
-	{
-		List<Entry> all = new ArrayList<>(unlocks.values());
-		int from = Math.max(0, all.size() - n);
-		List<Entry> out = new ArrayList<>(all.subList(from, all.size()));
-		java.util.Collections.reverse(out);
-		return out;
+		kc.merge(source, n, Math::max);
 	}
 }

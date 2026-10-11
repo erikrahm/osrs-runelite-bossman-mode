@@ -32,14 +32,14 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
@@ -68,7 +68,6 @@ import net.runelite.api.widgets.ComponentID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.Notifier;
 import net.runelite.client.RuneLite;
-import net.runelite.client.callback.ClientThread;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatCommandManager;
 import net.runelite.client.chat.ChatMessageBuilder;
@@ -105,10 +104,11 @@ public class BossmanModePlugin extends Plugin
 	private static final int ITEM_COINS = 995;
 	private static final int ITEM_BOND = 13190;
 	private static final Pattern KC_PATTERN = Pattern.compile("Your (.+?) kill count is: ?([\\d,]+)");
+	/** How long after the last change the ledger is written to disk (writes are coalesced). */
+	private static final long SAVE_DELAY_MS = 1500;
 	private static final Pattern CA_PATTERN = Pattern.compile("Congratulations, you've completed an? (?:easy|medium|hard|elite|master|grandmaster) combat task: (.+?)\\.?$", Pattern.CASE_INSENSITIVE);
 
 	@Inject private Client client;
-	@Inject private ClientThread clientThread;
 	@Inject private ItemManager itemManager;
 	@Inject private OverlayManager overlayManager;
 	@Inject private ConfigManager configManager;
@@ -120,19 +120,27 @@ public class BossmanModePlugin extends Plugin
 	@Inject private Gson gson;
 	@Inject private UnlockOverlay unlockOverlay;
 	@Inject private LockedItemOverlay lockedItemOverlay;
+	@Inject private ScheduledExecutorService executor;
 
 	private final BossmanData data = new BossmanData();
-	private Ledger ledger = new Ledger();
+	private volatile Ledger ledger = new Ledger();
+	private LadderRules rules;
 	private BufferedImage unlockImage;
 
 	public BossmanData getData() { return data; }
 	public Ledger getLedger() { return ledger; }
+	public LadderRules getRules() { return rules; }
 	public BufferedImage getUnlockImage() { return unlockImage; }
 
 	private BossmanPanel panel;
 	private NavigationButton navButton;
 	private boolean loggingIn;
 	private Map<Integer, Integer> lastInventory = new HashMap<>();
+	/** a save is scheduled (or running); cleared when it completes */
+	private final AtomicBoolean saveDirty = new AtomicBoolean();
+	private ScheduledFuture<?> pendingSave;
+	/** a panel rebuild is queued on the Swing thread; further requests until it runs are no-ops */
+	private final AtomicBoolean refreshPending = new AtomicBoolean();
 
 	@Provides
 	BossmanModeConfig provideConfig(ConfigManager configManager)
@@ -144,7 +152,8 @@ public class BossmanModePlugin extends Plugin
 	protected void startUp()
 	{
 		data.load(gson);
-		data.addExtraSources(config.extraSources());
+		data.setExtraSources(config.extraSources());
+		rules = new LadderRules(data, config, itemManager, () -> ledger);
 		unlockImage = ImageUtil.loadImageResource(getClass(), "/item-unlocked.png");
 		unlockOverlay.updateScreenshotUnlock(config.screenshotUnlock(), config.includeFrame());
 		overlayManager.add(unlockOverlay);
@@ -163,13 +172,10 @@ public class BossmanModePlugin extends Plugin
 		navButton = NavigationButton.builder().tooltip("Bossman Mode").icon(icon).panel(panel).priority(6).build();
 		clientToolbar.addNavigation(navButton);
 
-		clientThread.invoke(() ->
+		if (client.getGameState() == GameState.LOGGED_IN)
 		{
-			if (client.getGameState() == GameState.LOGGED_IN)
-			{
-				openLedger();
-			}
-		});
+			openLedger();
+		}
 	}
 
 	@Override
@@ -182,7 +188,9 @@ public class BossmanModePlugin extends Plugin
 		chatCommandManager.unregisterCommand("!bmbackup");
 		chatCommandManager.unregisterCommand("!bmreset");
 		clientToolbar.removeNavigation(navButton);
+		unlockOverlay.clear();
 		lastInventory.clear();
+		flushLedger();
 	}
 
 	// ------------------------------------------------------------------ lifecycle
@@ -199,6 +207,10 @@ public class BossmanModePlugin extends Plugin
 			loggingIn = false;
 			openLedger();
 		}
+		if (e.getGameState() == GameState.LOGIN_SCREEN)
+		{
+			flushLedger();
+		}
 	}
 
 	@Subscribe
@@ -211,8 +223,7 @@ public class BossmanModePlugin extends Plugin
 		switch (e.getKey())
 		{
 			case "extraSources":
-				data.load(gson);
-				data.addExtraSources(config.extraSources());
+				data.setExtraSources(config.extraSources());
 				break;
 			case "screenshotUnlock":
 			case "includeFrame":
@@ -243,6 +254,7 @@ public class BossmanModePlugin extends Plugin
 
 	private void openLedger()
 	{
+		flushLedger(); // whatever the previous account/profile had pending
 		String profileKey = configManager.getRSProfileKey();
 		String folderName = profileKey != null ? profileKey : client.getUsername();
 		File folder = new File(RuneLite.RUNELITE_DIR, "profiles/" + folderName);
@@ -251,9 +263,34 @@ public class BossmanModePlugin extends Plugin
 		{
 			recordUnlock(ITEM_BOND, Ledger.KIND_DEFAULT, "default", null, "bonds buy membership", false);
 		}
-		ledger.save(gson);
 		snapshotInventory();
+		ledgerChanged();
+	}
+
+	// ------------------------------------------------------------------ persistence
+
+	/** Something in the ledger changed: queue one disk write and one panel rebuild, however many changes arrive before they run. */
+	private void ledgerChanged()
+	{
+		if (saveDirty.compareAndSet(false, true))
+		{
+			pendingSave = executor.schedule(this::flushLedger, SAVE_DELAY_MS, TimeUnit.MILLISECONDS);
+		}
 		refreshPanel();
+	}
+
+	/** Write the ledger now if anything is pending (shutdown, logout, backup, profile switch). */
+	private void flushLedger()
+	{
+		ScheduledFuture<?> f = pendingSave;
+		if (f != null)
+		{
+			f.cancel(false);
+		}
+		if (saveDirty.getAndSet(false))
+		{
+			ledger.save(gson);
+		}
 	}
 
 	// ------------------------------------------------------------------ unlock sources
@@ -268,13 +305,12 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
-		String clean = Text.removeTags(name);
-		if (!data.isNpcSource(clean))
+		String source = data.canonicalNpcName(Text.removeTags(name));
+		if (source == null)
 		{
 			return;
 		}
-		int kc = ledger.incrementKc(canonicalSource(clean));
-		unlockLoot(e.getItems(), canonicalSource(clean), kc);
+		unlockLoot(e.getItems(), source, ledger.incrementKc(source));
 	}
 
 	/** Chests, caskets, permits, crates: posted by the Loot Tracker plugin (must be enabled). */
@@ -308,13 +344,14 @@ public class BossmanModePlugin extends Plugin
 			return;
 		}
 		Map<Integer, Integer> now = count(container);
+		boolean changed = false;
 		if (config.receiptRules() && client.getLocalPlayer() != null)
 		{
 			int region = client.getLocalPlayer().getWorldLocation().getRegionID();
 			for (Map.Entry<Integer, Integer> en : now.entrySet())
 			{
 				int id = en.getKey();
-				if (en.getValue() <= lastInventory.getOrDefault(id, 0) || isAllowed(id))
+				if (en.getValue() <= lastInventory.getOrDefault(id, 0) || rules.isAllowed(id))
 				{
 					continue; // not a gain, or already fine
 				}
@@ -325,17 +362,21 @@ public class BossmanModePlugin extends Plugin
 					if (byItem || byRegion)
 					{
 						recordUnlock(id, Ledger.KIND_RECEIPT, rule.name, null, rule.note, true);
+						changed = true;
 						break;
 					}
 				}
 			}
 		}
 		lastInventory = now;
+		if (changed)
+		{
+			ledgerChanged();
+		}
 	}
 
 	private void unlockLoot(Collection<ItemStack> items, String source, int kc)
 	{
-		boolean any = false;
 		for (ItemStack stack : items)
 		{
 			int id = itemManager.canonicalize(stack.getId());
@@ -344,16 +385,14 @@ public class BossmanModePlugin extends Plugin
 				continue;
 			}
 			recordUnlock(id, Ledger.KIND_DROP, source, kc, null, true);
-			any = true;
 		}
-		if (!any)
-		{
-			ledger.save(gson); // KC changed
-		}
-		refreshPanel();
+		ledgerChanged(); // KC moved even if nothing new dropped
 	}
 
-	/** The one place unlocks are written. Must run on the client thread (item names). */
+	/**
+	 * The one place unlocks are written. Client thread only (item names). Does not save or refresh:
+	 * the caller does that once with ledgerChanged(), however many items it records.
+	 */
 	private void recordUnlock(int itemId, String kind, String source, Integer kc, String reason, boolean announce)
 	{
 		Ledger.Entry en = new Ledger.Entry();
@@ -366,7 +405,6 @@ public class BossmanModePlugin extends Plugin
 		ItemComposition comp = itemManager.getItemComposition(itemId);
 		en.name = comp != null ? comp.getMembersName() : ("item " + itemId);
 		ledger.unlocks.put(itemId, en);
-		ledger.save(gson);
 		if (announce)
 		{
 			String caption = kc != null ? source + " — KC " + kc : source;
@@ -383,218 +421,22 @@ public class BossmanModePlugin extends Plugin
 				notifier.notify("Bossman unlock: " + en.name + " (" + caption + ")");
 			}
 		}
-		refreshPanel();
 	}
 
-	/** Lesser/greater pairs and brothers share a log; KC is tracked per NPC name, this just normalises case. */
-	private String canonicalSource(String npcName)
-	{
-		for (String s : data.getSources().npcNames)
-		{
-			if (s.equalsIgnoreCase(npcName))
-			{
-				return s;
-			}
-		}
-		return npcName;
-	}
-
-	// ------------------------------------------------------------------ queries
-
-	/** Unlocked by a boss, or free under the Tool / access rules. */
-	public boolean isAllowed(int itemId)
-	{
-		int id = itemManager.canonicalize(itemId);
-		if (id == ITEM_COINS)
-		{
-			return ledger.isUnlocked(ITEM_COINS);
-		}
-		if (ledger.isUnlocked(id))
-		{
-			return true;
-		}
-		String kind = freeKind(id);
-		return kind != null;
-	}
-
-	/** "tool" / "access" if the item is free under a rule that is switched on, else null. */
-	public String freeKind(int itemId)
-	{
-		String kind = data.getFreeItems().get(itemManager.canonicalize(itemId));
-		if ("tool".equals(kind) && !config.freeTools())
-		{
-			return null;
-		}
-		if ("access".equals(kind) && !config.freeAccessGear())
-		{
-			return null;
-		}
-		return kind;
-	}
-
-	public boolean isCaGating()
-	{
-		return config.caGate();
-	}
-
-	public boolean isCaDone(BossmanData.CaTask t)
-	{
-		for (String n : ledger.caDone)
-		{
-			if (n.equalsIgnoreCase(t.name))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static String backlogKey(BossmanData.Rung r, String item)
-	{
-		return r.boss + "|" + item;
-	}
-
-	public boolean isBacklogged(BossmanData.Rung r, String item)
-	{
-		return ledger.backlog.contains(backlogKey(r, item));
-	}
+	// ------------------------------------------------------------------ player choices
 
 	public void setBacklogged(BossmanData.Rung r, String item, boolean backlogged)
 	{
+		String key = LadderRules.backlogKey(r, item);
 		if (backlogged)
 		{
-			ledger.backlog.add(backlogKey(r, item));
+			ledger.backlog.add(key);
 		}
 		else
 		{
-			ledger.backlog.remove(backlogKey(r, item));
+			ledger.backlog.remove(key);
 		}
-		ledger.save(gson);
-		refreshPanel();
-	}
-
-	/** Rarer than the configured threshold → optional "meme grind", does not gate the ladder. */
-	public boolean isMeme(BossmanData.GatingItem gi)
-	{
-		return gi.denominator != null && gi.denominator >= config.memeThreshold();
-	}
-
-	public boolean isJar(BossmanData.DebtItem d)
-	{
-		return d.item != null && d.item.toLowerCase(java.util.Locale.ROOT).startsWith("jar of");
-	}
-
-	/** Pets/jars gate only when the matching option is on. */
-	public boolean isDebtItemGating(BossmanData.DebtItem d)
-	{
-		return isJar(d) ? config.jarsGate() : config.petsGate();
-	}
-
-	public boolean isDebtItemUnlocked(BossmanData.DebtItem d)
-	{
-		for (int id : d.ids)
-		{
-			if (ledger.isUnlocked(id))
-			{
-				return true;
-			}
-		}
-		for (Ledger.Entry en : ledger.unlocks.values())
-		{
-			if (en.name != null && en.name.equalsIgnoreCase(d.item))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean isLogItemUnlocked(BossmanData.GatingItem gi)
-	{
-		for (int id : gi.ids)
-		{
-			if (ledger.isUnlocked(id))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public int rungKc(BossmanData.Rung r)
-	{
-		int total = 0;
-		for (String s : r.sources)
-		{
-			total += ledger.getKc(s);
-		}
-		return total;
-	}
-
-	public boolean isRungComplete(BossmanData.Rung r)
-	{
-		if (ledger.manualComplete.contains(r.boss))
-		{
-			return true;
-		}
-		if (r.isFirstKillOnly())
-		{
-			return rungKc(r) >= 1;
-		}
-		boolean anyGating = false;
-		for (BossmanData.GatingItem gi : r.log.gatingItems)
-		{
-			if (isMeme(gi) || isBacklogged(r, gi.item))
-			{
-				continue;
-			}
-			anyGating = true;
-			if (!isLogItemUnlocked(gi))
-			{
-				return false;
-			}
-		}
-		for (BossmanData.DebtItem d : r.log.debtPetsJars)
-		{
-			if (!isDebtItemGating(d) || isBacklogged(r, d.item))
-			{
-				continue;
-			}
-			anyGating = true;
-			if (!isDebtItemUnlocked(d))
-			{
-				return false;
-			}
-		}
-		if (config.caGate() && r.ca != null)
-		{
-			for (BossmanData.CaTask t : r.ca.list)
-			{
-				anyGating = true;
-				if (!isCaDone(t))
-				{
-					return false;
-				}
-			}
-		}
-		if (!anyGating)
-		{
-			return rungKc(r) >= 1;
-		}
-		return true;
-	}
-
-	/** Lowest incomplete rung = the boss the series is on. */
-	public BossmanData.Rung currentRung()
-	{
-		for (BossmanData.Rung r : data.orderedRungs())
-		{
-			if (!isRungComplete(r))
-			{
-				return r;
-			}
-		}
-		return null;
+		ledgerChanged();
 	}
 
 	public void markRungComplete(BossmanData.Rung r, boolean complete)
@@ -607,8 +449,7 @@ public class BossmanModePlugin extends Plugin
 		{
 			ledger.manualComplete.remove(r.boss);
 		}
-		ledger.save(gson);
-		refreshPanel();
+		ledgerChanged();
 	}
 
 	// ------------------------------------------------------------------ restrictions
@@ -653,6 +494,7 @@ public class BossmanModePlugin extends Plugin
 			return; // not a tab we track (Slayer, Miscellaneous, All Pets, ...)
 		}
 		int imported = 0;
+		String source = rung.sources.isEmpty() ? rung.boss : rung.sources.get(0);
 		for (Widget child : items.getChildren())
 		{
 			int id = child.getItemId();
@@ -665,14 +507,13 @@ public class BossmanModePlugin extends Plugin
 			{
 				continue;
 			}
-			recordUnlock(canon, Ledger.KIND_CLOG, rung.sources.isEmpty() ? rung.boss : rung.sources.get(0), null,
-				"imported from the collection log (" + tab + ")", false);
+			recordUnlock(canon, Ledger.KIND_CLOG, source, null, "imported from the collection log (" + tab + ")", false);
 			imported++;
 		}
 		if (imported > 0)
 		{
 			sendChatMessage("Bossman: imported " + imported + " item" + (imported == 1 ? "" : "s") + " from your " + tab + " collection log.");
-			refreshPanel();
+			ledgerChanged();
 		}
 	}
 
@@ -689,7 +530,7 @@ public class BossmanModePlugin extends Plugin
 			return;
 		}
 		int itemId = entry.getItemId();
-		if (itemId > 0 && !isAllowed(itemId))
+		if (itemId > 0 && !rules.isAllowed(itemId))
 		{
 			client.getMenu().removeMenuEntry(entry);
 		}
@@ -723,7 +564,7 @@ public class BossmanModePlugin extends Plugin
 		}
 		for (int i = 0; i < children.length; i += 3)
 		{
-			if (!isAllowed(children[i + 2].getItemId()))
+			if (!rules.isAllowed(children[i + 2].getItemId()))
 			{
 				children[i].setHidden(true);
 				children[i + 1].setOpacity(70);
@@ -746,8 +587,7 @@ public class BossmanModePlugin extends Plugin
 		if (ca.find())
 		{
 			ledger.caDone.add(ca.group(1).trim());
-			ledger.save(gson);
-			refreshPanel();
+			ledgerChanged();
 			return;
 		}
 		Matcher m = KC_PATTERN.matcher(msg);
@@ -765,15 +605,11 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
-		for (String s : data.getSources().npcNames)
+		String source = data.canonicalNpcName(boss);
+		if (source != null)
 		{
-			if (s.equalsIgnoreCase(boss))
-			{
-				ledger.setKcIfHigher(s, n);
-				ledger.save(gson);
-				refreshPanel();
-				return;
-			}
+			ledger.setKcIfHigher(source, n);
+			ledgerChanged();
 		}
 	}
 
@@ -787,7 +623,7 @@ public class BossmanModePlugin extends Plugin
 		}
 		long drops = ledger.unlocks.values().stream().filter(x -> Ledger.KIND_DROP.equals(x.kind)).count();
 		long real = ledger.unlocks.values().stream().filter(x -> !Ledger.KIND_DEFAULT.equals(x.kind)).count();
-		long free = data.getFreeItems().keySet().stream().filter(id -> freeKind(id) != null).count();
+		long free = data.getFreeItems().keySet().stream().filter(id -> rules.freeKind(id) != null).count();
 		reply(chatMessage, "Bossman: " + real + " items unlocked (" + drops + " from boss drops), " + free + " free tools/access items.");
 	}
 
@@ -797,7 +633,7 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
-		BossmanData.Rung r = currentRung();
+		BossmanData.Rung r = rules.currentRung();
 		if (r == null)
 		{
 			reply(chatMessage, "Bossman: ladder complete.");
@@ -807,18 +643,18 @@ public class BossmanModePlugin extends Plugin
 		int need = 0;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
-			if (isMeme(gi) || isBacklogged(r, gi.item))
+			if (rules.isMeme(gi) || rules.isBacklogged(r, gi.item))
 			{
 				continue;
 			}
 			need++;
-			if (isLogItemUnlocked(gi))
+			if (rules.isLogItemUnlocked(gi))
 			{
 				have++;
 			}
 		}
 		reply(chatMessage, "Bossman boss " + r.rung + ": " + r.boss + " - " + have + "/" + need
-			+ " log items, KC " + rungKc(r) + (r.log.expectedKc != null ? " (expected ~" + r.log.expectedKc + ")" : ""));
+			+ " log items, KC " + rules.rungKc(r) + (r.log.expectedKc != null ? " (expected ~" + r.log.expectedKc + ")" : ""));
 	}
 
 	private void onBackupCommand(ChatMessage chatMessage, String message)
@@ -827,6 +663,7 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
+		flushLedger();
 		File f = ledger.getFile();
 		if (f == null || !f.exists())
 		{
@@ -901,11 +738,16 @@ public class BossmanModePlugin extends Plugin
 		return m;
 	}
 
+	/** Queue one panel rebuild on the Swing thread; calls that arrive while one is queued are folded into it. */
 	private void refreshPanel()
 	{
-		if (panel != null)
+		if (panel != null && refreshPending.compareAndSet(false, true))
 		{
-			SwingUtilities.invokeLater(panel::refresh);
+			SwingUtilities.invokeLater(() ->
+			{
+				refreshPending.set(false);
+				panel.refresh();
+			});
 		}
 	}
 }

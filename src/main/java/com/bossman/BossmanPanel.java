@@ -661,6 +661,8 @@ public class BossmanPanel extends PluginPanel
 		{
 			p.add(label("Nothing unlocked from this boss yet.", MUTED));
 		}
+		// same order as the drop table: commonest first (items without a known rate go last, in unlock order)
+		mine.sort((a, b) -> Integer.compare(dropIndex(r, a.itemId), dropIndex(r, b.itemId)));
 		for (Ledger.Entry en : mine)
 		{
 			String rate = rateFor(r, en.itemId);
@@ -688,6 +690,18 @@ public class BossmanPanel extends PluginPanel
 			}
 		}
 		return p;
+	}
+
+	private int dropIndex(BossmanData.Rung r, int itemId)
+	{
+		for (int i = 0; i < r.drops.size(); i++)
+		{
+			if (r.drops.get(i).ids.contains(itemId))
+			{
+				return i;
+			}
+		}
+		return Integer.MAX_VALUE;
 	}
 
 	private String rateFor(BossmanData.Rung r, int itemId)

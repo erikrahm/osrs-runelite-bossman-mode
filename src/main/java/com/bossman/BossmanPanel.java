@@ -995,11 +995,48 @@ public class BossmanPanel extends PluginPanel
 	}
 
 	/** The RuneScape font draws < and > above centre; use the default UI font for the arrows so they line up with "Current". */
+	/** A drawn chevron, so the arrows match at any font and grey out when the button is disabled. */
+	private static class ChevronIcon implements javax.swing.Icon
+	{
+		private final boolean left;
+
+		ChevronIcon(boolean left)
+		{
+			this.left = left;
+		}
+
+		@Override
+		public int getIconWidth()
+		{
+			return 8;
+		}
+
+		@Override
+		public int getIconHeight()
+		{
+			return 10;
+		}
+
+		@Override
+		public void paintIcon(java.awt.Component c, java.awt.Graphics g, int x, int y)
+		{
+			java.awt.Graphics2D g2 = (java.awt.Graphics2D) g.create();
+			g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+			g2.setStroke(new java.awt.BasicStroke(1.8f, java.awt.BasicStroke.CAP_ROUND, java.awt.BasicStroke.JOIN_ROUND));
+			g2.setColor(c.isEnabled() ? Color.WHITE : MUTED);
+			int tip = left ? x + 2 : x + 6;
+			int tail = left ? x + 6 : x + 2;
+			g2.drawLine(tail, y + 1, tip, y + 5);
+			g2.drawLine(tip, y + 5, tail, y + 9);
+			g2.dispose();
+		}
+	}
+
 	private JButton arrowButton(String text)
 	{
-		JButton b = smallButton(text);
-		b.setFont(FontManager.getDefaultBoldFont());
-		b.setVerticalAlignment(SwingConstants.CENTER);
+		JButton b = smallButton("");
+		b.setIcon(new ChevronIcon("<".equals(text)));
+		b.setDisabledIcon(b.getIcon());
 		b.setMargin(new java.awt.Insets(1, 7, 1, 7));
 		return b;
 	}

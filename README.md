@@ -17,7 +17,7 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
 - **Restrictions.** Locked items are dimmed with a lock marker in the inventory, bank and equipment; hidden in GE search
   results; and cannot be *sold* on the GE (the `Offer` option is removed) — only unlocked items may be sold.
 - **Unlock banner** captioned with the source and KC ("Crazy archaeologist — KC 14"), optional screenshot / chat / notification.
-- **Ladder panel.** The 69-rung boss ladder (`bossman/ladder.json`): current rung, gate, collection-log items gating it
+- **Ladder panel.** The 67-rung boss ladder (`bossman/ladder.json`): current rung, gate, collection-log items gating it
   (with drop rates), KC vs expected KC, what the boss has unlocked for you and what it still could, and the **backlog** —
   pets/jars that fall into it once KC reaches their drop rate, plus any log item you right-click → "Move to backlog" (it
   stops gating; reversible). 1/5,000+ items are "meme grinds" (optional). Browse other bosses with `<` / `>`; no-log

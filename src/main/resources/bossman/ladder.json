@@ -13084,7 +13084,7 @@
    ]
   },
   {
-   "boss": "Dagannoth Supreme",
+   "boss": "Dagannoth Kings",
    "combat_level": 303,
    "gate": "Another player (alt) or 85 Agility",
    "gates": [
@@ -13093,7 +13093,7 @@
      "text": "Another player (alt) or 85 Agility"
     }
    ],
-   "wiki_page": "Dagannoth_Supreme",
+   "wiki_page": "Dagannoth_Kings",
    "rung": 22,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
@@ -13122,6 +13122,39 @@
       ],
       "rate": "1/128",
       "denominator": 128
+     },
+     {
+      "item": "Warrior ring",
+      "ids": [
+       6735
+      ],
+      "rate": "1/128",
+      "denominator": 128
+     },
+     {
+      "item": "Berserker ring",
+      "ids": [
+       6737,
+       23595
+      ],
+      "rate": "1/128",
+      "denominator": 128
+     },
+     {
+      "item": "Mud battlestaff",
+      "ids": [
+       6562
+      ],
+      "rate": "1/128",
+      "denominator": 128
+     },
+     {
+      "item": "Seers ring",
+      "ids": [
+       6731
+      ],
+      "rate": "1/128",
+      "denominator": 128
      }
     ],
     "debt_pets_jars": [
@@ -13132,19 +13165,37 @@
       ],
       "rate": "1/5000",
       "debt_at_kc": 5000
+     },
+     {
+      "item": "Pet Dagannoth Rex",
+      "ids": [
+       12645
+      ],
+      "rate": "1/5000",
+      "debt_at_kc": 5000
+     },
+     {
+      "item": "Pet Dagannoth Prime",
+      "ids": [
+       12644
+      ],
+      "rate": "1/5000",
+      "debt_at_kc": 5000
      }
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 234
+    "expected_kc": 576
    },
    "sources": [
-    "Dagannoth Supreme"
+    "Dagannoth Supreme",
+    "Dagannoth Rex",
+    "Dagannoth Prime"
    ],
    "clog_tab": "Dagannoth Kings",
    "ca": {
-    "tasks": 4,
-    "points": 13,
+    "tasks": 13,
+    "points": 41,
     "list": [
      {
       "name": "Dagannoth Supreme Champion",
@@ -13170,6 +13221,69 @@
      {
       "name": "Death to the Archer King",
       "description": "Kill Dagannoth Supreme whilst under attack by Dagannoth Prime and Dagannoth Rex.",
+      "type": "Mechanical",
+      "tier": "Elite",
+      "points": 4
+     },
+     {
+      "name": "A Frozen King",
+      "description": "Kill Dagannoth Rex whilst he is immobilized.",
+      "type": "Mechanical",
+      "tier": "Medium",
+      "points": 2
+     },
+     {
+      "name": "Dagannoth Rex Champion",
+      "description": "Kill Dagannoth Rex 10 times.",
+      "type": "Kill Count",
+      "tier": "Medium",
+      "points": 2
+     },
+     {
+      "name": "Dagannoth Rex Adept",
+      "description": "Kill Dagannoth Rex 25 times.",
+      "type": "Kill Count",
+      "tier": "Hard",
+      "points": 3
+     },
+     {
+      "name": "Death to the Warrior King",
+      "description": "Kill Dagannoth Rex whilst under attack by Dagannoth Supreme and Dagannoth Prime.",
+      "type": "Mechanical",
+      "tier": "Elite",
+      "points": 4
+     },
+     {
+      "name": "Toppling the Diarchy",
+      "description": "Kill Dagannoth Rex and one other Dagannoth king at the exact same time.",
+      "type": "Mechanical",
+      "tier": "Elite",
+      "points": 4
+     },
+     {
+      "name": "Dagannoth Prime Champion",
+      "description": "Kill Dagannoth Prime 10 times.",
+      "type": "Kill Count",
+      "tier": "Medium",
+      "points": 2
+     },
+     {
+      "name": "Dagannoth Prime Adept",
+      "description": "Kill Dagannoth Prime 25 times.",
+      "type": "Kill Count",
+      "tier": "Hard",
+      "points": 3
+     },
+     {
+      "name": "From One King to Another",
+      "description": "Kill Prime using a Rune Thrownaxe special attack, bounced off Dagannoth Rex.",
+      "type": "Mechanical",
+      "tier": "Elite",
+      "points": 4
+     },
+     {
+      "name": "Death to the Seer King",
+      "description": "Kill Dagannoth Prime whilst under attack by Dagannoth Supreme and Dagannoth Rex.",
       "type": "Mechanical",
       "tier": "Elite",
       "points": 4
@@ -13204,9 +13318,49 @@
      "in_log": false
     },
     {
+     "item": "Steel kiteshield",
+     "ids": [
+      1193,
+      8746,
+      8748,
+      8750,
+      8752,
+      8754,
+      8756,
+      8758,
+      8760,
+      8762,
+      8764,
+      8766,
+      8768,
+      8770,
+      8772,
+      8774,
+      8776
+     ],
+     "rate": "1/8",
+     "in_log": false
+    },
+    {
+     "item": "Mithril warhammer",
+     "ids": [
+      1343
+     ],
+     "rate": "1/12",
+     "in_log": false
+    },
+    {
      "item": "Mithril knife",
      "ids": [
       866
+     ],
+     "rate": "1/13",
+     "in_log": false
+    },
+    {
+     "item": "Earth talisman",
+     "ids": [
+      1440
      ],
      "rate": "1/13",
      "in_log": false
@@ -13223,9 +13377,75 @@
      "in_log": false
     },
     {
+     "item": "Shark",
+     "ids": [
+      385,
+      6969,
+      20390
+     ],
+     "rate": "1/13",
+     "in_log": false
+    },
+    {
+     "item": "Mithril ore",
+     "ids": [
+      447
+     ],
+     "rate": "1/13",
+     "in_log": false
+    },
+    {
+     "item": "Earth battlestaff",
+     "ids": [
+      1399
+     ],
+     "rate": "1/13",
+     "in_log": false
+    },
+    {
      "item": "Red d'hide vambraces",
      "ids": [
       2489
+     ],
+     "rate": "1/18",
+     "in_log": false
+    },
+    {
+     "item": "Air talisman",
+     "ids": [
+      1438
+     ],
+     "rate": "1/18",
+     "in_log": false
+    },
+    {
+     "item": "Water talisman",
+     "ids": [
+      1444
+     ],
+     "rate": "1/18",
+     "in_log": false
+    },
+    {
+     "item": "Grimy ranarr weed",
+     "ids": [
+      207
+     ],
+     "rate": "1/18",
+     "in_log": false
+    },
+    {
+     "item": "Adamant axe",
+     "ids": [
+      1357
+     ],
+     "rate": "1/18",
+     "in_log": false
+    },
+    {
+     "item": "Bass",
+     "ids": [
+      365
      ],
      "rate": "1/18",
      "in_log": false
@@ -13243,6 +13463,16 @@
      "item": "Oyster pearls",
      "ids": [
       413
+     ],
+     "rate": "1/21",
+     "in_log": false
+    },
+    {
+     "item": "Air rune",
+     "ids": [
+      556,
+      9693,
+      11688
      ],
      "rate": "1/21",
      "in_log": false
@@ -13305,16 +13535,6 @@
      "in_log": false
     },
     {
-     "item": "Shark",
-     "ids": [
-      385,
-      6969,
-      20390
-     ],
-     "rate": "1/26",
-     "in_log": false
-    },
-    {
      "item": "Yew logs",
      "ids": [
       1515
@@ -13323,9 +13543,27 @@
      "in_log": false
     },
     {
-     "item": "Grimy ranarr weed",
+     "item": "Water battlestaff",
      "ids": [
-      207
+      1395
+     ],
+     "rate": "1/26",
+     "in_log": false
+    },
+    {
+     "item": "Earth rune",
+     "ids": [
+      557,
+      9695,
+      11689
+     ],
+     "rate": "1/26",
+     "in_log": false
+    },
+    {
+     "item": "Pure essence",
+     "ids": [
+      7936
      ],
      "rate": "1/26",
      "in_log": false
@@ -13335,6 +13573,30 @@
      "ids": [
       884,
       11701
+     ],
+     "rate": "1/32",
+     "in_log": false
+    },
+    {
+     "item": "Steel platebody",
+     "ids": [
+      1119
+     ],
+     "rate": "1/32",
+     "in_log": false
+    },
+    {
+     "item": "Swordfish",
+     "ids": [
+      373
+     ],
+     "rate": "1/32",
+     "in_log": false
+    },
+    {
+     "item": "Air battlestaff",
+     "ids": [
+      1397
      ],
      "rate": "1/32",
      "in_log": false
@@ -13538,6 +13800,22 @@
      "in_log": false
     },
     {
+     "item": "Mithril pickaxe",
+     "ids": [
+      1273
+     ],
+     "rate": "1/43",
+     "in_log": false
+    },
+    {
+     "item": "Adamantite bar",
+     "ids": [
+      2361
+     ],
+     "rate": "1/43",
+     "in_log": false
+    },
+    {
      "item": "Uncut sapphire",
      "ids": [
       1623
@@ -13554,9 +13832,77 @@
      "in_log": false
     },
     {
+     "item": "Fremennik blade",
+     "ids": [
+      3757
+     ],
+     "rate": "1/64",
+     "in_log": false
+    },
+    {
      "item": "Runite limbs",
      "ids": [
       9431
+     ],
+     "rate": "1/64",
+     "in_log": false
+    },
+    {
+     "item": "Nature rune",
+     "ids": [
+      561,
+      11693
+     ],
+     "rate": "1/64",
+     "in_log": false
+    },
+    {
+     "item": "Law rune",
+     "ids": [
+      563,
+      11695
+     ],
+     "rate": "1/64",
+     "in_log": false
+    },
+    {
+     "item": "Death rune",
+     "ids": [
+      560,
+      11692
+     ],
+     "rate": "1/64",
+     "in_log": false
+    },
+    {
+     "item": "Adamant platebody",
+     "ids": [
+      1123
+     ],
+     "rate": "1/64",
+     "in_log": false
+    },
+    {
+     "item": "Coal",
+     "ids": [
+      453
+     ],
+     "rate": "1/64",
+     "in_log": false
+    },
+    {
+     "item": "Blood rune",
+     "ids": [
+      565,
+      11697
+     ],
+     "rate": "1/64",
+     "in_log": false
+    },
+    {
+     "item": "Mud rune",
+     "ids": [
+      4698
      ],
      "rate": "1/64",
      "in_log": false
@@ -13593,14 +13939,6 @@
       30105
      ],
      "rate": "1/96",
-     "in_log": false
-    },
-    {
-     "item": "Fremennik blade",
-     "ids": [
-      3757
-     ],
-     "rate": "1/128",
      "in_log": false
     },
     {
@@ -13677,1020 +14015,9 @@
      "in_log": false
     },
     {
-     "item": "Irit seed",
-     "ids": [
-      5297
-     ],
-     "rate": "1/135",
-     "in_log": false
-    },
-    {
-     "item": "Belladonna seed",
-     "ids": [
-      5281
-     ],
-     "rate": "1/139",
-     "in_log": false
-    },
-    {
-     "item": "Uncut ruby",
-     "ids": [
-      1619
-     ],
-     "rate": "1/182",
-     "in_log": false
-    },
-    {
-     "item": "Poison ivy seed",
-     "ids": [
-      5106
-     ],
-     "rate": "1/194",
-     "in_log": false
-    },
-    {
-     "item": "Avantoe seed",
-     "ids": [
-      5298
-     ],
-     "rate": "1/197",
-     "in_log": false
-    },
-    {
-     "item": "Cactus seed",
-     "ids": [
-      5280
-     ],
-     "rate": "1/208",
-     "in_log": false
-    },
-    {
-     "item": "Potato cactus seed",
-     "ids": [
-      22873
-     ],
-     "rate": "1/285",
-     "in_log": false
-    },
-    {
-     "item": "Kwuarm seed",
-     "ids": [
-      5299
-     ],
-     "rate": "1/289",
-     "in_log": false
-    },
-    {
-     "item": "Runite bar",
-     "ids": [
-      2363
-     ],
-     "rate": "1/410",
-     "in_log": false
-    },
-    {
-     "item": "Snapdragon seed",
-     "ids": [
-      5300
-     ],
-     "rate": "1/433",
-     "in_log": false
-    },
-    {
-     "item": "Nature talisman",
-     "ids": [
-      1462
-     ],
-     "rate": "1/485",
-     "in_log": false
-    },
-    {
-     "item": "Cadantine seed",
-     "ids": [
-      5301
-     ],
-     "rate": "1/623",
-     "in_log": false
-    },
-    {
-     "item": "Nature rune",
-     "ids": [
-      561,
-      11693
-     ],
-     "rate": "1/683",
-     "in_log": false
-    },
-    {
-     "item": "Rune 2h sword",
-     "ids": [
-      1319
-     ],
-     "rate": "1/683",
-     "in_log": false
-    },
-    {
-     "item": "Rune battleaxe",
-     "ids": [
-      1373
-     ],
-     "rate": "1/683",
-     "in_log": false
-    },
-    {
-     "item": "Uncut diamond",
-     "ids": [
-      1617
-     ],
-     "rate": "1/728",
-     "in_log": false
-    },
-    {
-     "item": "Clue scroll (elite)",
-     "ids": [
-      12073,
-      12074,
-      12075,
-      12076,
-      12077,
-      12078,
-      12079,
-      12080,
-      12081,
-      12082,
-      12083,
-      12085,
-      12086,
-      12087,
-      12088,
-      12089,
-      12090,
-      12091,
-      12092,
-      12093,
-      12094,
-      12095,
-      12096,
-      12097,
-      12098,
-      12099,
-      12100,
-      12101,
-      12102,
-      12103,
-      12104,
-      12105,
-      12106,
-      12107,
-      12108,
-      12109,
-      12110,
-      12111,
-      12113,
-      12127,
-      12130,
-      12132,
-      12133,
-      12134,
-      12135,
-      12136,
-      12137,
-      12138,
-      12140,
-      12141,
-      12142,
-      12143,
-      12144,
-      12145,
-      12146,
-      12147,
-      12148,
-      12149,
-      12150,
-      12151,
-      12152,
-      12153,
-      12154,
-      12155,
-      12156,
-      12157,
-      12158,
-      12159,
-      19782,
-      19783,
-      19784,
-      19785,
-      19786,
-      19787,
-      19788,
-      19789,
-      19790,
-      19791,
-      19792,
-      19793,
-      19794,
-      19795,
-      19796,
-      19797,
-      19798,
-      19799,
-      19800,
-      19801,
-      19802,
-      19803,
-      19804,
-      19805,
-      19806,
-      19807,
-      19808,
-      19809,
-      19810,
-      19811,
-      19813,
-      21524,
-      21525,
-      22000,
-      23144,
-      23145,
-      23146,
-      23147,
-      23148,
-      23770,
-      24253,
-      24773,
-      25498,
-      25499,
-      25786,
-      25787,
-      26943,
-      26944,
-      28910,
-      28911,
-      28912,
-      29855,
-      29856
-     ],
-     "rate": "1/750",
-     "in_log": false
-    },
-    {
-     "item": "Lantadyme seed",
-     "ids": [
-      5302
-     ],
-     "rate": "1/867",
-     "in_log": false
-    },
-    {
-     "item": "Air talisman",
-     "ids": [
-      1438
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Body talisman",
-     "ids": [
-      1446
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Earth talisman",
-     "ids": [
-      1440
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Fire talisman",
-     "ids": [
-      1442
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Mind talisman",
-     "ids": [
-      1448
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Water talisman",
-     "ids": [
-      1444
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Snape grass seed",
-     "ids": [
-      22879
-     ],
-     "rate": "1/997",
-     "in_log": false
-    },
-    {
-     "item": "Law rune",
-     "ids": [
-      563,
-      11695
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Death rune",
-     "ids": [
-      560,
-      11692
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Rune arrow",
-     "ids": [
-      892
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Adamant javelin",
-     "ids": [
-      829
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Rune sq shield",
-     "ids": [
-      1185
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Dragonstone",
-     "ids": [
-      1615,
-      6903
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Silver ore",
-     "ids": [
-      442
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Dwarf weed seed",
-     "ids": [
-      5303
-     ],
-     "rate": "1/1424",
-     "in_log": false
-    },
-    {
-     "item": "Rune javelin",
-     "ids": [
-      830
-     ],
-     "rate": "1/1456",
-     "in_log": false
-    },
-    {
-     "item": "Rune spear",
-     "ids": [
-      1247
-     ],
-     "rate": "1/1997",
-     "in_log": false
-    },
-    {
-     "item": "Rune kiteshield",
-     "ids": [
-      1201,
-      8714,
-      8716,
-      8718,
-      8720,
-      8722,
-      8724,
-      8726,
-      8728,
-      8730,
-      8732,
-      8734,
-      8736,
-      8738,
-      8740,
-      8742,
-      8744
-     ],
-     "rate": "1/2048",
-     "in_log": false
-    },
-    {
-     "item": "Dragon med helm",
-     "ids": [
-      1149,
-      6967
-     ],
-     "rate": "1/2048",
-     "in_log": false
-    },
-    {
-     "item": "Torstol seed",
-     "ids": [
-      5304
-     ],
-     "rate": "1/2215",
-     "in_log": false
-    },
-    {
-     "item": "Cosmic talisman",
-     "ids": [
-      1454
-     ],
-     "rate": "1/2240",
-     "in_log": false
-    },
-    {
-     "item": "Chaos talisman",
-     "ids": [
-      1452
-     ],
-     "rate": "1/2987",
-     "in_log": false
-    },
-    {
-     "item": "Shield left half",
-     "ids": [
-      2366
-     ],
-     "rate": "1/3995",
-     "in_log": false
-    },
-    {
-     "item": "Pet Dagannoth Supreme",
-     "ids": [
-      12643
-     ],
-     "rate": "1/5000",
-     "in_log": true
-    },
-    {
-     "item": "Dragon spear",
-     "ids": [
-      1249
-     ],
-     "rate": "1/5326",
-     "in_log": false
-    }
-   ]
-  },
-  {
-   "boss": "Dagannoth Rex",
-   "combat_level": 303,
-   "gate": "Another player (alt) or 85 Agility",
-   "gates": [
-    {
-     "type": "other",
-     "text": "Another player (alt) or 85 Agility"
-    }
-   ],
-   "wiki_page": "Dagannoth_Rex",
-   "rung": 23,
-   "blocking": true,
-   "completion": "collection log complete (ex pets/jars/meme)",
-   "log": {
-    "gating_items": [
-     {
-      "item": "Warrior ring",
-      "ids": [
-       6735
-      ],
-      "rate": "1/128",
-      "denominator": 128
-     },
-     {
-      "item": "Berserker ring",
-      "ids": [
-       6737,
-       23595
-      ],
-      "rate": "1/128",
-      "denominator": 128
-     },
-     {
-      "item": "Dragon axe",
-      "ids": [
-       6739
-      ],
-      "rate": "1/128",
-      "denominator": 128
-     }
-    ],
-    "debt_pets_jars": [
-     {
-      "item": "Pet Dagannoth Rex",
-      "ids": [
-       12645
-      ],
-      "rate": "1/5000",
-      "debt_at_kc": 5000
-     }
-    ],
-    "meme_items": [],
-    "unmatched_rate": [],
-    "expected_kc": 235
-   },
-   "sources": [
-    "Dagannoth Rex"
-   ],
-   "clog_tab": "Dagannoth Kings",
-   "ca": {
-    "tasks": 5,
-    "points": 15,
-    "list": [
-     {
-      "name": "A Frozen King",
-      "description": "Kill Dagannoth Rex whilst he is immobilized.",
-      "type": "Mechanical",
-      "tier": "Medium",
-      "points": 2
-     },
-     {
-      "name": "Dagannoth Rex Champion",
-      "description": "Kill Dagannoth Rex 10 times.",
-      "type": "Kill Count",
-      "tier": "Medium",
-      "points": 2
-     },
-     {
-      "name": "Dagannoth Rex Adept",
-      "description": "Kill Dagannoth Rex 25 times.",
-      "type": "Kill Count",
-      "tier": "Hard",
-      "points": 3
-     },
-     {
-      "name": "Death to the Warrior King",
-      "description": "Kill Dagannoth Rex whilst under attack by Dagannoth Supreme and Dagannoth Prime.",
-      "type": "Mechanical",
-      "tier": "Elite",
-      "points": 4
-     },
-     {
-      "name": "Toppling the Diarchy",
-      "description": "Kill Dagannoth Rex and one other Dagannoth king at the exact same time.",
-      "type": "Mechanical",
-      "tier": "Elite",
-      "points": 4
-     }
-    ]
-   },
-   "drops": [
-    {
-     "item": "Dagannoth bones",
-     "ids": [
-      6729,
-      29376
-     ],
-     "rate": "Always",
-     "in_log": false
-    },
-    {
-     "item": "Dagannoth hide",
-     "ids": [
-      6155
-     ],
-     "rate": "Always",
-     "in_log": false
-    },
-    {
-     "item": "Dagannoth ribs",
-     "ids": [
-      7857,
-      7859
-     ],
-     "rate": "1/4",
-     "in_log": false
-    },
-    {
-     "item": "Steel kiteshield",
-     "ids": [
-      1193,
-      8746,
-      8748,
-      8750,
-      8752,
-      8754,
-      8756,
-      8758,
-      8760,
-      8762,
-      8764,
-      8766,
-      8768,
-      8770,
-      8772,
-      8774,
-      8776
-     ],
-     "rate": "1/8",
-     "in_log": false
-    },
-    {
-     "item": "Mithril warhammer",
-     "ids": [
-      1343
-     ],
-     "rate": "1/12",
-     "in_log": false
-    },
-    {
-     "item": "Mithril ore",
-     "ids": [
-      447
-     ],
-     "rate": "1/13",
-     "in_log": false
-    },
-    {
-     "item": "Coins",
-     "ids": [
-      617,
-      995,
-      6964,
-      8890
-     ],
-     "rate": "1/13",
-     "in_log": false
-    },
-    {
-     "item": "Adamant axe",
-     "ids": [
-      1357
-     ],
-     "rate": "1/18",
-     "in_log": false
-    },
-    {
-     "item": "Grimy ranarr weed",
-     "ids": [
-      207
-     ],
-     "rate": "1/18",
-     "in_log": false
-    },
-    {
-     "item": "Bass",
-     "ids": [
-      365
-     ],
-     "rate": "1/18",
-     "in_log": false
-    },
-    {
-     "item": "Ensouled dagannoth head",
-     "ids": [
-      13492,
-      13493
-     ],
-     "rate": "1/20",
-     "in_log": false
-    },
-    {
-     "item": "Steel platebody",
-     "ids": [
-      1119
-     ],
-     "rate": "1/32",
-     "in_log": false
-    },
-    {
-     "item": "Swordfish",
-     "ids": [
-      373
-     ],
-     "rate": "1/32",
-     "in_log": false
-    },
-    {
-     "item": "Clue scroll (hard)",
-     "ids": [
-      2722,
-      2723,
-      2725,
-      2727,
-      2729,
-      2731,
-      2733,
-      2735,
-      2737,
-      2739,
-      2741,
-      2743,
-      2745,
-      2747,
-      2773,
-      2774,
-      2776,
-      2778,
-      2780,
-      2782,
-      2783,
-      2785,
-      2786,
-      2788,
-      2790,
-      2792,
-      2793,
-      2794,
-      2796,
-      2797,
-      2799,
-      3520,
-      3522,
-      3524,
-      3525,
-      3526,
-      3528,
-      3530,
-      3532,
-      3534,
-      3536,
-      3538,
-      3540,
-      3542,
-      3544,
-      3546,
-      3548,
-      3550,
-      3552,
-      3554,
-      3556,
-      3558,
-      3560,
-      3562,
-      3564,
-      3566,
-      3568,
-      3570,
-      3572,
-      3573,
-      3574,
-      3575,
-      3577,
-      3579,
-      3580,
-      7239,
-      7241,
-      7243,
-      7245,
-      7247,
-      7248,
-      7249,
-      7250,
-      7251,
-      7252,
-      7253,
-      7254,
-      7255,
-      7256,
-      7258,
-      7260,
-      7262,
-      7264,
-      7266,
-      7268,
-      7270,
-      7272,
-      10234,
-      10236,
-      10238,
-      10240,
-      10242,
-      10244,
-      10246,
-      10248,
-      10250,
-      10252,
-      12542,
-      12544,
-      12546,
-      12548,
-      12550,
-      12552,
-      12554,
-      12556,
-      12558,
-      12560,
-      12562,
-      12564,
-      12566,
-      12568,
-      12570,
-      12572,
-      12574,
-      12576,
-      12578,
-      12581,
-      12584,
-      12587,
-      12590,
-      19840,
-      19842,
-      19844,
-      19846,
-      19848,
-      19850,
-      19852,
-      19853,
-      19854,
-      19856,
-      19857,
-      19858,
-      19860,
-      19862,
-      19864,
-      19866,
-      19868,
-      19870,
-      19872,
-      19874,
-      19876,
-      19878,
-      19880,
-      19882,
-      19884,
-      19886,
-      19888,
-      19890,
-      19892,
-      19894,
-      19896,
-      19898,
-      19900,
-      19902,
-      19904,
-      19906,
-      19908,
-      19910,
-      21526,
-      21527,
-      23045,
-      23167,
-      23168,
-      23169,
-      23170,
-      23172,
-      23174,
-      23175,
-      23176,
-      23177,
-      23178,
-      23179,
-      23180,
-      23181,
-      24493,
-      25790,
-      25791,
-      25792,
-      26566,
-      28915,
-      28916,
-      28918,
-      29859
-     ],
-     "rate": "1/42",
-     "in_log": false
-    },
-    {
-     "item": "Mithril pickaxe",
-     "ids": [
-      1273
-     ],
-     "rate": "1/43",
-     "in_log": false
-    },
-    {
-     "item": "Adamantite bar",
-     "ids": [
-      2361
-     ],
-     "rate": "1/43",
-     "in_log": false
-    },
-    {
-     "item": "Uncut sapphire",
-     "ids": [
-      1623
-     ],
-     "rate": "1/46",
-     "in_log": false
-    },
-    {
-     "item": "Brimstone key",
-     "ids": [
-      23083
-     ],
-     "rate": "1/60",
-     "in_log": false
-    },
-    {
-     "item": "Adamant platebody",
-     "ids": [
-      1123
-     ],
-     "rate": "1/64",
-     "in_log": false
-    },
-    {
-     "item": "Fremennik blade",
-     "ids": [
-      3757
-     ],
-     "rate": "1/64",
-     "in_log": false
-    },
-    {
-     "item": "Coal",
-     "ids": [
-      453
-     ],
-     "rate": "1/64",
-     "in_log": false
-    },
-    {
-     "item": "Uncut emerald",
-     "ids": [
-      1621
-     ],
-     "rate": "1/91",
-     "in_log": false
-    },
-    {
-     "item": "Loop half of key",
-     "ids": [
-      987,
-      30107
-     ],
-     "rate": "1/96",
-     "in_log": false
-    },
-    {
-     "item": "Tooth half of key",
-     "ids": [
-      985,
-      30105
-     ],
-     "rate": "1/96",
-     "in_log": false
-    },
-    {
-     "item": "Dragon axe",
-     "ids": [
-      6739
-     ],
-     "rate": "1/128",
-     "in_log": true
-    },
-    {
      "item": "Rune axe",
      "ids": [
       1359
-     ],
-     "rate": "1/128",
-     "in_log": false
-    },
-    {
-     "item": "Fremennik shield",
-     "ids": [
-      3758
-     ],
-     "rate": "1/128",
-     "in_log": false
-    },
-    {
-     "item": "Fremennik helm",
-     "ids": [
-      3748
      ],
      "rate": "1/128",
      "in_log": false
@@ -14818,934 +14145,6 @@
      "in_log": false
     },
     {
-     "item": "Shark",
-     "ids": [
-      385,
-      6969,
-      20390
-     ],
-     "rate": "1/128",
-     "in_log": false
-    },
-    {
-     "item": "Uncut ruby",
-     "ids": [
-      1619
-     ],
-     "rate": "1/182",
-     "in_log": false
-    },
-    {
-     "item": "Runite bar",
-     "ids": [
-      2363
-     ],
-     "rate": "1/410",
-     "in_log": false
-    },
-    {
-     "item": "Nature talisman",
-     "ids": [
-      1462
-     ],
-     "rate": "1/485",
-     "in_log": false
-    },
-    {
-     "item": "Nature rune",
-     "ids": [
-      561,
-      11693
-     ],
-     "rate": "1/683",
-     "in_log": false
-    },
-    {
-     "item": "Rune 2h sword",
-     "ids": [
-      1319
-     ],
-     "rate": "1/683",
-     "in_log": false
-    },
-    {
-     "item": "Rune battleaxe",
-     "ids": [
-      1373
-     ],
-     "rate": "1/683",
-     "in_log": false
-    },
-    {
-     "item": "Uncut diamond",
-     "ids": [
-      1617
-     ],
-     "rate": "1/728",
-     "in_log": false
-    },
-    {
-     "item": "Clue scroll (elite)",
-     "ids": [
-      12073,
-      12074,
-      12075,
-      12076,
-      12077,
-      12078,
-      12079,
-      12080,
-      12081,
-      12082,
-      12083,
-      12085,
-      12086,
-      12087,
-      12088,
-      12089,
-      12090,
-      12091,
-      12092,
-      12093,
-      12094,
-      12095,
-      12096,
-      12097,
-      12098,
-      12099,
-      12100,
-      12101,
-      12102,
-      12103,
-      12104,
-      12105,
-      12106,
-      12107,
-      12108,
-      12109,
-      12110,
-      12111,
-      12113,
-      12127,
-      12130,
-      12132,
-      12133,
-      12134,
-      12135,
-      12136,
-      12137,
-      12138,
-      12140,
-      12141,
-      12142,
-      12143,
-      12144,
-      12145,
-      12146,
-      12147,
-      12148,
-      12149,
-      12150,
-      12151,
-      12152,
-      12153,
-      12154,
-      12155,
-      12156,
-      12157,
-      12158,
-      12159,
-      19782,
-      19783,
-      19784,
-      19785,
-      19786,
-      19787,
-      19788,
-      19789,
-      19790,
-      19791,
-      19792,
-      19793,
-      19794,
-      19795,
-      19796,
-      19797,
-      19798,
-      19799,
-      19800,
-      19801,
-      19802,
-      19803,
-      19804,
-      19805,
-      19806,
-      19807,
-      19808,
-      19809,
-      19810,
-      19811,
-      19813,
-      21524,
-      21525,
-      22000,
-      23144,
-      23145,
-      23146,
-      23147,
-      23148,
-      23770,
-      24253,
-      24773,
-      25498,
-      25499,
-      25786,
-      25787,
-      26943,
-      26944,
-      28910,
-      28911,
-      28912,
-      29855,
-      29856
-     ],
-     "rate": "1/750",
-     "in_log": false
-    },
-    {
-     "item": "Air talisman",
-     "ids": [
-      1438
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Body talisman",
-     "ids": [
-      1446
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Earth talisman",
-     "ids": [
-      1440
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Fire talisman",
-     "ids": [
-      1442
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Mind talisman",
-     "ids": [
-      1448
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Water talisman",
-     "ids": [
-      1444
-     ],
-     "rate": "1/896",
-     "in_log": false
-    },
-    {
-     "item": "Law rune",
-     "ids": [
-      563,
-      11695
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Death rune",
-     "ids": [
-      560,
-      11692
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Steel arrow",
-     "ids": [
-      886,
-      11702
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Rune arrow",
-     "ids": [
-      892
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Adamant javelin",
-     "ids": [
-      829
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Rune sq shield",
-     "ids": [
-      1185
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Dragonstone",
-     "ids": [
-      1615,
-      6903
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Silver ore",
-     "ids": [
-      442
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
-     "item": "Rune javelin",
-     "ids": [
-      830
-     ],
-     "rate": "1/1456",
-     "in_log": false
-    },
-    {
-     "item": "Rune spear",
-     "ids": [
-      1247
-     ],
-     "rate": "1/1997",
-     "in_log": false
-    },
-    {
-     "item": "Rune kiteshield",
-     "ids": [
-      1201,
-      8714,
-      8716,
-      8718,
-      8720,
-      8722,
-      8724,
-      8726,
-      8728,
-      8730,
-      8732,
-      8734,
-      8736,
-      8738,
-      8740,
-      8742,
-      8744
-     ],
-     "rate": "1/2048",
-     "in_log": false
-    },
-    {
-     "item": "Dragon med helm",
-     "ids": [
-      1149,
-      6967
-     ],
-     "rate": "1/2048",
-     "in_log": false
-    },
-    {
-     "item": "Cosmic talisman",
-     "ids": [
-      1454
-     ],
-     "rate": "1/2240",
-     "in_log": false
-    },
-    {
-     "item": "Chaos talisman",
-     "ids": [
-      1452
-     ],
-     "rate": "1/2987",
-     "in_log": false
-    },
-    {
-     "item": "Shield left half",
-     "ids": [
-      2366
-     ],
-     "rate": "1/3995",
-     "in_log": false
-    },
-    {
-     "item": "Pet Dagannoth Rex",
-     "ids": [
-      12645
-     ],
-     "rate": "1/5000",
-     "in_log": true
-    },
-    {
-     "item": "Dragon spear",
-     "ids": [
-      1249
-     ],
-     "rate": "1/5326",
-     "in_log": false
-    }
-   ]
-  },
-  {
-   "boss": "Dagannoth Prime",
-   "combat_level": 303,
-   "gate": "Another player (alt) or 85 Agility",
-   "gates": [
-    {
-     "type": "other",
-     "text": "Another player (alt) or 85 Agility"
-    }
-   ],
-   "wiki_page": "Dagannoth_Prime",
-   "rung": 24,
-   "blocking": true,
-   "completion": "collection log complete (ex pets/jars/meme)",
-   "log": {
-    "gating_items": [
-     {
-      "item": "Mud battlestaff",
-      "ids": [
-       6562
-      ],
-      "rate": "1/128",
-      "denominator": 128
-     },
-     {
-      "item": "Seers ring",
-      "ids": [
-       6731
-      ],
-      "rate": "1/128",
-      "denominator": 128
-     },
-     {
-      "item": "Dragon axe",
-      "ids": [
-       6739
-      ],
-      "rate": "1/128",
-      "denominator": 128
-     }
-    ],
-    "debt_pets_jars": [
-     {
-      "item": "Pet Dagannoth Prime",
-      "ids": [
-       12644
-      ],
-      "rate": "1/5000",
-      "debt_at_kc": 5000
-     }
-    ],
-    "meme_items": [],
-    "unmatched_rate": [],
-    "expected_kc": 235
-   },
-   "sources": [
-    "Dagannoth Prime"
-   ],
-   "clog_tab": "Dagannoth Kings",
-   "ca": {
-    "tasks": 4,
-    "points": 13,
-    "list": [
-     {
-      "name": "Dagannoth Prime Champion",
-      "description": "Kill Dagannoth Prime 10 times.",
-      "type": "Kill Count",
-      "tier": "Medium",
-      "points": 2
-     },
-     {
-      "name": "Dagannoth Prime Adept",
-      "description": "Kill Dagannoth Prime 25 times.",
-      "type": "Kill Count",
-      "tier": "Hard",
-      "points": 3
-     },
-     {
-      "name": "From One King to Another",
-      "description": "Kill Prime using a Rune Thrownaxe special attack, bounced off Dagannoth Rex.",
-      "type": "Mechanical",
-      "tier": "Elite",
-      "points": 4
-     },
-     {
-      "name": "Death to the Seer King",
-      "description": "Kill Dagannoth Prime whilst under attack by Dagannoth Supreme and Dagannoth Rex.",
-      "type": "Mechanical",
-      "tier": "Elite",
-      "points": 4
-     }
-    ]
-   },
-   "drops": [
-    {
-     "item": "Dagannoth bones",
-     "ids": [
-      6729,
-      29376
-     ],
-     "rate": "Always",
-     "in_log": false
-    },
-    {
-     "item": "Dagannoth hide",
-     "ids": [
-      6155
-     ],
-     "rate": "Always",
-     "in_log": false
-    },
-    {
-     "item": "Dagannoth ribs",
-     "ids": [
-      7857,
-      7859
-     ],
-     "rate": "1/4",
-     "in_log": false
-    },
-    {
-     "item": "Earth battlestaff",
-     "ids": [
-      1399
-     ],
-     "rate": "1/13",
-     "in_log": false
-    },
-    {
-     "item": "Earth talisman",
-     "ids": [
-      1440
-     ],
-     "rate": "1/13",
-     "in_log": false
-    },
-    {
-     "item": "Shark",
-     "ids": [
-      385,
-      6969,
-      20390
-     ],
-     "rate": "1/13",
-     "in_log": false
-    },
-    {
-     "item": "Air talisman",
-     "ids": [
-      1438
-     ],
-     "rate": "1/18",
-     "in_log": false
-    },
-    {
-     "item": "Water talisman",
-     "ids": [
-      1444
-     ],
-     "rate": "1/18",
-     "in_log": false
-    },
-    {
-     "item": "Ensouled dagannoth head",
-     "ids": [
-      13492,
-      13493
-     ],
-     "rate": "1/20",
-     "in_log": false
-    },
-    {
-     "item": "Air rune",
-     "ids": [
-      556,
-      9693,
-      11688
-     ],
-     "rate": "1/21",
-     "in_log": false
-    },
-    {
-     "item": "Water battlestaff",
-     "ids": [
-      1395
-     ],
-     "rate": "1/26",
-     "in_log": false
-    },
-    {
-     "item": "Earth rune",
-     "ids": [
-      557,
-      9695,
-      11689
-     ],
-     "rate": "1/26",
-     "in_log": false
-    },
-    {
-     "item": "Oyster pearls",
-     "ids": [
-      413
-     ],
-     "rate": "1/26",
-     "in_log": false
-    },
-    {
-     "item": "Pure essence",
-     "ids": [
-      7936
-     ],
-     "rate": "1/26",
-     "in_log": false
-    },
-    {
-     "item": "Grimy ranarr weed",
-     "ids": [
-      207
-     ],
-     "rate": "1/26",
-     "in_log": false
-    },
-    {
-     "item": "Air battlestaff",
-     "ids": [
-      1397
-     ],
-     "rate": "1/32",
-     "in_log": false
-    },
-    {
-     "item": "Clue scroll (hard)",
-     "ids": [
-      2722,
-      2723,
-      2725,
-      2727,
-      2729,
-      2731,
-      2733,
-      2735,
-      2737,
-      2739,
-      2741,
-      2743,
-      2745,
-      2747,
-      2773,
-      2774,
-      2776,
-      2778,
-      2780,
-      2782,
-      2783,
-      2785,
-      2786,
-      2788,
-      2790,
-      2792,
-      2793,
-      2794,
-      2796,
-      2797,
-      2799,
-      3520,
-      3522,
-      3524,
-      3525,
-      3526,
-      3528,
-      3530,
-      3532,
-      3534,
-      3536,
-      3538,
-      3540,
-      3542,
-      3544,
-      3546,
-      3548,
-      3550,
-      3552,
-      3554,
-      3556,
-      3558,
-      3560,
-      3562,
-      3564,
-      3566,
-      3568,
-      3570,
-      3572,
-      3573,
-      3574,
-      3575,
-      3577,
-      3579,
-      3580,
-      7239,
-      7241,
-      7243,
-      7245,
-      7247,
-      7248,
-      7249,
-      7250,
-      7251,
-      7252,
-      7253,
-      7254,
-      7255,
-      7256,
-      7258,
-      7260,
-      7262,
-      7264,
-      7266,
-      7268,
-      7270,
-      7272,
-      10234,
-      10236,
-      10238,
-      10240,
-      10242,
-      10244,
-      10246,
-      10248,
-      10250,
-      10252,
-      12542,
-      12544,
-      12546,
-      12548,
-      12550,
-      12552,
-      12554,
-      12556,
-      12558,
-      12560,
-      12562,
-      12564,
-      12566,
-      12568,
-      12570,
-      12572,
-      12574,
-      12576,
-      12578,
-      12581,
-      12584,
-      12587,
-      12590,
-      19840,
-      19842,
-      19844,
-      19846,
-      19848,
-      19850,
-      19852,
-      19853,
-      19854,
-      19856,
-      19857,
-      19858,
-      19860,
-      19862,
-      19864,
-      19866,
-      19868,
-      19870,
-      19872,
-      19874,
-      19876,
-      19878,
-      19880,
-      19882,
-      19884,
-      19886,
-      19888,
-      19890,
-      19892,
-      19894,
-      19896,
-      19898,
-      19900,
-      19902,
-      19904,
-      19906,
-      19908,
-      19910,
-      21526,
-      21527,
-      23045,
-      23167,
-      23168,
-      23169,
-      23170,
-      23172,
-      23174,
-      23175,
-      23176,
-      23177,
-      23178,
-      23179,
-      23180,
-      23181,
-      24493,
-      25790,
-      25791,
-      25792,
-      26566,
-      28915,
-      28916,
-      28918,
-      29859
-     ],
-     "rate": "1/42",
-     "in_log": false
-    },
-    {
-     "item": "Coins",
-     "ids": [
-      617,
-      995,
-      6964,
-      8890
-     ],
-     "rate": "1/43",
-     "in_log": false
-    },
-    {
-     "item": "Uncut sapphire",
-     "ids": [
-      1623
-     ],
-     "rate": "1/46",
-     "in_log": false
-    },
-    {
-     "item": "Brimstone key",
-     "ids": [
-      23083
-     ],
-     "rate": "1/60",
-     "in_log": false
-    },
-    {
-     "item": "Blood rune",
-     "ids": [
-      565,
-      11697
-     ],
-     "rate": "1/64",
-     "in_log": false
-    },
-    {
-     "item": "Law rune",
-     "ids": [
-      563,
-      11695
-     ],
-     "rate": "1/64",
-     "in_log": false
-    },
-    {
-     "item": "Nature rune",
-     "ids": [
-      561,
-      11693
-     ],
-     "rate": "1/64",
-     "in_log": false
-    },
-    {
-     "item": "Mud rune",
-     "ids": [
-      4698
-     ],
-     "rate": "1/64",
-     "in_log": false
-    },
-    {
-     "item": "Death rune",
-     "ids": [
-      560,
-      11692
-     ],
-     "rate": "1/64",
-     "in_log": false
-    },
-    {
-     "item": "Uncut emerald",
-     "ids": [
-      1621
-     ],
-     "rate": "1/91",
-     "in_log": false
-    },
-    {
-     "item": "Toadflax seed",
-     "ids": [
-      5296
-     ],
-     "rate": "1/92",
-     "in_log": false
-    },
-    {
-     "item": "Loop half of key",
-     "ids": [
-      987,
-      30107
-     ],
-     "rate": "1/96",
-     "in_log": false
-    },
-    {
-     "item": "Tooth half of key",
-     "ids": [
-      985,
-      30105
-     ],
-     "rate": "1/96",
-     "in_log": false
-    },
-    {
      "item": "Battlestaff",
      "ids": [
       1391
@@ -15754,41 +14153,9 @@
      "in_log": false
     },
     {
-     "item": "Fremennik blade",
-     "ids": [
-      3757
-     ],
-     "rate": "1/128",
-     "in_log": false
-    },
-    {
-     "item": "Fremennik shield",
-     "ids": [
-      3758
-     ],
-     "rate": "1/128",
-     "in_log": false
-    },
-    {
-     "item": "Fremennik helm",
-     "ids": [
-      3748
-     ],
-     "rate": "1/128",
-     "in_log": false
-    },
-    {
      "item": "Mud battlestaff",
      "ids": [
       6562
-     ],
-     "rate": "1/128",
-     "in_log": true
-    },
-    {
-     "item": "Dragon axe",
-     "ids": [
-      6739
      ],
      "rate": "1/128",
      "in_log": true
@@ -16114,15 +14481,6 @@
      "in_log": false
     },
     {
-     "item": "Steel arrow",
-     "ids": [
-      886,
-      11702
-     ],
-     "rate": "1/1024",
-     "in_log": false
-    },
-    {
      "item": "Rune arrow",
      "ids": [
       892
@@ -16253,6 +14611,22 @@
      "in_log": false
     },
     {
+     "item": "Pet Dagannoth Supreme",
+     "ids": [
+      12643
+     ],
+     "rate": "1/5000",
+     "in_log": true
+    },
+    {
+     "item": "Pet Dagannoth Rex",
+     "ids": [
+      12645
+     ],
+     "rate": "1/5000",
+     "in_log": true
+    },
+    {
      "item": "Pet Dagannoth Prime",
      "ids": [
       12644
@@ -16281,7 +14655,7 @@
     }
    ],
    "wiki_page": "Chaos_Elemental",
-   "rung": 25,
+   "rung": 23,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -16316,7 +14690,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 259
+    "expected_kc": 273
    },
    "sources": [
     "Chaos Elemental"
@@ -17026,7 +15400,7 @@
     }
    ],
    "wiki_page": "Sarachnis",
-   "rung": 26,
+   "rung": 24,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -17078,7 +15452,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 408
+    "expected_kc": 383
    },
    "sources": [
     "Sarachnis"
@@ -18035,7 +16409,7 @@
     }
    ],
    "wiki_page": "Cerberus",
-   "rung": 27,
+   "rung": 25,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -18101,7 +16475,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1069
+    "expected_kc": 1092
    },
    "sources": [
     "Cerberus"
@@ -18846,7 +17220,7 @@
     }
    ],
    "wiki_page": "Artio",
-   "rung": 28,
+   "rung": 26,
    "blocking": false,
    "completion": "first kill (shared log greened at Callisto)",
    "log": {
@@ -18906,7 +17280,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1426
+    "expected_kc": 1419
    },
    "sources": [
     "Artio"
@@ -19458,7 +17832,7 @@
     }
    ],
    "wiki_page": "Skotizo",
-   "rung": 29,
+   "rung": 27,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -19516,7 +17890,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1034
+    "expected_kc": 998
    },
    "sources": [
     "Skotizo"
@@ -20138,7 +18512,7 @@
     }
    ],
    "wiki_page": "Perilous_Moons",
-   "rung": 30,
+   "rung": 28,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -20273,7 +18647,7 @@
     "debt_pets_jars": [],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 689
+    "expected_kc": 687
    },
    "sources": [
     "Lunar Chest",
@@ -20607,7 +18981,7 @@
     }
    ],
    "wiki_page": "Kalphite_Queen",
-   "rung": 31,
+   "rung": 29,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -20667,7 +19041,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 533
+    "expected_kc": 524
    },
    "sources": [
     "Kalphite Queen"
@@ -21441,7 +19815,7 @@
     }
    ],
    "wiki_page": "Zalcano",
-   "rung": 32,
+   "rung": 30,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -21483,7 +19857,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 776
+    "expected_kc": 775
    },
    "sources": [
     "Zalcano"
@@ -21751,7 +20125,7 @@
     }
    ],
    "wiki_page": "Royal_Titans",
-   "rung": 33,
+   "rung": 31,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -21819,7 +20193,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 156
+    "expected_kc": 155
    },
    "sources": [
     "Branda the Fire Queen",
@@ -22669,7 +21043,7 @@
     }
    ],
    "wiki_page": "Abyssal_Sire",
-   "rung": 34,
+   "rung": 32,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -22695,7 +21069,7 @@
      "Bludgeon axon",
      "Jar of Miasma"
     ],
-    "expected_kc": 101
+    "expected_kc": 102
    },
    "sources": [
     "Abyssal Sire",
@@ -23579,7 +21953,7 @@
     }
    ],
    "wiki_page": "Revenant_maledictus",
-   "rung": 35,
+   "rung": 33,
    "blocking": false,
    "completion": "first kill",
    "log": {
@@ -24063,7 +22437,7 @@
     }
    ],
    "wiki_page": "Alchemical_Hydra",
-   "rung": 36,
+   "rung": 34,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -24167,7 +22541,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 3227
+    "expected_kc": 3248
    },
    "sources": [
     "Alchemical Hydra"
@@ -25311,7 +23685,7 @@
     }
    ],
    "wiki_page": "Vet'ion",
-   "rung": 37,
+   "rung": 35,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -25373,7 +23747,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 772
+    "expected_kc": 765
    },
    "sources": [
     "Vet'ion",
@@ -25988,7 +24362,7 @@
     }
    ],
    "wiki_page": "Venenatis",
-   "rung": 38,
+   "rung": 36,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -26048,7 +24422,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 788
+    "expected_kc": 792
    },
    "sources": [
     "Venenatis",
@@ -26653,7 +25027,7 @@
     }
    ],
    "wiki_page": "Callisto",
-   "rung": 39,
+   "rung": 37,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -26713,7 +25087,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 775
+    "expected_kc": 788
    },
    "sources": [
     "Callisto",
@@ -27333,7 +25707,7 @@
     }
    ],
    "wiki_page": "Tombs_of_Amascut",
-   "rung": 40,
+   "rung": 38,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -27518,7 +25892,7 @@
      "Icthlarin's shroud (tier 5)",
      "Tumeken's guardian"
     ],
-    "expected_kc": 105
+    "expected_kc": 107
    },
    "sources": [
     "Tombs of Amascut"
@@ -28294,7 +26668,7 @@
     }
    ],
    "wiki_page": "Chambers_of_Xeric",
-   "rung": 41,
+   "rung": 39,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -28452,7 +26826,7 @@
      "Xeric's general",
      "Xeric's champion"
     ],
-    "expected_kc": 419
+    "expected_kc": 423
    },
    "sources": [
     "Chambers of Xeric"
@@ -29295,7 +27669,7 @@
     }
    ],
    "wiki_page": "Doom_of_Mokhaiotl",
-   "rung": 42,
+   "rung": 40,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -29347,7 +27721,7 @@
     "unmatched_rate": [
      "Eye of Ayak"
     ],
-    "expected_kc": 2941
+    "expected_kc": 2952
    },
    "sources": [
     "Doom of Mokhaiotl"
@@ -29849,7 +28223,7 @@
     }
    ],
    "wiki_page": "Kree'arra",
-   "rung": 43,
+   "rung": 41,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -29923,7 +28297,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1538
+    "expected_kc": 1529
    },
    "sources": [
     "Kree'arra"
@@ -30567,7 +28941,7 @@
     }
    ],
    "wiki_page": "Mad_Angel",
-   "rung": 44,
+   "rung": 42,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -30617,7 +28991,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 129
+    "expected_kc": 126
    },
    "sources": [
     "Mad Angel"
@@ -31310,7 +29684,7 @@
     }
    ],
    "wiki_page": "Commander_Zilyana",
-   "rung": 45,
+   "rung": 43,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -31385,7 +29759,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1556
+    "expected_kc": 1526
    },
    "sources": [
     "Commander Zilyana"
@@ -32024,7 +30398,7 @@
     }
    ],
    "wiki_page": "General_Graardor",
-   "rung": 46,
+   "rung": 44,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -32099,7 +30473,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1549
+    "expected_kc": 1533
    },
    "sources": [
     "General Graardor"
@@ -32723,7 +31097,7 @@
     }
    ],
    "wiki_page": "The_Hueycoatl",
-   "rung": 47,
+   "rung": 45,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -32781,7 +31155,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 153
+    "expected_kc": 154
    },
    "sources": [
     "The Hueycoatl"
@@ -33341,7 +31715,7 @@
     }
    ],
    "wiki_page": "K'ril_Tsutsaroth",
-   "rung": 48,
+   "rung": 46,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -33417,7 +31791,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1541
+    "expected_kc": 1535
    },
    "sources": [
     "K'ril Tsutsaroth"
@@ -34062,7 +32436,7 @@
     }
    ],
    "wiki_page": "Crystalline_Hunllef",
-   "rung": 49,
+   "rung": 47,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -34106,7 +32480,7 @@
     "unmatched_rate": [
      "Gauntlet cape"
     ],
-    "expected_kc": 2044
+    "expected_kc": 1953
    },
    "sources": [
     "The Gauntlet",
@@ -34320,7 +32694,7 @@
     }
    ],
    "wiki_page": "TzTok-Jad",
-   "rung": 50,
+   "rung": 48,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -34444,7 +32818,7 @@
     }
    ],
    "wiki_page": "Zulrah",
-   "rung": 51,
+   "rung": 49,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -35343,7 +33717,7 @@
     }
    ],
    "wiki_page": "Vorkath",
-   "rung": 52,
+   "rung": 50,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -35402,7 +33776,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1002
+    "expected_kc": 992
    },
    "sources": [
     "Vorkath"
@@ -36321,7 +34695,7 @@
     }
    ],
    "wiki_page": "Phantom_Muspah",
-   "rung": 53,
+   "rung": 51,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -36381,7 +34755,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 119
+    "expected_kc": 122
    },
    "sources": [
     "Phantom Muspah"
@@ -37521,7 +35895,7 @@
     }
    ],
    "wiki_page": "Maggot_King",
-   "rung": 54,
+   "rung": 52,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -37555,7 +35929,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 659
+    "expected_kc": 642
    },
    "sources": [
     "Maggot King"
@@ -38066,7 +36440,7 @@
     }
    ],
    "wiki_page": "Duke_Sucellus",
-   "rung": 55,
+   "rung": 53,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -38156,7 +36530,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 3920
+    "expected_kc": 3937
    },
    "sources": [
     "Duke Sucellus"
@@ -39232,7 +37606,7 @@
     }
    ],
    "wiki_page": "Vardorvis",
-   "rung": 56,
+   "rung": 54,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -39322,7 +37696,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 6174
+    "expected_kc": 6155
    },
    "sources": [
     "Vardorvis"
@@ -40407,7 +38781,7 @@
     }
    ],
    "wiki_page": "Corporeal_Beast",
-   "rung": 57,
+   "rung": 55,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -40474,7 +38848,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 4594
+    "expected_kc": 4698
    },
    "sources": [
     "Corporeal Beast"
@@ -41059,7 +39433,7 @@
     }
    ],
    "wiki_page": "The_Whisperer",
-   "rung": 58,
+   "rung": 56,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -41149,7 +39523,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 2877
+    "expected_kc": 2889
    },
    "sources": [
     "The Whisperer"
@@ -42224,7 +40598,7 @@
     }
    ],
    "wiki_page": "The_Leviathan",
-   "rung": 59,
+   "rung": 57,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -42314,7 +40688,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 4354
+    "expected_kc": 4344
    },
    "sources": [
     "The Leviathan"
@@ -43391,7 +41765,7 @@
     }
    ],
    "wiki_page": "The_Nightmare",
-   "rung": 60,
+   "rung": 58,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -43488,7 +41862,7 @@
      "Slepey tablet",
      "Parasitic egg"
     ],
-    "expected_kc": 1997
+    "expected_kc": 2018
    },
    "sources": [
     "The Nightmare"
@@ -44067,7 +42441,7 @@
     }
    ],
    "wiki_page": "Araxxor",
-   "rung": 61,
+   "rung": 59,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -44144,7 +42518,7 @@
      "Spider cave teleport",
      "Araxyte venom sac"
     ],
-    "expected_kc": 748
+    "expected_kc": 757
    },
    "sources": [
     "Araxxor"
@@ -44454,7 +42828,7 @@
     }
    ],
    "wiki_page": "Corrupted_Hunllef",
-   "rung": 62,
+   "rung": 60,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -44504,7 +42878,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 392
+    "expected_kc": 413
    },
    "sources": [
     "The Gauntlet",
@@ -44726,7 +43100,7 @@
     }
    ],
    "wiki_page": "Nex",
-   "rung": 63,
+   "rung": 61,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -45123,7 +43497,7 @@
     }
    ],
    "wiki_page": "Phosani's_Nightmare",
-   "rung": 64,
+   "rung": 62,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -45233,7 +43607,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 3254
+    "expected_kc": 3269
    },
    "sources": [
     "Phosani's Nightmare"
@@ -45778,7 +44152,7 @@
     }
    ],
    "wiki_page": "Theatre_of_Blood",
-   "rung": 65,
+   "rung": 63,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -45892,7 +44266,7 @@
      "Sinhaza shroud tier 4",
      "Sinhaza shroud tier 5"
     ],
-    "expected_kc": 357
+    "expected_kc": 351
    },
    "sources": [
     "Theatre of Blood"
@@ -46751,7 +45125,7 @@
     }
    ],
    "wiki_page": "Demonic_Brutus",
-   "rung": 66,
+   "rung": 64,
    "blocking": false,
    "completion": "first kill",
    "log": {
@@ -46792,7 +45166,7 @@
     }
    ],
    "wiki_page": "Yama",
-   "rung": 67,
+   "rung": 65,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -46886,7 +45260,7 @@
     "unmatched_rate": [
      "Rite of vile transference"
     ],
-    "expected_kc": 48
+    "expected_kc": 47
    },
    "sources": [
     "Yama"
@@ -47527,7 +45901,7 @@
     }
    ],
    "wiki_page": "TzKal-Zuk",
-   "rung": 68,
+   "rung": 66,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -47665,7 +46039,7 @@
     }
    ],
    "wiki_page": "Sol_Heredit",
-   "rung": 69,
+   "rung": 67,
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
@@ -47741,7 +46115,7 @@
     "unmatched_rate": [
      "Dizana's quiver (uncharged)"
     ],
-    "expected_kc": 228
+    "expected_kc": 229
    },
    "sources": [
     "Fortis Colosseum",
@@ -48070,7 +46444,7 @@
      "Spirit angler waders",
      "Spirit angler boots"
     ],
-    "expected_kc": 2477
+    "expected_kc": 2458
    },
    "sources": [
     "Reward pool (Tempoross)",
@@ -48459,7 +46833,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [],
-    "expected_kc": 1103
+    "expected_kc": 1070
    },
    "sources": [
     "Supply crate (Wintertodt)",

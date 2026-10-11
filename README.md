@@ -3,7 +3,14 @@
 A RuneLite plugin for a "bossman" account: a bronzeman-style ruleset where **items are only ever unlocked by boss drops**.
 Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronzeman-mode) (BSD-2).
 
-## What it does (v0.1)
+### How it differs from Another Bronzeman Mode
+Another Bronzeman Mode unlocks an item the first time you obtain it from anywhere. Bossman Mode only unlocks items that
+drop from a fixed list of bosses and boss chests, and is built around progressing through them: a 67-boss ladder with
+collection-log gating, a provenance ledger of where and at what kill count each unlock came from, a backlog for rare
+pets and jars, and use restrictions (wield, eat, drink and so on) on locked items. Group and shared-unlock features from
+the original are not included.
+
+## What it does
 - **Source-gated unlocks.** An item becomes *unlocked* only when it drops from an allowlisted source: the 75 boss NPCs,
   the chest/event loot the RuneLite Loot Tracker reports (Barrows, Lunar Chest, CoX/ToB/ToA, Fortis Colosseum, Unsired,
   Tempoross, Wintertodt, Doom of Mokhaiotl), plus completion rewards (Fire/Infernal cape, with the Tokkul that comes with
@@ -76,3 +83,10 @@ scrapes, then corrected by `plugin-data/fix_data.py` (log items the generator dr
 items, KC sources and aliases, receipt rules). Run both when the ladder or rules change; `BossmanDataTest` checks the
 invariants the fixes restore. Extra unlock sources (e.g. a boss released after this
 version) can be added in the plugin config without rebuilding.
+
+## Credits
+- Boss drop tables, drop rates, collection-log contents, Combat Achievement tasks and item IDs are derived from the
+  [Old School RuneScape Wiki](https://oldschool.runescape.wiki/), licensed
+  [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/).
+- Item locking, the unlock banner and the overlays started from
+  [Another Bronzeman Mode](https://github.com/CodePanter/another-bronzeman-mode) by CodePanter (BSD-2-Clause).

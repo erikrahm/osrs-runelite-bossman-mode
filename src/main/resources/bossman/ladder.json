@@ -42540,6 +42540,14 @@
       ],
       "rate": "varies",
       "denominator": null
+     },
+     {
+      "item": "Spider cave teleport",
+      "ids": [
+       29782
+      ],
+      "rate": "varies",
+      "denominator": null
      }
     ],
     "debt_pets_jars": [
@@ -42560,9 +42568,7 @@
       "debt_at_kc": 3000
      }
     ],
-    "unmatched_rate": [
-     "Spider cave teleport"
-    ],
+    "unmatched_rate": [],
     "expected_kc": 757
    },
    "sources": [
@@ -45290,6 +45296,14 @@
       ],
       "rate": "1/19",
       "denominator": 19
+     },
+     {
+      "item": "Rite of vile transference",
+      "ids": [
+       30806
+      ],
+      "rate": "varies",
+      "denominator": null
      }
     ],
     "debt_pets_jars": [
@@ -45302,9 +45316,7 @@
       "debt_at_kc": null
      }
     ],
-    "unmatched_rate": [
-     "Rite of vile transference"
-    ],
+    "unmatched_rate": [],
     "expected_kc": null
    },
    "sources": [

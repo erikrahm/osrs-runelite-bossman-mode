@@ -193,12 +193,15 @@ public class BossmanPanel extends PluginPanel
 		JPanel nav = new JPanel(new FlowLayout(FlowLayout.RIGHT, 2, 0));
 		nav.setBackground(ColorScheme.DARK_GRAY_COLOR);
 		JButton prev = smallButton("<");
+		prev.setToolTipText("Previous boss");
 		prev.addActionListener(e -> { browsing = idx - 1; refresh(); });
 		prev.setEnabled(idx > 0);
-		JButton now = smallButton("now");
+		JButton now = smallButton("Current");
+		now.setToolTipText("Jump to the boss you're on");
 		now.addActionListener(e -> { browsing = null; refresh(); });
 		now.setEnabled(shown != current);
 		JButton next = smallButton(">");
+		next.setToolTipText("Next boss");
 		next.addActionListener(e -> { browsing = idx + 1; refresh(); });
 		next.setEnabled(idx < total - 1);
 		nav.add(prev);

@@ -216,7 +216,7 @@ public class BossmanPanel extends PluginPanel
 		name.setForeground(complete ? OK : (isCurrent ? WARN : Color.WHITE));
 		name.setAlignmentX(LEFT_ALIGNMENT);
 		javax.swing.JPopupMenu bossMenu = new javax.swing.JPopupMenu();
-		javax.swing.JMenuItem bossWiki = new javax.swing.JMenuItem("Open wiki");
+		javax.swing.JMenuItem bossWiki = new javax.swing.JMenuItem("Open Wiki");
 		bossWiki.setFont(FontManager.getRunescapeSmallFont());
 		bossWiki.addActionListener(e -> net.runelite.client.util.LinkBrowser.browse(
 			"https://oldschool.runescape.wiki/w/" + (r.wikiPage != null ? r.wikiPage : r.boss.replace(' ', '_'))));
@@ -225,7 +225,7 @@ public class BossmanPanel extends PluginPanel
 		p.add(name);
 		p.add(Box.createVerticalStrut(6));
 
-		p.add(infoRow("Combat level", r.combatLevel != null ? String.valueOf(r.combatLevel) : "n/a", null, Color.WHITE));
+		p.add(infoRow("Combat Level", r.combatLevel != null ? String.valueOf(r.combatLevel) : "n/a", null, Color.WHITE));
 		if (r.gates == null || r.gates.isEmpty())
 		{
 			p.add(infoRow("Gate", (r.gate == null || r.gate.isEmpty()) ? "none" : r.gate, null, Color.WHITE));
@@ -267,7 +267,7 @@ public class BossmanPanel extends PluginPanel
 
 		int kc = plugin.rungKc(r);
 		String kcText = String.valueOf(kc) + (r.log.expectedKc != null && r.log.expectedKc > 0 ? " (expected: ~" + r.log.expectedKc + ")" : "");
-		p.add(infoRow("KC", kcText, null, Color.WHITE));
+		p.add(infoRow("Kill Count", kcText, null, Color.WHITE));
 
 		if (r.ca != null && r.ca.tasks > 0)
 		{
@@ -281,10 +281,10 @@ public class BossmanPanel extends PluginPanel
 					donePts += t.points;
 				}
 			}
-			JPanel caRow = infoRow("Combat achievements", done + "/" + r.ca.tasks + " (" + donePts + "/" + r.ca.points + " pts)", icons.get("ca"),
+			JPanel caRow = infoRow("Combat Achievements", done + "/" + r.ca.tasks + " (" + donePts + "/" + r.ca.points + " pts)", icons.get("ca"),
 				done == r.ca.tasks ? OK : Color.WHITE);
 			javax.swing.JPopupMenu caMenu = new javax.swing.JPopupMenu();
-			javax.swing.JMenuItem caWiki = new javax.swing.JMenuItem("Open wiki (combat achievements)");
+			javax.swing.JMenuItem caWiki = new javax.swing.JMenuItem("Open Wiki (Combat Achievements)");
 			caWiki.setFont(FontManager.getRunescapeSmallFont());
 			caWiki.addActionListener(e -> net.runelite.client.util.LinkBrowser.browse(
 				"https://oldschool.runescape.wiki/w/" + (r.wikiPage != null ? r.wikiPage : r.boss.replace(' ', '_')) + "#Combat_Achievements"));
@@ -467,7 +467,7 @@ public class BossmanPanel extends PluginPanel
 	private JPanel logSection(BossmanData.Rung r)
 	{
 		JPanel p = card();
-		p.add(sectionTitle("Collection log"));
+		p.add(sectionTitle("Collection Log"));
 		int kc = plugin.rungKc(r);
 		boolean any = false;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
@@ -526,7 +526,7 @@ public class BossmanPanel extends PluginPanel
 			return null;
 		}
 		JPanel p = card();
-		p.add(sectionTitle("Optional meme items"));
+		p.add(sectionTitle("Optional Meme Items"));
 		for (BossmanData.GatingItem gi : memes)
 		{
 			boolean have = plugin.isLogItemUnlocked(gi);
@@ -591,7 +591,7 @@ public class BossmanPanel extends PluginPanel
 		if (backlogable && !have)
 		{
 			boolean bl = plugin.isBacklogged(r, item);
-			javax.swing.JMenuItem mi = new javax.swing.JMenuItem(bl ? "Remove from backlog" : "Move to backlog");
+			javax.swing.JMenuItem mi = new javax.swing.JMenuItem(bl ? "Remove from Backlog" : "Move to Backlog");
 			mi.setFont(FontManager.getRunescapeSmallFont());
 			mi.addActionListener(e -> plugin.setBacklogged(r, item, !bl));
 			menu.add(mi);
@@ -610,7 +610,7 @@ public class BossmanPanel extends PluginPanel
 
 	private javax.swing.JMenuItem wikiItem(String item, List<Integer> ids)
 	{
-		javax.swing.JMenuItem wiki = new javax.swing.JMenuItem("Open wiki");
+		javax.swing.JMenuItem wiki = new javax.swing.JMenuItem("Open Wiki");
 		wiki.setFont(FontManager.getRunescapeSmallFont());
 		wiki.addActionListener(e ->
 		{

@@ -89,6 +89,13 @@ public interface BossmanModeConfig extends Config
 		return false;
 	}
 
+	@ConfigItem(keyName = "caGate", name = "Combat Achievements gate the ladder", position = 3, section = ladderSection,
+		description = "Require every Combat Achievement task for a boss before the next boss can be started. Completion is tracked from the in-game 'completed a combat task' messages. Note some tasks need items the ruleset forbids (anti-dragon shield, salamanders, demonbane weapons, chinchompas, salve amulet).")
+	default boolean caGate()
+	{
+		return false;
+	}
+
 	@ConfigItem(keyName = "restrictGeBuy", name = "Hide locked items in GE search", position = 0, section = restrictionsSection,
 		description = "Locked items are greyed out and unclickable in the Grand Exchange search results.")
 	default boolean restrictGeBuy()

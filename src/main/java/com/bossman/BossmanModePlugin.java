@@ -221,6 +221,7 @@ public class BossmanModePlugin extends Plugin
 			case "memeThreshold":
 			case "petsGate":
 			case "jarsGate":
+			case "caGate":
 			case "freeTools":
 			case "freeAccessGear":
 				refreshPanel();
@@ -431,6 +432,11 @@ public class BossmanModePlugin extends Plugin
 		return kind;
 	}
 
+	public boolean isCaGating()
+	{
+		return config.caGate();
+	}
+
 	public boolean isCaDone(BossmanData.CaTask t)
 	{
 		for (String n : ledger.caDone)
@@ -558,6 +564,17 @@ public class BossmanModePlugin extends Plugin
 			if (!isDebtItemUnlocked(d))
 			{
 				return false;
+			}
+		}
+		if (config.caGate() && r.ca != null)
+		{
+			for (BossmanData.CaTask t : r.ca.list)
+			{
+				anyGating = true;
+				if (!isCaDone(t))
+				{
+					return false;
+				}
 			}
 		}
 		if (!anyGating)

@@ -268,7 +268,7 @@ public class BossmanPanel extends PluginPanel
 					done++;
 				}
 			}
-			JPanel caRow = infoRow("Combat Achievements", done + "/" + r.ca.tasks, null, done == r.ca.tasks ? OK : Color.WHITE);
+			JPanel caRow = infoRow("Combat Achievements", done + "/" + r.ca.tasks + (plugin.isCaGating() ? " (gating)" : ""), null, done == r.ca.tasks ? OK : Color.WHITE);
 			javax.swing.JPopupMenu caMenu = new javax.swing.JPopupMenu();
 			javax.swing.JMenuItem caWiki = new javax.swing.JMenuItem("Open Wiki (Combat Achievements)");
 			caWiki.setFont(FontManager.getRunescapeSmallFont());

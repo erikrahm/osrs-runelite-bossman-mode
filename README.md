@@ -24,7 +24,7 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   bosses (Gemstone Crab, Mimic…) can be marked complete by hand.
 - **Pre-plugin drops.** Open a boss tab in the in-game collection log and every obtained item there is imported as an unlock (toggle: "Import from collection log").
 - Chat commands: `!bmcount`, `!bmboss`, `!bmbackup`, `!bmreset` (opt-in).
-- Config: "Meme-grind threshold" (default 5000) — log items rarer than 1/N are optional and never block the ladder; "Pets gate the ladder" / "Jars gate the ladder" (default off); "Tools / Access gear are always unlocked" toggles for stricter variants.
+- Config: "Meme-grind threshold" (default 5000) — log items rarer than 1/N are optional and never block the ladder; "Pets gate the ladder" / "Jars gate the ladder" / "Combat Achievements gate the ladder" (default off); "Tools / Access gear are always unlocked" toggles for stricter variants.
 
 Requires the **Loot Tracker** plugin to be enabled for chest/event sources (NPC kills work without it).
 

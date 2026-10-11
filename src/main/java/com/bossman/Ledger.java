@@ -50,6 +50,8 @@ public class Ledger
 	public Set<String> manualComplete = new HashSet<>();
 	/** collection-log items moved to the backlog by hand, as "boss|item" (they stop gating the ladder) */
 	public Set<String> backlog = new HashSet<>();
+	/** combat achievement task names seen completed in chat */
+	public Set<String> caDone = new HashSet<>();
 
 	private transient File file;
 
@@ -86,6 +88,10 @@ public class Ledger
 		if (l.backlog == null)
 		{
 			l.backlog = new HashSet<>();
+		}
+		if (l.caDone == null)
+		{
+			l.caDone = new HashSet<>();
 		}
 		l.file = file;
 		return l;

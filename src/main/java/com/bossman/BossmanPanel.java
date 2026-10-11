@@ -54,7 +54,7 @@ public class BossmanPanel extends PluginPanel
 		this.plugin = plugin;
 		this.itemManager = itemManager;
 		this.skillIconManager = skillIconManager;
-		for (String n : new String[]{"quest", "diary", "combat", "wilderness"})
+		for (String n : new String[]{"quest", "diary", "combat", "wilderness", "ca"})
 		{
 			try
 			{
@@ -268,6 +268,36 @@ public class BossmanPanel extends PluginPanel
 		int kc = plugin.rungKc(r);
 		String kcText = String.valueOf(kc) + (r.log.expectedKc != null && r.log.expectedKc > 0 ? " (expected: ~" + r.log.expectedKc + ")" : "");
 		p.add(infoRow("KC", kcText, null, Color.WHITE));
+
+		if (r.ca != null && r.ca.tasks > 0)
+		{
+			int done = 0;
+			int donePts = 0;
+			for (BossmanData.CaTask t : r.ca.list)
+			{
+				if (plugin.isCaDone(t))
+				{
+					done++;
+					donePts += t.points;
+				}
+			}
+			JPanel caRow = infoRow("Combat achievements", done + "/" + r.ca.tasks + " (" + donePts + "/" + r.ca.points + " pts)", icons.get("ca"),
+				done == r.ca.tasks ? OK : Color.WHITE);
+			javax.swing.JPopupMenu caMenu = new javax.swing.JPopupMenu();
+			javax.swing.JMenuItem caWiki = new javax.swing.JMenuItem("Open wiki (combat achievements)");
+			caWiki.setFont(FontManager.getRunescapeSmallFont());
+			caWiki.addActionListener(e -> net.runelite.client.util.LinkBrowser.browse(
+				"https://oldschool.runescape.wiki/w/" + (r.wikiPage != null ? r.wikiPage : r.boss.replace(' ', '_')) + "#Combat_Achievements"));
+			caMenu.add(caWiki);
+			installMenu(caRow, caMenu);
+			StringBuilder tip = new StringBuilder("<html>");
+			for (BossmanData.CaTask t : r.ca.list)
+			{
+				tip.append(plugin.isCaDone(t) ? "[x] " : "[ ] ").append(escape(t.name)).append(" (").append(t.tier).append(", ").append(t.points).append(")<br>");
+			}
+			caRow.setToolTipText(tip.append("</html>").toString());
+			p.add(caRow);
+		}
 
 		int need = 0;
 		int have = 0;

@@ -105,6 +105,7 @@ public class BossmanModePlugin extends Plugin
 	private static final int ITEM_COINS = 995;
 	private static final int ITEM_BOND = 13190;
 	private static final Pattern KC_PATTERN = Pattern.compile("Your (.+?) kill count is: ?([\\d,]+)");
+	private static final Pattern CA_PATTERN = Pattern.compile("Congratulations, you've completed an? (?:easy|medium|hard|elite|master|grandmaster) combat task: (.+?)\\.?$", Pattern.CASE_INSENSITIVE);
 
 	@Inject private Client client;
 	@Inject private ClientThread clientThread;
@@ -430,6 +431,18 @@ public class BossmanModePlugin extends Plugin
 		return kind;
 	}
 
+	public boolean isCaDone(BossmanData.CaTask t)
+	{
+		for (String n : ledger.caDone)
+		{
+			if (n.equalsIgnoreCase(t.name))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static String backlogKey(BossmanData.Rung r, String item)
 	{
 		return r.boss + "|" + item;
@@ -745,6 +758,14 @@ public class BossmanModePlugin extends Plugin
 			return;
 		}
 		String msg = Text.removeTags(e.getMessage());
+		Matcher ca = CA_PATTERN.matcher(msg);
+		if (ca.find())
+		{
+			ledger.caDone.add(ca.group(1).trim());
+			ledger.save(gson);
+			refreshPanel();
+			return;
+		}
 		Matcher m = KC_PATTERN.matcher(msg);
 		if (!m.find())
 		{

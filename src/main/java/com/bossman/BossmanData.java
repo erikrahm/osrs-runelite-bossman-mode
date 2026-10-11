@@ -123,6 +123,22 @@ public class BossmanData
 		public boolean inLog;
 	}
 
+	public static class CaTask
+	{
+		public String name;
+		public String description;
+		public String type;
+		public String tier;
+		public int points;
+	}
+
+	public static class Ca
+	{
+		public int tasks;
+		public int points;
+		public List<CaTask> list = new ArrayList<>();
+	}
+
 	public static class Rung
 	{
 		public String boss;
@@ -140,6 +156,7 @@ public class BossmanData
 		@SerializedName("clog_tab")
 		public String clogTab;
 		public RungLog log = new RungLog();
+		public Ca ca = new Ca();
 		/** everything the boss (or its chest) can drop, best rate first */
 		public List<Drop> drops = new ArrayList<>();
 

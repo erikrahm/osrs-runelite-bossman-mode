@@ -247,8 +247,16 @@ public class BossmanPanel extends PluginPanel
 
 
 		int kc = plugin.rungKc(r);
-		String kcText = String.valueOf(kc) + (r.log.expectedKc != null && r.log.expectedKc > 0 ? " (expected: ~" + r.log.expectedKc + ")" : "");
-		p.add(infoRow("Kill Count", kcText, null, Color.WHITE));
+		boolean hasExpected = r.log.expectedKc != null && r.log.expectedKc > 0;
+		String kcText = hasExpected ? kc + "/~" + r.log.expectedKc : String.valueOf(kc);
+		// past the expected KC without the log done = dry
+		Color kcColor = (hasExpected && kc > r.log.expectedKc && !complete) ? BAD : Color.WHITE;
+		JPanel kcRow = infoRow("Kill Count", kcText, null, kcColor);
+		if (hasExpected)
+		{
+			kcRow.setToolTipText("~" + r.log.expectedKc + " is the expected kill count to finish this boss's log (red = past it, going dry)");
+		}
+		p.add(kcRow);
 
 		if (r.ca != null && r.ca.tasks > 0)
 		{

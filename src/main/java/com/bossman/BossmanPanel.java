@@ -192,7 +192,7 @@ public class BossmanPanel extends PluginPanel
 
 		JPanel nav = new JPanel(new FlowLayout(FlowLayout.RIGHT, 2, 0));
 		nav.setBackground(ColorScheme.DARK_GRAY_COLOR);
-		JButton prev = smallButton("<");
+		JButton prev = arrowButton("<");
 		prev.setToolTipText("Previous boss");
 		prev.addActionListener(e -> { browsing = idx - 1; refresh(); });
 		prev.setEnabled(idx > 0);
@@ -200,7 +200,7 @@ public class BossmanPanel extends PluginPanel
 		now.setToolTipText("Jump to the boss you're on");
 		now.addActionListener(e -> { browsing = null; refresh(); });
 		now.setEnabled(shown != current);
-		JButton next = smallButton(">");
+		JButton next = arrowButton(">");
 		next.setToolTipText("Next boss");
 		next.addActionListener(e -> { browsing = idx + 1; refresh(); });
 		next.setEnabled(idx < total - 1);
@@ -895,6 +895,16 @@ public class BossmanPanel extends PluginPanel
 		l.setForeground(color);
 		l.setAlignmentX(LEFT_ALIGNMENT);
 		return l;
+	}
+
+	/** The RuneScape font draws < and > above centre; use the default UI font for the arrows so they line up with "Current". */
+	private JButton arrowButton(String text)
+	{
+		JButton b = smallButton(text);
+		b.setFont(FontManager.getDefaultBoldFont());
+		b.setVerticalAlignment(SwingConstants.CENTER);
+		b.setMargin(new java.awt.Insets(1, 7, 1, 7));
+		return b;
 	}
 
 	private JButton smallButton(String text)

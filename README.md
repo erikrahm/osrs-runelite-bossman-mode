@@ -7,7 +7,7 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
 - **Source-gated unlocks.** An item becomes *unlocked* only when it drops from an allowlisted source: the 75 boss NPCs,
   the chest/event loot the RuneLite Loot Tracker reports (Barrows, Lunar Chest, CoX/ToB/ToA, Fortis Colosseum, Unsired,
   Tempoross, Wintertodt, Doom of Mokhaiotl, Maggot King), plus completion rewards (Fire/Infernal cape, Tokkul) and anything
-  received in the Gauntlet lobby. Slayer drops, clue caskets, shops, skilling and sea loot never unlock anything.
+  received in the Gauntlet lobby. Shop item packs (bucket pack, feather pack, rune packs…) follow their contents. Slayer drops, clue caskets, shops, skilling and sea loot never unlock anything.
   Once unlocked, copies from any source are fine (bronzeman semantics). Coins are locked until Brutus drops some.
 - **Free items.** Everything on the wiki Tool page at base tier (`bossman/tools.json`) and access equipment
   (`bossman/access.json`: slayer gear, keys/totems, grapple, rope) is allowed by default. Both are config toggles

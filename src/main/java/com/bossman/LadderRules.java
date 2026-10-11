@@ -32,11 +32,27 @@ public class LadderRules
 
 	// ------------------------------------------------------------------ items
 
-	/** Unlocked by a boss, or free under the Tool / access rules. */
+	/** Unlocked by a boss, free under the Tool / access rules, or a shop pack whose contents all are. */
 	public boolean isAllowed(int itemId)
 	{
 		int id = itemManager.canonicalize(itemId);
-		return ledger().isUnlocked(id) || freeKindOfCanonical(id) != null;
+		if (ledger().isUnlocked(id) || freeKindOfCanonical(id) != null)
+		{
+			return true;
+		}
+		List<Integer> contents = data.getSources().itemPacks.get(id);
+		if (contents == null || contents.isEmpty())
+		{
+			return false;
+		}
+		for (int c : contents)
+		{
+			if (!isAllowed(c))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/** "tool" / "access" if the item is free under a rule that is switched on, else null. */

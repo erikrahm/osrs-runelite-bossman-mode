@@ -65,6 +65,9 @@ public class BossmanData
 		public Map<String, String> lootTrackerEvents = new HashMap<>();
 		@SerializedName("receipt_rules")
 		public List<ReceiptRule> receiptRules = new ArrayList<>();
+		/** shop item pack id → the item ids inside it; a pack is allowed when all of its contents are */
+		@SerializedName("item_packs")
+		public Map<Integer, List<Integer>> itemPacks = new HashMap<>();
 	}
 
 	public static class GatingItem

@@ -91,6 +91,128 @@
   "Doom of Mokhaiotl": "loot pile at delve end",
   "Maggot King": "take-eggs / open-stomach tables"
  },
+ "item_packs": {
+  "20525": [
+   890
+  ],
+  "20607": [
+   892
+  ],
+  "13193": [
+   8882
+  ],
+  "11885": [
+   11874
+  ],
+  "11887": [
+   11876
+  ],
+  "12728": [
+   556
+  ],
+  "12730": [
+   555
+  ],
+  "12732": [
+   557
+  ],
+  "12734": [
+   554
+  ],
+  "12736": [
+   558
+  ],
+  "12738": [
+   562
+  ],
+  "21698": [
+   556
+  ],
+  "21701": [
+   555
+  ],
+  "21704": [
+   557
+  ],
+  "21707": [
+   554
+  ],
+  "20524": [
+   556,
+   555,
+   557,
+   554
+  ],
+  "12641": [
+   12640
+  ],
+  "11883": [
+   313
+  ],
+  "13432": [
+   13431
+  ],
+  "11881": [
+   314
+  ],
+  "13254": [
+   5376
+  ],
+  "13252": [
+   5418
+  ],
+  "19704": [
+   6032
+  ],
+  "13250": [
+   5356
+  ],
+  "12009": [
+   1761
+  ],
+  "12010": [
+   1761
+  ],
+  "24851": [
+   1761
+  ],
+  "25533": [
+   1761
+  ],
+  "12740": [
+   10006
+  ],
+  "12742": [
+   10008
+  ],
+  "12744": [
+   10025
+  ],
+  "22660": [
+   1925
+  ],
+  "20742": [
+   1935
+  ],
+  "11877": [
+   229
+  ],
+  "11879": [
+   227
+  ],
+  "12859": [
+   221
+  ],
+  "12857": [
+   3422
+  ],
+  "25280": [
+   7936
+  ],
+  "25535": [
+   7936
+  ]
+ },
  "custom_mechanisms": {
   "The Gauntlet / The Corrupted Gauntlet": "reward chest is NOT tracked by the core loot tracker — plugin must detect the Gauntlet reward interface/inventory itself",
   "TzHaar Fight Cave / Inferno": "Fire cape, Infernal cape and Tokkul are completion rewards, not loot — unlock on receipt while in the TzHaar region (or seed as \"earned\")",

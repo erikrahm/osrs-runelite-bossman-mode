@@ -226,6 +226,30 @@ public class BossmanPanel extends PluginPanel
 	}
 
 	/** Dropdown of every boss, coloured by state, for jumping straight to one. */
+	/** Width available for a boss name in the picker's list (panel minus card padding and the list's scrollbar). */
+	private static final int TITLE_WIDTH = 165;
+
+	private static String hex(Color c)
+	{
+		return String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
+	}
+
+	/** Truncate with "..." so it fits in the given pixel width. */
+	private static String fit(String text, java.awt.FontMetrics fm, int width)
+	{
+		if (fm.stringWidth(text) <= width)
+		{
+			return text;
+		}
+		String dots = "...";
+		int n = text.length();
+		while (n > 0 && fm.stringWidth(text.substring(0, n).trim() + dots) > width)
+		{
+			n--;
+		}
+		return text.substring(0, n).trim() + dots;
+	}
+
 	/** The boss title doubles as the picker: it reads "Boss N: Name" in the state colour, and opens a list of every boss. */
 	private javax.swing.JComboBox<BossmanData.Rung> bossTitle(BossmanData.Rung r, boolean isCurrent, boolean complete,
 		List<BossmanData.Rung> rungs, int idx, BossmanData.Rung current)
@@ -248,22 +272,23 @@ public class BossmanPanel extends PluginPanel
 			{
 				JLabel l = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 				BossmanData.Rung rr = (BossmanData.Rung) value;
-				l.setOpaque(true);
-				if (index == -1)
-				{
-					// the closed box: looks like the old title
-					l.setText("Boss " + rr.rung + ": " + rr.boss);
-					l.setFont(FontManager.getRunescapeBoldFont());
-					l.setForeground(titleColor);
-					l.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-					l.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-					return l;
-				}
 				int i = rungs.indexOf(rr);
-				l.setText(rr.rung + ". " + rr.boss);
-				l.setFont(FontManager.getRunescapeSmallFont());
-				l.setForeground(i < currentIdx || current == null ? OK : (i == currentIdx ? WARN : MUTED));
-				l.setBackground(isSelected ? ColorScheme.DARK_GRAY_COLOR : ColorScheme.DARKER_GRAY_COLOR);
+				Color c = index == -1 ? titleColor : (i < currentIdx || current == null ? OK : (i == currentIdx ? WARN : MUTED));
+				l.setFont(FontManager.getRunescapeBoldFont());
+				// the closed box has the arrow button on its right; list cells have the scrollbar
+				int boxW = box.getWidth() > 0 ? box.getWidth() : TITLE_WIDTH + 30;
+				int avail = index == -1 ? boxW - 30 : TITLE_WIDTH;
+				String text = fit("Boss " + rr.rung + ": " + rr.boss, l.getFontMetrics(l.getFont()), avail);
+				// colour via HTML so the look-and-feel can't repaint the closed box white
+				l.setText("<html><font color='" + hex(c) + "'>" + escape(text) + "</font></html>");
+				l.setOpaque(true);
+				l.setBackground(index != -1 && isSelected ? ColorScheme.DARK_GRAY_COLOR : ColorScheme.DARKER_GRAY_COLOR);
+				l.setBorder(BorderFactory.createEmptyBorder(1, index == -1 ? 0 : 4, 1, 0));
+				if (index != -1)
+				{
+					// keep the popup no wider than the box, whatever the longest boss name is
+					l.setPreferredSize(new Dimension(TITLE_WIDTH, l.getPreferredSize().height));
+				}
 				return l;
 			}
 		});

@@ -130,6 +130,8 @@ public class BossmanData
 		public Integer combatLevel;
 		public String gate;
 		public List<Gate> gates = new ArrayList<>();
+		@SerializedName("wiki_page")
+		public String wikiPage;
 		public Integer rung;          // null for floating (Tempoross / Wintertodt)
 		public boolean floating;
 		public boolean blocking;

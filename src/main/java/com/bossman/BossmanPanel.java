@@ -215,6 +215,13 @@ public class BossmanPanel extends PluginPanel
 		name.setFont(FontManager.getRunescapeBoldFont());
 		name.setForeground(complete ? OK : (isCurrent ? WARN : Color.WHITE));
 		name.setAlignmentX(LEFT_ALIGNMENT);
+		javax.swing.JPopupMenu bossMenu = new javax.swing.JPopupMenu();
+		javax.swing.JMenuItem bossWiki = new javax.swing.JMenuItem("Open wiki");
+		bossWiki.setFont(FontManager.getRunescapeSmallFont());
+		bossWiki.addActionListener(e -> net.runelite.client.util.LinkBrowser.browse(
+			"https://oldschool.runescape.wiki/w/" + (r.wikiPage != null ? r.wikiPage : r.boss.replace(' ', '_'))));
+		bossMenu.add(bossWiki);
+		name.setComponentPopupMenu(bossMenu);
 		p.add(name);
 		p.add(Box.createVerticalStrut(6));
 

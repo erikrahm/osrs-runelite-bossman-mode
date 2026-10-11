@@ -1,6 +1,6 @@
 /*
- * Bossman Mode — lock marks for bank items cut off at the top of the bank's scroll area.
- * BSD-2-Clause — see LICENSE.
+ * Bossman Mode: lock marks for bank items cut off at the top of the bank's scroll area.
+ * BSD-2-Clause, see LICENSE.
  */
 package com.bossman;
 

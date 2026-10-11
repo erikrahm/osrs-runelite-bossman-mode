@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.runelite.api.gameval.ItemID;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -24,6 +25,10 @@ public class LadderRulesTest
 	private boolean petsGate;
 	private boolean caGate;
 	private boolean unlockBond = true;
+	private boolean freeTools = true;
+	private boolean freeAccessGear = true;
+	private boolean freeSlayerTools = true;
+	private boolean jarsGate;
 	private int memeThreshold = 5000;
 	private LadderRules rules;
 
@@ -52,6 +57,30 @@ public class LadderRulesTest
 			public boolean unlockBond()
 			{
 				return unlockBond;
+			}
+
+			@Override
+			public boolean freeTools()
+			{
+				return freeTools;
+			}
+
+			@Override
+			public boolean freeAccessGear()
+			{
+				return freeAccessGear;
+			}
+
+			@Override
+			public boolean freeSlayerTools()
+			{
+				return freeSlayerTools;
+			}
+
+			@Override
+			public boolean jarsGate()
+			{
+				return jarsGate;
 			}
 
 			@Override
@@ -93,8 +122,6 @@ public class LadderRulesTest
 		}
 	}
 
-	// ------------------------------------------------------------------ items
-
 	@Test
 	public void anotherDoseOfAnUnlockedPotionIsAllowed()
 	{
@@ -106,10 +133,29 @@ public class LadderRulesTest
 	@Test
 	public void bondFollowsItsSettingBothWays()
 	{
-		assertTrue(rules.isAllowed(BossmanModePlugin.ITEM_BOND));
-		assertEquals("bond", rules.freeKind(BossmanModePlugin.ITEM_BOND));
+		assertTrue(rules.isAllowed(ItemID.OSRS_BOND));
+		assertEquals(FreeKind.BOND, rules.freeKind(ItemID.OSRS_BOND));
 		unlockBond = false;
-		assertFalse(rules.isAllowed(BossmanModePlugin.ITEM_BOND));
+		assertFalse(rules.isAllowed(ItemID.OSRS_BOND));
+	}
+
+	@Test
+	public void eachFreeRuleHasItsOwnSwitch()
+	{
+		int bronzeAxe = 1351;
+		int rope = 954;
+		int bagOfSalt = 4161;
+		assertEquals(FreeKind.TOOL, rules.freeKind(bronzeAxe));
+		assertEquals(FreeKind.ACCESS, rules.freeKind(rope));
+		assertEquals(FreeKind.SLAYER, rules.freeKind(bagOfSalt));
+		freeTools = false;
+		assertFalse(rules.isAllowed(bronzeAxe));
+		assertTrue(rules.isAllowed(rope));
+		freeAccessGear = false;
+		assertFalse(rules.isAllowed(rope));
+		assertTrue(rules.isAllowed(bagOfSalt));   // slayer tools aren't access gear any more
+		freeSlayerTools = false;
+		assertFalse(rules.isAllowed(bagOfSalt));
 	}
 
 	@Test
@@ -120,8 +166,6 @@ public class LadderRulesTest
 		unlock(PRAYER_POTION_4);
 		assertTrue(rules.isAllowed(PRAYER_POTION_PACK_TEST));
 	}
-
-	// ------------------------------------------------------------------ rungs
 
 	@Test
 	public void theLadderStartsAtTheFirstBoss()
@@ -141,10 +185,56 @@ public class LadderRulesTest
 			}
 			ledger.manualComplete.add(r.boss);
 		}
-		BossmanData.Rung current = rules.currentRung();
-		assertNotEquals("Gemstone Crab", current.boss);
-		assertNotEquals("The Mimic", current.boss);
-		assertTrue(current.blocking);
+		// Gemstone Crab (5) and The Mimic (6) are side bosses: the ladder moves straight on to rung 7
+		assertEquals("Scurrius", rules.currentRung().boss);
+	}
+
+	@Test
+	public void theLadderEndsAndFloatingRungsNeverBecomeCurrent()
+	{
+		for (BossmanData.Rung r : data.orderedRungs())
+		{
+			ledger.manualComplete.add(r.boss);
+		}
+		assertNull(rules.currentRung());   // Tempoross and Wintertodt float: never current
+	}
+
+	@Test
+	public void jarsGateOnlyWhenSwitchedOnAndAreToldApartFromPets()
+	{
+		BossmanData.Rung gg = rung("Grotesque Guardians");
+		BossmanData.DebtItem jar = gg.log.debtPetsJars.stream().filter(rules::isJar).findFirst().get();
+		BossmanData.DebtItem pet = gg.log.debtPetsJars.stream().filter(d -> !rules.isJar(d)).findFirst().get();
+		assertFalse(rules.isDebtItemGating(jar));
+		jarsGate = true;
+		assertTrue(rules.isDebtItemGating(jar));
+		assertFalse(rules.isDebtItemGating(pet));
+	}
+
+	@Test
+	public void aPetIsOwedFromExactlyItsDebtKc()
+	{
+		BossmanData.Rung kbd = rung("King Black Dragon");
+		BossmanData.DebtItem prince = kbd.log.debtPetsJars.get(0);
+		ledger.setKcFromChat("King Black Dragon", "King Black Dragon", prince.debtAtKc - 1);
+		assertFalse(rules.isDebtOwed(kbd, prince));
+		ledger.setKcFromChat("King Black Dragon", "King Black Dragon", prince.debtAtKc);
+		assertTrue(rules.isDebtOwed(kbd, prince));
+		prince.debtAtKc = null;   // unknown rate: never owed
+		assertFalse(rules.isDebtOwed(kbd, prince));
+	}
+
+	@Test
+	public void aPetRecordedUnderAnotherIdCountsByName()
+	{
+		BossmanData.Rung kbd = rung("King Black Dragon");
+		BossmanData.DebtItem prince = kbd.log.debtPetsJars.get(0);
+		assertFalse(rules.isDebtItemUnlocked(prince));
+		Ledger.Entry follower = new Ledger.Entry();
+		follower.itemId = 99998;
+		follower.name = "prince black dragon";
+		ledger.unlocks.put(follower.itemId, follower);
+		assertTrue(rules.isDebtItemUnlocked(prince));
 	}
 
 	@Test
@@ -211,7 +301,7 @@ public class LadderRulesTest
 		assertFalse(rules.isRungComplete(kbd));
 		for (BossmanData.CaTask t : kbd.ca.list)
 		{
-			ledger.caDone.add(t.name.toUpperCase());   // matched case-insensitively
+			ledger.addCaDone(t.name.toUpperCase());   // matched case-insensitively
 		}
 		assertTrue(rules.isRungComplete(kbd));
 	}
@@ -221,19 +311,17 @@ public class LadderRulesTest
 	{
 		BossmanData.Rung mimic = rung("The Mimic");
 		assertFalse(rules.isRungComplete(mimic));
-		ledger.setKcFromChat("The Mimic", 1);
+		ledger.setKcFromChat("The Mimic", "The Mimic", 1);
 		assertTrue(rules.isRungComplete(mimic));
 	}
-
-	// ------------------------------------------------------------------ KC
 
 	@Test
 	public void theMoonsKcIsTheChestAndEachMoonIsKeptApart()
 	{
 		BossmanData.Rung moons = rung("Blood Moon / Blue Moon / Eclipse Moon");
 		ledger.countLoot("Lunar Chest", 1);
-		ledger.setKcFromChat("Blood Moon", 3);
-		ledger.setKcFromChat("Blue Moon", 2);
+		ledger.setKcFromChat("Blood Moon", "Blood Moon", 3);
+		ledger.setKcFromChat("Blue Moon", "Blue Moon", 2);
 		assertEquals(1, rules.rungKc(moons));
 		Map<String, Integer> by = rules.kcBySource(moons);
 		assertEquals(Integer.valueOf(3), by.get("Blood Moon"));
@@ -255,9 +343,19 @@ public class LadderRulesTest
 	{
 		ledger.countLoot("Vorkath", 1);
 		ledger.countLoot("Vorkath", 1);
-		ledger.setKcFromChat("Vorkath", 14);     // the game's own number replaces our count
+		ledger.setKcFromChat("Vorkath", "Vorkath", 14);     // the game's own number replaces our count
 		assertEquals(14, ledger.getKc("Vorkath"));
 		assertEquals(14, ledger.countLoot("Vorkath", 1));   // and loot no longer adds to it
+	}
+
+	@Test
+	public void raidModesAddUpToTheRaidsKc()
+	{
+		BossmanData.Rung cox = rung("Chambers of Xeric (raid)");
+		ledger.setKcFromChat("Chambers of Xeric", "Chambers of Xeric", 10);
+		ledger.setKcFromChat("Chambers of Xeric", "Chambers of Xeric (Challenge Mode)", 4);
+		assertEquals(14, rules.rungKc(cox));
+		assertEquals(14, ledger.countLoot("Chambers of Xeric", 1));   // the chest doesn't add a run on top
 	}
 
 	@Test

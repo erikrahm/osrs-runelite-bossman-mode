@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2019, CodePanter <https://github.com/codepanter> (Another Bronzeman Mode)
  * Copyright (c) 2026, Erik Rahm (Bossman Mode)
- * All rights reserved. BSD-2-Clause — see LICENSE.
+ * All rights reserved. BSD-2-Clause, see LICENSE.
  */
 package com.bossman;
 

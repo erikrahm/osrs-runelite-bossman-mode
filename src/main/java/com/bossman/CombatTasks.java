@@ -1,9 +1,9 @@
 /*
- * Bossman Mode — reads Combat Achievement state straight from the game.
+ * Bossman Mode: reads Combat Achievement state straight from the game.
  *
  * The task list lives in the cache: one enum per tier (3981..3986) listing task structs, each struct carrying
  * the task's numeric id (param 1306) and title (param 1308). Completion is a bit-field across the
- * CA_TASK_COMPLETED_n varps: task n is bit n % 32 of varp n / 32 — the same thing the in-game interface reads.
+ * CA_TASK_COMPLETED_n varps: task n is bit n % 32 of varp n / 32, the same thing the in-game interface reads.
  * Everything here must run on the client thread.
  */
 package com.bossman;
@@ -49,6 +49,7 @@ class CombatTasks
 	private final Client client;
 	/** task id → title, read once from the cache */
 	private Map<Integer, String> names = Collections.emptyMap();
+	private boolean warnedOutOfRange;
 
 	CombatTasks(Client client)
 	{
@@ -115,12 +116,33 @@ class CombatTasks
 		for (Map.Entry<Integer, String> en : names.entrySet())
 		{
 			int id = en.getKey();
-			int word = id / 32;
-			if (word >= 0 && word < bits.length && ((bits[word] >>> (id % 32)) & 1) == 1)
+			if (id < 0 || id >= bits.length * 32)
+			{
+				if (!warnedOutOfRange)
+				{
+					warnedOutOfRange = true;
+					log.warn("combat task id {} is past the {} completion varps known to the plugin; newer tasks can't be read", id, bits.length);
+				}
+				continue;
+			}
+			if (isComplete(bits, id))
 			{
 				done.add(en.getValue());
 			}
 		}
 		return done;
+	}
+
+	/** Titles of every task in the game's table (empty until the cache is readable). Client thread. */
+	Set<String> allNames()
+	{
+		return ensureLoaded() ? new HashSet<>(names.values()) : Collections.emptySet();
+	}
+
+	/** Task {@code id} is bit id % 32 of completion word id / 32. */
+	static boolean isComplete(int[] bits, int id)
+	{
+		int word = id / 32;
+		return id >= 0 && word < bits.length && ((bits[word] >>> (id % 32)) & 1) == 1;
 	}
 }

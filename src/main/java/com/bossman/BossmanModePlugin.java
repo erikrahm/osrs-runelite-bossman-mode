@@ -44,10 +44,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.swing.SwingUtilities;
 import org.slf4j.Logger;
@@ -71,7 +69,7 @@ import net.runelite.api.ScriptID;
 import net.runelite.api.events.ScriptPostFired;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.gameval.InterfaceID;
-import net.runelite.api.widgets.ComponentID;
+import net.runelite.api.gameval.ItemID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.Notifier;
 import net.runelite.client.RuneLite;
@@ -84,6 +82,7 @@ import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneScapeProfileType;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ClientShutdown;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.ServerNpcLoot;
 import net.runelite.client.game.ItemManager;
@@ -113,25 +112,15 @@ public class BossmanModePlugin extends Plugin
 	private static final String LEDGER_DIR = "bossman-mode";
 	private static final int GE_SEARCH_BUILD_SCRIPT = 751;
 	private static final int GE_REGION_ID = 12598;
-	private static final int ITEM_COINS = 995;
-	static final int ITEM_BOND = 13190;
-	/** "Your Vorkath kill count is: 14", "Your Barrows chest count is: 3", "Your Gauntlet completion count is: 2" */
-	private static final Pattern KC_PATTERN = Pattern.compile("Your (.+?) (?:kill |chest |completion )?count is:? ?([\\d,]+)", Pattern.CASE_INSENSITIVE);
-	/** "Your completed Chambers of Xeric count is: 12" */
-	private static final Pattern RAID_KC_PATTERN = Pattern.compile("Your completed (.+?) count is:? ?([\\d,]+)", Pattern.CASE_INSENSITIVE);
-	/** a receipt rule's companion items (Tokkul) count when gained this many ticks after the rule's own item */
-	private static final int COMPANION_TICKS = 5;
 	/** a failed save is retried after this long */
 	private static final long SAVE_RETRY_MS = 10_000;
 	/** How long after the last change the ledger is written to disk (writes are coalesced). */
 	private static final long SAVE_DELAY_MS = 1500;
-	private static final Pattern CA_PATTERN = Pattern.compile("Congratulations, you've completed an? (?:easy|medium|hard|elite|master|grandmaster) combat task: (.+?)\\.?$", Pattern.CASE_INSENSITIVE);
 
 	@Inject private Client client;
 	@Inject private ClientThread clientThread;
 	@Inject private ItemManager itemManager;
 	@Inject private OverlayManager overlayManager;
-	@Inject private ConfigManager configManager;
 	@Inject private ChatMessageManager chatMessageManager;
 	@Inject private ChatCommandManager chatCommandManager;
 	@Inject private Notifier notifier;
@@ -168,9 +157,14 @@ public class BossmanModePlugin extends Plugin
 	private Map<Integer, Integer> lastEquipment = Collections.emptyMap();
 	/** tick at which each receipt rule last matched, for its companions */
 	private final Map<String, Integer> receiptTicks = new HashMap<>();
-	/** the ledger with changes not yet on disk (null when clean); a save is scheduled whenever this goes non-null */
-	private final AtomicReference<Ledger> dirtyLedger = new AtomicReference<>();
+	/**
+	 * ledgers with changes not yet on disk. Each ledger knows its own dirty state, so an account switch or a reset
+	 * can't push one ledger's pending (or failing) save out for another's.
+	 */
+	private final Set<Ledger> unsaved = ConcurrentHashMap.newKeySet();
 	private final AtomicBoolean saveFailureReported = new AtomicBoolean();
+	/** ladder CA names the game's task table doesn't know were logged (once a session) */
+	private boolean caNamesChecked;
 	private int lastScreenshotTick = -1;
 	/** a panel rebuild is queued on the Swing thread; further requests until it runs are no-ops */
 	private final AtomicBoolean refreshPending = new AtomicBoolean();
@@ -199,6 +193,7 @@ public class BossmanModePlugin extends Plugin
 		chatCommandManager.registerCommand("!bmcount", this::onCountCommand);
 		chatCommandManager.registerCommand("!bmboss", this::onRungCommand);
 		chatCommandManager.registerCommand("!bmbackup", this::onBackupCommand);
+		chatCommandManager.registerCommand("!bmrelock", this::onRelockCommand);
 		if (config.resetCommand())
 		{
 			chatCommandManager.registerCommand("!bmreset", this::onResetCommand);
@@ -229,15 +224,14 @@ public class BossmanModePlugin extends Plugin
 		chatCommandManager.unregisterCommand("!bmcount");
 		chatCommandManager.unregisterCommand("!bmboss");
 		chatCommandManager.unregisterCommand("!bmbackup");
+		chatCommandManager.unregisterCommand("!bmrelock");
 		chatCommandManager.unregisterCommand("!bmreset");
 		clientToolbar.removeNavigation(navButton);
 		unlockOverlay.clear();
 		lastInventory = null;
 		openPending = false;
-		flushLedger();
+		flushLedgers();
 	}
-
-	// ------------------------------------------------------------------ lifecycle
 
 	@Subscribe
 	public void onGameStateChanged(GameStateChanged e)
@@ -255,8 +249,21 @@ public class BossmanModePlugin extends Plugin
 		if (e.getGameState() == GameState.LOGIN_SCREEN || e.getGameState() == GameState.HOPPING)
 		{
 			unlockOverlay.clear();   // banners queued for this account don't carry over to the next
-			flushLedger();
+			flushLedgers();
 		}
+		if (e.getGameState() == GameState.LOGIN_SCREEN)
+		{
+			// no account until the next login: nothing may be written into the last one's ledger meanwhile
+			ledger = new Ledger();
+			refreshPanel();
+		}
+	}
+
+	/** The client is closing (no shutDown or logout comes first): write what's pending before it goes. */
+	@Subscribe
+	public void onClientShutdown(ClientShutdown e)
+	{
+		e.waitFor(executor.submit(this::flushLedgers));
 	}
 
 	@Subscribe
@@ -294,6 +301,7 @@ public class BossmanModePlugin extends Plugin
 			case "caGate":
 			case "freeTools":
 			case "freeAccessGear":
+			case "freeSlayerTools":
 				refreshPanel();
 				break;
 			case "resetCommand":
@@ -317,15 +325,26 @@ public class BossmanModePlugin extends Plugin
 		File file = ledgerFile();
 		if (file == null)
 		{
-			openPending = true;   // RuneLite hasn't been told the account hash yet
+			// RuneLite hasn't been told the account hash yet: until it has, nothing may land in another account's ledger
+			openPending = true;
+			ledger = new Ledger();
 			return;
 		}
 		openPending = false;
-		flushLedger(); // whatever the previous account had pending
-		importLegacyLedger(file);
+		Ledger current = ledger;
+		boolean flushed = flushLedgers(); // whatever the previous account had pending
+		if (!flushed && current.isDirty() && file.equals(current.getFile()))
+		{
+			// same account (a hop or relog) and its unsaved changes couldn't be written: keep them in memory rather
+			// than reload an older copy from disk; the retry is still scheduled
+			receiptTicks.clear();
+			syncCombatTasks();
+			refreshPanel();
+			return;
+		}
 		Ledger l = Ledger.load(gson, file);
 		// bonds used to be written into the ledger; they are a rule now (LadderRules.freeKind), so the toggle works both ways
-		l.unlocks.values().removeIf(en -> en.itemId == ITEM_BOND && Ledger.KIND_DEFAULT.equals(en.kind));
+		l.unlocks.values().removeIf(en -> en.itemId == ItemID.OSRS_BOND && Ledger.KIND_DEFAULT.equals(en.kind));
 		ledger = l;
 		if (l.getSetAside() != null)
 		{
@@ -354,44 +373,6 @@ public class BossmanModePlugin extends Plugin
 		return new File(new File(new File(RuneLite.RUNELITE_DIR, LEDGER_DIR), type + "-" + hash), LEDGER_FILE);
 	}
 
-	/** Versions before 0.1.1 kept the ledger in the RS profile folder (or a folder named after the login): copy it over once. */
-	private void importLegacyLedger(File target)
-	{
-		if (target.exists())
-		{
-			return;
-		}
-		Set<String> folders = new java.util.LinkedHashSet<>();
-		if (configManager.getRSProfileKey() != null)
-		{
-			folders.add(configManager.getRSProfileKey());
-		}
-		String user = client.getUsername();
-		if (user != null && !user.trim().isEmpty())
-		{
-			folders.add(user);
-		}
-		for (String folder : folders)
-		{
-			File legacy = new File(new File(RuneLite.RUNELITE_DIR, "profiles/" + folder), LEDGER_FILE);
-			if (!legacy.isFile())
-			{
-				continue;
-			}
-			try
-			{
-				target.getParentFile().mkdirs();
-				Files.copy(legacy.toPath(), target.toPath());
-				log.info("copied legacy ledger {} to {}", legacy, target);
-				return;
-			}
-			catch (Exception ex)
-			{
-				log.warn("could not copy legacy ledger {}", legacy, ex);
-			}
-		}
-	}
-
 	private static Set<String> parseActions(String csv)
 	{
 		Set<String> out = new HashSet<>();
@@ -409,44 +390,56 @@ public class BossmanModePlugin extends Plugin
 		return out;
 	}
 
-	// ------------------------------------------------------------------ persistence
-
-	/** Something in the ledger changed: queue one disk write and one panel rebuild, however many changes arrive before they run. */
+	/** The current ledger changed: queue one disk write and one panel rebuild, however many changes arrive before they run. */
 	private void ledgerChanged()
 	{
-		if (dirtyLedger.getAndSet(ledger) == null)
+		ledgerChanged(ledger);
+	}
+
+	private void ledgerChanged(Ledger l)
+	{
+		l.markDirty();
+		if (unsaved.add(l))
 		{
-			executor.schedule(this::flushLedger, SAVE_DELAY_MS, TimeUnit.MILLISECONDS);
+			executor.schedule(this::flushLedgers, SAVE_DELAY_MS, TimeUnit.MILLISECONDS);
 		}
 		refreshPanel();
 	}
 
 	/**
-	 * Write the dirty ledger now if there is one (scheduled save, shutdown, logout, backup, account switch). The
-	 * ledger instance is the one that changed, so an account switch can't save one account's changes into the other.
+	 * Write every ledger with unsaved changes now (scheduled save, shutdown, logout, backup, account switch).
 	 *
-	 * @return false if a save was needed and failed
+	 * @return false if a save was needed and failed (it is retried, and the player told once per failure spell)
 	 */
-	private boolean flushLedger()
+	private boolean flushLedgers()
 	{
-		Ledger l = dirtyLedger.getAndSet(null);
-		if (l == null || l.save(gson))
+		boolean ok = true;
+		for (Ledger l : unsaved)
 		{
+			if (!l.saveIfDirty(gson))
+			{
+				ok = false;
+				continue;
+			}
+			unsaved.remove(l);
+			if (l.isDirty() && unsaved.add(l))
+			{
+				// changed again while it was being written
+				executor.schedule(this::flushLedgers, SAVE_DELAY_MS, TimeUnit.MILLISECONDS);
+			}
+		}
+		if (ok)
+		{
+			saveFailureReported.set(false);
 			return true;
 		}
-		// keep it dirty and try again; tell the player once, so a full disk doesn't silently eat their progress
-		if (dirtyLedger.compareAndSet(null, l))
-		{
-			executor.schedule(this::flushLedger, SAVE_RETRY_MS, TimeUnit.MILLISECONDS);
-		}
+		executor.schedule(this::flushLedgers, SAVE_RETRY_MS, TimeUnit.MILLISECONDS);
 		if (saveFailureReported.compareAndSet(false, true))
 		{
 			sendChatMessage("Bossman: could not save your ledger (see the RuneLite log). Retrying.");
 		}
 		return false;
 	}
-
-	// ------------------------------------------------------------------ unlock sources
 
 	/**
 	 * NPC kills: the loot the server itself reports for an NPC (what the core Loot Tracker records too). The older
@@ -475,18 +468,19 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
-		String name = e.getName();
-		if (!data.isEventSource(name))
+		if (!data.isEventSource(e.getName()))
 		{
 			return;
 		}
+		String source = data.canonicalSource(e.getName());
+		String name = source != null ? source : e.getName();
 		unlockLoot(e.getItems(), name, countLoot(name, Math.max(1, e.getAmount())));
 	}
 
 	/** KC after a loot event: counted here unless the game reports this source's KC in chat (or its loot isn't per kill). */
 	private int countLoot(String source, int amount)
 	{
-		return data.isKcChatOnly(source) ? ledger.getKc(source) : ledger.countLoot(source, amount);
+		return data.isKcChatOnly(source) ? ledger.getKcAllModes(source) : ledger.countLoot(source, amount);
 	}
 
 	/** Completion rewards and untracked chests: things that unlock the moment they appear in the inventory. */
@@ -513,56 +507,19 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;   // first inventory after login: the baseline, not a gain
 		}
-		boolean changed = false;
-		if (config.receiptRules() && client.getLocalPlayer() != null && !isBankOpen())
+		if (!config.receiptRules() || client.getLocalPlayer() == null || isBankOpen())
 		{
-			int region = client.getLocalPlayer().getWorldLocation().getRegionID();
-			int tick = client.getTickCount();
-			List<Integer> gained = new ArrayList<>();
-			for (Map.Entry<Integer, Integer> en : now.entrySet())
-			{
-				int id = en.getKey();
-				int unequipped = Math.max(0, equipBefore.getOrDefault(id, 0) - equipNow.getOrDefault(id, 0));
-				if (en.getValue() > before.getOrDefault(id, 0) + unequipped)
-				{
-					gained.add(id);
-				}
-			}
-			// the rules' own items first, so a companion gained in the same change sees the match
-			for (int id : gained)
-			{
-				for (BossmanData.ReceiptRule rule : data.getSources().receiptRules)
-				{
-					if (rule.matches(id, region))
-					{
-						receiptTicks.put(rule.name, tick);
-						if (!rules.isAllowed(id))
-						{
-							recordUnlock(id, Ledger.KIND_RECEIPT, rule.name, null, rule.note, true);
-							changed = true;
-						}
-						break;
-					}
-				}
-			}
-			for (int id : gained)
-			{
-				if (rules.isAllowed(id))
-				{
-					continue;
-				}
-				for (BossmanData.ReceiptRule rule : data.getSources().receiptRules)
-				{
-					Integer at = receiptTicks.get(rule.name);
-					if (rule.companions != null && rule.companions.contains(id) && at != null && tick - at <= COMPANION_TICKS)
-					{
-						recordUnlock(id, Ledger.KIND_RECEIPT, rule.name, null, rule.note, true);
-						changed = true;
-						break;
-					}
-				}
-			}
+			return;   // withdrawals aren't receipts
 		}
+		List<ReceiptDetector.Receipt> receipts = ReceiptDetector.detect(
+			ReceiptDetector.gained(before, now, equipBefore, equipNow),
+			client.getLocalPlayer().getWorldLocation().getRegionID(), client.getTickCount(),
+			data.getSources().receiptRules, receiptTicks, rules::isAllowed);
+		for (ReceiptDetector.Receipt r : receipts)
+		{
+			recordUnlock(r.itemId, Ledger.KIND_RECEIPT, r.rule.name, null, r.rule.note, true);
+		}
+		boolean changed = !receipts.isEmpty();
 		if (changed)
 		{
 			ledgerChanged();
@@ -622,36 +579,58 @@ public class BossmanModePlugin extends Plugin
 		}
 	}
 
-	// ------------------------------------------------------------------ player choices
+	// The panel calls these from the Swing thread; ledger writes happen on the client thread, against the one ledger
+	// that is current when they run.
 
 	public void setBacklogged(BossmanData.Rung r, String item, boolean backlogged)
 	{
-		String key = LadderRules.backlogKey(r, item);
-		if (backlogged)
+		clientThread.invoke(() ->
 		{
-			ledger.backlog.add(key);
-		}
-		else
-		{
-			ledger.backlog.remove(key);
-		}
-		ledgerChanged();
+			Ledger l = ledger;
+			String key = LadderRules.backlogKey(r, item);
+			if (backlogged)
+			{
+				l.backlog.add(key);
+			}
+			else
+			{
+				l.backlog.remove(key);
+			}
+			ledgerChanged(l);
+		});
 	}
 
 	public void markRungComplete(BossmanData.Rung r, boolean complete)
 	{
-		if (complete)
+		clientThread.invoke(() ->
 		{
-			ledger.manualComplete.add(r.boss);
-		}
-		else
-		{
-			ledger.manualComplete.remove(r.boss);
-		}
-		ledgerChanged();
+			Ledger l = ledger;
+			if (complete)
+			{
+				l.manualComplete.add(r.boss);
+			}
+			else
+			{
+				l.manualComplete.remove(r.boss);
+			}
+			ledgerChanged(l);
+		});
 	}
 
-	// ------------------------------------------------------------------ restrictions
+	/** Take back an unlock recorded by mistake (panel right-click, !bmrelock). */
+	public void relock(int itemId)
+	{
+		clientThread.invoke(() ->
+		{
+			Ledger l = ledger;
+			Ledger.Entry en = l.unlocks.remove(itemId);
+			if (en != null)
+			{
+				sendChatMessage("Bossman: re-locked " + en.name + ".");
+				ledgerChanged(l);
+			}
+		});
+	}
 
 	@Subscribe
 	public void onScriptPostFired(ScriptPostFired e)
@@ -678,22 +657,25 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
+		if (client.isInInstancedRegion())
+		{
+			// another player's collection log is only shown in a player-owned house (an instance): never import from one
+			return;
+		}
 		String tab = Text.removeTags(header.getChild(0).getText()).trim();
-		BossmanData.Rung rung = null;
+		List<BossmanData.Rung> tabRungs = new ArrayList<>();
 		for (BossmanData.Rung r : data.getLadder().rungs)
 		{
 			if (r.clogTab != null && r.clogTab.equalsIgnoreCase(tab))
 			{
-				rung = r;
-				break;
+				tabRungs.add(r);
 			}
 		}
-		if (rung == null)
+		if (tabRungs.isEmpty())
 		{
 			return; // not a tab we track (Slayer, Miscellaneous, All Pets, ...)
 		}
 		int imported = 0;
-		String source = rung.sources.isEmpty() ? rung.boss : rung.sources.get(0);
 		for (Widget child : items.getChildren())
 		{
 			int id = child.getItemId();
@@ -706,6 +688,8 @@ public class BossmanModePlugin extends Plugin
 			{
 				continue;
 			}
+			BossmanData.Rung rung = rungForTabItem(tabRungs, canon);
+			String source = rung.sources.isEmpty() ? rung.boss : rung.sources.get(0);
 			recordUnlock(canon, Ledger.KIND_CLOG, source, null, "imported from the collection log (" + tab + ")", false);
 			imported++;
 		}
@@ -717,9 +701,27 @@ public class BossmanModePlugin extends Plugin
 	}
 
 	/**
-	 * Strip the options a locked item must not have: 'Offer' on the GE (no selling), 'Buy …' in shops, and the
-	 * configured use-actions (wield, eat, bury, …) in the inventory / bank / equipment. Examine, drop, bank and
-	 * pick-up are always left alone — a locked item may be held, just not used.
+	 * Several rungs can share a collection-log tab (Vet'ion and Calvar'ion, the two Gauntlets, the two Nightmares):
+	 * credit an item to the rung that lists it, else to the main (blocking) one.
+	 */
+	private static BossmanData.Rung rungForTabItem(List<BossmanData.Rung> tabRungs, int itemId)
+	{
+		for (BossmanData.Rung r : tabRungs)
+		{
+			boolean listed = r.log.gatingItems.stream().anyMatch(g -> g.ids.contains(itemId))
+				|| r.log.debtPetsJars.stream().anyMatch(d -> d.ids.contains(itemId))
+				|| r.drops.stream().anyMatch(d -> d.ids.contains(itemId));
+			if (listed)
+			{
+				return r;
+			}
+		}
+		return tabRungs.stream().filter(r -> r.blocking).findFirst().orElse(tabRungs.get(0));
+	}
+
+	/**
+	 * Strip the options a locked item must not have ({@link MenuRules}): a locked item may be held, just not used.
+	 * Examine, drop, bank and pick-up stay by default.
 	 */
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded e)
@@ -735,19 +737,7 @@ public class BossmanModePlugin extends Plugin
 			return;
 		}
 		String option = Text.removeTags(e.getOption());
-		boolean block;
-		if ("Offer".equals(option))
-		{
-			block = config.restrictGeSell();
-		}
-		else if (option.startsWith("Buy"))
-		{
-			block = config.restrictShops();
-		}
-		else
-		{
-			block = config.blockLockedActions() && blockedActions.contains(option.toLowerCase(Locale.ROOT));
-		}
+		boolean block = MenuRules.strips(option, config.restrictGeSell(), config.restrictShops(), config.blockLockedActions(), blockedActions);
 		if (block && !rules.isAllowed(itemId))
 		{
 			client.getMenu().removeMenuEntry(entry);
@@ -770,7 +760,7 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
-		Widget results = client.getWidget(ComponentID.CHATBOX_GE_SEARCH_RESULTS);
+		Widget results = client.getWidget(InterfaceID.Chatbox.MES_LAYER_SCROLLCONTENTS);
 		if (results == null)
 		{
 			return;
@@ -791,8 +781,6 @@ public class BossmanModePlugin extends Plugin
 		}
 	}
 
-	// ------------------------------------------------------------------ combat achievements
-
 	/** The game flips a completion bit; pick it up (also covers tasks done before the plugin, on login). */
 	@Subscribe
 	public void onVarbitChanged(VarbitChanged e)
@@ -811,10 +799,11 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
+		checkCaNames();
 		int added = 0;
 		for (String name : done)
 		{
-			if (ledger.caDone.add(name))
+			if (ledger.addCaDone(name))
 			{
 				added++;
 			}
@@ -826,7 +815,37 @@ public class BossmanModePlugin extends Plugin
 		}
 	}
 
-	// ------------------------------------------------------------------ KC sync from chat
+	/**
+	 * The ladder's CA names come from the wiki, the completions from the game's own task table, matched by title:
+	 * log any ladder task the game doesn't know, since with CA gating on it could never count as done.
+	 */
+	private void checkCaNames()
+	{
+		if (caNamesChecked)
+		{
+			return;
+		}
+		Set<String> known = new HashSet<>();
+		for (String n : combatTasks.allNames())
+		{
+			known.add(Ledger.caKey(n));
+		}
+		if (known.isEmpty())
+		{
+			return;
+		}
+		caNamesChecked = true;
+		for (BossmanData.Rung r : data.getLadder().rungs)
+		{
+			for (BossmanData.CaTask t : r.ca.list)
+			{
+				if (!known.contains(Ledger.caKey(t.name)))
+				{
+					log.warn("combat task '{}' ({}) isn't in the game's task table; it can't be marked done", t.name, r.boss);
+				}
+			}
+		}
+	}
 
 	@Subscribe
 	public void onChatMessage(ChatMessage e)
@@ -835,42 +854,14 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
-		String msg = Text.removeTags(e.getMessage());
-		Matcher ca = CA_PATTERN.matcher(msg);
-		if (ca.find())
+		// game messages only: other players can type "Your Vorkath kill count is: 9999" in public chat
+		KcMessages.Kc kc = KcMessages.parse(Text.removeTags(e.getMessage()), data::canonicalSource);
+		if (kc != null)
 		{
-			ledger.caDone.add(ca.group(1).trim());
-			ledgerChanged();
-			return;
-		}
-		Matcher m = RAID_KC_PATTERN.matcher(msg);
-		if (!m.find())
-		{
-			m = KC_PATTERN.matcher(msg);
-			if (!m.find())
-			{
-				return;
-			}
-		}
-		int n;
-		try
-		{
-			n = Integer.parseInt(m.group(2).replace(",", ""));
-		}
-		catch (NumberFormatException ex)
-		{
-			return;
-		}
-		// the game writes names with non-breaking spaces at times
-		String source = data.canonicalSource(m.group(1).replace('\u00A0', ' '));
-		if (source != null)
-		{
-			ledger.setKcFromChat(source, n);
+			ledger.setKcFromChat(kc.source, kc.key, kc.count);
 			ledgerChanged();
 		}
 	}
-
-	// ------------------------------------------------------------------ chat commands
 
 	private void onCountCommand(ChatMessage chatMessage, String message)
 	{
@@ -916,7 +907,7 @@ public class BossmanModePlugin extends Plugin
 	/** Copy the ledger file next to itself with a timestamp. False if there was nothing to copy or the copy failed. */
 	private boolean backupLedger()
 	{
-		if (!flushLedger())
+		if (!flushLedgers())
 		{
 			sendChatMessage("Bossman: backup failed: the ledger could not be saved first.");
 			return false;
@@ -947,19 +938,50 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
-		File f = ledger.getFile();
+		Ledger l = ledger;
+		File f = l.getFile();
 		if (f != null && f.exists() && !backupLedger())
 		{
 			sendChatMessage("Bossman: reset cancelled, since the ledger could not be backed up first.");
 			return;
 		}
-		if (f != null && f.exists() && !f.delete())
+		if (!l.discard())
 		{
 			sendChatMessage("Bossman: reset failed: the ledger file could not be deleted.");
 			return;
 		}
 		openLedger();
 		sendChatMessage("Bossman: ledger reset (a backup was saved next to it).");
+	}
+
+	/** !bmrelock &lt;item name or id&gt;: take back one unlock recorded by mistake. */
+	private void onRelockCommand(ChatMessage chatMessage, String message)
+	{
+		if (!sentByPlayer(chatMessage))
+		{
+			return;
+		}
+		String arg = message.length() > "!bmrelock".length() ? message.substring("!bmrelock".length()).trim() : "";
+		if (arg.isEmpty())
+		{
+			reply(chatMessage, "Bossman: !bmrelock <item name or id>");
+			return;
+		}
+		Ledger.Entry match = null;
+		for (Ledger.Entry en : ledger.unlocks.values())
+		{
+			if (String.valueOf(en.itemId).equals(arg) || (en.name != null && en.name.equalsIgnoreCase(arg)))
+			{
+				match = en;
+				break;
+			}
+		}
+		if (match == null)
+		{
+			reply(chatMessage, "Bossman: nothing unlocked called " + arg + ".");
+			return;
+		}
+		relock(match.itemId);
 	}
 
 	private boolean sentByPlayer(ChatMessage chatMessage)
@@ -980,8 +1002,6 @@ public class BossmanModePlugin extends Plugin
 		String message = new ChatMessageBuilder().append(ChatColorType.HIGHLIGHT).append(text).build();
 		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.CONSOLE).runeLiteFormattedMessage(message).build());
 	}
-
-	// ------------------------------------------------------------------ helpers
 
 	/** Take the inventory as it is now as the baseline (plugin turned on while logged in). Client thread. */
 	private void snapshotInventory()

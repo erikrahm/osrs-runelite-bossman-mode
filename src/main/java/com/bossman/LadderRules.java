@@ -1,5 +1,5 @@
 /*
- * Bossman Mode — the ruleset, as pure queries over the bundled data, the ledger and the config.
+ * Bossman Mode: the ruleset, as pure queries over the bundled data, the ledger and the config.
  * Nothing here mutates anything. The rung and log queries are safe from any thread (the ledger's collections are
  * concurrent); isAllowed and freeKind canonicalize item ids, which reads the item cache, so call those on the client
  * thread.
@@ -7,13 +7,16 @@
 package com.bossman;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.IntFunction;
 import java.util.function.IntUnaryOperator;
+import java.util.Set;
 import java.util.function.Supplier;
+import net.runelite.api.gameval.ItemID;
 
 public class LadderRules
 {
@@ -42,6 +45,10 @@ public class LadderRules
 	/** every id in an item's variation group: potion doses, jewellery charges, degraded and charged forms */
 	private final IntFunction<Collection<Integer>> variations;
 	private final Supplier<Ledger> ledger;
+	/** lower-cased names of everything unlocked, for the pet/jar fallback; rebuilt when the ledger or its size changes */
+	private Ledger namesOf;
+	private int namesSize = -1;
+	private Set<String> unlockedNames = new HashSet<>();
 
 	public LadderRules(BossmanData data, BossmanModeConfig config, IntUnaryOperator canonicalize,
 		IntFunction<Collection<Integer>> variations, Supplier<Ledger> ledger)
@@ -52,8 +59,6 @@ public class LadderRules
 		this.variations = variations;
 		this.ledger = ledger;
 	}
-
-	// ------------------------------------------------------------------ items
 
 	/**
 	 * Unlocked by a boss, free under the Tool / access / bond rules, or a shop pack whose contents all are. Another
@@ -93,31 +98,35 @@ public class LadderRules
 		return true;
 	}
 
-	/** "tool" / "access" / "bond" if the item is free under a rule that is switched on, else null. Client thread. */
-	public String freeKind(int itemId)
+	/** Why the item is free, if it is under a rule that is switched on, else null. Client thread. */
+	public FreeKind freeKind(int itemId)
 	{
 		return freeKindOfCanonical(canonicalize.applyAsInt(itemId));
 	}
 
-	private String freeKindOfCanonical(int id)
+	private FreeKind freeKindOfCanonical(int id)
 	{
-		if (id == BossmanModePlugin.ITEM_BOND)
+		if (id == ItemID.OSRS_BOND)
 		{
-			return config.unlockBond() ? "bond" : null;
+			return config.unlockBond() ? FreeKind.BOND : null;
 		}
-		String kind = data.getFreeItems().get(id);
-		if ("tool".equals(kind) && !config.freeTools())
-		{
-			return null;
-		}
-		if ("access".equals(kind) && !config.freeAccessGear())
+		FreeKind kind = data.getFreeItems().get(id);
+		if (kind == null)
 		{
 			return null;
 		}
-		return kind;
+		switch (kind)
+		{
+			case TOOL:
+				return config.freeTools() ? kind : null;
+			case ACCESS:
+				return config.freeAccessGear() ? kind : null;
+			case SLAYER:
+				return config.freeSlayerTools() ? kind : null;
+			default:
+				return kind;
+		}
 	}
-
-	// ------------------------------------------------------------------ log items
 
 	/**
 	 * Optional: never gates the ladder. Either marked so in the data (mode-locked, a KC-milestone reward) or a
@@ -152,19 +161,27 @@ public class LadderRules
 
 	private boolean isDebtItemUnlocked(Ledger l, BossmanData.DebtItem d)
 	{
-		if (anyUnlocked(l, d.ids))
-		{
-			return true;
-		}
 		// pets are often recorded under a different id (follower vs inventory form); fall back to the name
-		for (Ledger.Entry en : l.unlocks.values())
+		return anyUnlocked(l, d.ids) || (d.item != null && unlockedNames(l).contains(d.item.toLowerCase(Locale.ROOT)));
+	}
+
+	private synchronized Set<String> unlockedNames(Ledger l)
+	{
+		if (l != namesOf || l.unlocks.size() != namesSize)
 		{
-			if (en.name != null && en.name.equalsIgnoreCase(d.item))
+			Set<String> names = new HashSet<>();
+			for (Ledger.Entry en : l.unlocks.values())
 			{
-				return true;
+				if (en.name != null)
+				{
+					names.add(en.name.toLowerCase(Locale.ROOT));
+				}
 			}
+			namesOf = l;
+			namesSize = l.unlocks.size();
+			unlockedNames = names;
 		}
-		return false;
+		return unlockedNames;
 	}
 
 	public boolean isLogItemUnlocked(BossmanData.GatingItem gi)
@@ -194,8 +211,6 @@ public class LadderRules
 		return ledger.get().backlog.contains(backlogKey(r, item));
 	}
 
-	// ------------------------------------------------------------------ combat achievements
-
 	public boolean isCaGating()
 	{
 		return config.caGate();
@@ -203,38 +218,24 @@ public class LadderRules
 
 	public boolean isCaDone(BossmanData.CaTask t)
 	{
-		return isCaDone(ledger.get(), t);
+		return ledger.get().isCaDone(t.name);
 	}
-
-	private static boolean isCaDone(Ledger l, BossmanData.CaTask t)
-	{
-		for (String n : l.caDone)
-		{
-			if (n.equalsIgnoreCase(t.name))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	// ------------------------------------------------------------------ rungs
 
 	/**
 	 * The rung's KC: its own KC source if it names one (Lunar Chest for the Moons, the Sire for the Sire and Unsired),
-	 * else the sum over its sources (all three Dagannoth Kings).
+	 * else the sum over its sources (all three Dagannoth Kings). A raid's modes, counted apart by the game, add up.
 	 */
 	public int rungKc(BossmanData.Rung r)
 	{
 		Ledger l = ledger.get();
 		if (r.kcSource != null)
 		{
-			return l.getKc(sourceKey(r.kcSource));
+			return l.getKcAllModes(sourceKey(r.kcSource));
 		}
 		int total = 0;
 		for (String s : r.sources)
 		{
-			total += l.getKc(sourceKey(s));
+			total += l.getKcAllModes(sourceKey(s));
 		}
 		return total;
 	}
@@ -246,7 +247,7 @@ public class LadderRules
 		Map<String, Integer> out = new LinkedHashMap<>();
 		for (String s : r.sources)
 		{
-			out.put(s, l.getKc(sourceKey(s)));
+			out.put(s, l.getKcAllModes(sourceKey(s)));
 		}
 		return out;
 	}
@@ -293,7 +294,7 @@ public class LadderRules
 			for (BossmanData.CaTask t : r.ca.list)
 			{
 				need++;
-				if (isCaDone(l, t))
+				if (l.isCaDone(t.name))
 				{
 					have++;
 				}
@@ -302,9 +303,14 @@ public class LadderRules
 		return new Progress(have, need);
 	}
 
+	public boolean isManuallyComplete(BossmanData.Rung r)
+	{
+		return ledger.get().manualComplete.contains(r.boss);
+	}
+
 	public boolean isRungComplete(BossmanData.Rung r)
 	{
-		if (ledger.get().manualComplete.contains(r.boss))
+		if (isManuallyComplete(r))
 		{
 			return true;
 		}

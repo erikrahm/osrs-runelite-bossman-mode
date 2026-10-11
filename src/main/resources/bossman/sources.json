@@ -214,8 +214,8 @@
   ]
  },
  "custom_mechanisms": {
-  "The Gauntlet / The Corrupted Gauntlet": "reward chest is NOT tracked by the core loot tracker — plugin must detect the Gauntlet reward interface/inventory itself",
-  "TzHaar Fight Cave / Inferno": "Fire cape, Infernal cape and Tokkul are completion rewards, not loot — unlock on receipt while in the TzHaar region (or seed as \"earned\")",
+  "The Gauntlet / The Corrupted Gauntlet": "reward chest is not tracked by the core loot tracker: covered by the \"The Gauntlet\" receipt rule",
+  "TzHaar Fight Cave / Inferno": "capes and their Tokkul are completion rewards, not loot: covered by the receipt rules",
   "Coins": "ordinary locked item (ID 995) until the first Brutus coin drop; after that every coin source is fine"
  },
  "receipt_rules": [
@@ -247,11 +247,12 @@
    "note": "Gauntlet reward chest (untracked by the loot tracker): anything gained in the lobby, except bank withdrawals and unequipped items"
   }
  ],
- "note": "Any LootReceived/NpcLootReceived whose source is not listed here never unlocks (Slayer drops, clue caskets, sea loot, shops, skilling).",
+ "note": "NPC loot (ServerNpcLoot) or a loot-tracker event (LootReceived) whose source is not listed here never unlocks (Slayer drops, clue caskets, sea loot, shops, skilling).",
  "kc_aliases": {
   "gauntlet": "Crystalline Hunllef",
   "corrupted gauntlet": "Corrupted Hunllef",
-  "grotesque guardians": "Dusk"
+  "grotesque guardians": "Dusk",
+  "barrows chest": "Barrows"
  },
  "kc_chat_only": [
   "Maggot King",

@@ -1,10 +1,11 @@
 /*
- * Bossman Mode — the unlock ledger: every unlocked item with its provenance, per-source kill counts,
- * rungs the player marked complete by hand, the backlog and completed combat tasks.
- * Persisted as JSON in the RuneLite profile folder.
+ * Bossman Mode: the unlock ledger. Every unlocked item with its provenance, per-source kill counts, rungs the
+ * player marked complete by hand, the backlog and completed combat tasks. Persisted as JSON at the path
+ * BossmanModePlugin.ledgerFile() gives (RuneLite/bossman-mode/<world type>-<account hash>/).
  *
  * Mutated on the client thread, read on the Swing thread by the panel: every collection is concurrent so
- * a rebuild never trips over a write. Saving is the plugin's job (debounced), this class only does the I/O.
+ * a rebuild never trips over a write. Saving is the plugin's job (debounced); this class does the I/O and keeps
+ * its own "has unsaved changes" flag, so one ledger's pending save can never be mistaken for another's.
  */
 package com.bossman;
 
@@ -20,10 +21,12 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,18 +47,21 @@ public class Ledger
 		public String source;   // boss or event name
 		public Integer kc;      // KC at the source when it dropped
 		public long time;       // epoch millis
-		public String reason;   // for default / clog unlocks
+		public String reason;   // why it unlocked when it wasn't a plain drop (receipt rule note, collection-log import)
 	}
 
-	/** item id → entry */
-	public ConcurrentMap<Integer, Entry> unlocks = new ConcurrentHashMap<>();
-	/** source name → kills seen */
-	public ConcurrentMap<String, Integer> kc = new ConcurrentHashMap<>();
+	/** item id → entry. Declared as Map so Gson can read a file holding nulls; {@link #normalize} makes it concurrent. */
+	public Map<Integer, Entry> unlocks = new ConcurrentHashMap<>();
+	/**
+	 * KC key → kills seen. The key is the source name, or "Source (Mode)" for a raid mode the game counts on its own
+	 * ("Chambers of Xeric (Challenge Mode)"); {@link #getKcAllModes} adds the modes up.
+	 */
+	public Map<String, Integer> kc = new ConcurrentHashMap<>();
 	/** boss names of rungs the player marked complete by hand (no-log rungs like the Gemstone Crab) */
 	public Set<String> manualComplete = ConcurrentHashMap.newKeySet();
 	/** collection-log items moved to the backlog by hand, as "boss|item" (they stop gating the ladder) */
 	public Set<String> backlog = ConcurrentHashMap.newKeySet();
-	/** combat achievement task names seen completed in chat */
+	/** completed combat task titles as {@link #caKey}s, synced from the game's completion varps */
 	public Set<String> caDone = ConcurrentHashMap.newKeySet();
 	/**
 	 * sources whose KC the game reports in chat ("Your X kill count is: N"). From the first such message on, chat is
@@ -67,6 +73,7 @@ public class Ledger
 	private transient File file;
 	/** set when the file on disk could not be read and was moved aside to this name (the plugin tells the player) */
 	private transient File setAside;
+	private final transient AtomicBoolean dirty = new AtomicBoolean();
 
 	/**
 	 * Read the ledger at {@code file}, or start an empty one if there is none. A file that exists but can't be read is
@@ -81,10 +88,15 @@ public class Ledger
 			try (Reader r = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8))
 			{
 				l = gson.fromJson(r, Ledger.class);
+				if (l != null)
+				{
+					l.normalize();
+				}
 			}
 			catch (Exception e)
 			{
 				log.warn("could not read ledger {}", file, e);
+				l = null;
 			}
 			if (l == null)
 			{
@@ -103,43 +115,98 @@ public class Ledger
 		{
 			l = new Ledger();
 		}
-		// Gson builds whatever it likes for interface-typed fields; re-home everything in concurrent collections
-		l.unlocks = concurrent(l.unlocks);
-		l.kc = concurrent(l.kc);
-		l.manualComplete = concurrentSet(l.manualComplete);
-		l.backlog = concurrentSet(l.backlog);
-		l.caDone = concurrentSet(l.caDone);
-		l.kcFromChat = concurrentSet(l.kcFromChat);
 		l.file = file;
 		l.setAside = setAside;
 		return l;
 	}
 
-	private static <K, V> ConcurrentMap<K, V> concurrent(Map<K, V> m)
+	/**
+	 * Gson builds whatever it likes for interface-typed fields, and a hand-edited file may hold nulls: re-home
+	 * everything in concurrent collections, dropping nulls, with combat task titles lower-cased for lookup.
+	 */
+	private void normalize()
 	{
-		ConcurrentMap<K, V> out = new ConcurrentHashMap<>();
-		if (m != null)
+		ConcurrentMap<Integer, Entry> u = new ConcurrentHashMap<>();
+		if (unlocks != null)
 		{
-			out.putAll(m);
+			unlocks.forEach((k, v) ->
+			{
+				if (k != null && v != null)
+				{
+					u.put(k, v);
+				}
+			});
+		}
+		unlocks = u;
+		ConcurrentMap<String, Integer> k = new ConcurrentHashMap<>();
+		if (kc != null)
+		{
+			kc.forEach((key, v) ->
+			{
+				if (key != null && v != null)
+				{
+					k.put(key, v);
+				}
+			});
+		}
+		kc = k;
+		manualComplete = concurrentSet(manualComplete, false);
+		backlog = concurrentSet(backlog, false);
+		caDone = concurrentSet(caDone, true);   // keys: older files hold raw titles
+		kcFromChat = concurrentSet(kcFromChat, false);
+	}
+
+	private static Set<String> concurrentSet(Set<String> s, boolean lowerCase)
+	{
+		Set<String> out = ConcurrentHashMap.newKeySet();
+		if (s != null)
+		{
+			for (String x : s)
+			{
+				if (x != null)
+				{
+					out.add(lowerCase ? caKey(x) : x);
+				}
+			}
 		}
 		return out;
 	}
 
-	private static <T> Set<T> concurrentSet(Set<T> s)
+	/** Note a change that hasn't been written yet. */
+	public void markDirty()
 	{
-		Set<T> out = ConcurrentHashMap.newKeySet();
-		if (s != null)
+		dirty.set(true);
+	}
+
+	public boolean isDirty()
+	{
+		return dirty.get();
+	}
+
+	/**
+	 * Write the ledger if it has unsaved changes.
+	 *
+	 * @return false if a write was needed and failed (the ledger stays dirty)
+	 */
+	public synchronized boolean saveIfDirty(Gson gson)
+	{
+		if (!dirty.getAndSet(false))
 		{
-			out.addAll(s);
+			return true;
 		}
-		return out;
+		if (save(gson))
+		{
+			return true;
+		}
+		dirty.set(true);
+		return false;
 	}
 
 	/**
 	 * Write atomically (own temp file + rename). Synchronized, so a scheduled save and a flush on logout can't
 	 * interleave; a client-thread write that lands mid-save is picked up by the next one.
 	 *
-	 * @return false if the write failed (the caller keeps the ledger dirty and tries again later)
+	 * @return false if the write failed
 	 */
 	public synchronized boolean save(Gson gson)
 	{
@@ -187,6 +254,23 @@ public class Ledger
 		}
 	}
 
+	/**
+	 * Delete the file and detach this ledger from it, under the save lock, so a save already under way can't write
+	 * the file back afterwards (!bmreset).
+	 *
+	 * @return false if the file exists and couldn't be deleted
+	 */
+	public synchronized boolean discard()
+	{
+		if (file != null && file.exists() && !file.delete())
+		{
+			return false;
+		}
+		file = null;
+		dirty.set(false);
+		return true;
+	}
+
 	public File getFile()
 	{
 		return file;
@@ -203,25 +287,60 @@ public class Ledger
 		return unlocks.containsKey(itemId);
 	}
 
-	public int getKc(String source)
+	public int getKc(String key)
 	{
-		return kc.getOrDefault(source, 0);
+		return kc.getOrDefault(key, 0);
 	}
 
-	/** The game reported this source's KC in chat: it is authoritative from now on. */
-	public void setKcFromChat(String source, int n)
+	/** The source's KC plus every raid mode counted separately for it ("Chambers of Xeric (Challenge Mode)"). */
+	public int getKcAllModes(String source)
+	{
+		int total = 0;
+		String modePrefix = source + " (";
+		for (Map.Entry<String, Integer> e : kc.entrySet())
+		{
+			if (e.getKey().equals(source) || e.getKey().startsWith(modePrefix))
+			{
+				total += e.getValue();
+			}
+		}
+		return total;
+	}
+
+	/** The game reported a KC in chat for {@code source} (stored under {@code key}: the source, or one of its raid modes). Authoritative from now on. */
+	public void setKcFromChat(String source, String key, int n)
 	{
 		kcFromChat.add(source);
-		kc.put(source, n);   // exact: it also corrects any over-count from before the first message
+		kc.put(key, n);   // exact: it also corrects any over-count from before the first message
 	}
 
 	/** A kill (or chest) seen through loot: counted unless the game reports this source's KC itself. */
 	public int countLoot(String source, int amount)
 	{
-		if (kcFromChat.contains(source))
+		if (!kcFromChat.contains(source))
 		{
-			return getKc(source);
+			kc.merge(source, amount, Integer::sum);
 		}
-		return kc.merge(source, amount, Integer::sum);
+		return getKcAllModes(source);
+	}
+
+	public boolean isCaDone(String taskTitle)
+	{
+		return taskTitle != null && caDone.contains(caKey(taskTitle));
+	}
+
+	public boolean addCaDone(String taskTitle)
+	{
+		return caDone.add(caKey(taskTitle));
+	}
+
+	/**
+	 * A combat task title as compared: the game's cache and the wiki-scraped ladder spell titles independently, so
+	 * case, curly apostrophes, spacing and a trailing full stop are ignored.
+	 */
+	static String caKey(String title)
+	{
+		String t = title.toLowerCase(Locale.ROOT).replace('\u2019', '\'').replace('\u2018', '\'').replaceAll("\\s+", " ").trim();
+		return t.endsWith(".") ? t.substring(0, t.length() - 1).trim() : t;
 	}
 }

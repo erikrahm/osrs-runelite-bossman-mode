@@ -76,7 +76,6 @@
       "debt_at_kc": 1000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 164
    },
@@ -511,7 +510,6 @@
      }
     ],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 114
    },
@@ -1551,7 +1549,6 @@
      }
     ],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1341
    },
@@ -2071,7 +2068,6 @@
      }
     ],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 115
    },
@@ -2797,7 +2793,6 @@
    "log": {
     "gating_items": [],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 0
    },
@@ -2897,7 +2892,6 @@
    "log": {
     "gating_items": [],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 0
    },
@@ -3213,7 +3207,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 33
    },
@@ -3697,7 +3690,6 @@
       "debt_at_kc": 1000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 379
    },
@@ -4447,7 +4439,6 @@
      }
     ],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 395
    },
@@ -5187,7 +5178,6 @@
       "debt_at_kc": 2016
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 399
    },
@@ -5811,7 +5801,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 50
    },
@@ -6500,7 +6489,6 @@
       "debt_at_kc": 2000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 76
    },
@@ -7207,7 +7195,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 754
    },
@@ -7870,7 +7857,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 104
    },
@@ -8456,7 +8442,6 @@
       "debt_at_kc": 2800
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1421
    },
@@ -9060,7 +9045,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 969
    },
@@ -9736,7 +9720,6 @@
      }
     ],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 45
    },
@@ -10559,7 +10542,6 @@
      }
     ],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 33
    },
@@ -10988,7 +10970,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 682
    },
@@ -11667,7 +11648,6 @@
       "debt_at_kc": 2000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 2168
    },
@@ -12560,7 +12540,6 @@
       "debt_at_kc": 2800
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1447
    },
@@ -13185,7 +13164,6 @@
       "debt_at_kc": 5000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 576
    },
@@ -14690,7 +14668,6 @@
       "debt_at_kc": 300
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 273
    },
@@ -15452,7 +15429,6 @@
       "debt_at_kc": 2000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 383
    },
@@ -16475,7 +16451,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1092
    },
@@ -17280,7 +17255,6 @@
       "debt_at_kc": 2800
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1419
    },
@@ -17890,7 +17864,6 @@
       "debt_at_kc": 65
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 998
    },
@@ -18647,7 +18620,6 @@
      }
     ],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 687
    },
@@ -19042,7 +19014,6 @@
       "debt_at_kc": 2000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 524
    },
@@ -19858,7 +19829,6 @@
       "debt_at_kc": 2250
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 775
    },
@@ -20194,7 +20164,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 155
    },
@@ -21109,7 +21078,6 @@
      }
     ],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [
      "Abyssal orphan",
      "Jar of Miasma"
@@ -22005,7 +21973,6 @@
    "log": {
     "gating_items": [],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 0
    },
@@ -22585,7 +22552,6 @@
       "debt_at_kc": 2000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 3248
    },
@@ -23791,7 +23757,6 @@
       "debt_at_kc": 1500
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 765
    },
@@ -24466,7 +24431,6 @@
       "debt_at_kc": 1500
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 792
    },
@@ -25131,7 +25095,6 @@
       "debt_at_kc": 1500
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 788
    },
@@ -25945,7 +25908,6 @@
      }
     ],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [
      "Icthlarin's shroud (tier 1)",
      "Icthlarin's shroud (tier 2)",
@@ -26893,7 +26855,6 @@
       "debt_at_kc": null
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [
      "Xeric's guard",
      "Xeric's warrior",
@@ -27801,7 +27762,6 @@
       "debt_at_kc": 1000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 2952
    },
@@ -28377,7 +28337,6 @@
       "debt_at_kc": 5000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1529
    },
@@ -29071,7 +29030,6 @@
       "debt_at_kc": 1000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 126
    },
@@ -29839,7 +29797,6 @@
       "debt_at_kc": 5000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1526
    },
@@ -30553,7 +30510,6 @@
       "debt_at_kc": 5000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1533
    },
@@ -31235,7 +31191,6 @@
       "debt_at_kc": 400
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 154
    },
@@ -31871,7 +31826,6 @@
       "debt_at_kc": 5000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1535
    },
@@ -32566,7 +32520,6 @@
       "debt_at_kc": 2000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1953
    },
@@ -32807,7 +32760,6 @@
       "debt_at_kc": 200
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 0
    },
@@ -33005,7 +32957,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1085
    },
@@ -33871,7 +33822,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 992
    },
@@ -34850,7 +34800,6 @@
       "debt_at_kc": 2500
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 122
    },
@@ -36024,7 +35973,6 @@
       "debt_at_kc": 3500
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 642
    },
@@ -36625,7 +36573,6 @@
       "debt_at_kc": 2500
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 3937
    },
@@ -37791,7 +37738,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 6155
    },
@@ -38943,7 +38889,6 @@
       "debt_at_kc": 1000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 4698
    },
@@ -39618,7 +39563,6 @@
       "debt_at_kc": 2000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 2889
    },
@@ -40783,7 +40727,6 @@
       "debt_at_kc": 2500
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 4344
    },
@@ -41954,7 +41897,6 @@
       "debt_at_kc": 1900
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [
      "Slepey tablet",
      "Parasitic egg"
@@ -42618,7 +42560,6 @@
       "debt_at_kc": 3000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [
      "Spider cave teleport"
     ],
@@ -42980,7 +42921,6 @@
       "debt_at_kc": 800
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 413
    },
@@ -43277,7 +43217,6 @@
       "debt_at_kc": 500
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 771
    },
@@ -43710,7 +43649,6 @@
       "debt_at_kc": 4000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 3269
    },
@@ -44369,7 +44307,6 @@
       "debt_at_kc": null
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [
      "Sinhaza shroud tier 1",
      "Sinhaza shroud tier 2",
@@ -45242,7 +45179,6 @@
    "log": {
     "gating_items": [],
     "debt_pets_jars": [],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 0
    },
@@ -45366,7 +45302,6 @@
       "debt_at_kc": null
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [
      "Rite of vile transference"
     ],
@@ -46035,7 +45970,6 @@
       "debt_at_kc": 100
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 0
    },
@@ -46237,7 +46171,6 @@
       "debt_at_kc": 200
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 229
    },
@@ -46594,7 +46527,6 @@
       "debt_at_kc": 8000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 2458
    },
@@ -46983,7 +46915,6 @@
       "debt_at_kc": 5000
      }
     ],
-    "meme_items": [],
     "unmatched_rate": [],
     "expected_kc": 1070
    },

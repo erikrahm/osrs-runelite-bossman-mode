@@ -1,6 +1,6 @@
 /*
- * Bossman Mode — side panel: the ladder (current boss, log progress, KC, backlog) and per-boss unlocks.
- * BSD-2-Clause — see LICENSE.
+ * Bossman Mode: side panel: the ladder (current boss, log progress, KC, backlog) and per-boss unlocks.
+ * BSD-2-Clause, see LICENSE.
  */
 package com.bossman;
 
@@ -56,6 +56,12 @@ public class BossmanPanel extends PluginPanel
 	private int lastShownIdx = -1;
 	/** a refresh was asked for while the panel was hidden (or a menu was open); done when it can be */
 	private boolean dirty;
+	/** the boss picker's list is open */
+	private boolean pickerOpen;
+	/** retries a refresh that a menu or the picker held up */
+	private final javax.swing.Timer retry = new javax.swing.Timer(500, e -> refreshIfDirty());
+	/** rungs complete as of the last refresh, for the picker's cell colours */
+	private java.util.Set<BossmanData.Rung> completeRungs = java.util.Collections.emptySet();
 	private javax.swing.JScrollPane scrollPane;
 	/** item icons, held here so a rebuild doesn't refetch them (the shared item-image cache is small) */
 	private final java.util.Map<Integer, AsyncBufferedImage> images = new java.util.HashMap<>();
@@ -79,6 +85,7 @@ public class BossmanPanel extends PluginPanel
 			{
 			}
 		}
+		retry.setRepeats(false);
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 		body.setLayout(new BoxLayout(body, BoxLayout.Y_AXIS));
@@ -144,10 +151,8 @@ public class BossmanPanel extends PluginPanel
 			dirty = true;
 			if (isShowing())
 			{
-				// a menu is open: rebuilding now would close it under the player's cursor
-				javax.swing.Timer t = new javax.swing.Timer(500, e -> refreshIfDirty());
-				t.setRepeats(false);
-				t.start();
+				// a menu is open: rebuilding now would close it under the player's cursor; try again shortly
+				retry.restart();
 			}
 			return;
 		}
@@ -173,9 +178,6 @@ public class BossmanPanel extends PluginPanel
 			refresh();
 		}
 	}
-
-	/** The boss picker's list is open. */
-	private boolean pickerOpen;
 
 	@Override
 	public void onActivate()
@@ -212,6 +214,15 @@ public class BossmanPanel extends PluginPanel
 			return;
 		}
 		int currentIdx = current == null ? rungs.size() - 1 : rungs.indexOf(current);
+		java.util.Set<BossmanData.Rung> complete = new java.util.HashSet<>();
+		for (BossmanData.Rung rr : rungs)
+		{
+			if (rules.isRungComplete(rr))
+			{
+				complete.add(rr);
+			}
+		}
+		completeRungs = complete;
 		if (browsing == null && lastCurrentIdx != null && currentIdx > lastCurrentIdx)
 		{
 			// the boss just got completed: let the name go green and the bar fill; "Current" jumps to the next one
@@ -255,8 +266,6 @@ public class BossmanPanel extends PluginPanel
 		body.add(block);
 	}
 
-	// ------------------------------------------------------------------ sections
-
 	private JPanel header(int idx, int total, BossmanData.Rung current, BossmanData.Rung shown)
 	{
 		JPanel p = new JPanel(new BorderLayout());
@@ -293,7 +302,6 @@ public class BossmanPanel extends PluginPanel
 		return p;
 	}
 
-	/** Dropdown of every boss, coloured by state, for jumping straight to one. */
 	/** Width available for a boss name in the picker's list (panel minus card padding and the list's scrollbar). */
 	private static final int TITLE_WIDTH = 165;
 
@@ -363,7 +371,7 @@ public class BossmanPanel extends PluginPanel
 				BossmanData.Rung rr = (BossmanData.Rung) value;
 				// list cells come with their index (the model is the rung list in order); the closed box passes -1
 				// side bosses can sit incomplete before the current one, so ask each rung rather than going by position
-				Color c = index == -1 ? titleColor : (rules.isRungComplete(rr) ? OK : (index == currentIdx ? WARN : MUTED));
+				Color c = index == -1 ? titleColor : (completeRungs.contains(rr) ? OK : (index == currentIdx ? WARN : MUTED));
 				l.setFont(FontManager.getRunescapeBoldFont());
 				// the closed box has the arrow button on its right; list cells have the scrollbar
 				int boxW = box.getWidth() > 0 ? box.getWidth() : TITLE_WIDTH + 30;
@@ -393,12 +401,12 @@ public class BossmanPanel extends PluginPanel
 				refresh();
 			}
 		});
-		// right-click still opens the boss's wiki page; left-click opens the list
+		// right-click opens the boss's wiki page; left-click opens the list
 		javax.swing.JPopupMenu bossMenu = new javax.swing.JPopupMenu();
 		javax.swing.JMenuItem bossWiki = new javax.swing.JMenuItem("Open Wiki");
 		bossWiki.setFont(FontManager.getRunescapeSmallFont());
 		bossWiki.addActionListener(e -> net.runelite.client.util.LinkBrowser.browse(
-			"https://oldschool.runescape.wiki/w/" + (r.wikiPage != null ? r.wikiPage : r.boss.replace(' ', '_'))));
+			bossWikiUrl(r)));
 		bossMenu.add(bossWiki);
 		box.setComponentPopupMenu(bossMenu);
 		Dimension pref = box.getPreferredSize();
@@ -427,7 +435,6 @@ public class BossmanPanel extends PluginPanel
 				first = false;
 			}
 		}
-
 
 		int kc = rules.rungKc(r);
 		boolean hasExpected = r.log.expectedKc != null && r.log.expectedKc > 0;
@@ -473,7 +480,7 @@ public class BossmanPanel extends PluginPanel
 			javax.swing.JMenuItem caWiki = new javax.swing.JMenuItem("Open Wiki (Combat Achievements)");
 			caWiki.setFont(FontManager.getRunescapeSmallFont());
 			caWiki.addActionListener(e -> net.runelite.client.util.LinkBrowser.browse(
-				"https://oldschool.runescape.wiki/w/" + (r.wikiPage != null ? r.wikiPage : r.boss.replace(' ', '_')) + "#Combat_Achievements"));
+				bossWikiUrl(r) + "#Combat_Achievements"));
 			caMenu.add(caWiki);
 			installMenu(caRow, caMenu);
 			StringBuilder tip = new StringBuilder("<html>");
@@ -532,7 +539,7 @@ public class BossmanPanel extends PluginPanel
 		}
 		if (r.isFirstKillOnly() || need == 0)
 		{
-			JCheckBox done = new JCheckBox("Mark this boss complete by hand", plugin.getLedger().manualComplete.contains(r.boss));
+			JCheckBox done = new JCheckBox("Mark this boss complete by hand", rules.isManuallyComplete(r));
 			done.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			done.setForeground(MUTED);
 			done.setAlignmentX(LEFT_ALIGNMENT);
@@ -803,13 +810,13 @@ public class BossmanPanel extends PluginPanel
 		return p;
 	}
 
-	// ------------------------------------------------------------------ row context menu
-
 	/** Client-property keys that describe a row to the shared context menu. */
 	private static final String ROW_ITEM = "bm.item";
 	private static final String ROW_IDS = "bm.ids";
 	private static final String ROW_RUNG = "bm.rung";
 	private static final String ROW_BACKLOGABLE = "bm.backlogable";
+	/** set on unlock rows: the item id a "Re-lock" entry takes back */
+	private static final String ROW_RELOCK = "bm.relock";
 
 	/**
 	 * One popup menu for every row. Swing hands show() the component that was clicked; we find the row it
@@ -843,6 +850,14 @@ public class BossmanPanel extends PluginPanel
 				mi.addActionListener(e -> plugin.setBacklogged(r, item, !bl));
 				add(mi);
 			}
+			Integer relockId = (Integer) row.getClientProperty(ROW_RELOCK);
+			if (relockId != null)
+			{
+				javax.swing.JMenuItem relock = new javax.swing.JMenuItem("Re-lock (unlocked by mistake)");
+				relock.setFont(FontManager.getRunescapeSmallFont());
+				relock.addActionListener(e -> plugin.relock(relockId));
+				add(relock);
+			}
 			javax.swing.JMenuItem wiki = new javax.swing.JMenuItem("Open Wiki");
 			wiki.setFont(FontManager.getRunescapeSmallFont());
 			wiki.addActionListener(e -> net.runelite.client.util.LinkBrowser.browse(itemWikiUrl(item, ids)));
@@ -865,6 +880,11 @@ public class BossmanPanel extends PluginPanel
 		row.putClientProperty(ROW_ITEM, item);
 		row.putClientProperty(ROW_IDS, ids);
 		installMenu(row, rowMenu);
+	}
+
+	private static String bossWikiUrl(BossmanData.Rung r)
+	{
+		return "https://oldschool.runescape.wiki/w/" + (r.wikiPage != null ? r.wikiPage : urlEncode(r.boss.replace(' ', '_')));
 	}
 
 	private static String itemWikiUrl(String item, List<Integer> ids)
@@ -991,6 +1011,8 @@ public class BossmanPanel extends PluginPanel
 			}
 		}
 		int possible = 0;
+		int unlockedHere = 0;
+		int unlockedElsewhere = 0;
 		List<BossmanData.Drop> locked = new ArrayList<>();
 		for (BossmanData.Drop d : r.drops)
 		{
@@ -999,30 +1021,21 @@ public class BossmanPanel extends PluginPanel
 				continue; // already listed in the collection log section
 			}
 			possible++;
-			boolean have = false;
-			for (int id : d.ids)
+			if (d.ids.stream().anyMatch(mineIds::contains))
 			{
-				if (mineIds.contains(id) || plugin.getLedger().isUnlocked(id))
-				{
-					have = true;
-					break;
-				}
+				unlockedHere++;
 			}
-			if (!have)
+			else if (d.ids.stream().anyMatch(plugin.getLedger()::isUnlocked))
+			{
+				unlockedElsewhere++;
+			}
+			else
 			{
 				locked.add(d);
 			}
 		}
 		// count every drop that's unlocked, wherever it came from, so the two numbers add up to the drop table
-		p.add(sectionTitle("Unlocks (" + (possible - locked.size()) + "/" + possible + ")"));
-		int elsewhere = possible - locked.size();
-		for (BossmanData.Drop d : r.drops)
-		{
-			if (!d.inLog && d.ids.stream().anyMatch(mineIds::contains))
-			{
-				elsewhere--;
-			}
-		}
+		p.add(sectionTitle("Unlocks (" + (unlockedHere + unlockedElsewhere) + "/" + possible + ")"));
 		if (mine.isEmpty())
 		{
 			p.add(wrapped("Nothing unlocked from this boss yet.", MUTED, 160));
@@ -1034,12 +1047,13 @@ public class BossmanPanel extends PluginPanel
 			String rate = rateFor(r, en.itemId);
 			JPanel row = logRow(java.util.Collections.singletonList(en.itemId), "[x] " + en.name,
 				(rate != null ? "Drop Rate: " + rate + " - " : "") + "KC " + (en.kc != null ? en.kc : "?"), OK, MUTED);
+			row.putClientProperty(ROW_RELOCK, en.itemId);
 			attachWikiMenu(row, en.name, java.util.Collections.singletonList(en.itemId));
 			p.add(row);
 		}
-		if (elsewhere > 0)
+		if (unlockedElsewhere > 0)
 		{
-			p.add(wrapped(elsewhere + " more already unlocked from other sources.", MUTED, 160));
+			p.add(wrapped(unlockedElsewhere + " more already unlocked from other sources.", MUTED, 160));
 		}
 		if (!locked.isEmpty())
 		{
@@ -1085,8 +1099,6 @@ public class BossmanPanel extends PluginPanel
 		}
 		return null;
 	}
-
-	// ------------------------------------------------------------------ widgets
 
 	private JPanel card()
 	{

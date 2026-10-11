@@ -27,7 +27,8 @@ public class BossmanDataTest
 		assertFalse(d.isEventSource("Brimstone Chest"));
 		assertEquals(67, d.orderedRungs().size());
 		assertEquals("Brutus", d.orderedRungs().get(0).boss);
-		assertTrue(d.orderedRungs().get(5).isFirstKillOnly()); // The Mimic
+		assertEquals("The Mimic", d.orderedRungs().get(5).boss);
+		assertTrue(d.orderedRungs().get(5).isFirstKillOnly());
 		assertEquals(1351, (int) d.getTools().groups.get("general").get(0).id); // bronze axe
 	}
 
@@ -54,8 +55,6 @@ public class BossmanDataTest
 		d.setExtraSources("");
 		assertFalse(d.isNpcSource("Some New Boss"));
 	}
-
-	// ------------------------------------------------------------------ data invariants (generator / fix_data.py)
 
 	@Test
 	public void everyRungSourceIsSomethingThePluginCounts()
@@ -131,6 +130,69 @@ public class BossmanDataTest
 				}
 			}
 		}
+	}
+
+	@Test
+	public void theLadderIsInOrderWithUniqueNames()
+	{
+		BossmanData d = load();
+		java.util.List<BossmanData.Rung> ordered = d.orderedRungs();
+		for (int i = 0; i < ordered.size(); i++)
+		{
+			assertEquals(ordered.get(i).boss, Integer.valueOf(i + 1), ordered.get(i).rung);
+		}
+		Set<String> bosses = new HashSet<>();
+		for (BossmanData.Rung r : d.getLadder().rungs)
+		{
+			assertTrue("duplicate boss " + r.boss, bosses.add(r.boss));   // manualComplete and backlog keys
+			assertEquals(r.boss, r.rung == null, r.floating);
+			Set<String> items = new HashSet<>();
+			for (BossmanData.GatingItem g : r.log.gatingItems)
+			{
+				assertTrue(r.boss + ": duplicate log item " + g.item, items.add(g.item));   // backlog keys
+			}
+			for (BossmanData.DebtItem x : r.log.debtPetsJars)
+			{
+				assertTrue(r.boss + ": duplicate log item " + x.item, items.add(x.item));
+			}
+		}
+	}
+
+	@Test
+	public void kcAliasesPointAtRealSources()
+	{
+		BossmanData d = load();
+		for (java.util.Map.Entry<String, String> a : d.getSources().kcAliases.entrySet())
+		{
+			assertEquals(a.getKey(), a.getValue(), d.canonicalSource(a.getValue()));
+		}
+		for (String e : d.getEventSources())
+		{
+			assertEquals(e, d.canonicalSource(e));
+		}
+	}
+
+	@Test
+	public void onlyKnownTabsAreShared()
+	{
+		// a shared tab's import credits each item to the rung that lists it; any new sharing should be deliberate
+		Set<String> allowed = new HashSet<>(java.util.Arrays.asList(
+			"Vet'ion and Calvar'ion", "Venenatis and Spindel", "Callisto and Artio", "The Gauntlet", "The Nightmare"));
+		java.util.Map<String, Integer> uses = new java.util.HashMap<>();
+		for (BossmanData.Rung r : load().getLadder().rungs)
+		{
+			if (r.clogTab != null)
+			{
+				uses.merge(r.clogTab, 1, Integer::sum);
+			}
+		}
+		uses.forEach((tab, n) -> assertTrue("tab shared unexpectedly: " + tab, n == 1 || allowed.contains(tab)));
+	}
+
+	@Test
+	public void slayerToolsHaveTheirOwnKind()
+	{
+		assertEquals(FreeKind.SLAYER, load().getFreeItems().get(4161));   // bag of salt
 	}
 
 	@Test

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2019, CodePanter <https://github.com/codepanter> (Another Bronzeman Mode)
  * Copyright (c) 2026, Erik Rahm (Bossman Mode)
- * All rights reserved. BSD-2-Clause — see LICENSE.
+ * All rights reserved. BSD-2-Clause, see LICENSE.
  */
 package com.bossman;
 
@@ -9,6 +9,7 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
+import net.runelite.client.config.Range;
 
 @ConfigGroup(BossmanModePlugin.CONFIG_GROUP)
 public interface BossmanModeConfig extends Config
@@ -49,28 +50,35 @@ public interface BossmanModeConfig extends Config
 		return true;
 	}
 
-	@ConfigItem(keyName = "receiptRules", name = "Completion-reward unlocks", position = 3, section = unlocksSection,
+	@ConfigItem(keyName = "freeSlayerTools", name = "Slayer tools are always unlocked", position = 3, section = unlocksSection,
+		description = "Consumable slayer tools a task monster needs to be<br>finished (rock hammer, bag of salt, ice cooler,<br>fungicide, slayer bell, lit bug lantern) are usable<br>without a boss drop. Turn off for a stricter mode.")
+	default boolean freeSlayerTools()
+	{
+		return true;
+	}
+
+	@ConfigItem(keyName = "receiptRules", name = "Completion-reward unlocks", position = 4, section = unlocksSection,
 		description = "Unlock the Fire and Infernal cape on receipt (with the Tokkul<br>that comes with them), and anything received in the Gauntlet<br>lobby (the Gauntlet chest is not a tracked loot source). Bank<br>withdrawals and items you take off don't count.")
 	default boolean receiptRules()
 	{
 		return true;
 	}
 
-	@ConfigItem(keyName = "importCollectionLog", name = "Import from collection log", position = 4, section = unlocksSection,
+	@ConfigItem(keyName = "importCollectionLog", name = "Import from collection log", position = 5, section = unlocksSection,
 		description = "When you open a boss tab in the in-game collection<br>log, items shown as obtained are recorded as unlocks<br>(for drops you had before installing the plugin).")
 	default boolean importCollectionLog()
 	{
 		return true;
 	}
 
-	@ConfigItem(keyName = "unlockBond", name = "Bonds are always unlocked", position = 5, section = unlocksSection,
+	@ConfigItem(keyName = "unlockBond", name = "Bonds are always unlocked", position = 6, section = unlocksSection,
 		description = "Old School bonds are usable without a boss drop, so membership<br>can be bought. Takes effect immediately either way.")
 	default boolean unlockBond()
 	{
 		return true;
 	}
 
-	@net.runelite.client.config.Range(min = 2)
+	@Range(min = 2)
 	@ConfigItem(keyName = "memeThreshold", name = "Meme-grind threshold", position = 0, section = ladderSection,
 		description = "Collection-log items at 1 in this many kills or<br>rarer are 'meme grinds': shown in the log but<br>optional, so they never block the next boss.<br>Pets and jars are handled separately (backlog).")
 	default int memeThreshold()
@@ -107,7 +115,7 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "restrictGeSell", name = "Block selling locked items", position = 1, section = restrictionsSection,
-		description = "Removes the 'Offer' option on locked items in the Grand<br>Exchange — only unlocked items may be sold (rule 4).")
+		description = "Removes the 'Offer' option on locked items in the Grand<br>Exchange: only unlocked items may be sold.")
 	default boolean restrictGeSell()
 	{
 		return true;

@@ -35,7 +35,7 @@
    ]
   },
   "slayer tools": {
-   "note": "consumable tools required to finish a task monster — PENDING ERIK (same spirit as access gear)",
+   "note": "consumable tools a task monster needs to be finished; free under their own setting, on by default",
    "items": [
     {
      "id": 4162,

@@ -15,7 +15,10 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
 - **Ledger.** Every unlock is written to `~/.runelite/profiles/<profile>/bossman-mode-ledger.json` with its source, the KC
   at that source, and a timestamp; per-source kill counts are tracked too (and synced from "Your X kill count is" messages).
 - **Restrictions.** Locked items are dimmed with a lock marker in the inventory, bank and equipment; hidden in GE search
-  results; and cannot be *sold* on the GE (the `Offer` option is removed) — only unlocked items may be sold.
+  results; cannot be *sold* on the GE (the `Offer` option is removed) or *bought* in shops (`Buy` removed); and cannot be
+  *used*: the configurable "Blocked actions" list (default Wield, Wear, Equip, Eat, Drink, Bury, Scatter, Rub, Light,
+  Break, Teleport) is stripped from their menus. A locked item can still be picked up, carried, banked and dropped.
+  `Use` is not blocked by default because quest hand-ins and skilling go through it — add it for a stricter mode.
 - **Unlock banner** captioned with the source and KC ("Crazy archaeologist — KC 14"), optional screenshot / chat / notification.
 - **Ladder panel.** The 67-rung boss ladder (`bossman/ladder.json`): current rung, gate, collection-log items gating it
   (with drop rates), KC vs expected KC, what the boss has unlocked for you and what it still could, and the **backlog** —
@@ -23,6 +26,8 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   stops gating; reversible). 1/5,000+ items are "meme grinds" (optional). Browse other bosses with `<` / `>`; no-log
   bosses (Gemstone Crab, Mimic…) can be marked complete by hand.
 - **Pre-plugin drops.** Open a boss tab in the in-game collection log and every obtained item there is imported as an unlock (toggle: "Import from collection log").
+- **Combat Achievements** are read from the game's own task state (the completion varps + the task table in the cache), on
+  login and whenever a task completes — tasks done before the plugin count, no interface needs opening.
 - Chat commands: `!bmcount`, `!bmboss`, `!bmbackup`, `!bmreset` (opt-in).
 - Config: "Meme-grind threshold" (default 5000) — log items rarer than 1/N are optional and never block the ladder; "Pets gate the ladder" / "Jars gate the ladder" / "Combat Achievements gate the ladder" (default off); "Tools / Access gear are always unlocked" toggles for stricter variants.
 
@@ -34,6 +39,7 @@ Requires the **Loot Tracker** plugin to be enabled for chest/event sources (NPC 
   shutdown, backup), and one panel rebuild is queued on the Swing thread however many events arrive meanwhile.
 - `LadderRules` — the ruleset as pure queries (what is allowed, what gates a rung, which rung is current). No state of its own; reads data + ledger + config and is safe from any thread.
 - `Ledger` — the persisted state (unlocks, KC, backlog, manual completions, combat tasks). Concurrent collections, since the client thread writes while the panel reads.
+- `CombatTasks` — reads the Combat Achievement task table and completion bits from the client.
 - `BossmanData` — the bundled JSON (tools, access gear, sources, ladder) and lookups over it.
 - `BossmanPanel` — the side panel, rebuilt from scratch on each refresh. `LockedItemOverlay` / `UnlockOverlay` — the in-game marks and the unlock banner.
 

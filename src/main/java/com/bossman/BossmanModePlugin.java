@@ -33,6 +33,10 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,6 +67,7 @@ import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.ScriptID;
 import net.runelite.api.events.ScriptPostFired;
+import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.widgets.ComponentID;
 import net.runelite.api.widgets.Widget;
@@ -125,6 +130,9 @@ public class BossmanModePlugin extends Plugin
 	private final BossmanData data = new BossmanData();
 	private volatile Ledger ledger = new Ledger();
 	private LadderRules rules;
+	private CombatTasks combatTasks;
+	/** lower-cased menu options stripped from locked items (from config) */
+	private Set<String> blockedActions = Collections.emptySet();
 	private BufferedImage unlockImage;
 
 	public BossmanData getData() { return data; }
@@ -154,6 +162,8 @@ public class BossmanModePlugin extends Plugin
 		data.load(gson);
 		data.setExtraSources(config.extraSources());
 		rules = new LadderRules(data, config, itemManager, () -> ledger);
+		combatTasks = new CombatTasks(client);
+		blockedActions = parseActions(config.blockedActions());
 		unlockImage = ImageUtil.loadImageResource(getClass(), "/item-unlocked.png");
 		unlockOverlay.updateScreenshotUnlock(config.screenshotUnlock(), config.includeFrame());
 		overlayManager.add(unlockOverlay);
@@ -225,6 +235,9 @@ public class BossmanModePlugin extends Plugin
 			case "extraSources":
 				data.setExtraSources(config.extraSources());
 				break;
+			case "blockedActions":
+				blockedActions = parseActions(config.blockedActions());
+				break;
 			case "screenshotUnlock":
 			case "includeFrame":
 				unlockOverlay.updateScreenshotUnlock(config.screenshotUnlock(), config.includeFrame());
@@ -264,7 +277,25 @@ public class BossmanModePlugin extends Plugin
 			recordUnlock(ITEM_BOND, Ledger.KIND_DEFAULT, "default", null, "bonds buy membership", false);
 		}
 		snapshotInventory();
+		syncCombatTasks();
 		ledgerChanged();
+	}
+
+	private static Set<String> parseActions(String csv)
+	{
+		Set<String> out = new HashSet<>();
+		if (csv != null)
+		{
+			for (String s : csv.split(","))
+			{
+				String t = s.trim().toLowerCase(Locale.ROOT);
+				if (!t.isEmpty())
+				{
+					out.add(t);
+				}
+			}
+		}
+		return out;
 	}
 
 	// ------------------------------------------------------------------ persistence
@@ -517,20 +548,39 @@ public class BossmanModePlugin extends Plugin
 		}
 	}
 
+	/**
+	 * Strip the options a locked item must not have: 'Offer' on the GE (no selling), 'Buy …' in shops, and the
+	 * configured use-actions (wield, eat, bury, …) in the inventory / bank / equipment. Examine, drop, bank and
+	 * pick-up are always left alone — a locked item may be held, just not used.
+	 */
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded e)
 	{
-		if (!config.restrictGeSell())
-		{
-			return;
-		}
 		MenuEntry entry = e.getMenuEntry();
-		if (entry == null || !"Offer".equals(e.getOption()))
+		if (entry == null)
 		{
 			return;
 		}
 		int itemId = entry.getItemId();
-		if (itemId > 0 && !rules.isAllowed(itemId))
+		if (itemId <= 0)
+		{
+			return;
+		}
+		String option = Text.removeTags(e.getOption());
+		boolean block;
+		if ("Offer".equals(option))
+		{
+			block = config.restrictGeSell();
+		}
+		else if (option.startsWith("Buy"))
+		{
+			block = config.restrictShops();
+		}
+		else
+		{
+			block = config.blockLockedActions() && blockedActions.contains(option.toLowerCase(Locale.ROOT));
+		}
+		if (block && !rules.isAllowed(itemId))
 		{
 			client.getMenu().removeMenuEntry(entry);
 		}
@@ -570,6 +620,41 @@ public class BossmanModePlugin extends Plugin
 				children[i + 1].setOpacity(70);
 				children[i + 2].setOpacity(70);
 			}
+		}
+	}
+
+	// ------------------------------------------------------------------ combat achievements
+
+	/** The game flips a completion bit; pick it up (also covers tasks done before the plugin, on login). */
+	@Subscribe
+	public void onVarbitChanged(VarbitChanged e)
+	{
+		if (CombatTasks.isCompletionVarp(e.getVarpId()))
+		{
+			syncCombatTasks();
+		}
+	}
+
+	/** Copy every completed task title the game reports into the ledger. Client thread. */
+	private void syncCombatTasks()
+	{
+		Set<String> done = combatTasks.completedNames();
+		if (done.isEmpty())
+		{
+			return;
+		}
+		int added = 0;
+		for (String name : done)
+		{
+			if (ledger.caDone.add(name))
+			{
+				added++;
+			}
+		}
+		if (added > 0)
+		{
+			log.debug("combat achievements: {} task(s) imported from game state", added);
+			ledgerChanged();
 		}
 	}
 

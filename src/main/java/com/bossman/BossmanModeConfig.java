@@ -90,7 +90,7 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "caGate", name = "Combat Achievements gate the ladder", position = 3, section = ladderSection,
-		description = "Require every Combat Achievement task for a boss before the next boss can be started. Completion is tracked from the in-game 'completed a combat task' messages. Note some tasks need items the ruleset forbids (anti-dragon shield, salamanders, demonbane weapons, chinchompas, salve amulet).")
+		description = "Require every Combat Achievement task for a boss before the next boss can be started. Completion is read from the game's own task state (so tasks done before the plugin count). Note some tasks need items the ruleset forbids (anti-dragon shield, salamanders, demonbane weapons, chinchompas, salve amulet).")
 	default boolean caGate()
 	{
 		return false;
@@ -110,7 +110,28 @@ public interface BossmanModeConfig extends Config
 		return true;
 	}
 
-	@ConfigItem(keyName = "allowTrading", name = "Allow player trading", position = 2, section = restrictionsSection,
+	@ConfigItem(keyName = "restrictShops", name = "Block buying locked items in shops", position = 2, section = restrictionsSection,
+		description = "Removes the 'Buy' options on locked items in every shop. Unlocked items can still be bought (e.g. bars of a type a boss has dropped).")
+	default boolean restrictShops()
+	{
+		return true;
+	}
+
+	@ConfigItem(keyName = "blockLockedActions", name = "Block using locked items", position = 3, section = restrictionsSection,
+		description = "Removes the actions listed below from locked items (inventory, bank and equipment screens), so a locked item can be carried, banked and dropped but not used.")
+	default boolean blockLockedActions()
+	{
+		return true;
+	}
+
+	@ConfigItem(keyName = "blockedActions", name = "Blocked actions", position = 4, section = restrictionsSection,
+		description = "Comma-separated menu options removed from locked items. 'Use' is not in the default list because quest hand-ins and skilling both go through it; add it for a stricter mode.")
+	default String blockedActions()
+	{
+		return "Wield, Wear, Equip, Eat, Drink, Bury, Scatter, Rub, Light, Break, Teleport";
+	}
+
+	@ConfigItem(keyName = "allowTrading", name = "Allow player trading", position = 5, section = restrictionsSection,
 		description = "Allow trade requests (off by default — a bossman stands alone).")
 	default boolean allowTrading()
 	{

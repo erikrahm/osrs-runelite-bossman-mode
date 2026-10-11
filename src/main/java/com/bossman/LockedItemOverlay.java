@@ -62,9 +62,11 @@ public class LockedItemOverlay extends WidgetItemOverlay
 		}
 		graphics.setColor(DIM);
 		graphics.fillRect(b.x, b.y, b.width, b.height);
-		// small padlock-ish marker in the top-left corner
+		// small padlock-ish marker in the bottom-right corner, clear of the stack count drawn top-left
 		graphics.setColor(LOCK);
-		graphics.fillRect(b.x + 2, b.y + 5, 7, 6);
-		graphics.drawRect(b.x + 3, b.y + 2, 4, 4);
+		int lx = b.x + b.width - 9;
+		int ly = b.y + b.height - 8;
+		graphics.fillRect(lx, ly, 7, 6);
+		graphics.drawRect(lx + 1, ly - 3, 4, 4);
 	}
 }

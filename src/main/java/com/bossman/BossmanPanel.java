@@ -539,7 +539,7 @@ public class BossmanPanel extends PluginPanel
 			boolean have = plugin.isLogItemUnlocked(gi);
 			boolean bl = plugin.isBacklogged(r, gi.item);
 			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate + (bl && !have ? " - in backlog" : ""),
-				have ? OK : (bl ? MUTED : Color.WHITE), MUTED, plugin.itemCount(gi.ids));
+				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
 			attachMenu(row, r, gi.item, gi.ids, have, true);
 			p.add(row);
 		}
@@ -554,7 +554,7 @@ public class BossmanPanel extends PluginPanel
 			boolean have = plugin.isDebtItemUnlocked(d);
 			boolean bl = plugin.isBacklogged(r, d.item);
 			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + (bl && !have ? " - in backlog" : ""),
-				have ? OK : (bl ? MUTED : Color.WHITE), MUTED, plugin.itemCount(d.ids));
+				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
 			attachMenu(row, r, d.item, d.ids, have, true);
 			p.add(row);
 		}
@@ -576,7 +576,7 @@ public class BossmanPanel extends PluginPanel
 			}
 			boolean have = plugin.isDebtItemUnlocked(d);
 			String note = have ? "" : (kc >= d.debtAtKc ? " - in backlog since KC " + d.debtAtKc : " - backlog at KC " + d.debtAtKc);
-			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED, plugin.itemCount(d.ids));
+			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED);
 			attachMenu(row, r, d.item, d.ids, have, false);
 			p.add(row);
 		}
@@ -607,7 +607,7 @@ public class BossmanPanel extends PluginPanel
 		for (BossmanData.GatingItem gi : memes)
 		{
 			boolean have = plugin.isLogItemUnlocked(gi);
-			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate, have ? OK : MUTED, MUTED, plugin.itemCount(gi.ids));
+			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate, have ? OK : MUTED, MUTED);
 			attachMenu(row, r, gi.item, gi.ids, have, false);
 			p.add(row);
 		}
@@ -739,11 +739,6 @@ public class BossmanPanel extends PluginPanel
 		}
 	}
 
-	private JPanel logRow(List<Integer> ids, String title, String sub, Color titleColor, Color subColor)
-	{
-		return logRow(ids, title, sub, titleColor, subColor, 0);
-	}
-
 	/** Wrapped text is laid out at this width and never reflowed wider, so long names wrap instead of clipping. */
 	private static final int LOG_TEXT_WIDTH = 125;
 
@@ -757,7 +752,7 @@ public class BossmanPanel extends PluginPanel
 		return l;
 	}
 
-	private JPanel logRow(List<Integer> ids, String title, String sub, Color titleColor, Color subColor, int count)
+	private JPanel logRow(List<Integer> ids, String title, String sub, Color titleColor, Color subColor)
 	{
 		JPanel row = new JPanel(new BorderLayout(4, 0));
 		row.setBackground(ColorScheme.DARKER_GRAY_COLOR);
@@ -775,10 +770,6 @@ public class BossmanPanel extends PluginPanel
 		text.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		text.add(wrapped(title, titleColor));
 		text.add(wrapped(sub, subColor));
-		if (count > 0)
-		{
-			text.add(wrapped("Obtained: " + count, MUTED));
-		}
 		row.add(text, BorderLayout.CENTER);
 		row.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
 		Dimension pref = row.getPreferredSize();

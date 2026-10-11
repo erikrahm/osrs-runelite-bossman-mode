@@ -47,6 +47,8 @@ public class BossmanPanel extends PluginPanel
 	private final java.util.Map<String, java.awt.image.BufferedImage> icons = new java.util.HashMap<>();
 	/** null = follow the current rung; otherwise the rung being browsed */
 	private Integer browsing;
+	/** Index of the current boss at the last refresh; when it moves forward we stay on the finished boss instead of auto-paging. */
+	private Integer lastCurrentIdx;
 
 	@Inject
 	public BossmanPanel(BossmanModePlugin plugin, ItemManager itemManager, SkillIconManager skillIconManager)
@@ -147,6 +149,12 @@ public class BossmanPanel extends PluginPanel
 			return;
 		}
 		int currentIdx = current == null ? rungs.size() - 1 : rungs.indexOf(current);
+		if (browsing == null && lastCurrentIdx != null && currentIdx > lastCurrentIdx)
+		{
+			// the boss just got completed: let the name go green and the bar fill; "Current" jumps to the next one
+			browsing = lastCurrentIdx;
+		}
+		lastCurrentIdx = currentIdx;
 		int idx = browsing == null ? currentIdx : Math.max(0, Math.min(browsing, rungs.size() - 1));
 		BossmanData.Rung r = rungs.get(idx);
 

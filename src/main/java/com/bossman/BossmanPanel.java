@@ -678,12 +678,29 @@ public class BossmanPanel extends PluginPanel
 		{
 			sources.add(src.toLowerCase(java.util.Locale.ROOT));
 		}
-		// unlocked by one of this boss's sources, in unlock order
+		// collection-log items have their own section; keep them out of this one
+		java.util.Set<Integer> logIds = new java.util.HashSet<>();
+		for (BossmanData.GatingItem gi : r.log.gatingItems)
+		{
+			logIds.addAll(gi.ids);
+		}
+		for (BossmanData.DebtItem d : r.log.debtPetsJars)
+		{
+			logIds.addAll(d.ids);
+		}
+		for (BossmanData.Drop d : r.drops)
+		{
+			if (d.inLog)
+			{
+				logIds.addAll(d.ids);
+			}
+		}
+		// unlocked by one of this boss's sources
 		List<Ledger.Entry> mine = new ArrayList<>();
 		java.util.Set<Integer> mineIds = new java.util.HashSet<>();
 		for (Ledger.Entry en : plugin.getLedger().unlocks.values())
 		{
-			if (en.source != null && sources.contains(en.source.toLowerCase(java.util.Locale.ROOT)))
+			if (en.source != null && sources.contains(en.source.toLowerCase(java.util.Locale.ROOT)) && !logIds.contains(en.itemId))
 			{
 				mine.add(en);
 				mineIds.add(en.itemId);

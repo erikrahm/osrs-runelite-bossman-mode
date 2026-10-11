@@ -159,10 +159,8 @@ public class BossmanPanel extends PluginPanel
 		BossmanData.Rung r = rungs.get(idx);
 
 		addBlock(header(idx, rungs.size(), current, r));
-		body.add(Box.createVerticalStrut(4));
-		addBlock(bossPicker(rungs, idx, current));
 		body.add(Box.createVerticalStrut(6));
-		addBlock(rungCard(r, r == current));
+		addBlock(rungCard(r, r == current, rungs, idx, current));
 		body.add(Box.createVerticalStrut(6));
 		addBlock(logSection(r));
 		body.add(Box.createVerticalStrut(6));
@@ -228,16 +226,21 @@ public class BossmanPanel extends PluginPanel
 	}
 
 	/** Dropdown of every boss, coloured by state, for jumping straight to one. */
-	private JPanel bossPicker(List<BossmanData.Rung> rungs, int idx, BossmanData.Rung current)
+	/** The boss title doubles as the picker: it reads "Boss N: Name" in the state colour, and opens a list of every boss. */
+	private javax.swing.JComboBox<BossmanData.Rung> bossTitle(BossmanData.Rung r, boolean isCurrent, boolean complete,
+		List<BossmanData.Rung> rungs, int idx, BossmanData.Rung current)
 	{
-		JPanel p = new JPanel(new BorderLayout());
-		p.setBackground(ColorScheme.DARK_GRAY_COLOR);
 		javax.swing.JComboBox<BossmanData.Rung> box = new javax.swing.JComboBox<>(rungs.toArray(new BossmanData.Rung[0]));
-		box.setFont(FontManager.getRunescapeSmallFont());
+		box.setFont(FontManager.getRunescapeBoldFont());
 		box.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		box.setForeground(Color.WHITE);
+		box.setBorder(null);
+		box.setFocusable(false);
 		box.setMaximumRowCount(16);
+		box.setAlignmentX(LEFT_ALIGNMENT);
+		box.setToolTipText(complete ? "Complete" : (isCurrent ? "In progress" + (r.isFirstKillOnly() ? " - first kill completes it" : "") : "Locked - finish the bosses before it"));
 		final int currentIdx = current == null ? rungs.size() - 1 : rungs.indexOf(current);
+		final Color titleColor = complete ? OK : (isCurrent ? WARN : MUTED);
 		box.setRenderer(new javax.swing.DefaultListCellRenderer()
 		{
 			@Override
@@ -245,13 +248,22 @@ public class BossmanPanel extends PluginPanel
 			{
 				JLabel l = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 				BossmanData.Rung rr = (BossmanData.Rung) value;
+				l.setOpaque(true);
+				if (index == -1)
+				{
+					// the closed box: looks like the old title
+					l.setText("Boss " + rr.rung + ": " + rr.boss);
+					l.setFont(FontManager.getRunescapeBoldFont());
+					l.setForeground(titleColor);
+					l.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+					l.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+					return l;
+				}
 				int i = rungs.indexOf(rr);
 				l.setText(rr.rung + ". " + rr.boss);
 				l.setFont(FontManager.getRunescapeSmallFont());
-				Color c = i < currentIdx || (current == null) ? OK : (i == currentIdx ? WARN : MUTED);
-				l.setForeground(c);
+				l.setForeground(i < currentIdx || current == null ? OK : (i == currentIdx ? WARN : MUTED));
 				l.setBackground(isSelected ? ColorScheme.DARK_GRAY_COLOR : ColorScheme.DARKER_GRAY_COLOR);
-				l.setOpaque(true);
 				return l;
 			}
 		});
@@ -265,27 +277,24 @@ public class BossmanPanel extends PluginPanel
 				refresh();
 			}
 		});
-		p.add(box, BorderLayout.CENTER);
-		return p;
-	}
-
-	private JPanel rungCard(BossmanData.Rung r, boolean isCurrent)
-	{
-		JPanel p = card();
-		boolean complete = plugin.isRungComplete(r);
-		JLabel name = new JLabel("Boss " + r.rung + ": " + r.boss);
-		name.setFont(FontManager.getRunescapeBoldFont());
-		name.setForeground(complete ? OK : (isCurrent ? WARN : MUTED));
-		name.setToolTipText(complete ? "Complete" : (isCurrent ? "In progress" + (r.isFirstKillOnly() ? " - first kill completes it" : "") : "Locked - finish the bosses before it"));
-		name.setAlignmentX(LEFT_ALIGNMENT);
+		// right-click still opens the boss's wiki page; left-click opens the list
 		javax.swing.JPopupMenu bossMenu = new javax.swing.JPopupMenu();
 		javax.swing.JMenuItem bossWiki = new javax.swing.JMenuItem("Open Wiki");
 		bossWiki.setFont(FontManager.getRunescapeSmallFont());
 		bossWiki.addActionListener(e -> net.runelite.client.util.LinkBrowser.browse(
 			"https://oldschool.runescape.wiki/w/" + (r.wikiPage != null ? r.wikiPage : r.boss.replace(' ', '_'))));
 		bossMenu.add(bossWiki);
-		name.setComponentPopupMenu(bossMenu);
-		p.add(name);
+		box.setComponentPopupMenu(bossMenu);
+		Dimension pref = box.getPreferredSize();
+		box.setMaximumSize(new Dimension(Integer.MAX_VALUE, pref.height));
+		return box;
+	}
+
+	private JPanel rungCard(BossmanData.Rung r, boolean isCurrent, List<BossmanData.Rung> rungs, int idx, BossmanData.Rung current)
+	{
+		JPanel p = card();
+		boolean complete = plugin.isRungComplete(r);
+		p.add(bossTitle(r, isCurrent, complete, rungs, idx, current));
 		p.add(Box.createVerticalStrut(6));
 
 		p.add(infoRow("Combat Level", r.combatLevel != null ? String.valueOf(r.combatLevel) : "n/a", null, Color.WHITE));

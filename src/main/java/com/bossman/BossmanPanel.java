@@ -214,6 +214,12 @@ public class BossmanPanel extends PluginPanel
 		next.setToolTipText("Next boss");
 		next.addActionListener(e -> { browsing = idx + 1; refresh(); });
 		next.setEnabled(idx < total - 1);
+		// the arrows use a different font than "Current"; give all three the same height and both arrows the same width
+		int h = Math.max(prev.getPreferredSize().height, now.getPreferredSize().height);
+		int aw = Math.max(prev.getPreferredSize().width, next.getPreferredSize().width);
+		prev.setPreferredSize(new Dimension(aw, h));
+		next.setPreferredSize(new Dimension(aw, h));
+		now.setPreferredSize(new Dimension(now.getPreferredSize().width, h));
 		nav.add(prev);
 		nav.add(now);
 		nav.add(next);

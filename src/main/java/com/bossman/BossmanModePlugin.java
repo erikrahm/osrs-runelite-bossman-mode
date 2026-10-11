@@ -339,7 +339,12 @@ public class BossmanModePlugin extends Plugin
 		for (ItemStack stack : items)
 		{
 			int id = itemManager.canonicalize(stack.getId());
-			if (id <= 1 || stack.getQuantity() <= 0 || ledger.isUnlocked(id))
+			if (id <= 1 || stack.getQuantity() <= 0)
+			{
+				continue;
+			}
+			ledger.addCount(id, stack.getQuantity());
+			if (ledger.isUnlocked(id))
 			{
 				continue;
 			}
@@ -348,7 +353,7 @@ public class BossmanModePlugin extends Plugin
 		}
 		if (!any)
 		{
-			ledger.save(gson); // KC changed
+			ledger.save(gson); // KC / counts changed
 		}
 		refreshPanel();
 	}
@@ -509,6 +514,20 @@ public class BossmanModePlugin extends Plugin
 		return false;
 	}
 
+	/** How many of a log item you've received, summed over its id variants (e.g. charged/uncharged). */
+	public int itemCount(List<Integer> ids)
+	{
+		int n = 0;
+		if (ids != null)
+		{
+			for (int id : ids)
+			{
+				n += ledger.getCount(id);
+			}
+		}
+		return n;
+	}
+
 	public boolean isLogItemUnlocked(BossmanData.GatingItem gi)
 	{
 		for (int id : gi.ids)
@@ -653,6 +672,7 @@ public class BossmanModePlugin extends Plugin
 			return; // not a tab we track (Slayer, Miscellaneous, All Pets, ...)
 		}
 		int imported = 0;
+		boolean changed = false;
 		for (Widget child : items.getChildren())
 		{
 			int id = child.getItemId();
@@ -661,8 +681,16 @@ public class BossmanModePlugin extends Plugin
 				continue; // unobtained items are drawn translucent
 			}
 			int canon = itemManager.canonicalize(id);
+			// the log knows how many you've had, including drops from before the plugin
+			int before = ledger.getCount(canon);
+			ledger.setCountIfHigher(canon, child.getItemQuantity());
+			boolean countChanged = ledger.getCount(canon) != before;
 			if (ledger.isUnlocked(canon))
 			{
+				if (countChanged)
+				{
+					changed = true;
+				}
 				continue;
 			}
 			recordUnlock(canon, Ledger.KIND_CLOG, rung.sources.isEmpty() ? rung.boss : rung.sources.get(0), null,
@@ -672,6 +700,10 @@ public class BossmanModePlugin extends Plugin
 		if (imported > 0)
 		{
 			sendChatMessage("Bossman: imported " + imported + " item" + (imported == 1 ? "" : "s") + " from your " + tab + " collection log.");
+		}
+		if (imported > 0 || changed)
+		{
+			ledger.save(gson);
 			refreshPanel();
 		}
 	}

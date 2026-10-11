@@ -52,6 +52,8 @@ public class Ledger
 	public Set<String> backlog = new HashSet<>();
 	/** combat achievement task names seen completed in chat */
 	public Set<String> caDone = new HashSet<>();
+	/** item id → how many of it you've received (drops seen by the plugin, or the collection-log quantity if higher) */
+	public Map<Integer, Integer> counts = new HashMap<>();
 
 	private transient File file;
 
@@ -92,6 +94,10 @@ public class Ledger
 		if (l.caDone == null)
 		{
 			l.caDone = new HashSet<>();
+		}
+		if (l.counts == null)
+		{
+			l.counts = new HashMap<>();
 		}
 		l.file = file;
 		return l;
@@ -151,6 +157,25 @@ public class Ledger
 		{
 			kc.put(source, n);
 		}
+	}
+
+	public void addCount(int itemId, int n)
+	{
+		counts.merge(itemId, n, Integer::sum);
+	}
+
+	/** Raise the count to what the collection log reports, never lower it. */
+	public void setCountIfHigher(int itemId, int n)
+	{
+		if (n > counts.getOrDefault(itemId, 0))
+		{
+			counts.put(itemId, n);
+		}
+	}
+
+	public int getCount(int itemId)
+	{
+		return counts.getOrDefault(itemId, 0);
 	}
 
 	public List<Entry> recent(int n)

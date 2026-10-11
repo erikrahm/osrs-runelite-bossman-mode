@@ -539,7 +539,7 @@ public class BossmanPanel extends PluginPanel
 			boolean have = plugin.isLogItemUnlocked(gi);
 			boolean bl = plugin.isBacklogged(r, gi.item);
 			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate + (bl && !have ? " - in backlog" : ""),
-				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
+				have ? OK : (bl ? MUTED : Color.WHITE), MUTED, plugin.itemCount(gi.ids));
 			attachMenu(row, r, gi.item, gi.ids, have, true);
 			p.add(row);
 		}
@@ -554,7 +554,7 @@ public class BossmanPanel extends PluginPanel
 			boolean have = plugin.isDebtItemUnlocked(d);
 			boolean bl = plugin.isBacklogged(r, d.item);
 			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + (bl && !have ? " - in backlog" : ""),
-				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
+				have ? OK : (bl ? MUTED : Color.WHITE), MUTED, plugin.itemCount(d.ids));
 			attachMenu(row, r, d.item, d.ids, have, true);
 			p.add(row);
 		}
@@ -576,7 +576,7 @@ public class BossmanPanel extends PluginPanel
 			}
 			boolean have = plugin.isDebtItemUnlocked(d);
 			String note = have ? "" : (kc >= d.debtAtKc ? " - in backlog since KC " + d.debtAtKc : " - backlog at KC " + d.debtAtKc);
-			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED);
+			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED, plugin.itemCount(d.ids));
 			attachMenu(row, r, d.item, d.ids, have, false);
 			p.add(row);
 		}
@@ -607,7 +607,7 @@ public class BossmanPanel extends PluginPanel
 		for (BossmanData.GatingItem gi : memes)
 		{
 			boolean have = plugin.isLogItemUnlocked(gi);
-			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate, have ? OK : MUTED, MUTED);
+			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate, have ? OK : MUTED, MUTED, plugin.itemCount(gi.ids));
 			attachMenu(row, r, gi.item, gi.ids, have, false);
 			p.add(row);
 		}
@@ -741,6 +741,24 @@ public class BossmanPanel extends PluginPanel
 
 	private JPanel logRow(List<Integer> ids, String title, String sub, Color titleColor, Color subColor)
 	{
+		return logRow(ids, title, sub, titleColor, subColor, 0);
+	}
+
+	/** Wrapped text is laid out at this width and never reflowed wider, so long names wrap instead of clipping. */
+	private static final int LOG_TEXT_WIDTH = 125;
+
+	private JLabel wrapped(String text, Color color)
+	{
+		JLabel l = new JLabel("<html><body style='width:" + LOG_TEXT_WIDTH + "px'>" + escape(text) + "</body></html>");
+		l.setFont(FontManager.getRunescapeSmallFont());
+		l.setForeground(color);
+		l.setAlignmentX(LEFT_ALIGNMENT);
+		l.setMaximumSize(l.getPreferredSize());
+		return l;
+	}
+
+	private JPanel logRow(List<Integer> ids, String title, String sub, Color titleColor, Color subColor, int count)
+	{
 		JPanel row = new JPanel(new BorderLayout(4, 0));
 		row.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		row.setAlignmentX(LEFT_ALIGNMENT);
@@ -755,16 +773,12 @@ public class BossmanPanel extends PluginPanel
 		JPanel text = new JPanel();
 		text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
 		text.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-		JLabel t = new JLabel("<html><body style='width:135px'>" + escape(title) + "</body></html>");
-		t.setFont(FontManager.getRunescapeSmallFont());
-		t.setForeground(titleColor);
-		t.setAlignmentX(LEFT_ALIGNMENT);
-		text.add(t);
-		JLabel sb = new JLabel("<html><body style='width:135px'>" + escape(sub) + "</body></html>");
-		sb.setFont(FontManager.getRunescapeSmallFont());
-		sb.setForeground(subColor);
-		sb.setAlignmentX(LEFT_ALIGNMENT);
-		text.add(sb);
+		text.add(wrapped(title, titleColor));
+		text.add(wrapped(sub, subColor));
+		if (count > 0)
+		{
+			text.add(wrapped("Obtained: " + count, MUTED));
+		}
 		row.add(text, BorderLayout.CENTER);
 		row.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
 		Dimension pref = row.getPreferredSize();

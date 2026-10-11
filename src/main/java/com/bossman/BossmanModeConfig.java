@@ -29,42 +29,42 @@ public interface BossmanModeConfig extends Config
 	String advancedSection = "advanced";
 
 	@ConfigItem(keyName = "extraSources", name = "Extra unlock sources", position = 0, section = unlocksSection,
-		description = "Comma-separated NPC or loot-tracker event names that may unlock items, in addition to the bundled boss list (e.g. a boss released after this version).")
+		description = "Comma-separated NPC or loot-tracker event names that<br>may unlock items, in addition to the bundled boss<br>list (e.g. a boss released after this version).")
 	default String extraSources()
 	{
 		return "";
 	}
 
 	@ConfigItem(keyName = "freeTools", name = "Tools are always unlocked", position = 1, section = unlocksSection,
-		description = "Every base-tier item on the wiki Tool page (axes, pickaxes, nets, rods, moulds, farming and hunter kit, light sources) is usable without a boss drop. Turn off for a stricter mode where even tools must drop.")
+		description = "Every base-tier item on the wiki Tool page (axes,<br>pickaxes, nets, rods, moulds, farming and hunter kit,<br>light sources) is usable without a boss drop. Turn<br>off for a stricter mode where even tools must drop.")
 	default boolean freeTools()
 	{
 		return true;
 	}
 
 	@ConfigItem(keyName = "freeAccessGear", name = "Access gear is always unlocked", position = 2, section = unlocksSection,
-		description = "Slayer access gear, keys/totems, grapple and rope are usable without a boss drop (they only get you to the boss). Turn off for a stricter mode.")
+		description = "Slayer access gear, keys/totems, grapple and rope<br>are usable without a boss drop (they only get you<br>to the boss). Turn off for a stricter mode.")
 	default boolean freeAccessGear()
 	{
 		return true;
 	}
 
 	@ConfigItem(keyName = "receiptRules", name = "Completion-reward unlocks", position = 3, section = unlocksSection,
-		description = "Unlock the Fire and Infernal cape on receipt (with the Tokkul that comes with them), and anything received in the Gauntlet lobby (the Gauntlet chest is not a tracked loot source). Bank withdrawals and items you take off don't count.")
+		description = "Unlock the Fire and Infernal cape on receipt (with the Tokkul<br>that comes with them), and anything received in the Gauntlet<br>lobby (the Gauntlet chest is not a tracked loot source). Bank<br>withdrawals and items you take off don't count.")
 	default boolean receiptRules()
 	{
 		return true;
 	}
 
 	@ConfigItem(keyName = "importCollectionLog", name = "Import from collection log", position = 4, section = unlocksSection,
-		description = "When you open a boss tab in the in-game collection log, items shown as obtained are recorded as unlocks (for drops you had before installing the plugin).")
+		description = "When you open a boss tab in the in-game collection<br>log, items shown as obtained are recorded as unlocks<br>(for drops you had before installing the plugin).")
 	default boolean importCollectionLog()
 	{
 		return true;
 	}
 
 	@ConfigItem(keyName = "unlockBond", name = "Bonds are always unlocked", position = 5, section = unlocksSection,
-		description = "Old School bonds are usable without a boss drop, so membership can be bought. Takes effect immediately either way.")
+		description = "Old School bonds are usable without a boss drop, so membership<br>can be bought. Takes effect immediately either way.")
 	default boolean unlockBond()
 	{
 		return true;
@@ -72,63 +72,63 @@ public interface BossmanModeConfig extends Config
 
 	@net.runelite.client.config.Range(min = 2)
 	@ConfigItem(keyName = "memeThreshold", name = "Meme-grind threshold", position = 0, section = ladderSection,
-		description = "Collection-log items at 1 in this many kills or rarer are 'meme grinds': shown in the log but optional, so they never block the next boss. Pets and jars are handled separately (backlog).")
+		description = "Collection-log items at 1 in this many kills or<br>rarer are 'meme grinds': shown in the log but<br>optional, so they never block the next boss.<br>Pets and jars are handled separately (backlog).")
 	default int memeThreshold()
 	{
 		return 5000;
 	}
 
 	@ConfigItem(keyName = "petsGate", name = "Pets gate the ladder", position = 1, section = ladderSection,
-		description = "Require a boss's pet before the next boss can be started. Off by default: pets go on the backlog once your KC reaches their drop rate.")
+		description = "Require a boss's pet before the next boss can<br>be started. Off by default: pets go on the<br>backlog once your KC reaches their drop rate.")
 	default boolean petsGate()
 	{
 		return false;
 	}
 
 	@ConfigItem(keyName = "jarsGate", name = "Jars gate the ladder", position = 2, section = ladderSection,
-		description = "Require a boss's jar before the next boss can be started. Off by default: jars go on the backlog once your KC reaches their drop rate.")
+		description = "Require a boss's jar before the next boss can<br>be started. Off by default: jars go on the<br>backlog once your KC reaches their drop rate.")
 	default boolean jarsGate()
 	{
 		return false;
 	}
 
 	@ConfigItem(keyName = "caGate", name = "Combat Achievements gate the ladder", position = 3, section = ladderSection,
-		description = "Require every Combat Achievement task for a boss before the next boss can be started. Completion is read from the game's own task state (so tasks done before the plugin count). Note some tasks need items the ruleset forbids (anti-dragon shield, salamanders, demonbane weapons, chinchompas, salve amulet).")
+		description = "Require every Combat Achievement task for a boss<br>before the next boss can be started. Completion is<br>read from the game's own task state (so tasks done<br>before the plugin count). Note some tasks need items<br>the ruleset forbids (anti-dragon shield, salamanders,<br>demonbane weapons, chinchompas, salve amulet).")
 	default boolean caGate()
 	{
 		return false;
 	}
 
 	@ConfigItem(keyName = "restrictGeBuy", name = "Grey out locked items in GE search", position = 0, section = restrictionsSection,
-		description = "Locked items are greyed out and unclickable in the Grand Exchange search results.")
+		description = "Locked items are greyed out and unclickable<br>in the Grand Exchange search results.")
 	default boolean restrictGeBuy()
 	{
 		return true;
 	}
 
 	@ConfigItem(keyName = "restrictGeSell", name = "Block selling locked items", position = 1, section = restrictionsSection,
-		description = "Removes the 'Offer' option on locked items in the Grand Exchange — only unlocked items may be sold (rule 4).")
+		description = "Removes the 'Offer' option on locked items in the Grand<br>Exchange — only unlocked items may be sold (rule 4).")
 	default boolean restrictGeSell()
 	{
 		return true;
 	}
 
 	@ConfigItem(keyName = "restrictShops", name = "Block buying locked items in shops", position = 2, section = restrictionsSection,
-		description = "Removes the 'Buy' options on locked items in every shop. Unlocked items can still be bought (e.g. bars of a type a boss has dropped).")
+		description = "Removes the 'Buy' options on locked items in<br>every shop. Unlocked items can still be bought<br>(e.g. bars of a type a boss has dropped).")
 	default boolean restrictShops()
 	{
 		return true;
 	}
 
 	@ConfigItem(keyName = "blockLockedActions", name = "Block using locked items", position = 3, section = restrictionsSection,
-		description = "Removes the actions listed below from locked items (inventory, bank and equipment screens), so a locked item can be carried, banked and dropped but not used.")
+		description = "Removes the actions listed below from locked items<br>(inventory, bank and equipment screens), so a locked<br>item can be carried, banked and dropped but not used.")
 	default boolean blockLockedActions()
 	{
 		return true;
 	}
 
 	@ConfigItem(keyName = "blockedActions", name = "Blocked actions", position = 4, section = restrictionsSection,
-		description = "Comma-separated menu options removed from locked items. 'Use' is not in the default list because quest hand-ins and skilling both go through it; add it for a stricter mode.")
+		description = "Comma-separated menu options removed from locked items.<br>'Use' is not in the default list because quest hand-ins and<br>skilling both go through it; add it for a stricter mode.")
 	default String blockedActions()
 	{
 		return "Wield, Wear, Equip, Eat, Drink, Bury, Scatter, Rub, Light, Break, Teleport";
@@ -142,14 +142,14 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "dimLocked", name = "Dim locked items", position = 0, section = displaySection,
-		description = "Draw locked items darker in the inventory, bank and equipment, with a lock marker.")
+		description = "Draw locked items darker in the inventory,<br>bank and equipment, with a lock marker.")
 	default boolean dimLocked()
 	{
 		return true;
 	}
 
 	@ConfigItem(keyName = "markFree", name = "Mark tools / access gear", position = 1, section = displaySection,
-		description = "Draw a small marker on items that are free under the Tool rule or the access-equipment rule.")
+		description = "Draw a small marker on items that are free under<br>the Tool rule or the access-equipment rule.")
 	default boolean markFree()
 	{
 		return false;
@@ -163,7 +163,7 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "screenshotUnlock", name = "Screenshot unlocks", position = 3, section = displaySection,
-		description = "Take a screenshot whenever a new item is unlocked: as its banner ends when the popup is on, right away (one per loot) when it's off.")
+		description = "Take a screenshot whenever a new item is<br>unlocked: as its banner ends when the popup is<br>on, right away (one per loot) when it's off.")
 	default boolean screenshotUnlock()
 	{
 		return false;
@@ -191,7 +191,7 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "resetCommand", name = "Enable !bmreset", position = 0, section = advancedSection,
-		description = "Enables the !bmreset chat command, which wipes the ledger (unlocks, KC, backlog, manual completions). A backup is saved first; if it can't be, nothing is wiped.")
+		description = "Enables the !bmreset chat command, which wipes the<br>ledger (unlocks, KC, backlog, manual completions). A<br>backup is saved first; if it can't be, nothing is wiped.")
 	default boolean resetCommand()
 	{
 		return false;

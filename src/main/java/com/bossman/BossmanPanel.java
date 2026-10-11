@@ -437,7 +437,7 @@ public class BossmanPanel extends PluginPanel
 		JPanel kcRow = infoRow("Kill Count", kcText, null, kcColor);
 		if (hasExpected)
 		{
-			kcRow.setToolTipText("~" + r.log.expectedKc + " is the expected kill count to finish this boss's log (red = past it, going dry)");
+			kcRow.setToolTipText("<html>~" + r.log.expectedKc + " is the expected kill count to finish this boss's log<br>(red = past it, going dry)</html>");
 		}
 		p.add(kcRow);
 		// rungs fed by several sources (the three Moons and their chest, the Barrows brothers): each one's own count

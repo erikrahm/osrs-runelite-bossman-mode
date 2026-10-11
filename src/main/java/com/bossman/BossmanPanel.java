@@ -461,23 +461,41 @@ public class BossmanPanel extends PluginPanel
 			attachMenu(row, r, gi.item, gi.ids, have, true);
 			p.add(row);
 		}
+		// gating pets/jars sit with the other gating items
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
+			if (!plugin.isDebtItemGating(d))
+			{
+				continue;
+			}
 			any = true;
 			boolean have = plugin.isDebtItemUnlocked(d);
 			boolean bl = plugin.isBacklogged(r, d.item);
-			JPanel row;
+			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + (bl && !have ? " - in backlog" : ""),
+				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
+			attachMenu(row, r, d.item, d.ids, have, true);
+			p.add(row);
+		}
+		// non-gating pets/jars under their own sub-header
+		boolean subHeader = false;
+		for (BossmanData.DebtItem d : r.log.debtPetsJars)
+		{
 			if (plugin.isDebtItemGating(d))
 			{
-				row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + (plugin.isJar(d) ? " - jar, gating" : " - pet, gating") + (bl && !have ? " - in backlog" : ""),
-					have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
+				continue;
 			}
-			else
+			if (!subHeader)
 			{
-				String note = have ? "obtained" : (kc >= d.debtAtKc ? "in backlog since KC " + d.debtAtKc : "not gating - backlog at KC " + d.debtAtKc);
-				row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED);
+				subHeader = true;
+				any = true;
+				p.add(Box.createVerticalStrut(6));
+				p.add(subTitle("Not Gating"));
+				p.add(Box.createVerticalStrut(4));
 			}
-			attachMenu(row, r, d.item, d.ids, have, plugin.isDebtItemGating(d));
+			boolean have = plugin.isDebtItemUnlocked(d);
+			String note = have ? "" : (kc >= d.debtAtKc ? " - in backlog since KC " + d.debtAtKc : " - backlog at KC " + d.debtAtKc);
+			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED);
+			attachMenu(row, r, d.item, d.ids, have, false);
 			p.add(row);
 		}
 		if (!any)
@@ -750,11 +768,7 @@ public class BossmanPanel extends PluginPanel
 		if (!locked.isEmpty())
 		{
 			p.add(Box.createVerticalStrut(6));
-			JLabel sub = new JLabel("Still Locked (" + locked.size() + ")");
-			sub.setFont(FontManager.getRunescapeBoldFont());
-			sub.setForeground(Color.WHITE);
-			sub.setAlignmentX(LEFT_ALIGNMENT);
-			p.add(sub);
+			p.add(subTitle("Still Locked (" + locked.size() + ")"));
 			p.add(Box.createVerticalStrut(4));
 			int shown = 0;
 			for (BossmanData.Drop d : locked)
@@ -805,6 +819,15 @@ public class BossmanPanel extends PluginPanel
 		p.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		p.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 		return p;
+	}
+
+	private JLabel subTitle(String text)
+	{
+		JLabel l = new JLabel(text);
+		l.setFont(FontManager.getRunescapeBoldFont());
+		l.setForeground(Color.WHITE);
+		l.setAlignmentX(LEFT_ALIGNMENT);
+		return l;
 	}
 
 	private JLabel sectionTitle(String text)

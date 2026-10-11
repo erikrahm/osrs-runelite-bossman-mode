@@ -151,6 +151,8 @@ public class BossmanPanel extends PluginPanel
 		BossmanData.Rung r = rungs.get(idx);
 
 		addBlock(header(idx, rungs.size(), current, r));
+		body.add(Box.createVerticalStrut(4));
+		addBlock(bossPicker(rungs, idx, current));
 		body.add(Box.createVerticalStrut(6));
 		addBlock(rungCard(r, r == current));
 		body.add(Box.createVerticalStrut(6));
@@ -208,6 +210,48 @@ public class BossmanPanel extends PluginPanel
 		nav.add(now);
 		nav.add(next);
 		p.add(nav, BorderLayout.EAST);
+		return p;
+	}
+
+	/** Dropdown of every boss, coloured by state, for jumping straight to one. */
+	private JPanel bossPicker(List<BossmanData.Rung> rungs, int idx, BossmanData.Rung current)
+	{
+		JPanel p = new JPanel(new BorderLayout());
+		p.setBackground(ColorScheme.DARK_GRAY_COLOR);
+		javax.swing.JComboBox<BossmanData.Rung> box = new javax.swing.JComboBox<>(rungs.toArray(new BossmanData.Rung[0]));
+		box.setFont(FontManager.getRunescapeSmallFont());
+		box.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+		box.setForeground(Color.WHITE);
+		box.setMaximumRowCount(16);
+		final int currentIdx = current == null ? rungs.size() - 1 : rungs.indexOf(current);
+		box.setRenderer(new javax.swing.DefaultListCellRenderer()
+		{
+			@Override
+			public java.awt.Component getListCellRendererComponent(javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus)
+			{
+				JLabel l = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				BossmanData.Rung rr = (BossmanData.Rung) value;
+				int i = rungs.indexOf(rr);
+				l.setText(rr.rung + ". " + rr.boss);
+				l.setFont(FontManager.getRunescapeSmallFont());
+				Color c = i < currentIdx || (current == null) ? OK : (i == currentIdx ? WARN : MUTED);
+				l.setForeground(c);
+				l.setBackground(isSelected ? ColorScheme.DARK_GRAY_COLOR : ColorScheme.DARKER_GRAY_COLOR);
+				l.setOpaque(true);
+				return l;
+			}
+		});
+		box.setSelectedIndex(idx);
+		box.addActionListener(e ->
+		{
+			int sel = box.getSelectedIndex();
+			if (sel >= 0 && sel != idx)
+			{
+				browsing = (sel == currentIdx) ? null : sel;
+				refresh();
+			}
+		});
+		p.add(box, BorderLayout.CENTER);
 		return p;
 	}
 

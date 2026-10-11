@@ -213,7 +213,8 @@ public class BossmanPanel extends PluginPanel
 		boolean complete = plugin.isRungComplete(r);
 		JLabel name = new JLabel("Boss " + r.rung + ": " + r.boss);
 		name.setFont(FontManager.getRunescapeBoldFont());
-		name.setForeground(complete ? OK : (isCurrent ? WARN : Color.WHITE));
+		name.setForeground(complete ? OK : (isCurrent ? WARN : MUTED));
+		name.setToolTipText(complete ? "Complete" : (isCurrent ? "In progress" + (r.isFirstKillOnly() ? " - first kill completes it" : "") : "Locked - finish the bosses before it"));
 		name.setAlignmentX(LEFT_ALIGNMENT);
 		javax.swing.JPopupMenu bossMenu = new javax.swing.JPopupMenu();
 		javax.swing.JMenuItem bossWiki = new javax.swing.JMenuItem("Open Wiki");
@@ -240,30 +241,6 @@ public class BossmanPanel extends PluginPanel
 			}
 		}
 
-		BossmanData.Rung cur = plugin.currentRung();
-		String status;
-		Color statusColor;
-		if (complete)
-		{
-			status = "COMPLETE";
-			statusColor = OK;
-		}
-		else if (isCurrent)
-		{
-			status = r.isFirstKillOnly() ? "IN PROGRESS (first kill completes)" : "IN PROGRESS";
-			statusColor = WARN;
-		}
-		else if (cur != null && r.rung != null && cur.rung != null && r.rung < cur.rung)
-		{
-			status = "COMPLETE";
-			statusColor = OK;
-		}
-		else
-		{
-			status = "LOCKED";
-			statusColor = MUTED;
-		}
-		p.add(infoRow("Status", status, null, statusColor));
 
 		int kc = plugin.rungKc(r);
 		String kcText = String.valueOf(kc) + (r.log.expectedKc != null && r.log.expectedKc > 0 ? " (expected: ~" + r.log.expectedKc + ")" : "");

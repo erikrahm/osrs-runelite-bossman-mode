@@ -842,6 +842,11 @@ public class BossmanPanel extends PluginPanel
 			List<Integer> ids = (List<Integer>) row.getClientProperty(ROW_IDS);
 			BossmanData.Rung r = (BossmanData.Rung) row.getClientProperty(ROW_RUNG);
 			removeAll();
+			// Open Wiki is always the first entry, whatever else the row offers
+			javax.swing.JMenuItem wiki = new javax.swing.JMenuItem("Open Wiki");
+			wiki.setFont(FontManager.getRunescapeSmallFont());
+			wiki.addActionListener(e -> net.runelite.client.util.LinkBrowser.browse(itemWikiUrl(item, ids)));
+			add(wiki);
 			if (r != null && Boolean.TRUE.equals(row.getClientProperty(ROW_BACKLOGABLE)))
 			{
 				boolean bl = rules.isBacklogged(r, item);
@@ -853,20 +858,16 @@ public class BossmanPanel extends PluginPanel
 			Integer relockId = (Integer) row.getClientProperty(ROW_RELOCK);
 			if (relockId != null)
 			{
-				javax.swing.JMenuItem relock = new javax.swing.JMenuItem("Re-lock (unlocked by mistake)");
+				javax.swing.JMenuItem relock = new javax.swing.JMenuItem("Re-lock");
 				relock.setFont(FontManager.getRunescapeSmallFont());
 				relock.addActionListener(e -> plugin.relock(relockId));
 				add(relock);
 			}
-			javax.swing.JMenuItem wiki = new javax.swing.JMenuItem("Open Wiki");
-			wiki.setFont(FontManager.getRunescapeSmallFont());
-			wiki.addActionListener(e -> net.runelite.client.util.LinkBrowser.browse(itemWikiUrl(item, ids)));
-			add(wiki);
 			super.show(invoker, x, y);
 		}
 	};
 
-	/** Backlog toggle (only while the item is still locked and gating) plus the wiki link. */
+	/** The wiki link plus the backlog toggle (only while the item is still locked and gating). */
 	private void attachMenu(JPanel row, BossmanData.Rung r, String item, List<Integer> ids, boolean have, boolean backlogable)
 	{
 		row.putClientProperty(ROW_RUNG, r);

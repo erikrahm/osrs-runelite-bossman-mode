@@ -533,6 +533,10 @@ public class BossmanPanel extends PluginPanel
 				{
 					attachMenu(row, r, d.item, d.ids, false, true);
 				}
+				else
+				{
+					attachWikiMenu(row, d.item, d.ids);
+				}
 				p.add(row);
 			}
 		}
@@ -559,6 +563,52 @@ public class BossmanPanel extends PluginPanel
 		ob.setFont(FontManager.getRunescapeSmallFont());
 		ob.addActionListener(e -> plugin.markObtained(r, item, ids, !have));
 		menu.add(ob);
+		menu.add(wikiItem(item, ids));
+		installMenu(row, menu);
+	}
+
+	/** Right-click with only "Open wiki" (unlock / still-locked rows). */
+	private void attachWikiMenu(JPanel row, String item, List<Integer> ids)
+	{
+		javax.swing.JPopupMenu menu = new javax.swing.JPopupMenu();
+		menu.add(wikiItem(item, ids));
+		installMenu(row, menu);
+	}
+
+	private javax.swing.JMenuItem wikiItem(String item, List<Integer> ids)
+	{
+		javax.swing.JMenuItem wiki = new javax.swing.JMenuItem("Open wiki");
+		wiki.setFont(FontManager.getRunescapeSmallFont());
+		wiki.addActionListener(e ->
+		{
+			String url;
+			if (ids != null && !ids.isEmpty())
+			{
+				url = "https://oldschool.runescape.wiki/w/Special:Lookup?type=item&id=" + ids.get(0) + "&name=" + urlEncode(item);
+			}
+			else
+			{
+				url = "https://oldschool.runescape.wiki/w/" + urlEncode(item.replace(' ', '_'));
+			}
+			net.runelite.client.util.LinkBrowser.browse(url);
+		});
+		return wiki;
+	}
+
+	private static String urlEncode(String s)
+	{
+		try
+		{
+			return java.net.URLEncoder.encode(s, "UTF-8");
+		}
+		catch (java.io.UnsupportedEncodingException e)
+		{
+			return s;
+		}
+	}
+
+	private void installMenu(JPanel row, javax.swing.JPopupMenu menu)
+	{
 		row.setComponentPopupMenu(menu);
 		for (java.awt.Component c : row.getComponents())
 		{
@@ -577,7 +627,6 @@ public class BossmanPanel extends PluginPanel
 				}
 			}
 		}
-		row.setToolTipText("Right-click for options");
 	}
 
 	private JPanel logRow(List<Integer> ids, String title, String sub, Color titleColor, Color subColor)
@@ -666,8 +715,10 @@ public class BossmanPanel extends PluginPanel
 		for (Ledger.Entry en : mine)
 		{
 			String rate = rateFor(r, en.itemId);
-			p.add(logRow(java.util.Collections.singletonList(en.itemId), "[x] " + en.name,
-				(rate != null ? "Drop rate: " + rate + " - " : "") + "KC " + (en.kc != null ? en.kc : "?"), OK, MUTED));
+			JPanel row = logRow(java.util.Collections.singletonList(en.itemId), "[x] " + en.name,
+				(rate != null ? "Drop rate: " + rate + " - " : "") + "KC " + (en.kc != null ? en.kc : "?"), OK, MUTED);
+			attachWikiMenu(row, en.name, java.util.Collections.singletonList(en.itemId));
+			p.add(row);
 		}
 		if (!locked.isEmpty())
 		{
@@ -686,7 +737,9 @@ public class BossmanPanel extends PluginPanel
 					p.add(label("... and " + (locked.size() - MAX_LOCKED_SHOWN) + " more", MUTED));
 					break;
 				}
-				p.add(logRow(d.ids, "[ ] " + d.item, "Drop rate: " + d.rate, Color.WHITE, MUTED));
+				JPanel row = logRow(d.ids, "[ ] " + d.item, "Drop rate: " + d.rate, Color.WHITE, MUTED);
+				attachWikiMenu(row, d.item, d.ids);
+				p.add(row);
 			}
 		}
 		return p;

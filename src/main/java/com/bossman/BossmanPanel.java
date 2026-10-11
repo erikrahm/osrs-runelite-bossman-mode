@@ -36,6 +36,7 @@ public class BossmanPanel extends PluginPanel
 	private static final Color WARN = new Color(255, 200, 80);
 	private static final Color BAD = new Color(220, 90, 90);
 	private static final Color MUTED = new Color(160, 160, 160);
+	private static final Color TRACK = new Color(38, 38, 38);
 	private static final int MAX_LOCKED_SHOWN = 40;
 
 	private final BossmanModePlugin plugin;
@@ -309,7 +310,36 @@ public class BossmanPanel extends PluginPanel
 			bar.setStringPainted(true);
 			bar.setString(have + "/" + need + " gating items");
 			bar.setForeground(have == need ? OK : WARN);
-			bar.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+			bar.setBackground(TRACK);                 // visible track so an empty bar still reads as a bar
+			bar.setBorderPainted(true);
+			bar.setBorder(BorderFactory.createLineBorder(new Color(70, 70, 70)));
+			bar.setUI(new javax.swing.plaf.basic.BasicProgressBarUI()
+			{
+				@Override
+				protected Color getSelectionBackground()
+				{
+					return Color.WHITE;   // text over the empty track
+				}
+
+				@Override
+				protected Color getSelectionForeground()
+				{
+					return Color.BLACK;   // text over the filled part
+				}
+
+				@Override
+				protected void paintDeterminate(java.awt.Graphics g, javax.swing.JComponent c)
+				{
+					super.paintDeterminate(g, c);
+					if (progressBar.getValue() == 0)
+					{
+						// a sliver at zero so the fill colour is visible at a glance
+						java.awt.Insets b = progressBar.getInsets();
+						g.setColor(progressBar.getForeground());
+						g.fillRect(b.left, b.top, 3, progressBar.getHeight() - b.top - b.bottom);
+					}
+				}
+			});
 			bar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 18));
 			bar.setAlignmentX(LEFT_ALIGNMENT);
 			p.add(Box.createVerticalStrut(5));

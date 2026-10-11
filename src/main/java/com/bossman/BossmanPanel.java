@@ -479,7 +479,7 @@ public class BossmanPanel extends PluginPanel
 			any = true;
 			boolean have = plugin.isLogItemUnlocked(gi);
 			boolean bl = plugin.isBacklogged(r, gi.item);
-			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate: " + gi.rate + (bl && !have ? " - in backlog" : ""),
+			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate + (bl && !have ? " - in backlog" : ""),
 				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
 			attachMenu(row, r, gi.item, gi.ids, have, true);
 			p.add(row);
@@ -492,13 +492,13 @@ public class BossmanPanel extends PluginPanel
 			JPanel row;
 			if (plugin.isDebtItemGating(d))
 			{
-				row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate: " + d.rate + (plugin.isJar(d) ? " - jar, gating" : " - pet, gating") + (bl && !have ? " - in backlog" : ""),
+				row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + (plugin.isJar(d) ? " - jar, gating" : " - pet, gating") + (bl && !have ? " - in backlog" : ""),
 					have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
 			}
 			else
 			{
 				String note = have ? "obtained" : (kc >= d.debtAtKc ? "in backlog since KC " + d.debtAtKc : "not gating - backlog at KC " + d.debtAtKc);
-				row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop rate: " + d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED);
+				row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + " - " + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED);
 			}
 			attachMenu(row, r, d.item, d.ids, have, plugin.isDebtItemGating(d));
 			p.add(row);
@@ -530,7 +530,7 @@ public class BossmanPanel extends PluginPanel
 		for (BossmanData.GatingItem gi : memes)
 		{
 			boolean have = plugin.isLogItemUnlocked(gi);
-			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop rate: " + gi.rate, have ? OK : MUTED, MUTED);
+			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate, have ? OK : MUTED, MUTED);
 			attachMenu(row, r, gi.item, gi.ids, have, false);
 			p.add(row);
 		}
@@ -549,7 +549,7 @@ public class BossmanPanel extends PluginPanel
 			if (plugin.isBacklogged(r, gi.item) && !plugin.isLogItemUnlocked(gi))
 			{
 				any = true;
-				JPanel row = logRow(gi.ids, gi.item, "Drop rate: " + gi.rate + " - moved here by hand", BAD, MUTED);
+				JPanel row = logRow(gi.ids, gi.item, "Drop Rate: " + gi.rate + " - moved here by hand", BAD, MUTED);
 				attachMenu(row, r, gi.item, gi.ids, false, true);
 				p.add(row);
 			}
@@ -565,7 +565,7 @@ public class BossmanPanel extends PluginPanel
 			if (manual || auto)
 			{
 				any = true;
-				JPanel row = logRow(d.ids, d.item, "Drop rate: " + d.rate + (manual ? " - moved here by hand" : " - since KC " + d.debtAtKc), BAD, MUTED);
+				JPanel row = logRow(d.ids, d.item, "Drop Rate: " + d.rate + (manual ? " - moved here by hand" : " - since KC " + d.debtAtKc), BAD, MUTED);
 				if (manual)
 				{
 					attachMenu(row, r, d.item, d.ids, false, true);
@@ -766,7 +766,7 @@ public class BossmanPanel extends PluginPanel
 		{
 			String rate = rateFor(r, en.itemId);
 			JPanel row = logRow(java.util.Collections.singletonList(en.itemId), "[x] " + en.name,
-				(rate != null ? "Drop rate: " + rate + " - " : "") + "KC " + (en.kc != null ? en.kc : "?"), OK, MUTED);
+				(rate != null ? "Drop Rate: " + rate + " - " : "") + "KC " + (en.kc != null ? en.kc : "?"), OK, MUTED);
 			attachWikiMenu(row, en.name, java.util.Collections.singletonList(en.itemId));
 			p.add(row);
 		}
@@ -787,7 +787,7 @@ public class BossmanPanel extends PluginPanel
 					p.add(label("... and " + (locked.size() - MAX_LOCKED_SHOWN) + " more", MUTED));
 					break;
 				}
-				JPanel row = logRow(d.ids, "[ ] " + d.item, "Drop rate: " + d.rate, Color.WHITE, MUTED);
+				JPanel row = logRow(d.ids, "[ ] " + d.item, "Drop Rate: " + d.rate, Color.WHITE, MUTED);
 				attachWikiMenu(row, d.item, d.ids);
 				p.add(row);
 			}

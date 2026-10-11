@@ -33,16 +33,6 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-task createProperties(dependsOn: processResources) {
-    doLast {
-        def bronzeFile = layout.buildDirectory.file("resources/main/bossmanmode_version.txt").get().asFile
-        bronzeFile.text = "version=$project.version"
-    }
-}
-
-classes {
-    dependsOn createProperties
-}
 // Launches a RuneLite client with this plugin loaded (same as running BossmanModePluginTest from an IDE).
 task runClient(type: JavaExec, dependsOn: testClasses) {
     group = 'application'

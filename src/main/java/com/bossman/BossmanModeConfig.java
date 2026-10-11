@@ -25,6 +25,9 @@ public interface BossmanModeConfig extends Config
 	@ConfigSection(name = "Display", description = "Popups, overlays and chat", position = 3)
 	String displaySection = "display";
 
+	@ConfigSection(name = "Advanced", description = "Destructive commands", position = 4, closedByDefault = true)
+	String advancedSection = "advanced";
+
 	@ConfigItem(keyName = "extraSources", name = "Extra unlock sources", position = 0, section = unlocksSection,
 		description = "Comma-separated NPC or loot-tracker event names that may unlock items, in addition to the bundled boss list (e.g. a boss released after this version).")
 	default String extraSources()
@@ -47,7 +50,7 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "receiptRules", name = "Completion-reward unlocks", position = 3, section = unlocksSection,
-		description = "Unlock Fire/Infernal cape + Tokkul on receipt, and anything received in the Gauntlet lobby (the Gauntlet chest is not a tracked loot source).")
+		description = "Unlock the Fire and Infernal cape on receipt (with the Tokkul that comes with them), and anything received in the Gauntlet lobby (the Gauntlet chest is not a tracked loot source). Bank withdrawals and items you take off don't count.")
 	default boolean receiptRules()
 	{
 		return true;
@@ -61,15 +64,15 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "unlockBond", name = "Bonds are always unlocked", position = 5, section = unlocksSection,
-		description = "Keep Old School bonds unlocked so membership can be bought.")
+		description = "Old School bonds are usable without a boss drop, so membership can be bought. Takes effect immediately either way.")
 	default boolean unlockBond()
 	{
 		return true;
 	}
 
-	@net.runelite.client.config.Range(min = 1)
+	@net.runelite.client.config.Range(min = 2)
 	@ConfigItem(keyName = "memeThreshold", name = "Meme-grind threshold", position = 0, section = ladderSection,
-		description = "Collection-log items rarer than 1 in this many kills are 'meme grinds': shown in the log but optional, so they never block the next boss. Pets and jars are handled separately (backlog).")
+		description = "Collection-log items at 1 in this many kills or rarer are 'meme grinds': shown in the log but optional, so they never block the next boss. Pets and jars are handled separately (backlog).")
 	default int memeThreshold()
 	{
 		return 5000;
@@ -96,7 +99,7 @@ public interface BossmanModeConfig extends Config
 		return false;
 	}
 
-	@ConfigItem(keyName = "restrictGeBuy", name = "Hide locked items in GE search", position = 0, section = restrictionsSection,
+	@ConfigItem(keyName = "restrictGeBuy", name = "Grey out locked items in GE search", position = 0, section = restrictionsSection,
 		description = "Locked items are greyed out and unclickable in the Grand Exchange search results.")
 	default boolean restrictGeBuy()
 	{
@@ -160,7 +163,7 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "screenshotUnlock", name = "Screenshot unlocks", position = 3, section = displaySection,
-		description = "Take a screenshot whenever a new item is unlocked.")
+		description = "Take a screenshot whenever a new item is unlocked: as its banner ends when the popup is on, right away (one per loot) when it's off.")
 	default boolean screenshotUnlock()
 	{
 		return false;
@@ -187,8 +190,8 @@ public interface BossmanModeConfig extends Config
 		return false;
 	}
 
-	@ConfigItem(keyName = "resetCommand", name = "Enable !bmreset", position = 7, section = displaySection,
-		description = "Enables the !bmreset chat command, which wipes the ledger (unlocks, KC, backlog, manual completions).")
+	@ConfigItem(keyName = "resetCommand", name = "Enable !bmreset", position = 0, section = advancedSection,
+		description = "Enables the !bmreset chat command, which wipes the ledger (unlocks, KC, backlog, manual completions). A backup is saved first; if it can't be, nothing is wiped.")
 	default boolean resetCommand()
 	{
 		return false;

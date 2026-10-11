@@ -48,13 +48,24 @@ public class BossmanData
 		public Map<String, AccessGroup> groups = new HashMap<>();
 	}
 
+	/**
+	 * Items that unlock the moment they enter the inventory. Both conditions must hold when both are given: one of
+	 * {@code itemIds}, gained inside one of {@code regions}. {@code companions} unlock only when gained within a few
+	 * ticks of a match (Tokkul comes with the Fire cape, but is also sold and dropped all over Mor Ul Rek).
+	 */
 	public static class ReceiptRule
 	{
 		public String name;
 		@SerializedName("item_ids")
 		public List<Integer> itemIds;
 		public List<Integer> regions;
+		public List<Integer> companions;
 		public String note;
+
+		public boolean matches(int itemId, int region)
+		{
+			return (itemIds == null || itemIds.contains(itemId)) && (regions == null || regions.contains(region));
+		}
 	}
 
 	public static class Sources
@@ -68,6 +79,12 @@ public class BossmanData
 		/** shop item pack id → the item ids inside it; a pack is allowed when all of its contents are */
 		@SerializedName("item_packs")
 		public Map<Integer, List<Integer>> itemPacks = new HashMap<>();
+		/** name in a "Your X kill count is" message (lower case) → the source it counts, where they differ */
+		@SerializedName("kc_aliases")
+		public Map<String, String> kcAliases = new HashMap<>();
+		/** sources whose loot events don't map one-to-one to kills (Maggot King's eggs, Doom's delve levels): KC from chat only */
+		@SerializedName("kc_chat_only")
+		public Set<String> kcChatOnly = new HashSet<>();
 	}
 
 	public static class GatingItem
@@ -75,8 +92,12 @@ public class BossmanData
 		public String item;
 		public List<Integer> ids = new ArrayList<>();
 		public String rate;
-		/** 1/denominator per kill; items at or above the configured meme threshold do not gate the ladder */
+		/** 1/denominator per kill (null: unknown or not a flat rate); items at or above the meme threshold do not gate the ladder */
 		public Integer denominator;
+		/** never gates, whatever its rate: mode-locked (Challenge/Hard Mode, high invocation) or a KC-milestone reward */
+		public boolean optional;
+		/** why it is optional, for the panel */
+		public String note;
 	}
 
 	public static class DebtItem
@@ -84,8 +105,9 @@ public class BossmanData
 		public String item;
 		public List<Integer> ids = new ArrayList<>();
 		public String rate;
+		/** KC at which the pet/jar is "owed" (null when the rate is unknown) */
 		@SerializedName("debt_at_kc")
-		public int debtAtKc;
+		public Integer debtAtKc;
 	}
 
 	public static class MemeItem
@@ -156,6 +178,9 @@ public class BossmanData
 		public boolean blocking;
 		public String completion;
 		public List<String> sources = new ArrayList<>();
+		/** the one source whose KC is the rung's (e.g. Lunar Chest for the Moons); null: the sum of all sources */
+		@SerializedName("kc_source")
+		public String kcSource;
 		@SerializedName("clog_tab")
 		public String clogTab;
 		public RungLog log = new RungLog();
@@ -181,10 +206,13 @@ public class BossmanData
 
 	/** item id → "tool" / "access" */
 	private final Map<Integer, String> freeItems = new HashMap<>();
-	/** lower-cased NPC name → name as written in the bundled list (the key KC is tracked under) */
-	private final Map<String, String> npcSources = new HashMap<>();
-	/** loot-tracker event names (exact) that may unlock items */
-	private final Set<String> eventSources = new HashSet<>();
+	/**
+	 * lower-cased NPC name → name as written in the bundled list (the key KC is tracked under). Replaced whole, never
+	 * edited, when the extra-sources config changes: the client thread reads it while the config panel writes.
+	 */
+	private volatile Map<String, String> npcSources = Collections.emptyMap();
+	/** loot-tracker event names (exact) that may unlock items; replaced whole like npcSources */
+	private volatile Set<String> eventSources = Collections.emptySet();
 	/** the user's "extra sources" config, kept so the source sets can be rebuilt without re-reading the bundled files */
 	private String extraSources = "";
 
@@ -231,22 +259,24 @@ public class BossmanData
 
 	private void rebuildSources()
 	{
-		npcSources.clear();
-		eventSources.clear();
+		Map<String, String> npcs = new HashMap<>();
+		Set<String> events = new HashSet<>();
 		for (String n : sources.npcNames)
 		{
-			npcSources.put(n.toLowerCase(Locale.ROOT), n);
+			npcs.put(n.toLowerCase(Locale.ROOT), n);
 		}
-		eventSources.addAll(sources.lootTrackerEvents.keySet());
+		events.addAll(sources.lootTrackerEvents.keySet());
 		for (String s : extraSources.split(","))
 		{
 			String t = s.trim();
 			if (!t.isEmpty())
 			{
-				npcSources.putIfAbsent(t.toLowerCase(Locale.ROOT), t);
-				eventSources.add(t);
+				npcs.putIfAbsent(t.toLowerCase(Locale.ROOT), t);
+				events.add(t);
 			}
 		}
+		npcSources = Collections.unmodifiableMap(npcs);
+		eventSources = Collections.unmodifiableSet(events);
 	}
 
 	public boolean isNpcSource(String npcName)
@@ -258,6 +288,47 @@ public class BossmanData
 	public String canonicalNpcName(String npcName)
 	{
 		return npcName == null ? null : npcSources.get(npcName.toLowerCase(Locale.ROOT));
+	}
+
+	/**
+	 * The source a name refers to, however the game spells it: an NPC or event name in any case, the same without
+	 * a leading "The" ("Nightmare" → "The Nightmare"), or a bundled alias ("Gauntlet" → "Crystalline Hunllef").
+	 * Null if it isn't a source.
+	 */
+	public String canonicalSource(String name)
+	{
+		if (name == null)
+		{
+			return null;
+		}
+		String low = name.trim().toLowerCase(Locale.ROOT);
+		String alias = sources.kcAliases.get(low);
+		if (alias != null)
+		{
+			return alias;
+		}
+		String npc = npcSources.get(low);
+		if (npc == null)
+		{
+			npc = npcSources.get("the " + low);
+		}
+		if (npc != null)
+		{
+			return npc;
+		}
+		for (String e : eventSources)
+		{
+			if (e.equalsIgnoreCase(low))
+			{
+				return e;
+			}
+		}
+		return null;
+	}
+
+	public boolean isKcChatOnly(String source)
+	{
+		return sources.kcChatOnly.contains(source);
 	}
 
 	public boolean isEventSource(String eventName)

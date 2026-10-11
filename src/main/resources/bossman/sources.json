@@ -222,26 +222,39 @@
   {
    "name": "TzHaar Fight Cave",
    "item_ids": [
-    6570,
+    6570
+   ],
+   "companions": [
     6529
    ],
-   "note": "Fire cape + Tokkul completion reward"
+   "note": "Fire cape, and the Tokkul that comes with it"
   },
   {
    "name": "Inferno",
    "item_ids": [
-    21295,
+    21295
+   ],
+   "companions": [
     6529
    ],
-   "note": "Infernal cape + Tokkul completion reward"
+   "note": "Infernal cape, and the Tokkul that comes with it"
   },
   {
    "name": "The Gauntlet",
    "regions": [
     12127
    ],
-   "note": "Gauntlet reward chest is untracked by the loot tracker: any inventory gain in the Gauntlet lobby region unlocks"
+   "note": "Gauntlet reward chest (untracked by the loot tracker): anything gained in the lobby, except bank withdrawals and unequipped items"
   }
  ],
- "note": "Any LootReceived/NpcLootReceived whose source is not listed here never unlocks (Slayer drops, clue caskets, sea loot, shops, skilling)."
+ "note": "Any LootReceived/NpcLootReceived whose source is not listed here never unlocks (Slayer drops, clue caskets, sea loot, shops, skilling).",
+ "kc_aliases": {
+  "gauntlet": "Crystalline Hunllef",
+  "corrupted gauntlet": "Corrupted Hunllef",
+  "grotesque guardians": "Dusk"
+ },
+ "kc_chat_only": [
+  "Maggot King",
+  "Doom of Mokhaiotl"
+ ]
 }

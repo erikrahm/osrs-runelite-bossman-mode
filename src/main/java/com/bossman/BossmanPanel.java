@@ -50,6 +50,15 @@ public class BossmanPanel extends PluginPanel
 	private Integer browsing;
 	/** Index of the current boss at the last refresh; when it moves forward we stay on the finished boss instead of auto-paging. */
 	private Integer lastCurrentIdx;
+	/** the ledger shown at the last refresh: a new one (login, account switch) starts over at the current boss */
+	private Ledger lastLedger;
+	/** the rung shown at the last refresh; showing another one scrolls back to the top */
+	private int lastShownIdx = -1;
+	/** a refresh was asked for while the panel was hidden (or a menu was open); done when it can be */
+	private boolean dirty;
+	private javax.swing.JScrollPane scrollPane;
+	/** item icons, held here so a rebuild doesn't refetch them (the shared item-image cache is small) */
+	private final java.util.Map<Integer, AsyncBufferedImage> images = new java.util.HashMap<>();
 
 	@Inject
 	public BossmanPanel(BossmanModePlugin plugin, ItemManager itemManager, SkillIconManager skillIconManager)
@@ -118,6 +127,7 @@ public class BossmanPanel extends PluginPanel
 		JPanel outer = new JPanel(new BorderLayout());
 		outer.setBackground(ColorScheme.DARK_GRAY_COLOR);
 		javax.swing.JScrollPane scroll = new javax.swing.JScrollPane(inner);
+		scrollPane = scroll;
 		scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setBorder(null);
 		scroll.setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -126,8 +136,22 @@ public class BossmanPanel extends PluginPanel
 		return outer;
 	}
 
+	/** Rebuild the panel. Swing thread. Skipped (and done on next show) while the panel is hidden or a menu is open. */
 	public void refresh()
 	{
+		if (!isShowing() || pickerOpen || javax.swing.MenuSelectionManager.defaultManager().getSelectedPath().length > 0)
+		{
+			dirty = true;
+			if (isShowing())
+			{
+				// a menu is open: rebuilding now would close it under the player's cursor
+				javax.swing.Timer t = new javax.swing.Timer(500, e -> refreshIfDirty());
+				t.setRepeats(false);
+				t.start();
+			}
+			return;
+		}
+		dirty = false;
 		try
 		{
 			refreshInner();
@@ -135,12 +159,49 @@ public class BossmanPanel extends PluginPanel
 		catch (Exception e)
 		{
 			log.warn("panel refresh failed (browsing={})", browsing, e);
+			body.removeAll();
+			body.add(label("Panel error - see the RuneLite log.", BAD));
+			revalidate();
+			repaint();
 		}
+	}
+
+	private void refreshIfDirty()
+	{
+		if (dirty)
+		{
+			refresh();
+		}
+	}
+
+	/** The boss picker's list is open. */
+	private boolean pickerOpen;
+
+	@Override
+	public void onActivate()
+	{
+		refreshIfDirty();
 	}
 
 	private void refreshInner()
 	{
 		body.removeAll();
+		Ledger ledger = plugin.getLedger();
+		if (ledger != lastLedger)
+		{
+			// login or account switch: follow the current boss, and don't read the jump from the empty
+			// placeholder ledger (rung 1) to the real one as "a boss was just completed"
+			lastLedger = ledger;
+			lastCurrentIdx = null;
+			browsing = null;
+		}
+		if (ledger.getFile() == null && ledger.getSetAside() == null)
+		{
+			body.add(wrapped("Log in to load your Bossman ledger.", MUTED, 160));
+			revalidate();
+			repaint();
+			return;
+		}
 		BossmanData.Rung current = rules.currentRung();
 		List<BossmanData.Rung> rungs = plugin.getData().orderedRungs();
 		if (rungs.isEmpty())
@@ -178,6 +239,11 @@ public class BossmanPanel extends PluginPanel
 		body.add(Box.createVerticalGlue());
 		revalidate();
 		repaint();
+		if (idx != lastShownIdx && scrollPane != null)
+		{
+			lastShownIdx = idx;
+			javax.swing.SwingUtilities.invokeLater(() -> scrollPane.getVerticalScrollBar().setValue(0));
+		}
 	}
 
 	/** Left-align and stop BoxLayout from stretching a block vertically. */
@@ -264,9 +330,30 @@ public class BossmanPanel extends PluginPanel
 		box.setFocusable(false);
 		box.setMaximumRowCount(16);
 		box.setAlignmentX(LEFT_ALIGNMENT);
-		box.setToolTipText(complete ? "Complete" : (isCurrent ? "In progress" + (r.isFirstKillOnly() ? " - first kill completes it" : "") : "Locked - finish the bosses before it"));
+		box.setToolTipText(complete ? "Complete" : (isCurrent ? "In progress" + (r.isFirstKillOnly() ? " - first kill completes it" : "")
+			: (!r.blocking ? "Side boss - doesn't hold up the ladder" : "Locked - finish the bosses before it")));
 		final int currentIdx = current == null ? rungs.size() - 1 : rungs.indexOf(current);
 		final Color titleColor = complete ? OK : (isCurrent ? WARN : MUTED);
+		box.addPopupMenuListener(new javax.swing.event.PopupMenuListener()
+		{
+			@Override
+			public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent e)
+			{
+				pickerOpen = true;
+			}
+
+			@Override
+			public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent e)
+			{
+				pickerOpen = false;
+			}
+
+			@Override
+			public void popupMenuCanceled(javax.swing.event.PopupMenuEvent e)
+			{
+				pickerOpen = false;
+			}
+		});
 		box.setRenderer(new javax.swing.DefaultListCellRenderer()
 		{
 			@Override
@@ -275,7 +362,8 @@ public class BossmanPanel extends PluginPanel
 				JLabel l = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 				BossmanData.Rung rr = (BossmanData.Rung) value;
 				// list cells come with their index (the model is the rung list in order); the closed box passes -1
-				Color c = index == -1 ? titleColor : (index < currentIdx || current == null ? OK : (index == currentIdx ? WARN : MUTED));
+				// side bosses can sit incomplete before the current one, so ask each rung rather than going by position
+				Color c = index == -1 ? titleColor : (rules.isRungComplete(rr) ? OK : (index == currentIdx ? WARN : MUTED));
 				l.setFont(FontManager.getRunescapeBoldFont());
 				// the closed box has the arrow button on its right; list cells have the scrollbar
 				int boxW = box.getWidth() > 0 ? box.getWidth() : TITLE_WIDTH + 30;
@@ -301,6 +389,7 @@ public class BossmanPanel extends PluginPanel
 			if (sel >= 0 && sel != idx)
 			{
 				browsing = (sel == currentIdx) ? null : sel;
+				pickerOpen = false;   // the pick closes the list
 				refresh();
 			}
 		});
@@ -351,6 +440,22 @@ public class BossmanPanel extends PluginPanel
 			kcRow.setToolTipText("~" + r.log.expectedKc + " is the expected kill count to finish this boss's log (red = past it, going dry)");
 		}
 		p.add(kcRow);
+		// rungs fed by several sources (the three Moons and their chest, the Barrows brothers): each one's own count
+		java.util.Map<String, Integer> bySource = new java.util.LinkedHashMap<>();
+		for (java.util.Map.Entry<String, Integer> en : rules.kcBySource(r).entrySet())
+		{
+			if (plugin.getData().canonicalSource(en.getKey()) != null)
+			{
+				bySource.put(en.getKey(), en.getValue());   // receipt-rule names (The Gauntlet, Inferno) aren't counted
+			}
+		}
+		if (bySource.size() > 1)
+		{
+			for (java.util.Map.Entry<String, Integer> en : bySource.entrySet())
+			{
+				p.add(infoRow("", en.getKey() + ": " + en.getValue(), null, MUTED));
+			}
+		}
 
 		if (r.ca != null && r.ca.tasks > 0)
 		{
@@ -362,7 +467,8 @@ public class BossmanPanel extends PluginPanel
 					done++;
 				}
 			}
-			JPanel caRow = infoRow("Combat Achievements", done + "/" + r.ca.tasks + (rules.isCaGating() ? " (gating)" : ""), null, done == r.ca.tasks ? OK : Color.WHITE);
+			Color caColor = done == r.ca.tasks ? OK : (rules.isCaGating() ? WARN : Color.WHITE);
+			JPanel caRow = infoRow("Combat Achievements", done + "/" + r.ca.tasks + (rules.isCaGating() ? " (gating)" : ""), null, caColor);
 			javax.swing.JPopupMenu caMenu = new javax.swing.JPopupMenu();
 			javax.swing.JMenuItem caWiki = new javax.swing.JMenuItem("Open Wiki (Combat Achievements)");
 			caWiki.setFont(FontManager.getRunescapeSmallFont());
@@ -379,38 +485,15 @@ public class BossmanPanel extends PluginPanel
 			p.add(caRow);
 		}
 
-		int need = 0;
-		int have = 0;
-		for (BossmanData.GatingItem gi : r.log.gatingItems)
-		{
-			if (rules.isMeme(gi) || rules.isBacklogged(r, gi.item))
-			{
-				continue;
-			}
-			need++;
-			if (rules.isLogItemUnlocked(gi))
-			{
-				have++;
-			}
-		}
-		for (BossmanData.DebtItem d : r.log.debtPetsJars)
-		{
-			if (!rules.isDebtItemGating(d) || rules.isBacklogged(r, d.item))
-			{
-				continue;
-			}
-			need++;
-			if (rules.isDebtItemUnlocked(d))
-			{
-				have++;
-			}
-		}
+		LadderRules.Progress progress = rules.progress(r);
+		int need = progress.need;
+		int have = progress.have;
 		if (need > 0)
 		{
 			JProgressBar bar = new JProgressBar(0, need);
 			bar.setValue(have);
 			bar.setStringPainted(true);
-			bar.setString(have + "/" + need + " Gating Items");
+			bar.setString(have + "/" + need + (rules.isCaGating() && r.ca != null && !r.ca.list.isEmpty() ? " Items & Tasks" : " Gating Items"));
 			bar.setForeground(have == need ? OK : WARN);
 			bar.setBackground(TRACK);                 // visible track so an empty bar still reads as a bar
 			bar.setBorderPainted(true);
@@ -509,9 +592,10 @@ public class BossmanPanel extends PluginPanel
 		i.setMaximumSize(new Dimension(18, 16));
 		if (g.itemIds != null && !g.itemIds.isEmpty())
 		{
-			AsyncBufferedImage img = itemManager.getImage(g.itemIds.get(0));
-			img.onLoaded(() -> i.setIcon(new javax.swing.ImageIcon(net.runelite.client.util.ImageUtil.resizeImage(img, 16, 16))));
-			i.setIcon(new javax.swing.ImageIcon(net.runelite.client.util.ImageUtil.resizeImage(img, 16, 16)));
+			AsyncBufferedImage img = image(g.itemIds.get(0));
+			// onLoaded runs on the client thread: hop to Swing to touch the label
+			img.onLoaded(() -> javax.swing.SwingUtilities.invokeLater(() ->
+				i.setIcon(new javax.swing.ImageIcon(net.runelite.client.util.ImageUtil.resizeImage(img, 16, 16)))));
 		}
 		i.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 3));
 		row.add(i);
@@ -523,6 +607,11 @@ public class BossmanPanel extends PluginPanel
 		Dimension pref = row.getPreferredSize();
 		row.setMaximumSize(new Dimension(Integer.MAX_VALUE, pref.height));
 		return row;
+	}
+
+	private AsyncBufferedImage image(int itemId)
+	{
+		return images.computeIfAbsent(itemId, itemManager::getImage);
 	}
 
 	private java.awt.image.BufferedImage skillIcon(String name)
@@ -625,19 +714,22 @@ public class BossmanPanel extends PluginPanel
 				p.add(Box.createVerticalStrut(4));
 			}
 			boolean have = rules.isDebtItemUnlocked(d);
-			String note = have ? "" : (kc >= d.debtAtKc ? " - in backlog since KC " + d.debtAtKc : " - backlog at KC " + d.debtAtKc);
-			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + note, have ? OK : MUTED, kc >= d.debtAtKc && !have ? BAD : MUTED);
+			boolean owed = rules.isDebtOwed(r, d);
+			String note = have || d.debtAtKc == null ? "" : (owed ? " - in backlog since KC " + d.debtAtKc : " - backlog at KC " + d.debtAtKc);
+			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + note, have ? OK : MUTED, owed && !have ? BAD : MUTED);
 			attachMenu(row, r, d.item, d.ids, have, false);
 			p.add(row);
 		}
 		if (!any)
 		{
-			p.add(wrapped("This boss has no collection log; first kill completes it.", MUTED, 160));
+			p.add(wrapped(r.log.gatingItems.isEmpty()
+				? "This boss has no collection log; the first kill completes it."
+				: "Nothing here gates this boss (all optional); the first kill completes it.", MUTED, 160));
 		}
 		return p;
 	}
 
-	/** Items rarer than the configured threshold: shown for completeness, never gating. */
+	/** Items that never gate: rarer than the meme threshold, or optional in the data (mode-locked rewards). */
 	private JPanel memeSection(BossmanData.Rung r)
 	{
 		List<BossmanData.GatingItem> memes = new ArrayList<>();
@@ -653,11 +745,12 @@ public class BossmanPanel extends PluginPanel
 			return null;
 		}
 		JPanel p = card();
-		p.add(sectionTitle("Optional Meme Items"));
+		p.add(sectionTitle("Optional Items"));
 		for (BossmanData.GatingItem gi : memes)
 		{
 			boolean have = rules.isLogItemUnlocked(gi);
-			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate, have ? OK : MUTED, MUTED);
+			String why = gi.optional && gi.note != null ? gi.note : "meme grind";
+			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate + " - " + why, have ? OK : MUTED, MUTED);
 			attachMenu(row, r, gi.item, gi.ids, have, false);
 			p.add(row);
 		}
@@ -669,7 +762,6 @@ public class BossmanPanel extends PluginPanel
 	{
 		JPanel p = card();
 		p.add(sectionTitle("Backlog"));
-		int kc = rules.rungKc(r);
 		boolean any = false;
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
@@ -688,7 +780,7 @@ public class BossmanPanel extends PluginPanel
 				continue;
 			}
 			boolean manual = rules.isBacklogged(r, d.item);
-			boolean auto = !rules.isDebtItemGating(d) && kc >= d.debtAtKc;
+			boolean auto = !rules.isDebtItemGating(d) && rules.isDebtOwed(r, d);
 			if (manual || auto)
 			{
 				any = true;
@@ -846,8 +938,7 @@ public class BossmanPanel extends PluginPanel
 		icon.setPreferredSize(new Dimension(36, 32));
 		if (ids != null && !ids.isEmpty())
 		{
-			AsyncBufferedImage img = itemManager.getImage(ids.get(0));
-			img.addTo(icon);
+			image(ids.get(0)).addTo(icon);
 		}
 		row.add(icon, BorderLayout.WEST);
 		JPanel text = new JPanel();
@@ -922,7 +1013,16 @@ public class BossmanPanel extends PluginPanel
 				locked.add(d);
 			}
 		}
-		p.add(sectionTitle("Unlocks (" + mine.size() + "/" + possible + ")"));
+		// count every drop that's unlocked, wherever it came from, so the two numbers add up to the drop table
+		p.add(sectionTitle("Unlocks (" + (possible - locked.size()) + "/" + possible + ")"));
+		int elsewhere = possible - locked.size();
+		for (BossmanData.Drop d : r.drops)
+		{
+			if (!d.inLog && d.ids.stream().anyMatch(mineIds::contains))
+			{
+				elsewhere--;
+			}
+		}
 		if (mine.isEmpty())
 		{
 			p.add(wrapped("Nothing unlocked from this boss yet.", MUTED, 160));
@@ -936,6 +1036,10 @@ public class BossmanPanel extends PluginPanel
 				(rate != null ? "Drop Rate: " + rate + " - " : "") + "KC " + (en.kc != null ? en.kc : "?"), OK, MUTED);
 			attachWikiMenu(row, en.name, java.util.Collections.singletonList(en.itemId));
 			p.add(row);
+		}
+		if (elsewhere > 0)
+		{
+			p.add(wrapped(elsewhere + " more already unlocked from other sources.", MUTED, 160));
 		}
 		if (!locked.isEmpty())
 		{
@@ -1079,6 +1183,10 @@ public class BossmanPanel extends PluginPanel
 
 	private static String escape(String s)
 	{
+		if (s == null)
+		{
+			return "";
+		}
 		return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
 	}
 }

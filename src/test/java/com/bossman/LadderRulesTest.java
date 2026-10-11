@@ -1,0 +1,272 @@
+package com.bossman;
+
+import com.google.gson.Gson;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class LadderRulesTest
+{
+	private static final int PRAYER_POTION_4 = 2434;
+	private static final int PRAYER_POTION_3 = 139;
+	private static final int PRAYER_POTION_PACK_TEST = 99999;
+
+	private final BossmanData data = new BossmanData();
+	private final Ledger ledger = new Ledger();
+	/** stand-in for ItemVariationMapping: id → its group */
+	private final Map<Integer, Collection<Integer>> groups = new HashMap<>();
+	private boolean petsGate;
+	private boolean caGate;
+	private boolean unlockBond = true;
+	private int memeThreshold = 5000;
+	private LadderRules rules;
+
+	@Before
+	public void setUp()
+	{
+		data.load(new Gson());
+		List<Integer> prayer = Arrays.asList(PRAYER_POTION_4, PRAYER_POTION_3);
+		groups.put(PRAYER_POTION_4, prayer);
+		groups.put(PRAYER_POTION_3, prayer);
+		BossmanModeConfig config = new BossmanModeConfig()
+		{
+			@Override
+			public boolean petsGate()
+			{
+				return petsGate;
+			}
+
+			@Override
+			public boolean caGate()
+			{
+				return caGate;
+			}
+
+			@Override
+			public boolean unlockBond()
+			{
+				return unlockBond;
+			}
+
+			@Override
+			public int memeThreshold()
+			{
+				return memeThreshold;
+			}
+		};
+		rules = new LadderRules(data, config, id -> id, id -> groups.getOrDefault(id, Collections.singletonList(id)), () -> ledger);
+	}
+
+	private BossmanData.Rung rung(String boss)
+	{
+		for (BossmanData.Rung r : data.getLadder().rungs)
+		{
+			if (r.boss.equals(boss))
+			{
+				return r;
+			}
+		}
+		throw new AssertionError("no rung " + boss);
+	}
+
+	private void unlock(int id)
+	{
+		Ledger.Entry e = new Ledger.Entry();
+		e.itemId = id;
+		ledger.unlocks.put(id, e);
+	}
+
+	private void unlockAllGating(BossmanData.Rung r)
+	{
+		for (BossmanData.GatingItem g : r.log.gatingItems)
+		{
+			if (!rules.isMeme(g))
+			{
+				unlock(g.ids.get(0));
+			}
+		}
+	}
+
+	// ------------------------------------------------------------------ items
+
+	@Test
+	public void anotherDoseOfAnUnlockedPotionIsAllowed()
+	{
+		assertFalse(rules.isAllowed(PRAYER_POTION_3));
+		unlock(PRAYER_POTION_4);
+		assertTrue(rules.isAllowed(PRAYER_POTION_3));
+	}
+
+	@Test
+	public void bondFollowsItsSettingBothWays()
+	{
+		assertTrue(rules.isAllowed(BossmanModePlugin.ITEM_BOND));
+		assertEquals("bond", rules.freeKind(BossmanModePlugin.ITEM_BOND));
+		unlockBond = false;
+		assertFalse(rules.isAllowed(BossmanModePlugin.ITEM_BOND));
+	}
+
+	@Test
+	public void aPackIsAllowedOnlyWhenEverythingInItIs()
+	{
+		data.getSources().itemPacks.put(PRAYER_POTION_PACK_TEST, Arrays.asList(PRAYER_POTION_4));
+		assertFalse(rules.isAllowed(PRAYER_POTION_PACK_TEST));
+		unlock(PRAYER_POTION_4);
+		assertTrue(rules.isAllowed(PRAYER_POTION_PACK_TEST));
+	}
+
+	// ------------------------------------------------------------------ rungs
+
+	@Test
+	public void theLadderStartsAtTheFirstBoss()
+	{
+		assertEquals("Brutus", rules.currentRung().boss);
+	}
+
+	@Test
+	public void sideBossesDontHoldUpTheLadder()
+	{
+		// complete everything up to and including Bryophyta (rung 4); Gemstone Crab (rung 5) never drops loot
+		for (BossmanData.Rung r : data.orderedRungs())
+		{
+			if (r.rung > 4)
+			{
+				break;
+			}
+			ledger.manualComplete.add(r.boss);
+		}
+		BossmanData.Rung current = rules.currentRung();
+		assertNotEquals("Gemstone Crab", current.boss);
+		assertNotEquals("The Mimic", current.boss);
+		assertTrue(current.blocking);
+	}
+
+	@Test
+	public void aRungCompletesWhenItsGatingItemsAreIn()
+	{
+		BossmanData.Rung kbd = rung("King Black Dragon");
+		assertFalse(rules.isRungComplete(kbd));
+		unlockAllGating(kbd);
+		assertTrue(rules.isRungComplete(kbd));
+	}
+
+	@Test
+	public void backloggedItemsStopGating()
+	{
+		BossmanData.Rung kbd = rung("King Black Dragon");
+		unlockAllGating(kbd);
+		BossmanData.GatingItem first = kbd.log.gatingItems.stream().filter(g -> !rules.isMeme(g)).findFirst().get();
+		ledger.unlocks.remove(first.ids.get(0));
+		assertFalse(rules.isRungComplete(kbd));
+		ledger.backlog.add(LadderRules.backlogKey(kbd, first.item));
+		assertTrue(rules.isRungComplete(kbd));
+	}
+
+	@Test
+	public void optionalItemsNeverGate()
+	{
+		BossmanData.Rung cox = rung("Chambers of Xeric (raid)");
+		BossmanData.GatingItem dust = cox.log.gatingItems.stream().filter(g -> g.item.equals("Metamorphic dust")).findFirst().get();
+		assertTrue(rules.isMeme(dust));
+		unlockAllGating(cox);
+		assertTrue(rules.isRungComplete(cox));
+	}
+
+	@Test
+	public void theMemeThresholdIsInclusive()
+	{
+		BossmanData.GatingItem g = new BossmanData.GatingItem();
+		g.denominator = 5000;
+		assertTrue(rules.isMeme(g));
+		g.denominator = 4999;
+		assertFalse(rules.isMeme(g));
+	}
+
+	@Test
+	public void petsGateOnlyWhenSwitchedOn()
+	{
+		BossmanData.Rung kbd = rung("King Black Dragon");
+		unlockAllGating(kbd);
+		assertTrue(rules.isRungComplete(kbd));
+		petsGate = true;
+		assertFalse(rules.isRungComplete(kbd));
+		assertEquals(rules.progress(kbd).need - 1, rules.progress(kbd).have);
+	}
+
+	@Test
+	public void combatTasksCountTowardsProgressWhenTheyGate()
+	{
+		BossmanData.Rung kbd = rung("King Black Dragon");
+		int items = rules.progress(kbd).need;
+		caGate = true;
+		assertEquals(items + kbd.ca.list.size(), rules.progress(kbd).need);
+		assertFalse(kbd.ca.list.isEmpty());
+		unlockAllGating(kbd);
+		assertFalse(rules.isRungComplete(kbd));
+		for (BossmanData.CaTask t : kbd.ca.list)
+		{
+			ledger.caDone.add(t.name.toUpperCase());   // matched case-insensitively
+		}
+		assertTrue(rules.isRungComplete(kbd));
+	}
+
+	@Test
+	public void aFirstKillOnlyRungNeedsOneKill()
+	{
+		BossmanData.Rung mimic = rung("The Mimic");
+		assertFalse(rules.isRungComplete(mimic));
+		ledger.setKcFromChat("The Mimic", 1);
+		assertTrue(rules.isRungComplete(mimic));
+	}
+
+	// ------------------------------------------------------------------ KC
+
+	@Test
+	public void theMoonsKcIsTheChestAndEachMoonIsKeptApart()
+	{
+		BossmanData.Rung moons = rung("Blood Moon / Blue Moon / Eclipse Moon");
+		ledger.countLoot("Lunar Chest", 1);
+		ledger.setKcFromChat("Blood Moon", 3);
+		ledger.setKcFromChat("Blue Moon", 2);
+		assertEquals(1, rules.rungKc(moons));
+		Map<String, Integer> by = rules.kcBySource(moons);
+		assertEquals(Integer.valueOf(3), by.get("Blood Moon"));
+		assertEquals(Integer.valueOf(2), by.get("Blue Moon"));
+		assertEquals(Integer.valueOf(0), by.get("Eclipse Moon"));
+	}
+
+	@Test
+	public void multiBossRungsWithoutAKcSourceSumTheirSources()
+	{
+		BossmanData.Rung dks = rung("Dagannoth Kings");
+		ledger.countLoot("Dagannoth Rex", 2);
+		ledger.countLoot("Dagannoth Prime", 1);
+		assertEquals(3, rules.rungKc(dks));
+	}
+
+	@Test
+	public void chatKcIsAuthoritative()
+	{
+		ledger.countLoot("Vorkath", 1);
+		ledger.countLoot("Vorkath", 1);
+		ledger.setKcFromChat("Vorkath", 14);     // the game's own number replaces our count
+		assertEquals(14, ledger.getKc("Vorkath"));
+		assertEquals(14, ledger.countLoot("Vorkath", 1));   // and loot no longer adds to it
+	}
+
+	@Test
+	public void aLadderSpellingThatDiffersStillFindsItsKc()
+	{
+		BossmanData.Rung r = new BossmanData.Rung();
+		r.boss = "test";
+		r.sources = Collections.singletonList("Deranged Archaeologist");
+		ledger.countLoot("Deranged archaeologist", 1);
+		assertEquals(1, rules.rungKc(r));
+	}
+}

@@ -2039,7 +2039,8 @@
      "rate": "1/350",
      "in_log": true
     }
-   ]
+   ],
+   "kc_source": "Barrows"
   },
   {
    "boss": "Bryophyta",
@@ -7815,7 +7816,8 @@
      "rate": "1/5000",
      "in_log": true
     }
-   ]
+   ],
+   "kc_source": "Dusk"
   },
   {
    "boss": "Amoxliatl",
@@ -9739,7 +9741,7 @@
     "expected_kc": 45
    },
    "sources": [
-    "Deranged Archaeologist"
+    "Deranged archaeologist"
    ],
    "clog_tab": "Deranged Archaeologist",
    "ca": {
@@ -18961,7 +18963,8 @@
      "rate": "1/224",
      "in_log": true
     }
-   ]
+   ],
+   "kc_source": "Lunar Chest"
   },
   {
    "boss": "Kalphite Queen",
@@ -21055,21 +21058,63 @@
       ],
       "rate": "1/100",
       "denominator": 100
+     },
+     {
+      "item": "Abyssal whip",
+      "ids": [
+       4151
+      ],
+      "rate": "varies",
+      "denominator": null
+     },
+     {
+      "item": "Abyssal dagger",
+      "ids": [
+       13265
+      ],
+      "rate": "varies",
+      "denominator": null
+     },
+     {
+      "item": "Abyssal head",
+      "ids": [
+       7979
+      ],
+      "rate": "varies",
+      "denominator": null
+     },
+     {
+      "item": "Bludgeon spine",
+      "ids": [
+       13274
+      ],
+      "rate": "varies",
+      "denominator": null
+     },
+     {
+      "item": "Bludgeon claw",
+      "ids": [
+       13275
+      ],
+      "rate": "varies",
+      "denominator": null
+     },
+     {
+      "item": "Bludgeon axon",
+      "ids": [
+       13276
+      ],
+      "rate": "varies",
+      "denominator": null
      }
     ],
     "debt_pets_jars": [],
     "meme_items": [],
     "unmatched_rate": [
-     "Abyssal whip",
-     "Abyssal head",
      "Abyssal orphan",
-     "Abyssal dagger",
-     "Bludgeon spine",
-     "Bludgeon claw",
-     "Bludgeon axon",
      "Jar of Miasma"
     ],
-    "expected_kc": 102
+    "expected_kc": null
    },
    "sources": [
     "Abyssal Sire",
@@ -21940,7 +21985,8 @@
      "rate": "1/37956",
      "in_log": false
     }
-   ]
+   ],
+   "kc_source": "Abyssal Sire"
   },
   {
    "boss": "Revenant maledictus",
@@ -25718,168 +25764,184 @@
        25975,
        27870
       ],
-      "rate": "1/3",
-      "denominator": 3
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Elidinis' ward",
       "ids": [
        25985
       ],
-      "rate": "1/8",
-      "denominator": 8
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Osmumten's fang",
       "ids": [
        26219
       ],
-      "rate": "1/3",
-      "denominator": 3
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Masori mask",
       "ids": [
        27226
       ],
-      "rate": "1/12",
-      "denominator": 12
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Masori body",
       "ids": [
        27229
       ],
-      "rate": "1/12",
-      "denominator": 12
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Masori chaps",
       "ids": [
        27232
       ],
-      "rate": "1/12",
-      "denominator": 12
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Cursed phalanx",
       "ids": [
        27248
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "high-invocation reward"
      },
      {
       "item": "Menaphite ornament kit",
       "ids": [
        27255
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "high-invocation reward"
      },
      {
       "item": "Tumeken's shadow (uncharged)",
       "ids": [
        27277
       ],
-      "rate": "1/24",
-      "denominator": 24
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Thread of Elidinis",
       "ids": [
        27279
       ],
-      "rate": "1/10",
-      "denominator": 10
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Breach of the Scarab",
       "ids": [
        27283
       ],
-      "rate": "1/50",
-      "denominator": 50
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Eye of the Corruptor",
       "ids": [
        27285
       ],
-      "rate": "1/50",
-      "denominator": 50
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Jewel of the Sun",
       "ids": [
        27289
       ],
-      "rate": "1/50",
-      "denominator": 50
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Cache of runes",
       "ids": [
        27293
       ],
-      "rate": "1/9",
-      "denominator": 9
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Masori crafting kit",
       "ids": [
        27372
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "high-invocation reward"
      },
      {
       "item": "Remnant of Akkha",
       "ids": [
        27377
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "high-invocation reward"
      },
      {
       "item": "Remnant of Ba-Ba",
       "ids": [
        27378
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "high-invocation reward"
      },
      {
       "item": "Remnant of Kephri",
       "ids": [
        27379
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "high-invocation reward"
      },
      {
       "item": "Remnant of Zebak",
       "ids": [
        27380
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "high-invocation reward"
      },
      {
       "item": "Ancient remnant",
       "ids": [
        27381
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "high-invocation reward"
      },
      {
       "item": "Jewel of Amascut",
       "ids": [
        30893
       ],
-      "rate": "1/50",
-      "denominator": 50
+      "rate": "varies",
+      "denominator": null
      }
     ],
     "debt_pets_jars": [],
@@ -25892,7 +25954,7 @@
      "Icthlarin's shroud (tier 5)",
      "Tumeken's guardian"
     ],
-    "expected_kc": 107
+    "expected_kc": null
    },
    "sources": [
     "Tombs of Amascut"
@@ -26679,24 +26741,24 @@
        13652,
        20784
       ],
-      "rate": "1/19",
-      "denominator": 19
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Twisted bow",
       "ids": [
        20997
       ],
-      "rate": "1/28",
-      "denominator": 28
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Twisted buckler",
       "ids": [
        21000
       ],
-      "rate": "1/14",
-      "denominator": 14
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Elder maul",
@@ -26704,24 +26766,24 @@
        21003,
        21205
       ],
-      "rate": "1/28",
-      "denominator": 28
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Dragon hunter crossbow",
       "ids": [
        21012
       ],
-      "rate": "1/14",
-      "denominator": 14
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Dinh's bulwark",
       "ids": [
        21015
       ],
-      "rate": "1/19",
-      "denominator": 19
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Ancestral hat",
@@ -26729,8 +26791,8 @@
        21018,
        25518
       ],
-      "rate": "1/14",
-      "denominator": 14
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Ancestral robe top",
@@ -26738,8 +26800,8 @@
        21021,
        27193
       ],
-      "rate": "1/14",
-      "denominator": 14
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Ancestral robe bottom",
@@ -26747,64 +26809,78 @@
        21024,
        27194
       ],
-      "rate": "1/14",
-      "denominator": 14
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Dark relic",
       "ids": [
        21027
       ],
-      "rate": "1/17",
-      "denominator": 17
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Dexterous prayer scroll",
       "ids": [
        21034
       ],
-      "rate": "1/4",
-      "denominator": 4
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Kodai insignia",
       "ids": [
        21043
       ],
-      "rate": "1/28",
-      "denominator": 28
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Torn prayer scroll",
       "ids": [
        21047
       ],
-      "rate": "1/17",
-      "denominator": 17
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Arcane prayer scroll",
       "ids": [
        21079
       ],
-      "rate": "1/4",
-      "denominator": 4
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Metamorphic dust",
       "ids": [
        22386
       ],
-      "rate": "1/400",
-      "denominator": 400
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "Challenge Mode only"
      },
      {
       "item": "Twisted ancestral colour kit",
       "ids": [
        24670
       ],
-      "rate": "1/75",
-      "denominator": 75
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "Challenge Mode only"
+     },
+     {
+      "item": "Onyx",
+      "ids": [
+       6573
+      ],
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "rare, not on the unique table"
      }
     ],
     "debt_pets_jars": [
@@ -26813,20 +26889,19 @@
       "ids": [
        20851
       ],
-      "rate": "1/53",
-      "debt_at_kc": 53
+      "rate": "varies",
+      "debt_at_kc": null
      }
     ],
     "meme_items": [],
     "unmatched_rate": [
-     "Onyx",
      "Xeric's guard",
      "Xeric's warrior",
      "Xeric's sentinel",
      "Xeric's general",
      "Xeric's champion"
     ],
-    "expected_kc": 423
+    "expected_kc": null
    },
    "sources": [
     "Chambers of Xeric"
@@ -27705,6 +27780,15 @@
       ],
       "rate": "1/1",
       "denominator": 1
+     },
+     {
+      "item": "Eye of Ayak",
+      "ids": [
+       31115,
+       31113
+      ],
+      "rate": "varies",
+      "denominator": null
      }
     ],
     "debt_pets_jars": [
@@ -27718,9 +27802,7 @@
      }
     ],
     "meme_items": [],
-    "unmatched_rate": [
-     "Eye of Ayak"
-    ],
+    "unmatched_rate": [],
     "expected_kc": 2952
    },
    "sources": [
@@ -32464,6 +32546,14 @@
       ],
       "rate": "1/2000",
       "denominator": 2000
+     },
+     {
+      "item": "Gauntlet cape",
+      "ids": [
+       23859
+      ],
+      "rate": "completion",
+      "denominator": null
      }
     ],
     "debt_pets_jars": [
@@ -32477,9 +32567,7 @@
      }
     ],
     "meme_items": [],
-    "unmatched_rate": [
-     "Gauntlet cape"
-    ],
+    "unmatched_rate": [],
     "expected_kc": 1953
    },
    "sources": [
@@ -32681,7 +32769,8 @@
      "rate": "1/2000",
      "in_log": true
     }
-   ]
+   ],
+   "kc_source": "Crystalline Hunllef"
   },
   {
    "boss": "TzTok-Jad",
@@ -32698,7 +32787,16 @@
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
-    "gating_items": [],
+    "gating_items": [
+     {
+      "item": "Fire cape",
+      "ids": [
+       6570
+      ],
+      "rate": "completion",
+      "denominator": null
+     }
+    ],
     "debt_pets_jars": [
      {
       "item": "TzRek-Jad",
@@ -32710,9 +32808,7 @@
      }
     ],
     "meme_items": [],
-    "unmatched_rate": [
-     "Fire cape"
-    ],
+    "unmatched_rate": [],
     "expected_kc": 0
    },
    "sources": [
@@ -32805,7 +32901,8 @@
      "rate": "1/200",
      "in_log": true
     }
-   ]
+   ],
+   "kc_source": "TzTok-Jad"
   },
   {
    "boss": "Zulrah",
@@ -42493,6 +42590,14 @@
       ],
       "rate": "1/600",
       "denominator": 600
+     },
+     {
+      "item": "Araxyte venom sac",
+      "ids": [
+       29784
+      ],
+      "rate": "varies",
+      "denominator": null
      }
     ],
     "debt_pets_jars": [
@@ -42515,8 +42620,7 @@
     ],
     "meme_items": [],
     "unmatched_rate": [
-     "Spider cave teleport",
-     "Araxyte venom sac"
+     "Spider cave teleport"
     ],
     "expected_kc": 757
    },
@@ -43087,7 +43191,8 @@
      "rate": "1/800",
      "in_log": true
     }
-   ]
+   ],
+   "kc_source": "Corrupted Hunllef"
   },
   {
    "boss": "Nex",
@@ -44163,32 +44268,32 @@
        22324,
        23628
       ],
-      "rate": "1/9",
-      "denominator": 9
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Justiciar faceguard",
       "ids": [
        22326
       ],
-      "rate": "1/9",
-      "denominator": 9
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Justiciar chestguard",
       "ids": [
        22327
       ],
-      "rate": "1/9",
-      "denominator": 9
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Justiciar legguards",
       "ids": [
        22328
       ],
-      "rate": "1/9",
-      "denominator": 9
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Vial of blood",
@@ -44196,56 +44301,62 @@
        22405,
        22446
       ],
-      "rate": "1/5",
-      "denominator": 5
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Avernic defender hilt",
       "ids": [
        22477
       ],
-      "rate": "1/2",
-      "denominator": 2
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Sanguinesti staff (uncharged)",
       "ids": [
        22481
       ],
-      "rate": "1/9",
-      "denominator": 9
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Scythe of Vitur (uncharged)",
       "ids": [
        22486
       ],
-      "rate": "1/18",
-      "denominator": 18
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Holy ornament kit",
       "ids": [
        25742
       ],
-      "rate": "1/100",
-      "denominator": 100
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "Hard Mode only"
      },
      {
       "item": "Sanguine ornament kit",
       "ids": [
        25744
       ],
-      "rate": "1/150",
-      "denominator": 150
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "Hard Mode only"
      },
      {
       "item": "Sanguine dust",
       "ids": [
        25746
       ],
-      "rate": "1/275",
-      "denominator": 275
+      "rate": "varies",
+      "denominator": null,
+      "optional": true,
+      "note": "Hard Mode only"
      }
     ],
     "debt_pets_jars": [
@@ -44254,8 +44365,8 @@
       "ids": [
        22473
       ],
-      "rate": "1/650",
-      "debt_at_kc": 650
+      "rate": "varies",
+      "debt_at_kc": null
      }
     ],
     "meme_items": [],
@@ -44266,7 +44377,7 @@
      "Sinhaza shroud tier 4",
      "Sinhaza shroud tier 5"
     ],
-    "expected_kc": 351
+    "expected_kc": null
    },
    "sources": [
     "Theatre of Blood"
@@ -45184,40 +45295,40 @@
       "ids": [
        30750
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Oathplate chest",
       "ids": [
        30753
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Oathplate legs",
       "ids": [
        30756
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Soulflame horn",
       "ids": [
        30759
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Oathplate shards",
       "ids": [
        30765
       ],
-      "rate": "1/1",
-      "denominator": 1
+      "rate": "varies",
+      "denominator": null
      },
      {
       "item": "Forgotten lockbox",
@@ -45230,8 +45341,7 @@
      {
       "item": "Dossier",
       "ids": [
-       9589,
-       9590
+       30803
       ],
       "rate": "1/12",
       "denominator": 12
@@ -45252,15 +45362,15 @@
       "ids": [
        30888
       ],
-      "rate": "1/100",
-      "debt_at_kc": 100
+      "rate": "varies",
+      "debt_at_kc": null
      }
     ],
     "meme_items": [],
     "unmatched_rate": [
      "Rite of vile transference"
     ],
-    "expected_kc": 47
+    "expected_kc": null
    },
    "sources": [
     "Yama"
@@ -45905,7 +46015,16 @@
    "blocking": true,
    "completion": "collection log complete (ex pets/jars/meme)",
    "log": {
-    "gating_items": [],
+    "gating_items": [
+     {
+      "item": "Infernal cape",
+      "ids": [
+       21295
+      ],
+      "rate": "completion",
+      "denominator": null
+     }
+    ],
     "debt_pets_jars": [
      {
       "item": "Jal-Nib-Rek",
@@ -45917,9 +46036,7 @@
      }
     ],
     "meme_items": [],
-    "unmatched_rate": [
-     "Infernal cape"
-    ],
+    "unmatched_rate": [],
     "expected_kc": 0
    },
    "sources": [
@@ -46026,7 +46143,8 @@
      "rate": "1/100",
      "in_log": true
     }
-   ]
+   ],
+   "kc_source": "TzKal-Zuk"
   },
   {
    "boss": "Sol Heredit",
@@ -46099,6 +46217,14 @@
       ],
       "rate": "1/36",
       "denominator": 36
+     },
+     {
+      "item": "Dizana's quiver (uncharged)",
+      "ids": [
+       28947
+      ],
+      "rate": "completion",
+      "denominator": null
      }
     ],
     "debt_pets_jars": [
@@ -46112,9 +46238,7 @@
      }
     ],
     "meme_items": [],
-    "unmatched_rate": [
-     "Dizana's quiver (uncharged)"
-    ],
+    "unmatched_rate": [],
     "expected_kc": 229
    },
    "sources": [
@@ -46349,7 +46473,8 @@
      "rate": "1/200",
      "in_log": true
     }
-   ]
+   ],
+   "kc_source": "Sol Heredit"
   },
   {
    "boss": "Tempoross",
@@ -46425,6 +46550,38 @@
       ],
       "rate": "1/4",
       "denominator": 4
+     },
+     {
+      "item": "Spirit angler headband",
+      "ids": [
+       25592
+      ],
+      "rate": "varies",
+      "denominator": null
+     },
+     {
+      "item": "Spirit angler top",
+      "ids": [
+       25594
+      ],
+      "rate": "varies",
+      "denominator": null
+     },
+     {
+      "item": "Spirit angler waders",
+      "ids": [
+       25596
+      ],
+      "rate": "varies",
+      "denominator": null
+     },
+     {
+      "item": "Spirit angler boots",
+      "ids": [
+       25598
+      ],
+      "rate": "varies",
+      "denominator": null
      }
     ],
     "debt_pets_jars": [
@@ -46438,12 +46595,7 @@
      }
     ],
     "meme_items": [],
-    "unmatched_rate": [
-     "Spirit angler headband",
-     "Spirit angler top",
-     "Spirit angler waders",
-     "Spirit angler boots"
-    ],
+    "unmatched_rate": [],
     "expected_kc": 2458
    },
    "sources": [

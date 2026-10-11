@@ -8,7 +8,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import javax.inject.Inject;
+import net.runelite.api.ItemComposition;
+import net.runelite.api.gameval.ItemID;
 import net.runelite.api.widgets.WidgetItem;
+import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 
 public class LockedItemOverlay extends WidgetItemOverlay
@@ -20,12 +23,14 @@ public class LockedItemOverlay extends WidgetItemOverlay
 
 	private final BossmanModePlugin plugin;
 	private final BossmanModeConfig config;
+	private final ItemManager itemManager;
 
 	@Inject
-	public LockedItemOverlay(BossmanModePlugin plugin, BossmanModeConfig config)
+	public LockedItemOverlay(BossmanModePlugin plugin, BossmanModeConfig config, ItemManager itemManager)
 	{
 		this.plugin = plugin;
 		this.config = config;
+		this.itemManager = itemManager;
 		showOnInventory();
 		showOnBank();
 		showOnEquipment();
@@ -34,7 +39,7 @@ public class LockedItemOverlay extends WidgetItemOverlay
 	@Override
 	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem widgetItem)
 	{
-		if (itemId <= 1)
+		if (itemId <= 1 || itemId == ItemID.BANK_FILLER)
 		{
 			return;
 		}
@@ -57,9 +62,9 @@ public class LockedItemOverlay extends WidgetItemOverlay
 			}
 			return;
 		}
-		if (!config.dimLocked())
+		if (!config.dimLocked() || isPlaceholder(itemId))
 		{
-			return;
+			return;   // the game already greys a placeholder out
 		}
 		graphics.setColor(DIM);
 		graphics.fillRect(b.x, b.y, b.width, b.height);
@@ -69,5 +74,11 @@ public class LockedItemOverlay extends WidgetItemOverlay
 		int ly = b.y + b.height - 8;
 		graphics.fillRect(lx, ly, 7, 6);
 		graphics.drawRect(lx + 1, ly - 3, 4, 4);
+	}
+
+	private boolean isPlaceholder(int itemId)
+	{
+		ItemComposition comp = itemManager.getItemComposition(itemId);
+		return comp != null && comp.getPlaceholderTemplateId() != -1;
 	}
 }

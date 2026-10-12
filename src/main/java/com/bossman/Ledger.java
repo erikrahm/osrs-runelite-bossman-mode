@@ -1,7 +1,8 @@
 /*
  * Bossman Mode: the unlock ledger. Every unlocked item with its provenance, per-source kill counts, rungs the
  * player marked complete by hand, the backlog and completed combat tasks. Persisted as JSON at the path
- * BossmanModePlugin.ledgerFile() gives (RuneLite/bossman-mode/<world type>-<account hash>/).
+ * BossmanModePlugin.ledgerFile() gives (the plugin's data directory, <world type>-<account hash>/). All file access
+ * goes through RuneLite's Filepath, which keeps it inside that directory.
  *
  * Mutated on the client thread, read on the Swing thread by the panel: every collection is concurrent so
  * a rebuild never trips over a write. Saving is the plugin's job (debounced); this class does the I/O and keeps
@@ -10,14 +11,10 @@
 package com.bossman;
 
 import com.google.gson.Gson;
-import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.AtomicMoveNotSupportedException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,6 +24,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicBoolean;
+import net.runelite.client.util.Filepath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,22 +68,22 @@ public class Ledger
 	 */
 	public Set<String> kcFromChat = ConcurrentHashMap.newKeySet();
 
-	private transient File file;
+	private transient Filepath file;
 	/** set when the file on disk could not be read and was moved aside to this name (the plugin tells the player) */
-	private transient File setAside;
+	private transient Filepath setAside;
 	private final transient AtomicBoolean dirty = new AtomicBoolean();
 
 	/**
 	 * Read the ledger at {@code file}, or start an empty one if there is none. A file that exists but can't be read is
 	 * never overwritten: it is renamed to {@code *.corrupt-<time>} first, so the player's progress can be recovered.
 	 */
-	public static Ledger load(Gson gson, File file)
+	public static Ledger load(Gson gson, Filepath file)
 	{
 		Ledger l = null;
-		File setAside = null;
+		Filepath setAside = null;
 		if (file.exists())
 		{
-			try (Reader r = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8))
+			try (Reader r = file.openBufferedReader())
 			{
 				l = gson.fromJson(r, Ledger.class);
 				if (l != null)
@@ -100,11 +98,15 @@ public class Ledger
 			}
 			if (l == null)
 			{
-				setAside = new File(file.getPath() + ".corrupt-" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
-				if (!file.renameTo(setAside))
+				setAside = file.getParent().joinSegment(file.getFileName() + ".corrupt-" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
+				try
+				{
+					file.moveTo(setAside);
+				}
+				catch (IOException e)
 				{
 					// can't move it out of the way: refuse to save over it this session
-					log.warn("could not set aside unreadable ledger {}", file);
+					log.warn("could not set aside unreadable ledger {}", file, e);
 					Ledger readOnly = new Ledger();
 					readOnly.setAside = file;
 					return readOnly;
@@ -214,26 +216,23 @@ public class Ledger
 		{
 			return true;   // nothing to save to (placeholder before login, or a file we refused to overwrite)
 		}
-		Path tmp = null;
+		Filepath tmp = null;
 		try
 		{
-			File parent = file.getParentFile();
-			if (parent != null && !parent.exists())
-			{
-				parent.mkdirs();
-			}
-			tmp = Files.createTempFile(parent.toPath(), file.getName(), ".tmp");
-			try (Writer w = Files.newBufferedWriter(tmp, StandardCharsets.UTF_8))
+			Filepath parent = file.getParent();
+			parent.createDirectories();
+			tmp = parent.createTempFile(file.getFileName(), ".tmp");
+			try (Writer w = tmp.openBufferedWriter())
 			{
 				gson.toJson(this, w);
 			}
 			try
 			{
-				Files.move(tmp, file.toPath(), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+				tmp.moveTo(file, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
 			}
 			catch (AtomicMoveNotSupportedException e)
 			{
-				Files.move(tmp, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				tmp.moveTo(file, StandardCopyOption.REPLACE_EXISTING);
 			}
 			return true;
 		}
@@ -244,7 +243,7 @@ public class Ledger
 			{
 				try
 				{
-					Files.deleteIfExists(tmp);
+					tmp.deleteIfExists();
 				}
 				catch (IOException ignored)
 				{
@@ -262,22 +261,30 @@ public class Ledger
 	 */
 	public synchronized boolean discard()
 	{
-		if (file != null && file.exists() && !file.delete())
+		if (file != null)
 		{
-			return false;
+			try
+			{
+				file.deleteIfExists();
+			}
+			catch (IOException e)
+			{
+				log.warn("could not delete ledger {}", file, e);
+				return false;
+			}
 		}
 		file = null;
 		dirty.set(false);
 		return true;
 	}
 
-	public File getFile()
+	public Filepath getFile()
 	{
 		return file;
 	}
 
 	/** Where an unreadable ledger file was moved to (or the file itself, if it couldn't be moved), else null. */
-	public File getSetAside()
+	public Filepath getSetAside()
 	{
 		return setAside;
 	}

@@ -5,6 +5,7 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.concurrent.ConcurrentHashMap;
+import net.runelite.client.util.Filepath;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -17,20 +18,31 @@ public class LedgerTest
 
 	private final Gson gson = new Gson();
 
-	private File ledgerFile() throws Exception
+	/** The plugin gets a Filepath from getPluginDirectory(); tests root one at a temporary folder. */
+	private Filepath ledgerFile() throws Exception
 	{
-		return new File(tmp.newFolder("standard-123"), "bossman-mode-ledger.json");
+		return Filepath.Unchecked.getRooted(tmp.newFolder("standard-123").toPath()).joinSegment("bossman-mode-ledger.json");
 	}
 
-	private static String read(File f) throws Exception
+	private static File file(Filepath f)
 	{
-		return new String(Files.readAllBytes(f.toPath()), StandardCharsets.UTF_8);
+		return Filepath.Unchecked.getFile(f);
+	}
+
+	private static String read(Filepath f) throws Exception
+	{
+		return new String(Files.readAllBytes(file(f).toPath()), StandardCharsets.UTF_8);
+	}
+
+	private static void write(Filepath f, String text) throws Exception
+	{
+		Files.write(file(f).toPath(), text.getBytes(StandardCharsets.UTF_8));
 	}
 
 	@Test
 	public void everyFieldSurvivesASaveAndLoad() throws Exception
 	{
-		File f = ledgerFile();
+		Filepath f = ledgerFile();
 		Ledger l = Ledger.load(gson, f);
 		Ledger.Entry e = new Ledger.Entry();
 		e.itemId = 4151;
@@ -61,8 +73,8 @@ public class LedgerTest
 	@Test
 	public void collectionsAreConcurrentAfterLoading() throws Exception
 	{
-		File f = ledgerFile();
-		Files.write(f.toPath(), "{\"unlocks\":{},\"kc\":{},\"backlog\":[\"a|b\"]}".getBytes(StandardCharsets.UTF_8));
+		Filepath f = ledgerFile();
+		write(f, "{\"unlocks\":{},\"kc\":{},\"backlog\":[\"a|b\"]}");
 		Ledger l = Ledger.load(gson, f);
 		assertTrue(l.unlocks instanceof ConcurrentHashMap);   // whatever Gson built
 		assertTrue(l.kc instanceof ConcurrentHashMap);
@@ -73,8 +85,8 @@ public class LedgerTest
 	@Test
 	public void aCorruptFileIsSetAsideNotOverwritten() throws Exception
 	{
-		File f = ledgerFile();
-		Files.write(f.toPath(), "{\"unlocks\": {".getBytes(StandardCharsets.UTF_8));
+		Filepath f = ledgerFile();
+		write(f, "{\"unlocks\": {");
 		Ledger l = Ledger.load(gson, f);
 		assertNotNull(l.getSetAside());
 		assertEquals("{\"unlocks\": {", read(l.getSetAside()));   // the player's bytes are kept
@@ -88,8 +100,8 @@ public class LedgerTest
 	@Test
 	public void nullsInAHandEditedFileAreDropped() throws Exception
 	{
-		File f = ledgerFile();
-		Files.write(f.toPath(), "{\"backlog\":[null,\"a|b\"],\"caDone\":[null],\"kc\":{\"Vorkath\":null}}".getBytes(StandardCharsets.UTF_8));
+		Filepath f = ledgerFile();
+		write(f, "{\"backlog\":[null,\"a|b\"],\"caDone\":[null],\"kc\":{\"Vorkath\":null}}");
 		Ledger l = Ledger.load(gson, f);
 		assertNull(l.getSetAside());
 		assertEquals(1, l.backlog.size());
@@ -101,8 +113,8 @@ public class LedgerTest
 	public void aFileThatCantBeMovedAsideIsNeverWritten() throws Exception
 	{
 		File dir = tmp.newFolder("locked");
-		File f = new File(dir, "bossman-mode-ledger.json");
-		Files.write(f.toPath(), "not json".getBytes(StandardCharsets.UTF_8));
+		Filepath f = Filepath.Unchecked.getRooted(dir.toPath()).joinSegment("bossman-mode-ledger.json");
+		write(f, "not json");
 		assertTrue(dir.setWritable(false));   // no rename possible in a read-only folder
 		try
 		{
@@ -122,7 +134,7 @@ public class LedgerTest
 	@Test
 	public void saveIfDirtyWritesOnlyWhenSomethingChanged() throws Exception
 	{
-		File f = ledgerFile();
+		Filepath f = ledgerFile();
 		Ledger l = Ledger.load(gson, f);
 		assertTrue(l.saveIfDirty(gson));
 		assertFalse(f.exists());
@@ -135,7 +147,7 @@ public class LedgerTest
 	@Test
 	public void discardDeletesAndDetaches() throws Exception
 	{
-		File f = ledgerFile();
+		Filepath f = ledgerFile();
 		Ledger l = Ledger.load(gson, f);
 		assertTrue(l.save(gson));
 		assertTrue(l.discard());

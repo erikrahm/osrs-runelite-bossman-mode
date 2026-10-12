@@ -28,8 +28,7 @@ package com.bossman;
 import com.google.gson.Gson;
 import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.file.Files;
+import java.io.IOException;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,7 +71,6 @@ import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.gameval.ItemID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.Notifier;
-import net.runelite.client.RuneLite;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatCommandManager;
 import net.runelite.client.chat.ChatMessageBuilder;
@@ -94,6 +92,7 @@ import net.runelite.client.plugins.loottracker.LootReceived;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.overlay.OverlayManager;
+import net.runelite.client.util.Filepath;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.Text;
 import net.runelite.http.api.loottracker.LootRecordType;
@@ -101,15 +100,16 @@ import net.runelite.http.api.loottracker.LootRecordType;
 @PluginDescriptor(
 	name = "Bossman Mode",
 	description = "Bronzeman-style item locking where only boss drops unlock items. Ledger, GE restrictions and a boss-ladder panel.",
-	tags = {"overlay", "bronzeman", "bossman", "bossing", "collection log"}
+	tags = {"overlay", "bronzeman", "bossman", "bossing", "collection log"},
+	internalName = "bossman-mode",
+	// ledgers written by development builds before 1.0.0 live in .runelite/bossman-mode; RuneLite moves them over once
+	legacyDataDirectory = "bossman-mode"
 )
 public class BossmanModePlugin extends Plugin
 {
 	private static final Logger log = LoggerFactory.getLogger(BossmanModePlugin.class);
 	static final String CONFIG_GROUP = "bossmanmode";
 	private static final String LEDGER_FILE = "bossman-mode-ledger.json";
-	/** ledgers live in RuneLite/bossman-mode/<world type>-<account hash>/ */
-	private static final String LEDGER_DIR = "bossman-mode";
 	private static final int GE_SEARCH_BUILD_SCRIPT = 751;
 	private static final int GE_REGION_ID = 12598;
 	/** a failed save is retried after this long */
@@ -322,7 +322,20 @@ public class BossmanModePlugin extends Plugin
 	/** Load the logged-in account's ledger. Client thread. */
 	private void openLedger()
 	{
-		File file = ledgerFile();
+		Filepath file;
+		try
+		{
+			file = ledgerFile();
+		}
+		catch (IOException | IllegalArgumentException e)
+		{
+			log.warn("could not open the plugin data directory", e);
+			openPending = false;
+			ledger = new Ledger();
+			sendChatMessage("Bossman: could not open the plugin's data folder (see the RuneLite log); nothing will be saved this session.");
+			refreshPanel();
+			return;
+		}
 		if (file == null)
 		{
 			// RuneLite hasn't been told the account hash yet: until it has, nothing may land in another account's ledger
@@ -350,7 +363,7 @@ public class BossmanModePlugin extends Plugin
 		{
 			sendChatMessage(l.getFile() == null
 				? "Bossman: your ledger file could not be read, and nothing will be saved this session so it isn't overwritten: " + l.getSetAside()
-				: "Bossman: your ledger file could not be read and was moved to " + l.getSetAside().getName() + ". Starting a new ledger.");
+				: "Bossman: your ledger file could not be read and was moved to " + l.getSetAside().getFileName() + ". Starting a new ledger.");
 		}
 		receiptTicks.clear();
 		syncCombatTasks();
@@ -358,11 +371,12 @@ public class BossmanModePlugin extends Plugin
 	}
 
 	/**
-	 * RuneLite/bossman-mode/<world type>-<account hash>/ledger. Keyed on the account hash, which is known from the
-	 * first login on, unlike RuneLite's RS profile (created a moment after the first login of a new account), and
-	 * on the world type so a Leagues or Deadman character never shares a ledger with the main game.
+	 * <plugin data directory>/<world type>-<account hash>/ledger, or null while the account hash is unknown. Keyed
+	 * on the account hash, which is known from the first login on, unlike RuneLite's RS profile (created a moment
+	 * after the first login of a new account), and on the world type so a Leagues or Deadman character never shares
+	 * a ledger with the main game.
 	 */
-	private File ledgerFile()
+	private Filepath ledgerFile() throws IOException
 	{
 		long hash = client.getAccountHash();
 		if (hash == -1)
@@ -370,7 +384,7 @@ public class BossmanModePlugin extends Plugin
 			return null;
 		}
 		String type = RuneScapeProfileType.getCurrent(client).name().toLowerCase(Locale.ROOT);
-		return new File(new File(new File(RuneLite.RUNELITE_DIR, LEDGER_DIR), type + "-" + hash), LEDGER_FILE);
+		return getPluginDirectory().joinSegment(type + "-" + hash).joinSegment(LEDGER_FILE);
 	}
 
 	private static Set<String> parseActions(String csv)
@@ -912,7 +926,7 @@ public class BossmanModePlugin extends Plugin
 			sendChatMessage("Bossman: backup failed: the ledger could not be saved first.");
 			return false;
 		}
-		File f = ledger.getFile();
+		Filepath f = ledger.getFile();
 		if (f == null || !f.exists())
 		{
 			sendChatMessage("Bossman: no ledger to back up yet.");
@@ -921,7 +935,7 @@ public class BossmanModePlugin extends Plugin
 		try
 		{
 			String stamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-			Files.copy(f.toPath(), new File(f.getParentFile(), "bossman-mode-ledger_" + stamp + ".backup").toPath(), StandardCopyOption.REPLACE_EXISTING);
+			f.copyTo(f.getParent().joinSegment("bossman-mode-ledger_" + stamp + ".backup"), StandardCopyOption.REPLACE_EXISTING);
 			return true;
 		}
 		catch (Exception ex)
@@ -939,7 +953,7 @@ public class BossmanModePlugin extends Plugin
 			return;
 		}
 		Ledger l = ledger;
-		File f = l.getFile();
+		Filepath f = l.getFile();
 		if (f != null && f.exists() && !backupLedger())
 		{
 			sendChatMessage("Bossman: reset cancelled, since the ledger could not be backed up first.");

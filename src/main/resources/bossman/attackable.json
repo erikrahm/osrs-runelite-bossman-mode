@@ -1,0 +1,1382 @@
+{
+ "note": "Hand-maintained (no script generates it). What may be attacked besides the bosses in sources.json. regions: map region ids (instances matched on the map they are copied from) where every NPC may be fought; role is \"fight\" (the boss arena, adds and waves included) or \"access\" (monsters there drop what opens a boss), for the reader only. access_npcs: monsters that drop what opens a boss, and fight adds outside a known arena; an entry with ids matches only those NPC ids, otherwise the name. quests: the quests that gate a ladder boss and their prerequisite trees (RuneLite Quest constant -> NPCs that quest has you fight), attackable while it is in progress. Region data from RuneLite and open-source plugin sources, NPC and quest data from the OSRS Wiki, 2026-10-13.",
+ "regions": [
+  {
+   "boss": "Chambers of Xeric",
+   "role": "fight",
+   "ids": [
+    12889,
+    13136,
+    13137,
+    13138,
+    13139,
+    13140,
+    13141,
+    13145,
+    13393,
+    13394,
+    13395,
+    13396,
+    13397,
+    13401,
+    13142,
+    13143,
+    13144,
+    13398,
+    13399,
+    13400
+   ],
+   "area": "Chambers of Xeric: Great Olm room; Chambers of Xeric room templates; Chambers of Xeric room templates (gap ids inside the CoX template box)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (RAIDS_CHAMBERS_OF_XERIC); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (CHAMBERS_OF_XERIC)",
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (RAIDS_CHAMBERS_OF_XERIC); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (CHAMBERS_OF_XERIC regionBox 13137-13401)",
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (CHAMBERS_OF_XERIC regionBox 13137-13401; not in the Discord list)"
+   ]
+  },
+  {
+   "boss": "Theatre of Blood",
+   "role": "fight",
+   "ids": [
+    12613,
+    13125,
+    13122,
+    13123,
+    13379,
+    12612,
+    12611,
+    12869,
+    12867
+   ],
+   "area": "Theatre of Blood: Maiden; Theatre of Blood: Bloat; Theatre of Blood: Nylocas; Theatre of Blood: Sotetseg; Theatre of Blood: Sotetseg maze; Theatre of Blood: Xarpus; Theatre of Blood: Verzik; Theatre of Blood: corridor; Theatre of Blood: loot room",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (RAIDS_THEATRE_OF_BLOOD); https://github.com/blert-io/plugin/blob/main/src/main/java/io/blert/challenges/tob/Location.java"
+   ]
+  },
+  {
+   "boss": "Tombs of Amascut",
+   "role": "fight",
+   "ids": [
+    14160,
+    14162,
+    14164,
+    14674,
+    14676,
+    15186,
+    15188,
+    15698,
+    15700,
+    15184,
+    15696,
+    14672
+   ],
+   "area": "Tombs of Amascut: Nexus / path hub; Tombs of Amascut: Path of Scabaras puzzle; Tombs of Amascut: Kephri; Tombs of Amascut: Path of Het puzzle; Tombs of Amascut: Akkha; Tombs of Amascut: Path of Apmeken puzzle; Tombs of Amascut: Ba-Ba; Tombs of Amascut: Path of Crondis puzzle; Tombs of Amascut: Zebak; Tombs of Amascut: Wardens P1/P2; Tombs of Amascut: Wardens P3; Tombs of Amascut: loot room",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (RAIDS_TOMBS_OF_AMASCUT / RAIDS_OSMUMTENS_BURIAL_CHAMBER); https://github.com/P2GR/auto-entity-hider/blob/master/src/main/java/com/autoentityhider/regions/TombsOfAmascutRegions.java"
+   ]
+  },
+  {
+   "boss": "Crystalline Hunllef",
+   "role": "fight",
+   "ids": [
+    7512
+   ],
+   "area": "The Gauntlet",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (MG_GAUNTLET); https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/screenshot/ScreenshotPlugin.java (GAUNTLET_REGION); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (THE_GAUNTLET_NORMAL)"
+   ]
+  },
+  {
+   "boss": "Corrupted Hunllef",
+   "role": "fight",
+   "ids": [
+    7768
+   ],
+   "area": "The Corrupted Gauntlet",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (MG_CORRUPTED_GAUNTLET); https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/screenshot/ScreenshotPlugin.java (CORRUPTED_GAUNTLET_REGION); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (THE_GAUNTLET_CORRUPTED)"
+   ]
+  },
+  {
+   "boss": "TzTok-Jad",
+   "role": "fight",
+   "ids": [
+    9551
+   ],
+   "area": "TzHaar Fight Cave",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/timersandbuffs/TimersAndBuffsPlugin.java (FIGHT_CAVES_REGION_ID, matched against getMapRegions); https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (MG_TZHAAR_FIGHT_CAVES)"
+   ]
+  },
+  {
+   "boss": "TzKal-Zuk",
+   "role": "fight",
+   "ids": [
+    9043
+   ],
+   "area": "The Inferno",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/timersandbuffs/TimersAndBuffsPlugin.java (INFERNO_REGION_ID); https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (MG_INFERNO)"
+   ]
+  },
+  {
+   "boss": "Sol Heredit",
+   "role": "fight",
+   "ids": [
+    7216
+   ],
+   "area": "Fortis Colosseum arena",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (MG_FORTIS_COLOSSEUM); https://github.com/blert-io/plugin/blob/main/src/main/java/io/blert/challenges/colosseum/ColosseumChallenge.java (COLOSSEUM_REGION_ID)"
+   ]
+  },
+  {
+   "boss": "Barrows",
+   "role": "fight",
+   "ids": [
+    14231
+   ],
+   "area": "Barrows crypts and tunnels",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/barrows/BarrowsPlugin.java (CRYPT_REGION_ID); https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (MG_BARROWS); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (BARROWS_TUNNELS / BARROWS_CRYPTS)"
+   ]
+  },
+  {
+   "boss": "Kree'arra",
+   "role": "fight",
+   "ids": [
+    11346
+   ],
+   "area": "God Wars Dungeon: west side incl. Kree'arra's eyrie",
+   "sources": [
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (GOD_WARS_DUNGEON regionBox 11345-11603); https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_KREEARRA); https://github.com/OreoCupcakes/kotori-plugins/blob/master/gwdhelper/src/main/java/com/theplug/kotori/gwdhelper/GodWarsHelperPlugin.java (ARMA_REGION)"
+   ]
+  },
+  {
+   "boss": "General Graardor",
+   "role": "fight",
+   "ids": [
+    11347
+   ],
+   "area": "God Wars Dungeon: north-west incl. General Graardor's stronghold",
+   "sources": [
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (GOD_WARS_DUNGEON regionBox 11345-11603); https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_GENERAL_GRAARDOR); https://github.com/OreoCupcakes/kotori-plugins/blob/master/gwdhelper/src/main/java/com/theplug/kotori/gwdhelper/GodWarsHelperPlugin.java (GENERAL_REGION)"
+   ]
+  },
+  {
+   "boss": "Commander Zilyana",
+   "role": "fight",
+   "ids": [
+    11602
+   ],
+   "area": "God Wars Dungeon: entrance/south-east incl. Commander Zilyana's encampment",
+   "sources": [
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (GOD_WARS_DUNGEON regionBox 11345-11603); https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_COMMANDER_ZILYANA); https://github.com/OreoCupcakes/kotori-plugins/blob/master/gwdhelper/src/main/java/com/theplug/kotori/gwdhelper/GodWarsHelperPlugin.java (SARA_REGION)"
+   ]
+  },
+  {
+   "boss": "K'ril Tsutsaroth",
+   "role": "fight",
+   "ids": [
+    11603
+   ],
+   "area": "God Wars Dungeon: north-east incl. K'ril Tsutsaroth's fortress",
+   "sources": [
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (GOD_WARS_DUNGEON regionBox 11345-11603); https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_KRIL_TSUTSAROTH); https://github.com/OreoCupcakes/kotori-plugins/blob/master/gwdhelper/src/main/java/com/theplug/kotori/gwdhelper/GodWarsHelperPlugin.java (ZAMMY_REGION)"
+   ]
+  },
+  {
+   "boss": "Nex",
+   "role": "fight",
+   "ids": [
+    11601
+   ],
+   "area": "God Wars Dungeon: Ancient Prison east incl. Nex's arena",
+   "sources": [
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (GOD_WARS_DUNGEON regionBox 11345-11603); https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_NEX); https://github.com/OreoCupcakes/kotori-plugins/blob/master/nex/src/main/java/com/theplug/kotori/nex/NexPlugin.java (NEX_REGION_ID); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (GOD_WARS_DUNGEON_ANCIENT_PRISON aabb 2834-2944,5184-5244)"
+   ]
+  },
+  {
+   "boss": "Nex",
+   "role": "access",
+   "ids": [
+    11345
+   ],
+   "area": "God Wars Dungeon: Ancient Prison west",
+   "sources": [
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (GOD_WARS_DUNGEON regionBox 11345-11603 and GOD_WARS_DUNGEON_ANCIENT_PRISON aabb 2834-2944,5184-5244)"
+   ]
+  },
+  {
+   "boss": "Zulrah",
+   "role": "fight",
+   "ids": [
+    9007
+   ],
+   "area": "Zulrah's shrine",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_ZULRAH); https://github.com/OreoCupcakes/kotori-plugins/blob/master/zulrahoverlay/src/main/java/com/theplug/kotori/zulrahoverlay/ZulrahPlugin.java"
+   ]
+  },
+  {
+   "boss": "Vorkath",
+   "role": "fight",
+   "ids": [
+    9023
+   ],
+   "area": "Vorkath's island (Ungael lair)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_VORKATH); https://github.com/OreoCupcakes/kotori-plugins/blob/master/vorkathoverlay/src/main/java/com/theplug/kotori/vorkathoverlay/VorkathPlugin.java; https://oldschool.runescape.wiki/w/Vorkath (x:2269,y:4062)"
+   ]
+  },
+  {
+   "boss": "Kraken",
+   "role": "fight",
+   "ids": [
+    9116
+   ],
+   "area": "Kraken Cove (cave kraken area and Kraken's chamber)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_KRAKEN); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (KRAKEN_COVE); https://oldschool.runescape.wiki/w/Kraken (x:2278,y:10034) and https://oldschool.runescape.wiki/w/Cave_kraken (all spawns in 9116)"
+   ]
+  },
+  {
+   "boss": "Abyssal Sire",
+   "role": "fight",
+   "ids": [
+    11850,
+    11851,
+    12362,
+    12363
+   ],
+   "area": "Abyssal Nexus: Abyssal Sire chambers",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_ABYSSAL_SIRE); https://github.com/OreoCupcakes/kotori-plugins/blob/master/sirehelper/src/main/java/com/theplug/kotori/sirehelper/SireHelperPlugin.java; https://oldschool.runescape.wiki/w/Abyssal_Sire"
+   ]
+  },
+  {
+   "boss": "Cerberus",
+   "role": "fight",
+   "ids": [
+    4883,
+    5140,
+    5395
+   ],
+   "area": "Cerberus' Lair (three arenas)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_CERBERUS); https://github.com/OreoCupcakes/kotori-plugins/blob/master/cerberushelper/src/main/java/com/theplug/kotori/cerberushelper/CerberusHelperPlugin.java; https://oldschool.runescape.wiki/w/Cerberus"
+   ]
+  },
+  {
+   "boss": "Alchemical Hydra",
+   "role": "fight",
+   "ids": [
+    5536
+   ],
+   "area": "Alchemical Hydra's lair",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_HYDRA); https://oldschool.runescape.wiki/w/Alchemical_Hydra (x:1364,y:10265)"
+   ]
+  },
+  {
+   "boss": "Dusk",
+   "role": "fight",
+   "ids": [
+    6727
+   ],
+   "area": "Slayer Tower rooftop (Grotesque Guardians)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_GROTESQUE_GUARDIANS); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (GROTESQUE_GUARDIANS); https://github.com/OreoCupcakes/kotori-plugins/blob/master/grotesqueguardians/src/main/java/com/theplug/kotori/grotesqueguardians/GrotesqueGuardiansPlugin.java"
+   ]
+  },
+  {
+   "boss": "Dagannoth Rex",
+   "role": "fight",
+   "ids": [
+    11589,
+    11588
+   ],
+   "area": "Dagannoth Kings' lair; Dagannoth Kings' slayer-only lair",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_DKS); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (DAGANNOTH_KINGS_REGULAR_CAVE)",
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_DKS); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (DAGANNOTH_KINGS_SLAYER_CAVE)"
+   ]
+  },
+  {
+   "boss": "Kalphite Queen",
+   "role": "fight",
+   "ids": [
+    13972
+   ],
+   "area": "Kalphite Lair incl. Kalphite Queen's chamber (also the upper lair with workers/soldiers/guardians, other plane)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_KQ); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (KALPHITE_LAIR regionBox 13972 plane 2 and KALPHITE_LAIR_QUEEN_ROOM regionBox 13972 plane 0)"
+   ]
+  },
+  {
+   "boss": "Corporeal Beast",
+   "role": "fight",
+   "ids": [
+    11842,
+    11844
+   ],
+   "area": "Corporeal Beast's lair",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_CORP); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (Corporeal Beast Lair)"
+   ]
+  },
+  {
+   "boss": "The Nightmare",
+   "role": "fight",
+   "ids": [
+    15515
+   ],
+   "area": "Nightmare / Phosani's Nightmare arena",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_NIGHTMARE); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (NIGHTMARE_OF_ASHIHAMA_ARENA); https://github.com/OreoCupcakes/kotori-plugins/blob/master/nightmare/src/main/java/com/theplug/kotori/nightmare/NightmarePlugin.java (NIGHTMARE_REGION_ID, used for Phosani's too)"
+   ]
+  },
+  {
+   "boss": "Blood Moon",
+   "role": "fight",
+   "ids": [
+    5526
+   ],
+   "area": "Perilous Moons: Blood Moon arena",
+   "sources": [
+    "https://github.com/P2GR/auto-entity-hider/blob/master/src/main/java/com/autoentityhider/regions/MoonsOfPerilRegions.java (BLOOD_MOON); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (THE_BLOOD_MOON)"
+   ]
+  },
+  {
+   "boss": "Blue Moon",
+   "role": "fight",
+   "ids": [
+    5783
+   ],
+   "area": "Perilous Moons: Blue Moon arena",
+   "sources": [
+    "https://github.com/P2GR/auto-entity-hider/blob/master/src/main/java/com/autoentityhider/regions/MoonsOfPerilRegions.java (BLUE_MOON); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (THE_BLUE_MOON)"
+   ]
+  },
+  {
+   "boss": "Eclipse Moon",
+   "role": "fight",
+   "ids": [
+    6038
+   ],
+   "area": "Perilous Moons: Eclipse Moon arena",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/timersandbuffs/TimersAndBuffsPlugin.java (ECLIPSE_MOON_REGION_ID); https://github.com/P2GR/auto-entity-hider/blob/master/src/main/java/com/autoentityhider/regions/MoonsOfPerilRegions.java (ECLIPSE_MOON)"
+   ]
+  },
+  {
+   "boss": "Doom of Mokhaiotl",
+   "role": "fight",
+   "ids": [
+    5269,
+    13668,
+    14180
+   ],
+   "area": "Doom of Mokhaiotl: delve 1 and lobby; Doom of Mokhaiotl: delves 2-5; Doom of Mokhaiotl: delves 6+",
+   "sources": [
+    "https://github.com/blert-io/plugin/blob/main/src/main/java/io/blert/challenges/mokhaiotl/MokhaiotlLocation.java (DELVE_REGION_ID); https://github.com/ngraves95/attacktimer/blob/main/src/main/java/com/attacktimer/VariableSpeed/DoomOfMokhaiotl.java; https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (Doom of Mokhaiotl - Floor 1)",
+    "https://github.com/blert-io/plugin/blob/main/src/main/java/io/blert/challenges/mokhaiotl/MokhaiotlLocation.java (DELVE_MID_REGION_ID); https://github.com/ngraves95/attacktimer/blob/main/src/main/java/com/attacktimer/VariableSpeed/DoomOfMokhaiotl.java",
+    "https://github.com/blert-io/plugin/blob/main/src/main/java/io/blert/challenges/mokhaiotl/MokhaiotlLocation.java (DELVE_DEEP_REGION_ID); https://github.com/ngraves95/attacktimer/blob/main/src/main/java/com/attacktimer/VariableSpeed/DoomOfMokhaiotl.java"
+   ]
+  },
+  {
+   "boss": "Scurrius",
+   "role": "fight",
+   "ids": [
+    13210
+   ],
+   "area": "Scurrius' lair (region also holds the east end of the Varrock Sewers)",
+   "sources": [
+    "https://github.com/ngraves95/attacktimer/blob/main/src/main/java/com/attacktimer/VariableSpeed/Scurrius.java (SCURRIUS_REGION_ID, via fromLocalInstance); https://oldschool.runescape.wiki/w/Scurrius (x:3299,y:9867); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (VARROCK_SEWERS aabb reaches x 3317)"
+   ]
+  },
+  {
+   "boss": "Sarachnis",
+   "role": "fight",
+   "ids": [
+    7322
+   ],
+   "area": "Sarachnis' lair (Forthos Dungeon burial tomb)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_SARACHNIS); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (SARACHNIS_LAIR); https://oldschool.runescape.wiki/w/Sarachnis (x:1840,y:9900)"
+   ]
+  },
+  {
+   "boss": "Hespori",
+   "role": "fight",
+   "ids": [
+    5021
+   ],
+   "area": "Hespori's cave",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_HESPORI); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (FARMING_GUILD_HESPORI)"
+   ]
+  },
+  {
+   "boss": "Skotizo",
+   "role": "fight",
+   "ids": [
+    9048
+   ],
+   "area": "Skotizo's lair",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_SKOTIZO); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (SKOTIZO); https://oldschool.runescape.wiki/w/Skotizo"
+   ]
+  },
+  {
+   "boss": "Duke Sucellus",
+   "role": "fight",
+   "ids": [
+    12132
+   ],
+   "area": "Duke Sucellus' arena (Ghorrock Prison asylum)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_DUKE_SUCELLUS); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (Ghorrock Dungeon Duke Arena)"
+   ]
+  },
+  {
+   "boss": "Vardorvis",
+   "role": "fight",
+   "ids": [
+    4405
+   ],
+   "area": "Vardorvis' arena (Stranglewood ritual site)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_VARDORVIS)"
+   ]
+  },
+  {
+   "boss": "The Leviathan",
+   "role": "fight",
+   "ids": [
+    8291
+   ],
+   "area": "The Leviathan's arena (The Scar)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_THE_LEVIATHAN)"
+   ]
+  },
+  {
+   "boss": "The Whisperer",
+   "role": "fight",
+   "ids": [
+    10595
+   ],
+   "area": "The Whisperer's arena (Sunken Cathedral)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_THE_WHISPERER)"
+   ]
+  },
+  {
+   "boss": "Phantom Muspah",
+   "role": "fight",
+   "ids": [
+    11330
+   ],
+   "area": "Phantom Muspah's arena",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_PHANTOM_MUSPAH); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (PHANTOM_MUSPAH_BOSS_ROOM)"
+   ]
+  },
+  {
+   "boss": "Araxxor",
+   "role": "fight",
+   "ids": [
+    14489
+   ],
+   "area": "Araxxor's lair",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_ARAXXOR); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (ARAXXOR_ARENA); https://oldschool.runescape.wiki/w/Araxxor (x:3630,y:9813); regular araxytes are in 14745/14746 per https://oldschool.runescape.wiki/w/Araxyte"
+   ]
+  },
+  {
+   "boss": "Yama",
+   "role": "fight",
+   "ids": [
+    6045
+   ],
+   "area": "Yama's arena",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_YAMA); https://github.com/ngraves95/attacktimer/blob/main/src/main/java/com/attacktimer/VariableSpeed/State/Yama.java (YAMA_REGION_ID)"
+   ]
+  },
+  {
+   "boss": "The Hueycoatl",
+   "role": "fight",
+   "ids": [
+    5939
+   ],
+   "area": "The Darkfrost (Hueycoatl's mountain)",
+   "sources": [
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (Hueycoatl Arena aabbs 1502-1520,3268-3293); https://oldschool.runescape.wiki/w/The_Darkfrost (1512,3285); https://oldschool.runescape.wiki/w/The_Hueycoatl (x:1509,y:3290)"
+   ]
+  },
+  {
+   "boss": "Amoxliatl",
+   "role": "fight",
+   "ids": [
+    5446
+   ],
+   "area": "Amoxliatl's arena (Ruins of Tapoyauik)",
+   "sources": [
+    "https://github.com/ngraves95/attacktimer/blob/main/src/main/java/com/attacktimer/VariableSpeed/Amoxliatl.java (AMOXLIATL_REGION_ID); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (AMOXLIATL_ARENA); https://oldschool.runescape.wiki/w/Amoxliatl (x:1362,y:4511)"
+   ]
+  },
+  {
+   "boss": "Branda the Fire Queen",
+   "role": "fight",
+   "ids": [
+    11669
+   ],
+   "area": "Royal Titans' arena (Asgarnian Ice Dungeon)",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_THE_ROYAL_TITANS); https://github.com/ngraves95/attacktimer/blob/main/src/main/java/com/attacktimer/VariableSpeed/RoyalTitans.java; https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (ROYAL_TITANS_ARENA)"
+   ]
+  },
+  {
+   "boss": "Maggot King",
+   "role": "fight",
+   "ids": [
+    11645
+   ],
+   "area": "Maggot King's lair",
+   "sources": [
+    "https://github.com/ngraves95/attacktimer/blob/main/src/main/java/com/attacktimer/VariableSpeed/MaggotKing.java (MAGGOT_KING_REGION_ID, matched against getMapRegions); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (MAGGOT_KING_ARENA)"
+   ]
+  },
+  {
+   "boss": "Zalcano",
+   "role": "fight",
+   "ids": [
+    12126
+   ],
+   "area": "Zalcano's prison",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_ZALCANO); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (ZALCANO); https://oldschool.runescape.wiki/w/Zalcano (x:3031,y:6048)"
+   ]
+  },
+  {
+   "boss": "Bryophyta",
+   "role": "fight",
+   "ids": [
+    12955
+   ],
+   "area": "Bryophyta's lair",
+   "sources": [
+    "https://github.com/OreoCupcakes/kotori-plugins/blob/master/effecttimers/src/main/java/com/theplug/kotori/effecttimers/utils/PvPUtil.java (12955 /* Bryophyta's lair */); https://oldschool.runescape.wiki/w/Bryophyta (x:3220,y:9933)"
+   ]
+  },
+  {
+   "boss": "Giant Mole",
+   "role": "fight",
+   "ids": [
+    6992,
+    6993
+   ],
+   "area": "Giant Mole's lair",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (BOSS_GIANT_MOLE); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (GIANT_MOLE_LAIR)"
+   ]
+  },
+  {
+   "boss": "Scorpia",
+   "role": "fight",
+   "ids": [
+    12961
+   ],
+   "area": "Scorpia's cave",
+   "sources": [
+    "https://oldschool.runescape.wiki/w/Scorpia (x:3233,y:10341, mapID 26) and https://oldschool.runescape.wiki/w/Scorpia%27s_offspring_(monster) (27 spawns, all in 12961); mapID 26 coordinates verified real against revenant LocLines vs https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (REVENANT_CAVES)"
+   ]
+  },
+  {
+   "boss": "Vet'ion",
+   "role": "fight",
+   "ids": [
+    13215
+   ],
+   "area": "Vet'ion's Rest",
+   "sources": [
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (\"Callisto, Vet'ion, Venenatis and Escape Caves\" regions + \"Vet'ion/Calvar'ion Floors\" aabb 3286-3304,10194-10209)"
+   ]
+  },
+  {
+   "boss": "Venenatis",
+   "role": "fight",
+   "ids": [
+    13473,
+    13727
+   ],
+   "area": "Callisto's Den / Silk Chasm (which is which not established)",
+   "sources": [
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (\"Callisto, Vet'ion, Venenatis and Escape Caves\" regions 13215,13472,13473,13727); Escape Caves monsters all in 13472 per https://oldschool.runescape.wiki/w/Grizzly_bear_(Escape_Caves) and https://oldschool.runescape.wiki/w/Poison_spider_(Escape_Caves)"
+   ]
+  },
+  {
+   "boss": "Calvar'ion",
+   "role": "fight",
+   "ids": [
+    7604
+   ],
+   "area": "Skeletal Tomb (Calvar'ion)",
+   "sources": [
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (\"Vet'ion/Calvar'ion Floors\" second aabb 1878-1896,11538-11553; the shared Vet'ion/Calvar'ion lair layout places the other box in Vet'ion's Rest, so this one is Calvar'ion's)"
+   ]
+  },
+  {
+   "boss": "Skotizo",
+   "role": "access",
+   "ids": [
+    6556,
+    6557,
+    6812,
+    6813,
+    5786
+   ],
+   "area": "Catacombs of Kourend; Giants' Den",
+   "sources": [
+    "https://github.com/runelite/runelite/blob/master/runelite-client/src/main/java/net/runelite/client/plugins/discord/DiscordGameEventType.java (DUNGEON_CATACOMBS_OF_KOUREND); https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (KOUREND_CATACOMBS_DUNGEON full regions); every Catacombs LocLine on 28 monster wiki pages falls in these 4, e.g. https://oldschool.runescape.wiki/w/Deviant_spectre",
+    "https://github.com/117HD/RLHD/blob/master/src/main/resources/rs117/hd/scene/areas.json (Giants' Den); https://oldschool.runescape.wiki/w/Giants%27_Den (also drops dark totem pieces; map 1442,9884)"
+   ]
+  }
+ ],
+ "access_npcs": [
+  {
+   "name": "Hill Giant",
+   "boss": "Obor",
+   "why": "Giant key (1/128, 1/64 in the Wilderness)",
+   "source": "https://oldschool.runescape.wiki/w/Giant_key"
+  },
+  {
+   "name": "Moss giant",
+   "boss": "Bryophyta",
+   "why": "Mossy key (1/150, 1/100 Wilderness, 1/75 on task)",
+   "source": "https://oldschool.runescape.wiki/w/Mossy_key"
+  },
+  {
+   "name": "Moss Giant",
+   "boss": "Bryophyta",
+   "why": "Mossy key (1/120) from the Iorwerth Dungeon variant; its infobox name is capitalised",
+   "source": "https://oldschool.runescape.wiki/w/Moss_Giant_(Iorwerth_Dungeon)"
+  },
+  {
+   "name": "Revenant imp",
+   "boss": "Revenant maledictus",
+   "why": "Maledictus can only appear when a revenant is slain in the Revenant Caves",
+   "source": "https://oldschool.runescape.wiki/w/Revenant_maledictus; https://oldschool.runescape.wiki/w/Revenant_imp"
+  },
+  {
+   "name": "Revenant goblin",
+   "boss": "Revenant maledictus",
+   "why": "Maledictus can only appear when a revenant is slain in the Revenant Caves",
+   "source": "https://oldschool.runescape.wiki/w/Revenant_maledictus; https://oldschool.runescape.wiki/w/Revenant_goblin"
+  },
+  {
+   "name": "Revenant pyrefiend",
+   "boss": "Revenant maledictus",
+   "why": "Maledictus can only appear when a revenant is slain in the Revenant Caves",
+   "source": "https://oldschool.runescape.wiki/w/Revenant_maledictus; https://oldschool.runescape.wiki/w/Revenant_pyrefiend"
+  },
+  {
+   "name": "Revenant hobgoblin",
+   "boss": "Revenant maledictus",
+   "why": "Maledictus can only appear when a revenant is slain in the Revenant Caves",
+   "source": "https://oldschool.runescape.wiki/w/Revenant_maledictus; https://oldschool.runescape.wiki/w/Revenant_hobgoblin"
+  },
+  {
+   "name": "Revenant cyclops",
+   "boss": "Revenant maledictus",
+   "why": "Maledictus can only appear when a revenant is slain in the Revenant Caves",
+   "source": "https://oldschool.runescape.wiki/w/Revenant_maledictus; https://oldschool.runescape.wiki/w/Revenant_cyclops"
+  },
+  {
+   "name": "Revenant hellhound",
+   "boss": "Revenant maledictus",
+   "why": "Maledictus can only appear when a revenant is slain in the Revenant Caves",
+   "source": "https://oldschool.runescape.wiki/w/Revenant_maledictus; https://oldschool.runescape.wiki/w/Revenant_hellhound"
+  },
+  {
+   "name": "Revenant demon",
+   "boss": "Revenant maledictus",
+   "why": "Maledictus can only appear when a revenant is slain in the Revenant Caves",
+   "source": "https://oldschool.runescape.wiki/w/Revenant_maledictus; https://oldschool.runescape.wiki/w/Revenant_demon"
+  },
+  {
+   "name": "Revenant ork",
+   "boss": "Revenant maledictus",
+   "why": "Maledictus can only appear when a revenant is slain in the Revenant Caves",
+   "source": "https://oldschool.runescape.wiki/w/Revenant_maledictus; https://oldschool.runescape.wiki/w/Revenant_ork"
+  },
+  {
+   "name": "Revenant dark beast",
+   "boss": "Revenant maledictus",
+   "why": "Maledictus can only appear when a revenant is slain in the Revenant Caves",
+   "source": "https://oldschool.runescape.wiki/w/Revenant_maledictus; https://oldschool.runescape.wiki/w/Revenant_dark_beast"
+  },
+  {
+   "name": "Revenant knight",
+   "boss": "Revenant maledictus",
+   "why": "Maledictus can only appear when a revenant is slain in the Revenant Caves",
+   "source": "https://oldschool.runescape.wiki/w/Revenant_maledictus; https://oldschool.runescape.wiki/w/Revenant_knight"
+  },
+  {
+   "name": "Revenant dragon",
+   "boss": "Revenant maledictus",
+   "why": "Maledictus can only appear when a revenant is slain in the Revenant Caves",
+   "source": "https://oldschool.runescape.wiki/w/Revenant_maledictus; https://oldschool.runescape.wiki/w/Revenant_dragon"
+  },
+  {
+   "name": "Door-support",
+   "boss": "Dagannoth Rex",
+   "why": "Blocks the ladder room on the way to the Dagannoth Kings; knocked down by attacking it (bypassable with 85 Agility rocks shortcut or another player)",
+   "source": "https://oldschool.runescape.wiki/w/Door-support"
+  },
+  {
+   "name": "Venenatis' Spiderling",
+   "ids": [
+    12000
+   ],
+   "boss": "Venenatis",
+   "why": "fight add; ids from the wiki infobox, since the name is shared or the arena region unknown",
+   "source": "https://oldschool.runescape.wiki/w/Venenatis'_Spiderling_(monster)"
+  },
+  {
+   "name": "Spindel's Spiderling",
+   "ids": [
+    12001
+   ],
+   "boss": "Spindel",
+   "why": "fight add; ids from the wiki infobox, since the name is shared or the arena region unknown",
+   "source": "https://oldschool.runescape.wiki/w/Spindel's_Spiderling"
+  },
+  {
+   "name": "Skeleton Hellhound",
+   "ids": [
+    6613
+   ],
+   "boss": "Vet'ion",
+   "why": "fight add; ids from the wiki infobox, since the name is shared or the arena region unknown",
+   "source": "https://oldschool.runescape.wiki/w/Skeleton_Hellhound_(Vet'ion)"
+  },
+  {
+   "name": "Greater Skeleton Hellhound",
+   "ids": [
+    6614
+   ],
+   "boss": "Vet'ion",
+   "why": "fight add; ids from the wiki infobox, since the name is shared or the arena region unknown",
+   "source": "https://oldschool.runescape.wiki/w/Greater_Skeleton_Hellhound_(Vet'ion)"
+  },
+  {
+   "name": "Skeleton Hellhound",
+   "ids": [
+    12107
+   ],
+   "boss": "Calvar'ion",
+   "why": "fight add; ids from the wiki infobox, since the name is shared or the arena region unknown",
+   "source": "https://oldschool.runescape.wiki/w/Skeleton_Hellhound_(Calvar'ion)"
+  },
+  {
+   "name": "Greater Skeleton Hellhound",
+   "ids": [
+    12108
+   ],
+   "boss": "Calvar'ion",
+   "why": "fight add; ids from the wiki infobox, since the name is shared or the arena region unknown",
+   "source": "https://oldschool.runescape.wiki/w/Greater_Skeleton_Hellhound_(Calvar'ion)"
+  },
+  {
+   "name": "Hueycoatl body",
+   "ids": [
+    14017
+   ],
+   "boss": "The Hueycoatl",
+   "why": "fight add; ids from the wiki infobox, since the name is shared or the arena region unknown",
+   "source": "https://oldschool.runescape.wiki/w/Hueycoatl"
+  },
+  {
+   "name": "Hueycoatl tail",
+   "ids": [
+    14014,
+    14015
+   ],
+   "boss": "The Hueycoatl",
+   "why": "fight add; ids from the wiki infobox, since the name is shared or the arena region unknown",
+   "source": "https://oldschool.runescape.wiki/w/Hueycoatl"
+  }
+ ],
+ "quests": {
+  "A_KINGDOM_DIVIDED": {
+   "npcs": [
+    "Judge of Yama",
+    "Assassin",
+    "Lizardman brute",
+    "Xamphur",
+    "Barbarian Warlord"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/A_Kingdom_Divided"
+  },
+  "A_NIGHT_AT_THE_THEATRE": {
+   "npcs": [
+    "Vyrewatch",
+    "Hespori"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/A_Night_at_the_Theatre"
+  },
+  "A_TASTE_OF_HOPE": {
+   "npcs": [
+    "Abomination",
+    "Ranis Drakan",
+    "Vyrewatch"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/A_Taste_of_Hope"
+  },
+  "BARBARIAN_TRAINING": {
+   "npcs": [
+    "Mithril dragon"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Barbarian_Training"
+  },
+  "BELOW_ICE_MOUNTAIN": {
+   "npcs": [
+    "Ancient Guardian"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Below_Ice_Mountain"
+  },
+  "BENEATH_CURSED_SANDS": {
+   "npcs": [
+    "Head Menaphite Guard",
+    "Scarab Mage",
+    "Champion of Scabaras",
+    "Menaphite Akh",
+    "Menaphite Shadow"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Beneath_Cursed_Sands"
+  },
+  "BIG_CHOMPY_BIRD_HUNTING": {
+   "npcs": [
+    "Chompy bird"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Big_Chompy_Bird_Hunting"
+  },
+  "BIOHAZARD": {
+   "npcs": [
+    "Mourner"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Biohazard"
+  },
+  "COLD_WAR": {
+   "npcs": [
+    "Icelord"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Cold_War"
+  },
+  "CONTACT": {
+   "npcs": [
+    "Giant Scarab",
+    "Locust rider",
+    "Scarab Mage"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Contact!"
+  },
+  "CREATURE_OF_FENKENSTRAIN": {
+   "npcs": [
+    "Experiment"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Creature_of_Fenkenstrain"
+  },
+  "DESERT_TREASURE_I": {
+   "npcs": [
+    "Dessous",
+    "Ice troll",
+    "Kamil",
+    "Fareed",
+    "Damis"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Desert_Treasure_I"
+  },
+  "DESERT_TREASURE_II__THE_FALLEN_EMPIRE": {
+   "npcs": [
+    "Ancient Guardian",
+    "Strangled",
+    "Vardorvis",
+    "Kasonde",
+    "Abyssal leech",
+    "Abyssal walker",
+    "Lesser demon",
+    "Greater demon",
+    "Black demon",
+    "Scarred lesser demon",
+    "Scarred greater demon",
+    "Scarred black demon",
+    "Scarred imp",
+    "Scarred hellhound",
+    "Crimson sanguisphera",
+    "Radiant sanguisphera",
+    "The Leviathan",
+    "Mysterious Figure",
+    "Duke Sucellus",
+    "The Whisperer",
+    "Lost Soul",
+    "The Forsaken Assassin",
+    "Ketla the Unworthy",
+    "Kasonde the Craven",
+    "Persten the Deceitful"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Desert_Treasure_II_-_The_Fallen_Empire"
+  },
+  "DRAGON_SLAYER_I": {
+   "npcs": [
+    "Zombie rat",
+    "Ghost",
+    "Skeleton",
+    "Zombie",
+    "Melzar the Mad",
+    "Lesser demon",
+    "Elvarg"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Dragon_Slayer_I"
+  },
+  "DRAGON_SLAYER_II": {
+   "npcs": [
+    "Spawn",
+    "Robert the Strong",
+    "Vorkath",
+    "Zombified Spawn",
+    "Green dragon",
+    "Blue dragon",
+    "Red dragon",
+    "Iron dragon",
+    "Brutal green dragon",
+    "Black dragon",
+    "Steel dragon",
+    "Brutal red dragon",
+    "Mithril dragon",
+    "Adamant dragon",
+    "Rune dragon",
+    "Galvek"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Dragon_Slayer_II"
+  },
+  "DREAM_MENTOR": {
+   "npcs": [
+    "The Inadequacy",
+    "The Everlasting",
+    "The Untouchable",
+    "The Illusive"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Dream_Mentor"
+  },
+  "ENAKHRAS_LAMENT": {
+   "npcs": [
+    "Boneguard"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Enakhra's_Lament"
+  },
+  "FALLEN_FROM_GRACE": {
+   "npcs": [
+    "Mountain troll",
+    "Mad Angel"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Fallen_From_Grace"
+  },
+  "FAMILY_CREST": {
+   "npcs": [
+    "Chronozon"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Family_Crest"
+  },
+  "FIGHT_ARENA": {
+   "npcs": [
+    "Khazard Scorpion",
+    "Khazard Ogre",
+    "Bouncer"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Fight_Arena"
+  },
+  "GHOSTS_AHOY": {
+   "npcs": [
+    "Giant lobster"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Ghosts_Ahoy"
+  },
+  "HAZEEL_CULT": {
+   "npcs": [
+    "Alomone"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Hazeel_Cult"
+  },
+  "HEROES_QUEST": {
+   "npcs": [
+    "Jailer",
+    "Grip",
+    "Ice Queen",
+    "Entrana firebird"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Heroes'_Quest"
+  },
+  "HIS_FAITHFUL_SERVANTS": {
+   "npcs": [
+    "Ahrim the Blighted",
+    "Dharok the Wretched",
+    "Guthan the Infested",
+    "Karil the Tainted",
+    "Torag the Corrupted",
+    "Verac the Defiled"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/His_Faithful_Servants"
+  },
+  "ICTHLARINS_LITTLE_HELPER": {
+   "npcs": [
+    "Possessed Priest",
+    "Apparition"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Icthlarin's_Little_Helper"
+  },
+  "IN_AID_OF_THE_MYREQUE": {
+   "npcs": [
+    "Gadderanks",
+    "Vampyre Juvinate"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/In_Aid_of_the_Myreque"
+  },
+  "IN_SEARCH_OF_THE_MYREQUE": {
+   "npcs": [
+    "Skeleton Hellhound"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/In_Search_of_the_Myreque"
+  },
+  "LEGENDS_QUEST": {
+   "npcs": [
+    "Ranalph Devere",
+    "Irvig Senay",
+    "San Tojalon",
+    "Nezikchened",
+    "Viyeldi"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Legends'_Quest"
+  },
+  "LOST_CITY": {
+   "npcs": [
+    "Tree spirit",
+    "Zombie"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Lost_City"
+  },
+  "LUNAR_DIPLOMACY": {
+   "npcs": [
+    "Suqah",
+    "Me"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Lunar_Diplomacy"
+  },
+  "MAKING_FRIENDS_WITH_MY_ARM": {
+   "npcs": [
+    "Don't Know What",
+    "Mother"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Making_Friends_with_My_Arm"
+  },
+  "MERLINS_CRYSTAL": {
+   "npcs": [
+    "Sir Mordred",
+    "Giant bat"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Merlin's_Crystal"
+  },
+  "MOURNINGS_END_PART_I": {
+   "npcs": [
+    "Mourner"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Mourning's_End_Part_I"
+  },
+  "MY_ARMS_BIG_ADVENTURE": {
+   "npcs": [
+    "Baby Roc",
+    "Giant Roc"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/My_Arm's_Big_Adventure"
+  },
+  "NATURE_SPIRIT": {
+   "npcs": [
+    "Ghast"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Nature_Spirit"
+  },
+  "ONE_SMALL_FAVOUR": {
+   "npcs": [
+    "Slagilith",
+    "Dwarf gang member"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/One_Small_Favour"
+  },
+  "PERILOUS_MOONS": {
+   "npcs": [
+    "Sulphur Nagua",
+    "Blue Moon",
+    "Blood Moon",
+    "Blood jaguar",
+    "Eclipse Moon"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Perilous_Moons"
+  },
+  "PRIEST_IN_PERIL": {
+   "npcs": [
+    "Temple Guardian",
+    "Monk of Zamorak"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Priest_in_Peril"
+  },
+  "RECRUITMENT_DRIVE": {
+   "npcs": [
+    "Sir Leye"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Recruitment_Drive"
+  },
+  "REGICIDE": {
+   "npcs": [
+    "Tyras guard"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Regicide"
+  },
+  "ROVING_ELVES": {
+   "npcs": [
+    "Moss Guardian"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Roving_Elves"
+  },
+  "SECRETS_OF_THE_NORTH": {
+   "npcs": [
+    "Evelot",
+    "Assassin",
+    "Strange Creature"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Secrets_of_the_North"
+  },
+  "SHIELD_OF_ARRAV": {
+   "npcs": [
+    "Weaponsmaster",
+    "Jonny the Beard"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Shield_of_Arrav"
+  },
+  "SHILO_VILLAGE": {
+   "npcs": [
+    "Nazastarool"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Shilo_Village"
+  },
+  "SINS_OF_THE_FATHER": {
+   "npcs": [
+    "Kroy",
+    "Nail beast",
+    "Vampyre Juvinate",
+    "Mutated Bloodveld",
+    "Damien Leucurte",
+    "Vanstrom Klause"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Sins_of_the_Father"
+  },
+  "SONG_OF_THE_ELVES": {
+   "npcs": [
+    "Mourner",
+    "Paladin",
+    "Knight of Ardougne",
+    "Iorwerth Archer",
+    "Iorwerth Warrior",
+    "Arianwyn",
+    "Essyllt",
+    "Fragment of Seren"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Song_of_the_Elves"
+  },
+  "SWAN_SONG": {
+   "npcs": [
+    "Sea troll",
+    "Sea Troll Queen"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Swan_Song"
+  },
+  "TAI_BWO_WANNAI_TRIO": {
+   "npcs": [
+    "Monkey",
+    "Jogre"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Tai_Bwo_Wannai_Trio"
+  },
+  "TALE_OF_THE_RIGHTEOUS": {
+   "npcs": [
+    "Strange Device",
+    "Corrupt Lizardman"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Tale_of_the_Righteous"
+  },
+  "TEMPLE_OF_IKOV": {
+   "npcs": [
+    "Fire Warrior of Lesarkus",
+    "Guardian of Armadyl",
+    "Lucien"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Temple_of_Ikov"
+  },
+  "THE_ASCENT_OF_ARCEUUS": {
+   "npcs": [
+    "Tormented Soul",
+    "Trapped Soul"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/The_Ascent_of_Arceuus"
+  },
+  "THE_BLOOD_MOON_RISES": {
+   "npcs": [
+    "Vyrewatch",
+    "Vyrewatch Sentinel",
+    "Acidic Bloodveld",
+    "Monk of Zamorak",
+    "Sanguidae",
+    "Venator",
+    "Webbed-winged Crow",
+    "Ancient feral vyre",
+    "Nylocas Ischyros",
+    "Nylocas Toxobolos",
+    "Nylocas Hagios",
+    "The Maiden of Sugadinti",
+    "Nylocas Vasilias",
+    "Wyrd",
+    "Lowerniel Drakan"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/The_Blood_Moon_Rises"
+  },
+  "THE_DEPTHS_OF_DESPAIR": {
+   "npcs": [
+    "Sand Snake"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/The_Depths_of_Despair"
+  },
+  "THE_FEUD": {
+   "npcs": [
+    "Bandit champion",
+    "Tough Guy"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/The_Feud"
+  },
+  "THE_FINAL_DAWN": {
+   "npcs": [
+    "Emissary Enforcer",
+    "Chimalli",
+    "Lucius",
+    "Emissary Brawler",
+    "Emissary Archer",
+    "Emissary Conjurer",
+    "Ennius Tullus",
+    "Augur Metzli"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/The_Final_Dawn"
+  },
+  "THE_FREMENNIK_TRIALS": {
+   "npcs": [
+    "Koschei the deathless",
+    "The Draugen"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/The_Fremennik_Trials"
+  },
+  "THE_FROZEN_DOOR": {
+   "npcs": [
+    "Kree'arra",
+    "General Graardor",
+    "Commander Zilyana",
+    "K'ril Tsutsaroth",
+    "Flight Kilisa",
+    "Wingman Skree",
+    "Flockleader Geerin",
+    "Sergeant Strongstack",
+    "Sergeant Steelwill",
+    "Sergeant Grimspike",
+    "Bree",
+    "Starlight",
+    "Growler",
+    "Tstanon Karlak",
+    "Zakl'n Gritch",
+    "Balfrug Kreeyath"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/The_Frozen_Door"
+  },
+  "THE_GENERALS_SHADOW": {
+   "npcs": [
+    "Bouncer"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/The_General's_Shadow"
+  },
+  "THE_HEART_OF_DARKNESS": {
+   "npcs": [
+    "Emissary Brawler",
+    "Emissary Conjurer",
+    "Prince Itzla Arkan",
+    "Amoxliatl"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/The_Heart_of_Darkness"
+  },
+  "THE_IDES_OF_MILK": {
+   "npcs": [
+    "Brutus"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/The_Ides_of_Milk"
+  },
+  "THE_TOURIST_TRAP": {
+   "npcs": [
+    "Mercenary Captain"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/The_Tourist_Trap"
+  },
+  "TROLL_STRONGHOLD": {
+   "npcs": [
+    "Dad",
+    "Troll general",
+    "Berry",
+    "Twig"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Troll_Stronghold"
+  },
+  "TROUBLED_TORTUGANS": {
+   "npcs": [
+    "Gryphon",
+    "Shellbane gryphon"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Troubled_Tortugans"
+  },
+  "TWILIGHTS_PROMISE": {
+   "npcs": [
+    "Knight of Varlamore",
+    "Cultist"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Twilight's_Promise"
+  },
+  "UNDERGROUND_PASS": {
+   "npcs": [
+    "Paladin",
+    "Doomion",
+    "Othainian",
+    "Holthion",
+    "Kalrag",
+    "Disciple of Iban"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Underground_Pass"
+  },
+  "VAMPYRE_SLAYER": {
+   "npcs": [
+    "Count Draynor"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Vampyre_Slayer"
+  },
+  "WANTED": {
+   "npcs": [
+    "Black Knight",
+    "Solus Dellagar"
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Wanted!"
+  }
+ }
+}

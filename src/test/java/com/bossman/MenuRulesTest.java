@@ -49,4 +49,11 @@ public class MenuRulesTest
 		assertFalse(MenuRules.strips("Buy 1", true, false, true, BLOCKED));
 		assertFalse(MenuRules.strips("Wield", true, true, false, BLOCKED));
 	}
+
+	@Test
+	public void configListsAreTrimmedLowerCasedAndSkipBlanks()
+	{
+		assertEquals(new HashSet<>(Arrays.asList("hill giant", "3029")), MenuRules.parseList(" Hill Giant , 3029,"));
+		assertTrue(MenuRules.parseList(null).isEmpty());
+	}
 }

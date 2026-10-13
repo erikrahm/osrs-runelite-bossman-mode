@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -58,6 +59,8 @@ import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MessageNode;
+import net.runelite.api.NPC;
+import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
@@ -69,6 +72,7 @@ import net.runelite.api.events.ScriptPostFired;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.gameval.ItemID;
+import net.runelite.api.gameval.VarPlayerID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.Notifier;
 import net.runelite.client.chat.ChatColorType;
@@ -87,8 +91,12 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemVariationMapping;
 import net.runelite.client.game.ItemStack;
 import net.runelite.client.plugins.Plugin;
+import net.runelite.client.plugins.PluginDependency;
+import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.loottracker.LootReceived;
+import net.runelite.client.plugins.slayer.SlayerPlugin;
+import net.runelite.client.plugins.slayer.SlayerPluginService;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -105,6 +113,7 @@ import net.runelite.http.api.loottracker.LootRecordType;
 	// ledgers written by development builds before 1.0.0 live in .runelite/bossman-mode; RuneLite moves them over once
 	legacyDataDirectory = "bossman-mode"
 )
+@PluginDependency(SlayerPlugin.class)
 public class BossmanModePlugin extends Plugin
 {
 	private static final Logger log = LoggerFactory.getLogger(BossmanModePlugin.class);
@@ -116,6 +125,8 @@ public class BossmanModePlugin extends Plugin
 	private static final long SAVE_RETRY_MS = 10_000;
 	/** How long after the last change the ledger is written to disk (writes are coalesced). */
 	private static final long SAVE_DELAY_MS = 1500;
+	/** how often the quest-chain quests' states are re-read */
+	private static final int QUEST_POLL_TICKS = 5;
 
 	@Inject private Client client;
 	@Inject private ClientThread clientThread;
@@ -131,6 +142,9 @@ public class BossmanModePlugin extends Plugin
 	@Inject private LockedItemOverlay lockedItemOverlay;
 	@Inject private LockedBankEdgeOverlay lockedBankEdgeOverlay;
 	@Inject private ScheduledExecutorService executor;
+	@Inject private SlayerPluginService slayerService;
+	@Inject private PluginManager pluginManager;
+	@Inject private ConfigManager configManager;
 
 	private final BossmanData data = new BossmanData();
 	/** placeholder (no file) until a player logs in */
@@ -139,6 +153,14 @@ public class BossmanModePlugin extends Plugin
 	private CombatTasks combatTasks;
 	/** lower-cased menu options stripped from locked items (from config; replaced whole on the config thread) */
 	private volatile Set<String> blockedActions = Collections.emptySet();
+	/** standardized NPC names and NPC ids from config that may always be attacked (replaced whole on the config thread) */
+	private volatile Set<String> alsoAttackable = Collections.emptySet();
+	/** client thread */
+	private QuestFoes questFoes;
+	/** ticks until the next quest-state read; set to 0 (from any thread) to read on the next tick */
+	private volatile int ticksToQuestPoll;
+	/** the restriction's first-login notice and Slayer plugin check are due on the next tick */
+	private boolean attackNoticesDue;
 	private BufferedImage unlockImage;
 
 	public BossmanData getData() { return data; }
@@ -183,7 +205,10 @@ public class BossmanModePlugin extends Plugin
 		rules = new LadderRules(data, config, itemManager::canonicalize,
 			id -> ItemVariationMapping.getVariations(ItemVariationMapping.map(id)), () -> ledger);
 		combatTasks = new CombatTasks(client);
-		blockedActions = parseActions(config.blockedActions());
+		blockedActions = MenuRules.parseList(config.blockedActions());
+		alsoAttackable = MenuRules.parseList(config.extraAttackable());
+		questFoes = new QuestFoes(data.getAttackable().quests);
+		ticksToQuestPoll = 0;
 		unlockImage = ImageUtil.loadImageResource(getClass(), "/item-unlocked.png");
 		unlockOverlay.updateScreenshotUnlock(config.screenshotUnlock(), config.includeFrame());
 		overlayManager.add(unlockOverlay);
@@ -194,6 +219,7 @@ public class BossmanModePlugin extends Plugin
 		chatCommandManager.registerCommand("!bmboss", this::onRungCommand);
 		chatCommandManager.registerCommand("!bmbackup", this::onBackupCommand);
 		chatCommandManager.registerCommand("!bmrelock", this::onRelockCommand);
+		chatCommandManager.registerCommand("!bmattack", this::onAttackCommand);
 		if (config.resetCommand())
 		{
 			chatCommandManager.registerCommand("!bmreset", this::onResetCommand);
@@ -225,6 +251,7 @@ public class BossmanModePlugin extends Plugin
 		chatCommandManager.unregisterCommand("!bmboss");
 		chatCommandManager.unregisterCommand("!bmbackup");
 		chatCommandManager.unregisterCommand("!bmrelock");
+		chatCommandManager.unregisterCommand("!bmattack");
 		chatCommandManager.unregisterCommand("!bmreset");
 		clientToolbar.removeNavigation(navButton);
 		unlockOverlay.clear();
@@ -244,6 +271,9 @@ public class BossmanModePlugin extends Plugin
 		{
 			loggingIn = false;
 			lastInventory = null;   // the first inventory the server sends is the baseline, not a gain
+			questFoes.reset();
+			ticksToQuestPoll = 0;
+			attackNoticesDue = true;
 			openLedger();
 		}
 		if (e.getGameState() == GameState.LOGIN_SCREEN || e.getGameState() == GameState.HOPPING)
@@ -273,6 +303,37 @@ public class BossmanModePlugin extends Plugin
 		{
 			openLedger();
 		}
+		if (config.restrictCombat() && --ticksToQuestPoll <= 0)
+		{
+			ticksToQuestPoll = QUEST_POLL_TICKS;
+			questFoes.refresh(q -> q.getState(client));
+		}
+		if (attackNoticesDue)
+		{
+			attackNoticesDue = false;
+			sendAttackNotices();
+		}
+	}
+
+	/** Once per account: what the restriction does. Every login: a warning when slayer tasks can't be recognised. */
+	private void sendAttackNotices()
+	{
+		if (!config.restrictCombat())
+		{
+			return;
+		}
+		if (!config.attackNoticeShown())
+		{
+			sendChatMessage("Bossman: only bosses can be fought. Slayer tasks, boss arenas and quests on a boss's quest chain"
+				+ " are exceptions; '!bmattack <npc>' says why an NPC can or can't be fought. Turn off auto-retaliate to stay strict.");
+			configManager.setConfiguration(CONFIG_GROUP, "attackNoticeShown", true);
+		}
+		boolean slayerOn = pluginManager.getPlugins().stream()
+			.anyMatch(p -> p instanceof SlayerPlugin && pluginManager.isPluginEnabled(p));
+		if (!slayerOn)
+		{
+			sendChatMessage("Bossman: the Slayer plugin is off, so your slayer task can't be attacked. Turn it on to fight your task.");
+		}
 	}
 
 	@Subscribe
@@ -288,7 +349,13 @@ public class BossmanModePlugin extends Plugin
 				data.setExtraSources(config.extraSources());
 				break;
 			case "blockedActions":
-				blockedActions = parseActions(config.blockedActions());
+				blockedActions = MenuRules.parseList(config.blockedActions());
+				break;
+			case "extraAttackable":
+				alsoAttackable = MenuRules.parseList(config.extraAttackable());
+				break;
+			case "restrictCombat":
+				ticksToQuestPoll = 0;
 				break;
 			case "screenshotUnlock":
 			case "includeFrame":
@@ -385,23 +452,6 @@ public class BossmanModePlugin extends Plugin
 		}
 		String type = RuneScapeProfileType.getCurrent(client).name().toLowerCase(Locale.ROOT);
 		return getPluginDirectory().joinSegment(type + "-" + hash).joinSegment(LEDGER_FILE);
-	}
-
-	private static Set<String> parseActions(String csv)
-	{
-		Set<String> out = new HashSet<>();
-		if (csv != null)
-		{
-			for (String s : csv.split(","))
-			{
-				String t = s.trim().toLowerCase(Locale.ROOT);
-				if (!t.isEmpty())
-				{
-					out.add(t);
-				}
-			}
-		}
-		return out;
 	}
 
 	/** The current ledger changed: queue one disk write and one panel rebuild, however many changes arrive before they run. */
@@ -735,7 +785,8 @@ public class BossmanModePlugin extends Plugin
 
 	/**
 	 * Strip the options a locked item must not have ({@link MenuRules}): a locked item may be held, just not used.
-	 * Examine, drop, bank and pick-up stay by default.
+	 * Examine, drop, bank and pick-up stay by default. Strip Attack and combat spells from NPCs that may not be fought
+	 * ({@link AttackRules}).
 	 */
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded e)
@@ -745,12 +796,19 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
+		String option = Text.removeTags(e.getOption());
+		NPC npc = entry.getNpc();
+		if (npc != null && config.restrictCombat() && AttackRules.isCombatOption(option, Text.removeTags(e.getTarget()))
+			&& attackReason(npc) == null)
+		{
+			client.getMenu().removeMenuEntry(entry);
+			return;
+		}
 		int itemId = entry.getItemId();
 		if (itemId <= 0)
 		{
 			return;
 		}
-		String option = Text.removeTags(e.getOption());
 		boolean block = MenuRules.strips(option, config.restrictGeSell(), config.restrictShops(), config.blockLockedActions(), blockedActions);
 		if (block && !rules.isAllowed(itemId))
 		{
@@ -758,9 +816,33 @@ public class BossmanModePlugin extends Plugin
 		}
 	}
 
+	/** Why the NPC may be fought, or null if it may not. */
+	private AttackRules.Reason attackReason(NPC npc)
+	{
+		if (!AttackRules.tutorialDone(client.getVarpValue(VarPlayerID.TUTORIAL)))
+		{
+			return AttackRules.Reason.TUTORIAL;
+		}
+		// instanced fights (raids, the Gauntlet, DT2 bosses) are matched on the region they are copied from
+		int region = WorldPoint.fromLocalInstance(client, npc.getLocalLocation()).getRegionID();
+		String name = npc.getName() == null ? "" : Text.standardize(npc.getName());
+		return AttackRules.reason(npc.getId(), name, region, slayerService.getTargets().contains(npc), questFoes.npcs(),
+			alsoAttackable, data);
+	}
+
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked e)
 	{
+		// another plugin may rebuild a menu after onMenuEntryAdded stripped it
+		NPC npc = e.getMenuEntry().getNpc();
+		if (npc != null && config.restrictCombat()
+			&& AttackRules.isCombatOption(Text.removeTags(e.getMenuOption()), Text.removeTags(e.getMenuTarget()))
+			&& attackReason(npc) == null)
+		{
+			e.consume();
+			sendChatMessage("You are a bossman. Only bosses are worth fighting.");
+			return;
+		}
 		if ((e.getMenuOption().equals("Trade with") || e.getMenuOption().equals("Accept trade")) && !config.allowTrading())
 		{
 			e.consume();
@@ -969,6 +1051,42 @@ public class BossmanModePlugin extends Plugin
 	}
 
 	/** !bmrelock &lt;item name or id&gt;: take back one unlock recorded by mistake. */
+	/** Why the nearest NPC with that name or id can or can't be fought, with its id for 'Also attackable'. */
+	private void onAttackCommand(ChatMessage chatMessage, String message)
+	{
+		if (!sentByPlayer(chatMessage))
+		{
+			return;
+		}
+		String arg = message.length() > "!bmattack".length() ? message.substring("!bmattack".length()).trim() : "";
+		if (arg.isEmpty())
+		{
+			reply(chatMessage, "Bossman: !bmattack <npc name or id>");
+			return;
+		}
+		String wanted = Text.standardize(arg);
+		WorldPoint here = client.getLocalPlayer().getWorldLocation();
+		NPC npc = client.getTopLevelWorldView().npcs().stream()
+			.filter(n -> n.getName() != null && (Text.standardize(n.getName()).equals(wanted) || Integer.toString(n.getId()).equals(wanted)))
+			.min(Comparator.comparingInt(n -> n.getWorldLocation().distanceTo(here)))
+			.orElse(null);
+		if (npc == null)
+		{
+			reply(chatMessage, "Bossman: no " + arg + " nearby.");
+			return;
+		}
+		String who = npc.getName() + " (id " + npc.getId() + ")";
+		if (!config.restrictCombat())
+		{
+			reply(chatMessage, "Bossman: " + who + " can be fought: 'Only fight bosses' is off.");
+			return;
+		}
+		AttackRules.Reason why = attackReason(npc);
+		reply(chatMessage, why == null
+			? "Bossman: " + who + " can't be fought. Add its name or id to 'Also attackable' to allow it."
+			: "Bossman: " + who + " can be fought: " + why.text + ".");
+	}
+
 	private void onRelockCommand(ChatMessage chatMessage, String message)
 	{
 		if (!sentByPlayer(chatMessage))

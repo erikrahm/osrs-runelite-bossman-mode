@@ -30,7 +30,7 @@ public interface BossmanModeConfig extends Config
 	String advancedSection = "advanced";
 
 	@ConfigItem(keyName = "extraSources", name = "Extra unlock sources", position = 0, section = unlocksSection,
-		description = "Comma-separated NPC or loot-tracker event names that<br>may unlock items, in addition to the bundled boss<br>list (e.g. a boss released after this version).")
+		description = "Comma-separated NPC or loot-tracker event names that<br>may unlock items, in addition to the bundled boss<br>list (e.g. a boss released after this version). NPCs<br>named here can also be fought.")
 	default String extraSources()
 	{
 		return "";
@@ -145,6 +145,26 @@ public interface BossmanModeConfig extends Config
 	@ConfigItem(keyName = "allowTrading", name = "Allow player trading", position = 5, section = restrictionsSection,
 		description = "Allow trade requests (off by default — a bossman stands alone).")
 	default boolean allowTrading()
+	{
+		return false;
+	}
+
+	@ConfigItem(keyName = "restrictCombat", name = "Only fight bosses", position = 6, section = restrictionsSection,
+		description = "Removes 'Attack' and combat spells from NPCs that aren't<br>bosses. Still attackable: anything in a boss's arena,<br>monsters that drop a boss's key or KC, your slayer task<br>(needs the Slayer plugin on) and NPCs fought in a started<br>quest on the way to a ladder boss. Type !bmattack and an<br>NPC's name to see why. Auto-retaliate still fights back:<br>turn it off.")
+	default boolean restrictCombat()
+	{
+		return true;
+	}
+
+	@ConfigItem(keyName = "extraAttackable", name = "Also attackable", position = 7, section = restrictionsSection,
+		description = "Comma-separated NPC names or NPC ids (from the<br>wiki infobox) that may always be attacked, on top of<br>the bundled lists.")
+	default String extraAttackable()
+	{
+		return "";
+	}
+
+	@ConfigItem(keyName = "attackNoticeShown", name = "", description = "", hidden = true)
+	default boolean attackNoticeShown()
 	{
 		return false;
 	}

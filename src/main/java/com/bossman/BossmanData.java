@@ -1,7 +1,7 @@
 /*
- * Bossman Mode: the hand-written model of the bundled rule files (tools / access / sources / ladder) and lookups
- * over them. The JSON itself is generated in the series project (plugin-data/build_data.py, then fix_data.py) from
- * the OSRS wiki scrapes.
+ * Bossman Mode: the hand-written model of the bundled rule files (tools / access / sources / ladder / attackable) and
+ * lookups over them. tools, access, sources and ladder are generated in the series project (plugin-data/build_data.py,
+ * then fix_data.py) from the OSRS wiki scrapes; attackable.json is maintained by hand.
  */
 package com.bossman;
 
@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import net.runelite.client.util.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -191,10 +192,51 @@ public class BossmanData
 		public List<Rung> rungs = new ArrayList<>();
 	}
 
+	/** Map regions where every NPC may be fought. Only ids is read; the rest documents the entry. */
+	public static class ArenaRegion
+	{
+		public List<Integer> ids = new ArrayList<>();
+		public String boss;
+		/** "fight": the boss's own arena, adds and waves included; "access": monsters there drop what opens a boss */
+		public String role;
+		public String area;
+	}
+
+	/** A monster that drops what opens a boss, or a fight add whose arena region isn't known. */
+	public static class AccessNpc
+	{
+		public String name;
+		/** when given, only these NPC ids match: the name is shared with monsters outside the fight */
+		public List<Integer> ids;
+		public String boss;
+		public String why;
+	}
+
+	public static class QuestKills
+	{
+		public List<String> npcs = new ArrayList<>();
+		public String wiki;
+	}
+
+	/** What may be attacked besides the bosses themselves. */
+	public static class Attackable
+	{
+		public List<ArenaRegion> regions = new ArrayList<>();
+		@SerializedName("access_npcs")
+		public List<AccessNpc> accessNpcs = new ArrayList<>();
+		/** RuneLite Quest constant → the NPCs that quest has you fight */
+		public Map<String, QuestKills> quests = new HashMap<>();
+	}
+
 	private Tools tools;
 	private Access access;
 	private Sources sources;
 	private Ladder ladder;
+	private Attackable attackable;
+	private final Set<Integer> arenaRegions = new HashSet<>();
+	/** standardized names of the access NPCs listed without ids */
+	private final Set<String> accessNpcs = new HashSet<>();
+	private final Set<Integer> accessNpcIds = new HashSet<>();
 
 	/** access.json group whose items have their own setting */
 	static final String SLAYER_TOOLS_GROUP = "slayer tools";
@@ -219,6 +261,7 @@ public class BossmanData
 	public Access getAccess() { return access; }
 	public Sources getSources() { return sources; }
 	public Ladder getLadder() { return ladder; }
+	public Attackable getAttackable() { return attackable; }
 	public Map<Integer, FreeKind> getFreeItems() { return freeItems; }
 	public Set<String> getEventSources() { return eventSources; }
 
@@ -228,6 +271,7 @@ public class BossmanData
 		access = read(gson, "/bossman/access.json", Access.class);
 		sources = read(gson, "/bossman/sources.json", Sources.class);
 		ladder = read(gson, "/bossman/ladder.json", Ladder.class);
+		attackable = read(gson, "/bossman/attackable.json", Attackable.class);
 
 		freeItems.clear();
 		for (List<ItemRef> group : tools.groups.values())
@@ -254,6 +298,24 @@ public class BossmanData
 			}
 		}
 		orderedRungs = Collections.unmodifiableList(ordered);
+		arenaRegions.clear();
+		accessNpcs.clear();
+		accessNpcIds.clear();
+		for (ArenaRegion r : attackable.regions)
+		{
+			arenaRegions.addAll(r.ids);
+		}
+		for (AccessNpc n : attackable.accessNpcs)
+		{
+			if (n.ids != null && !n.ids.isEmpty())
+			{
+				accessNpcIds.addAll(n.ids);
+			}
+			else
+			{
+				accessNpcs.add(Text.standardize(n.name));
+			}
+		}
 		rebuildSources();
 		log.info("Bossman data loaded: {} free items, {} npc sources, {} event sources, {} rungs",
 			freeItems.size(), npcSources.size(), eventSources.size(), ladder.rungs.size());
@@ -338,6 +400,18 @@ public class BossmanData
 	public boolean isEventSource(String eventName)
 	{
 		return eventName != null && (eventSources.contains(eventName) || npcSources.containsKey(eventName.toLowerCase(Locale.ROOT)));
+	}
+
+	/** A boss arena (adds and waves are part of the fight) or an area whose monsters give boss access. */
+	public boolean isArenaRegion(int regionId)
+	{
+		return arenaRegions.contains(regionId);
+	}
+
+	/** Entries with ids match only by id; the others by name (a Text.standardize'd one). */
+	public boolean isAccessNpc(int npcId, String standardName)
+	{
+		return accessNpcIds.contains(npcId) || accessNpcs.contains(standardName);
 	}
 
 	public List<Rung> orderedRungs()

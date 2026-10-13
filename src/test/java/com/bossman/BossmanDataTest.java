@@ -208,6 +208,50 @@ public class BossmanDataTest
 	}
 
 	@Test
+	public void attackableQuestsAreQuestsRuneLiteKnows()
+	{
+		for (String quest : load().getAttackable().quests.keySet())
+		{
+			net.runelite.api.Quest.valueOf(quest);
+		}
+	}
+
+	@Test
+	public void attackableDataIsWellFormed()
+	{
+		BossmanData d = load();
+		BossmanData.Attackable a = d.getAttackable();
+		Set<Integer> regions = new HashSet<>();
+		for (BossmanData.ArenaRegion r : a.regions)
+		{
+			assertTrue(r.boss + ": role " + r.role, "fight".equals(r.role) || "access".equals(r.role));
+			assertFalse(r.boss + ": no region ids", r.ids.isEmpty());
+			for (int id : r.ids)
+			{
+				assertTrue(r.boss + ": region " + id + " listed twice", regions.add(id));
+			}
+			assertTrue(r.boss + " is not a boss the plugin knows", isKnownBoss(d, r.boss));
+		}
+		for (BossmanData.AccessNpc n : a.accessNpcs)
+		{
+			assertFalse("access npc without a name", n.name == null || n.name.trim().isEmpty());
+			assertTrue(n.name + ": empty id list", n.ids == null || !n.ids.isEmpty());
+			assertTrue(n.name + ": " + n.boss + " is not a boss the plugin knows", isKnownBoss(d, n.boss));
+		}
+		a.quests.forEach((quest, kills) ->
+		{
+			assertFalse(quest + ": no npcs", kills.npcs.isEmpty());
+			kills.npcs.forEach(n -> assertFalse(quest + ": blank npc name", n.trim().isEmpty()));
+		});
+	}
+
+	private static boolean isKnownBoss(BossmanData d, String boss)
+	{
+		return d.isNpcSource(boss) || d.isEventSource(boss) || d.canonicalSource(boss) != null
+			|| d.getLadder().rungs.stream().anyMatch(r -> r.boss.equals(boss));
+	}
+
+	@Test
 	public void receiptRulesAreNarrow()
 	{
 		BossmanData d = load();

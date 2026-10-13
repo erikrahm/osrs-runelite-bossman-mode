@@ -3,8 +3,10 @@
  */
 package com.bossman;
 
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+import net.runelite.client.util.Text;
 
 final class MenuRules
 {
@@ -32,5 +34,23 @@ final class MenuRules
 			return restrictShops;
 		}
 		return blockActions && blockedActions.contains(option.toLowerCase(Locale.ROOT));
+	}
+
+	/** A comma-separated config list, each entry through Text.standardize (blanks dropped). */
+	static Set<String> parseList(String csv)
+	{
+		Set<String> out = new HashSet<>();
+		if (csv != null)
+		{
+			for (String s : csv.split(","))
+			{
+				String t = Text.standardize(s);
+				if (!t.isEmpty())
+				{
+					out.add(t);
+				}
+			}
+		}
+		return out;
 	}
 }

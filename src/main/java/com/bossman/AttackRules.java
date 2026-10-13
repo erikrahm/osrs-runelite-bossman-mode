@@ -23,7 +23,7 @@ final class AttackRules
 		ARENA("it's in a boss's arena"),
 		BOSS_ACCESS("it drops what opens a boss, or joins a boss fight"),
 		QUEST("a quest you've started has you fight it"),
-		ALSO_ATTACKABLE("it's on your 'Also attackable' list");
+		EXTRA_ATTACKABLE("it's on your 'Additional attackable enemies' list");
 
 		final String text;
 
@@ -63,7 +63,7 @@ final class AttackRules
 	 * {@code regionId} is where the NPC stands, taken out of any instance.
 	 */
 	static Reason reason(int npcId, String standardName, int regionId, boolean slayerTarget, Set<String> questNpcs,
-		Set<String> alsoAttackable, BossmanData data)
+		Set<String> extraAttackable, BossmanData data)
 	{
 		if (slayerTarget)
 		{
@@ -85,9 +85,9 @@ final class AttackRules
 		{
 			return Reason.QUEST;
 		}
-		if (alsoAttackable.contains(standardName) || alsoAttackable.contains(Integer.toString(npcId)))
+		if (extraAttackable.contains(standardName) || extraAttackable.contains(Integer.toString(npcId)))
 		{
-			return Reason.ALSO_ATTACKABLE;
+			return Reason.EXTRA_ATTACKABLE;
 		}
 		return null;
 	}

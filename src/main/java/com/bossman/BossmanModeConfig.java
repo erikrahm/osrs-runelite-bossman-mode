@@ -156,7 +156,7 @@ public interface BossmanModeConfig extends Config
 		return true;
 	}
 
-	@ConfigItem(keyName = "extraAttackable", name = "Also attackable", position = 7, section = restrictionsSection,
+	@ConfigItem(keyName = "extraAttackable", name = "Additional attackable enemies", position = 7, section = restrictionsSection,
 		description = "Comma-separated NPC names or NPC ids (from the<br>wiki infobox) that may always be attacked, on top of<br>the bundled lists.")
 	default String extraAttackable()
 	{

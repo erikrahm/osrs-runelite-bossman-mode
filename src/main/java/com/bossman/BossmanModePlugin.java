@@ -154,7 +154,7 @@ public class BossmanModePlugin extends Plugin
 	/** lower-cased menu options stripped from locked items (from config; replaced whole on the config thread) */
 	private volatile Set<String> blockedActions = Collections.emptySet();
 	/** standardized NPC names and NPC ids from config that may always be attacked (replaced whole on the config thread) */
-	private volatile Set<String> alsoAttackable = Collections.emptySet();
+	private volatile Set<String> extraAttackable = Collections.emptySet();
 	/** client thread */
 	private QuestFoes questFoes;
 	/** ticks until the next quest-state read; set to 0 (from any thread) to read on the next tick */
@@ -206,7 +206,7 @@ public class BossmanModePlugin extends Plugin
 			id -> ItemVariationMapping.getVariations(ItemVariationMapping.map(id)), () -> ledger);
 		combatTasks = new CombatTasks(client);
 		blockedActions = MenuRules.parseList(config.blockedActions());
-		alsoAttackable = MenuRules.parseList(config.extraAttackable());
+		extraAttackable = MenuRules.parseList(config.extraAttackable());
 		questFoes = new QuestFoes(data.getAttackable().quests);
 		ticksToQuestPoll = 0;
 		unlockImage = ImageUtil.loadImageResource(getClass(), "/item-unlocked.png");
@@ -352,7 +352,7 @@ public class BossmanModePlugin extends Plugin
 				blockedActions = MenuRules.parseList(config.blockedActions());
 				break;
 			case "extraAttackable":
-				alsoAttackable = MenuRules.parseList(config.extraAttackable());
+				extraAttackable = MenuRules.parseList(config.extraAttackable());
 				break;
 			case "restrictCombat":
 				ticksToQuestPoll = 0;
@@ -827,7 +827,7 @@ public class BossmanModePlugin extends Plugin
 		int region = WorldPoint.fromLocalInstance(client, npc.getLocalLocation()).getRegionID();
 		String name = npc.getName() == null ? "" : Text.standardize(npc.getName());
 		return AttackRules.reason(npc.getId(), name, region, slayerService.getTargets().contains(npc), questFoes.npcs(),
-			alsoAttackable, data);
+			extraAttackable, data);
 	}
 
 	@Subscribe
@@ -1050,8 +1050,7 @@ public class BossmanModePlugin extends Plugin
 		sendChatMessage("Bossman: ledger reset (a backup was saved next to it).");
 	}
 
-	/** !bmrelock &lt;item name or id&gt;: take back one unlock recorded by mistake. */
-	/** Why the nearest NPC with that name or id can or can't be fought, with its id for 'Also attackable'. */
+	/** Why the nearest NPC with that name or id can or can't be fought, and its id to add to the config list. */
 	private void onAttackCommand(ChatMessage chatMessage, String message)
 	{
 		if (!sentByPlayer(chatMessage))
@@ -1083,10 +1082,11 @@ public class BossmanModePlugin extends Plugin
 		}
 		AttackRules.Reason why = attackReason(npc);
 		reply(chatMessage, why == null
-			? "Bossman: " + who + " can't be fought. Add its name or id to 'Also attackable' to allow it."
+			? "Bossman: " + who + " can't be fought. Add its name or id to 'Additional attackable enemies' to allow it."
 			: "Bossman: " + who + " can be fought: " + why.text + ".");
 	}
 
+	/** !bmrelock &lt;item name or id&gt;: take back one unlock recorded by mistake. */
 	private void onRelockCommand(ChatMessage chatMessage, String message)
 	{
 		if (!sentByPlayer(chatMessage))

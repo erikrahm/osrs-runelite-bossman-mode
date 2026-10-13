@@ -118,9 +118,9 @@ public class AttackRulesTest
 		assertEquals(AttackRules.Reason.SLAYER_TASK, AttackRules.reason(-1, goblin, NOWHERE, true, NONE, NONE, DATA));
 		assertEquals(AttackRules.Reason.QUEST,
 			AttackRules.reason(-1, goblin, NOWHERE, false, Collections.singleton(goblin), NONE, DATA));
-		assertEquals(AttackRules.Reason.ALSO_ATTACKABLE,
+		assertEquals(AttackRules.Reason.EXTRA_ATTACKABLE,
 			AttackRules.reason(-1, goblin, NOWHERE, false, NONE, Collections.singleton(goblin), DATA));
-		assertEquals(AttackRules.Reason.ALSO_ATTACKABLE,
+		assertEquals(AttackRules.Reason.EXTRA_ATTACKABLE,
 			AttackRules.reason(3029, goblin, NOWHERE, false, NONE, Collections.singleton("3029"), DATA));
 	}
 

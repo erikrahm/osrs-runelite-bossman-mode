@@ -30,14 +30,14 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   Break, Teleport) is stripped from their menus. A locked item can still be picked up, carried, banked and dropped.
   `Use` is not blocked by default because quest hand-ins and skilling go through it — add it for a stricter mode.
 - **Only bosses can be fought** (toggle: "Only fight bosses", on by default). `Attack` and combat spells are removed
-  from every other NPC. Still attackable (`bossman/attackable.json`): anything inside a boss's arena or a raid (adds, waves,
-  God Wars followers for KC, the Gauntlet, Fight Caves, Inferno, Colosseum), monsters that drop a boss's key (hill and
-  moss giants, revenants, Catacombs monsters), fight adds outside a known arena (matched by NPC id), your slayer task,
-  the NPCs fought in a started quest that unlocks a ladder boss or leads to one (Desert Treasure I for DT2), Tutorial
-  Island's rats, and any NPC name or NPC id in "Also attackable" (names in "Extra unlock sources" too). Slayer tasks
-  come from the core **Slayer** plugin, so keep it enabled. `!bmattack <npc name or id>` says why the nearest such NPC
-  can or can't be fought, with its id. Auto-retaliate still fights back against monsters that attack you; turn it off
-  to stay strict.
+  from every other NPC. Still attackable (`bossman/attackable.json`): anything inside a boss's arena or a raid (adds,
+  waves, God Wars followers for KC, the Gauntlet, Fight Caves, Inferno, Colosseum), monsters that drop a boss's key
+  (hill and moss giants, revenants, Catacombs monsters), fight adds outside a known arena (matched by NPC id), your
+  slayer task, the NPCs fought in a started quest that unlocks a ladder boss or leads to one (Desert Treasure I for
+  DT2), Tutorial Island's rats, and any NPC name or NPC id in "Additional attackable enemies" (names in "Extra unlock
+  sources" too). Slayer tasks come from the core **Slayer** plugin, so keep it enabled. `!bmattack <npc name or id>`
+  says why the nearest such NPC can or can't be fought, with its id. Auto-retaliate still fights back against monsters
+  that attack you; turn it off to stay strict.
 - **Unlock banner** captioned with the source and KC ("Crazy archaeologist — KC 14"); items from the same loot share one
   banner ("+3 more"). Optional screenshot / chat / notification.
 - **Ladder panel.** The 67-rung boss ladder (`bossman/ladder.json`): current rung, gate, collection-log items gating it

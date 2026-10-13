@@ -28,6 +28,7 @@ public class LadderRulesTest
 	private boolean freeTools = true;
 	private boolean freeAccessGear = true;
 	private boolean freeSlayerTools = true;
+	private boolean freeBossCraftables = true;
 	private boolean jarsGate;
 	private int memeThreshold = 5000;
 	private LadderRules rules;
@@ -75,6 +76,12 @@ public class LadderRulesTest
 			public boolean freeSlayerTools()
 			{
 				return freeSlayerTools;
+			}
+
+			@Override
+			public boolean freeBossCraftables()
+			{
+				return freeBossCraftables;
 			}
 
 			@Override
@@ -140,6 +147,18 @@ public class LadderRulesTest
 		freeTools = false;
 		assertFalse(rules.isAllowed(vialOfWater));
 		assertFalse(rules.isAllowed(plantPotPack));
+	}
+
+	@Test
+	public void bossAreaCraftablesFollowTheirSetting()
+	{
+		int rejuvenationPotion4 = 20699;
+		int crystalBowPerfected = 23903;
+		assertEquals(FreeKind.BOSS_CRAFTABLE, rules.freeKind(rejuvenationPotion4));
+		assertTrue(rules.isAllowed(crystalBowPerfected));
+		freeBossCraftables = false;
+		assertFalse(rules.isAllowed(rejuvenationPotion4));
+		assertFalse(rules.isAllowed(crystalBowPerfected));
 	}
 
 	@Test

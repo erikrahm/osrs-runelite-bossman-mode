@@ -97,7 +97,7 @@ public class LockedItemOverlay extends WidgetItemOverlay
 			case BOND:
 				return BOND;
 			default:
-				return ACCESS;   // access gear and slayer tools: both only get you to (or through) a boss
+				return ACCESS;   // access gear, slayer tools, boss area craftables: all only get you to (or through) a boss
 		}
 	}
 

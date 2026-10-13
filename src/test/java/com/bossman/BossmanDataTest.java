@@ -196,6 +196,14 @@ public class BossmanDataTest
 	}
 
 	@Test
+	public void bossAreaCraftablesHaveTheirOwnKind()
+	{
+		BossmanData d = load();
+		assertEquals(FreeKind.BOSS_CRAFTABLE, d.getFreeItems().get(20996));   // overload (+)(4)
+		assertEquals(FreeKind.BOSS_CRAFTABLE, d.getFreeItems().get(23888));   // crystal helm (perfected)
+	}
+
+	@Test
 	public void containersAreTools()
 	{
 		BossmanData d = load();

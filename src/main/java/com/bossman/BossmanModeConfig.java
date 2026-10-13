@@ -57,21 +57,28 @@ public interface BossmanModeConfig extends Config
 		return true;
 	}
 
-	@ConfigItem(keyName = "receiptRules", name = "Completion-reward unlocks", position = 4, section = unlocksSection,
+	@ConfigItem(keyName = "freeBossCraftables", name = "Boss area craftables are always unlocked", position = 4, section = unlocksSection,
+		description = "Items made or handed out inside a boss's area for<br>use there (Wintertodt's rejuvenation potions, Chambers<br>of Xeric potions and food, Gauntlet gear, Tombs of<br>Amascut supplies) are usable without a boss drop.")
+	default boolean freeBossCraftables()
+	{
+		return true;
+	}
+
+	@ConfigItem(keyName = "receiptRules", name = "Completion-reward unlocks", position = 5, section = unlocksSection,
 		description = "Unlock the Fire and Infernal cape on receipt (with the Tokkul<br>that comes with them), and anything received in the Gauntlet<br>lobby (the Gauntlet chest is not a tracked loot source). Bank<br>withdrawals and items you take off don't count.")
 	default boolean receiptRules()
 	{
 		return true;
 	}
 
-	@ConfigItem(keyName = "importCollectionLog", name = "Import from collection log", position = 5, section = unlocksSection,
+	@ConfigItem(keyName = "importCollectionLog", name = "Import from collection log", position = 6, section = unlocksSection,
 		description = "When you open a boss tab in the in-game collection<br>log, items shown as obtained are recorded as unlocks<br>(for drops you had before installing the plugin).")
 	default boolean importCollectionLog()
 	{
 		return true;
 	}
 
-	@ConfigItem(keyName = "unlockBond", name = "Bonds are always unlocked", position = 6, section = unlocksSection,
+	@ConfigItem(keyName = "unlockBond", name = "Bonds are always unlocked", position = 7, section = unlocksSection,
 		description = "Old School bonds are usable without a boss drop, so membership<br>can be bought. Takes effect immediately either way.")
 	default boolean unlockBond()
 	{
@@ -177,7 +184,7 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "markFree", name = "Mark tools / access gear", position = 1, section = displaySection,
-		description = "Draw a small marker on items that are free under<br>the Tool rule or the access-equipment rule.")
+		description = "Draw a small marker on items that are free under<br>the Tool, access-equipment, slayer-tool or boss area<br>craftable rules.")
 	default boolean markFree()
 	{
 		return false;

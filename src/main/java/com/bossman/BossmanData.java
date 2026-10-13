@@ -238,8 +238,9 @@ public class BossmanData
 	private final Set<String> accessNpcs = new HashSet<>();
 	private final Set<Integer> accessNpcIds = new HashSet<>();
 
-	/** access.json group whose items have their own setting */
+	/** access.json groups whose items have their own setting */
 	static final String SLAYER_TOOLS_GROUP = "slayer tools";
+	static final String BOSS_CRAFTABLES_GROUP = "boss area craftables";
 
 	/** item id → why it's free (whether that rule is switched on is LadderRules' call) */
 	private final Map<Integer, FreeKind> freeItems = new HashMap<>();
@@ -283,7 +284,9 @@ public class BossmanData
 		}
 		for (Map.Entry<String, AccessGroup> group : access.groups.entrySet())
 		{
-			FreeKind kind = SLAYER_TOOLS_GROUP.equals(group.getKey()) ? FreeKind.SLAYER : FreeKind.ACCESS;
+			FreeKind kind = SLAYER_TOOLS_GROUP.equals(group.getKey()) ? FreeKind.SLAYER
+				: BOSS_CRAFTABLES_GROUP.equals(group.getKey()) ? FreeKind.BOSS_CRAFTABLE
+				: FreeKind.ACCESS;
 			for (ItemRef r : group.getValue().items)
 			{
 				freeItems.putIfAbsent(r.id, kind);

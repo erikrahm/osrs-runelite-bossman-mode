@@ -16,8 +16,10 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   soil (vial of water, bucket of water, filled plant pot…) so herblore and planting boss-dropped seeds work
   (`bossman/tools.json`), access equipment
   (`bossman/access.json`: slayer access gear, keys/totems, grapple, rope), the consumable slayer tools a task monster
-  needs (rock hammer, bag of salt, ice cooler, fungicide…) and bonds are allowed by default. Each is its own config toggle
-  ("Tools / Access gear / Slayer tools / Bonds are always unlocked") for stricter variants of the mode.
+  needs (rock hammer, bag of salt, ice cooler, fungicide…), boss area craftables (made or handed out inside a boss's
+  area for use there: Wintertodt's rejuvenation potions, Chambers of Xeric potions and food, Gauntlet gear, Tombs of
+  Amascut supplies) and bonds are allowed by default. Each is its own config toggle ("Tools / Access gear / Slayer
+  tools / Boss area craftables / Bonds are always unlocked") for stricter variants of the mode.
 - **Ledger.** Every unlock is written to `~/.runelite/bossman-mode/<world type>-<account hash>/bossman-mode-ledger.json`
   with its source, the KC at that source, and a timestamp. A ledger file that can't be read is renamed to
   `*.corrupt-<time>` and never overwritten; pending changes are written on logout and when the client closes. Per-source

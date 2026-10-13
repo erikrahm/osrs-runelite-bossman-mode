@@ -123,6 +123,8 @@ public class LadderRules
 				return config.freeAccessGear() ? kind : null;
 			case SLAYER:
 				return config.freeSlayerTools() ? kind : null;
+			case BOSS_CRAFTABLE:
+				return config.freeBossCraftables() ? kind : null;
 			default:
 				return kind;
 		}

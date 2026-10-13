@@ -11,6 +11,8 @@ enum FreeKind
 	ACCESS,
 	/** consumable slayer tools a task monster needs to be finished (rock hammer, bag of salt, ...) */
 	SLAYER,
+	/** made or handed out inside a boss's area for use there (Wintertodt's potions, raid supplies, Gauntlet gear) */
+	BOSS_CRAFTABLE,
 	/** Old School bonds, so membership can be bought */
 	BOND
 }

@@ -168,6 +168,1079 @@
      "name": "Rope"
     }
    ]
+  },
+  "boss area craftables": {
+   "note": "made or handed out inside a boss area for use there; free under their own setting, on by default",
+   "items": [
+    {
+     "id": 20695,
+     "name": "Bruma root"
+    },
+    {
+     "id": 20696,
+     "name": "Bruma kindling"
+    },
+    {
+     "id": 20698,
+     "name": "Bruma herb"
+    },
+    {
+     "id": 20697,
+     "name": "Rejuvenation potion (unf)"
+    },
+    {
+     "id": 20702,
+     "name": "Rejuvenation potion (1)"
+    },
+    {
+     "id": 20701,
+     "name": "Rejuvenation potion (2)"
+    },
+    {
+     "id": 20700,
+     "name": "Rejuvenation potion (3)"
+    },
+    {
+     "id": 20699,
+     "name": "Rejuvenation potion (4)"
+    },
+    {
+     "id": 25564,
+     "name": "Raw harpoonfish"
+    },
+    {
+     "id": 25565,
+     "name": "Harpoonfish"
+    },
+    {
+     "id": 25566,
+     "name": "Crystallised harpoonfish"
+    },
+    {
+     "id": 20913,
+     "name": "Elder (-)(1)"
+    },
+    {
+     "id": 20914,
+     "name": "Elder (-)(2)"
+    },
+    {
+     "id": 20915,
+     "name": "Elder (-)(3)"
+    },
+    {
+     "id": 20916,
+     "name": "Elder (-)(4)"
+    },
+    {
+     "id": 20917,
+     "name": "Elder potion (1)"
+    },
+    {
+     "id": 20918,
+     "name": "Elder potion (2)"
+    },
+    {
+     "id": 20919,
+     "name": "Elder potion (3)"
+    },
+    {
+     "id": 20920,
+     "name": "Elder potion (4)"
+    },
+    {
+     "id": 20921,
+     "name": "Elder (+)(1)"
+    },
+    {
+     "id": 20922,
+     "name": "Elder (+)(2)"
+    },
+    {
+     "id": 20923,
+     "name": "Elder (+)(3)"
+    },
+    {
+     "id": 20924,
+     "name": "Elder (+)(4)"
+    },
+    {
+     "id": 20925,
+     "name": "Twisted (-)(1)"
+    },
+    {
+     "id": 20926,
+     "name": "Twisted (-)(2)"
+    },
+    {
+     "id": 20927,
+     "name": "Twisted (-)(3)"
+    },
+    {
+     "id": 20928,
+     "name": "Twisted (-)(4)"
+    },
+    {
+     "id": 20929,
+     "name": "Twisted potion (1)"
+    },
+    {
+     "id": 20930,
+     "name": "Twisted potion (2)"
+    },
+    {
+     "id": 20931,
+     "name": "Twisted potion (3)"
+    },
+    {
+     "id": 20932,
+     "name": "Twisted potion (4)"
+    },
+    {
+     "id": 20933,
+     "name": "Twisted (+)(1)"
+    },
+    {
+     "id": 20934,
+     "name": "Twisted (+)(2)"
+    },
+    {
+     "id": 20935,
+     "name": "Twisted (+)(3)"
+    },
+    {
+     "id": 20936,
+     "name": "Twisted (+)(4)"
+    },
+    {
+     "id": 20937,
+     "name": "Kodai (-)(1)"
+    },
+    {
+     "id": 20938,
+     "name": "Kodai (-)(2)"
+    },
+    {
+     "id": 20939,
+     "name": "Kodai (-)(3)"
+    },
+    {
+     "id": 20940,
+     "name": "Kodai (-)(4)"
+    },
+    {
+     "id": 20941,
+     "name": "Kodai potion (1)"
+    },
+    {
+     "id": 20942,
+     "name": "Kodai potion (2)"
+    },
+    {
+     "id": 20943,
+     "name": "Kodai potion (3)"
+    },
+    {
+     "id": 20944,
+     "name": "Kodai potion (4)"
+    },
+    {
+     "id": 20945,
+     "name": "Kodai (+)(1)"
+    },
+    {
+     "id": 20946,
+     "name": "Kodai (+)(2)"
+    },
+    {
+     "id": 20947,
+     "name": "Kodai (+)(3)"
+    },
+    {
+     "id": 20948,
+     "name": "Kodai (+)(4)"
+    },
+    {
+     "id": 20949,
+     "name": "Revitalisation (-)(1)"
+    },
+    {
+     "id": 20950,
+     "name": "Revitalisation (-)(2)"
+    },
+    {
+     "id": 20951,
+     "name": "Revitalisation (-)(3)"
+    },
+    {
+     "id": 20952,
+     "name": "Revitalisation (-)(4)"
+    },
+    {
+     "id": 20953,
+     "name": "Revitalisation potion (1)"
+    },
+    {
+     "id": 20954,
+     "name": "Revitalisation potion (2)"
+    },
+    {
+     "id": 20955,
+     "name": "Revitalisation potion (3)"
+    },
+    {
+     "id": 20956,
+     "name": "Revitalisation potion (4)"
+    },
+    {
+     "id": 20957,
+     "name": "Revitalisation (+)(1)"
+    },
+    {
+     "id": 20958,
+     "name": "Revitalisation (+)(2)"
+    },
+    {
+     "id": 20959,
+     "name": "Revitalisation (+)(3)"
+    },
+    {
+     "id": 20960,
+     "name": "Revitalisation (+)(4)"
+    },
+    {
+     "id": 20961,
+     "name": "Prayer enhance (-)(1)"
+    },
+    {
+     "id": 20962,
+     "name": "Prayer enhance (-)(2)"
+    },
+    {
+     "id": 20963,
+     "name": "Prayer enhance (-)(3)"
+    },
+    {
+     "id": 20964,
+     "name": "Prayer enhance (-)(4)"
+    },
+    {
+     "id": 20965,
+     "name": "Prayer enhance (1)"
+    },
+    {
+     "id": 20966,
+     "name": "Prayer enhance (2)"
+    },
+    {
+     "id": 20967,
+     "name": "Prayer enhance (3)"
+    },
+    {
+     "id": 20968,
+     "name": "Prayer enhance (4)"
+    },
+    {
+     "id": 20969,
+     "name": "Prayer enhance (+)(1)"
+    },
+    {
+     "id": 20970,
+     "name": "Prayer enhance (+)(2)"
+    },
+    {
+     "id": 20971,
+     "name": "Prayer enhance (+)(3)"
+    },
+    {
+     "id": 20972,
+     "name": "Prayer enhance (+)(4)"
+    },
+    {
+     "id": 20973,
+     "name": "Xeric's aid (-)(1)"
+    },
+    {
+     "id": 20974,
+     "name": "Xeric's aid (-)(2)"
+    },
+    {
+     "id": 20975,
+     "name": "Xeric's aid (-)(3)"
+    },
+    {
+     "id": 20976,
+     "name": "Xeric's aid (-)(4)"
+    },
+    {
+     "id": 20977,
+     "name": "Xeric's aid (1)"
+    },
+    {
+     "id": 20978,
+     "name": "Xeric's aid (2)"
+    },
+    {
+     "id": 20979,
+     "name": "Xeric's aid (3)"
+    },
+    {
+     "id": 20980,
+     "name": "Xeric's aid (4)"
+    },
+    {
+     "id": 20981,
+     "name": "Xeric's aid (+)(1)"
+    },
+    {
+     "id": 20982,
+     "name": "Xeric's aid (+)(2)"
+    },
+    {
+     "id": 20983,
+     "name": "Xeric's aid (+)(3)"
+    },
+    {
+     "id": 20984,
+     "name": "Xeric's aid (+)(4)"
+    },
+    {
+     "id": 20985,
+     "name": "Overload (-)(1)"
+    },
+    {
+     "id": 20986,
+     "name": "Overload (-)(2)"
+    },
+    {
+     "id": 20987,
+     "name": "Overload (-)(3)"
+    },
+    {
+     "id": 20988,
+     "name": "Overload (-)(4)"
+    },
+    {
+     "id": 20989,
+     "name": "Overload (1)"
+    },
+    {
+     "id": 20990,
+     "name": "Overload (2)"
+    },
+    {
+     "id": 20991,
+     "name": "Overload (3)"
+    },
+    {
+     "id": 20992,
+     "name": "Overload (4)"
+    },
+    {
+     "id": 20993,
+     "name": "Overload (+)(1)"
+    },
+    {
+     "id": 20994,
+     "name": "Overload (+)(2)"
+    },
+    {
+     "id": 20995,
+     "name": "Overload (+)(3)"
+    },
+    {
+     "id": 20996,
+     "name": "Overload (+)(4)"
+    },
+    {
+     "id": 25754,
+     "name": "Antipoison (-)(1)"
+    },
+    {
+     "id": 25755,
+     "name": "Antipoison (-)(2)"
+    },
+    {
+     "id": 25756,
+     "name": "Antipoison (-)(3)"
+    },
+    {
+     "id": 25757,
+     "name": "Antipoison (-)(4)"
+    },
+    {
+     "id": 25758,
+     "name": "Antipoison potion (1)"
+    },
+    {
+     "id": 25759,
+     "name": "Antipoison potion (2)"
+    },
+    {
+     "id": 25760,
+     "name": "Antipoison potion (3)"
+    },
+    {
+     "id": 25761,
+     "name": "Antipoison potion (4)"
+    },
+    {
+     "id": 25762,
+     "name": "Antipoison (+)(1)"
+    },
+    {
+     "id": 25763,
+     "name": "Antipoison (+)(2)"
+    },
+    {
+     "id": 25764,
+     "name": "Antipoison (+)(3)"
+    },
+    {
+     "id": 25765,
+     "name": "Antipoison (+)(4)"
+    },
+    {
+     "id": 20800,
+     "name": "Empty gourd vial"
+    },
+    {
+     "id": 20801,
+     "name": "Water-filled gourd vial"
+    },
+    {
+     "id": 20906,
+     "name": "Golpar seed"
+    },
+    {
+     "id": 20909,
+     "name": "Buchu seed"
+    },
+    {
+     "id": 20903,
+     "name": "Noxifer seed"
+    },
+    {
+     "id": 20904,
+     "name": "Grimy golpar"
+    },
+    {
+     "id": 20905,
+     "name": "Golpar"
+    },
+    {
+     "id": 20907,
+     "name": "Grimy buchu leaf"
+    },
+    {
+     "id": 20908,
+     "name": "Buchu leaf"
+    },
+    {
+     "id": 20901,
+     "name": "Grimy noxifer"
+    },
+    {
+     "id": 20902,
+     "name": "Noxifer"
+    },
+    {
+     "id": 20910,
+     "name": "Stinkhorn mushroom"
+    },
+    {
+     "id": 20911,
+     "name": "Endarkened juice"
+    },
+    {
+     "id": 20912,
+     "name": "Cicely"
+    },
+    {
+     "id": 20855,
+     "name": "Raw pysk fish (0)"
+    },
+    {
+     "id": 20856,
+     "name": "Pysk fish (0)"
+    },
+    {
+     "id": 20857,
+     "name": "Raw suphi fish (1)"
+    },
+    {
+     "id": 20858,
+     "name": "Suphi fish (1)"
+    },
+    {
+     "id": 20859,
+     "name": "Raw leckish fish (2)"
+    },
+    {
+     "id": 20860,
+     "name": "Leckish fish (2)"
+    },
+    {
+     "id": 20861,
+     "name": "Raw brawk fish (3)"
+    },
+    {
+     "id": 20862,
+     "name": "Brawk fish (3)"
+    },
+    {
+     "id": 20863,
+     "name": "Raw mycil fish (4)"
+    },
+    {
+     "id": 20864,
+     "name": "Mycil fish (4)"
+    },
+    {
+     "id": 20865,
+     "name": "Raw roqed fish (5)"
+    },
+    {
+     "id": 20866,
+     "name": "Roqed fish (5)"
+    },
+    {
+     "id": 20867,
+     "name": "Raw kyren fish (6)"
+    },
+    {
+     "id": 20868,
+     "name": "Kyren fish (6)"
+    },
+    {
+     "id": 20854,
+     "name": "Burnt fish (Chambers of Xeric)"
+    },
+    {
+     "id": 20870,
+     "name": "Raw guanic bat (0)"
+    },
+    {
+     "id": 20871,
+     "name": "Guanic bat (0)"
+    },
+    {
+     "id": 20872,
+     "name": "Raw prael bat (1)"
+    },
+    {
+     "id": 20873,
+     "name": "Prael bat (1)"
+    },
+    {
+     "id": 20874,
+     "name": "Raw giral bat (2)"
+    },
+    {
+     "id": 20875,
+     "name": "Giral bat (2)"
+    },
+    {
+     "id": 20876,
+     "name": "Raw phluxia bat (3)"
+    },
+    {
+     "id": 20877,
+     "name": "Phluxia bat (3)"
+    },
+    {
+     "id": 20878,
+     "name": "Raw kryket bat (4)"
+    },
+    {
+     "id": 20879,
+     "name": "Kryket bat (4)"
+    },
+    {
+     "id": 20880,
+     "name": "Raw murng bat (5)"
+    },
+    {
+     "id": 20881,
+     "name": "Murng bat (5)"
+    },
+    {
+     "id": 20882,
+     "name": "Raw psykk bat (6)"
+    },
+    {
+     "id": 20883,
+     "name": "Psykk bat (6)"
+    },
+    {
+     "id": 20869,
+     "name": "Burnt bat"
+    },
+    {
+     "id": 20853,
+     "name": "Cave worms"
+    },
+    {
+     "id": 20799,
+     "name": "Kindling (Chambers of Xeric)"
+    },
+    {
+     "id": 23861,
+     "name": "Crystal sceptre"
+    },
+    {
+     "id": 23862,
+     "name": "Crystal axe (The Gauntlet)"
+    },
+    {
+     "id": 23863,
+     "name": "Crystal pickaxe (The Gauntlet)"
+    },
+    {
+     "id": 23864,
+     "name": "Crystal harpoon (The Gauntlet)"
+    },
+    {
+     "id": 23904,
+     "name": "Teleport crystal (The Gauntlet)"
+    },
+    {
+     "id": 25961,
+     "name": "Escape crystal (The Gauntlet)"
+    },
+    {
+     "id": 23866,
+     "name": "Crystal shards (The Gauntlet)"
+    },
+    {
+     "id": 23867,
+     "name": "Crystal dust (The Gauntlet)"
+    },
+    {
+     "id": 23877,
+     "name": "Crystal ore"
+    },
+    {
+     "id": 23878,
+     "name": "Phren bark"
+    },
+    {
+     "id": 23876,
+     "name": "Linum tirinum"
+    },
+    {
+     "id": 23875,
+     "name": "Grym leaf"
+    },
+    {
+     "id": 23871,
+     "name": "Weapon frame"
+    },
+    {
+     "id": 23868,
+     "name": "Crystal spike"
+    },
+    {
+     "id": 23869,
+     "name": "Crystalline bowstring"
+    },
+    {
+     "id": 23870,
+     "name": "Crystal orb"
+    },
+    {
+     "id": 23879,
+     "name": "Vial (The Gauntlet)"
+    },
+    {
+     "id": 23880,
+     "name": "Water-filled vial"
+    },
+    {
+     "id": 23881,
+     "name": "Grym potion (unf)"
+    },
+    {
+     "id": 23882,
+     "name": "Egniol potion (1)"
+    },
+    {
+     "id": 23883,
+     "name": "Egniol potion (2)"
+    },
+    {
+     "id": 23884,
+     "name": "Egniol potion (3)"
+    },
+    {
+     "id": 23885,
+     "name": "Egniol potion (4)"
+    },
+    {
+     "id": 23872,
+     "name": "Raw paddlefish"
+    },
+    {
+     "id": 23874,
+     "name": "Paddlefish"
+    },
+    {
+     "id": 23873,
+     "name": "Burnt fish (paddlefish)"
+    },
+    {
+     "id": 25960,
+     "name": "Crystal paddlefish"
+    },
+    {
+     "id": 23886,
+     "name": "Crystal helm (basic)"
+    },
+    {
+     "id": 23887,
+     "name": "Crystal helm (attuned)"
+    },
+    {
+     "id": 23888,
+     "name": "Crystal helm (perfected)"
+    },
+    {
+     "id": 23889,
+     "name": "Crystal body (basic)"
+    },
+    {
+     "id": 23890,
+     "name": "Crystal body (attuned)"
+    },
+    {
+     "id": 23891,
+     "name": "Crystal body (perfected)"
+    },
+    {
+     "id": 23892,
+     "name": "Crystal legs (basic)"
+    },
+    {
+     "id": 23893,
+     "name": "Crystal legs (attuned)"
+    },
+    {
+     "id": 23894,
+     "name": "Crystal legs (perfected)"
+    },
+    {
+     "id": 23901,
+     "name": "Crystal bow (basic)"
+    },
+    {
+     "id": 23902,
+     "name": "Crystal bow (attuned)"
+    },
+    {
+     "id": 23903,
+     "name": "Crystal bow (perfected)"
+    },
+    {
+     "id": 23898,
+     "name": "Crystal staff (basic)"
+    },
+    {
+     "id": 23899,
+     "name": "Crystal staff (attuned)"
+    },
+    {
+     "id": 23900,
+     "name": "Crystal staff (perfected)"
+    },
+    {
+     "id": 23895,
+     "name": "Crystal halberd (basic)"
+    },
+    {
+     "id": 23896,
+     "name": "Crystal halberd (attuned)"
+    },
+    {
+     "id": 23897,
+     "name": "Crystal halberd (perfected)"
+    },
+    {
+     "id": 23820,
+     "name": "Corrupted sceptre"
+    },
+    {
+     "id": 23821,
+     "name": "Corrupted axe"
+    },
+    {
+     "id": 23822,
+     "name": "Corrupted pickaxe"
+    },
+    {
+     "id": 23823,
+     "name": "Corrupted harpoon"
+    },
+    {
+     "id": 23858,
+     "name": "Corrupted teleport crystal"
+    },
+    {
+     "id": 25959,
+     "name": "Corrupted escape crystal"
+    },
+    {
+     "id": 23824,
+     "name": "Corrupted shards"
+    },
+    {
+     "id": 23830,
+     "name": "Corrupted dust"
+    },
+    {
+     "id": 23837,
+     "name": "Corrupted ore"
+    },
+    {
+     "id": 23838,
+     "name": "Phren bark (corrupted)"
+    },
+    {
+     "id": 23836,
+     "name": "Linum tirinum (corrupted)"
+    },
+    {
+     "id": 23835,
+     "name": "Grym leaf (corrupted)"
+    },
+    {
+     "id": 23834,
+     "name": "Weapon frame (corrupted)"
+    },
+    {
+     "id": 23831,
+     "name": "Corrupted spike"
+    },
+    {
+     "id": 23832,
+     "name": "Corrupted bowstring"
+    },
+    {
+     "id": 23833,
+     "name": "Corrupted orb"
+    },
+    {
+     "id": 23839,
+     "name": "Vial (corrupted)"
+    },
+    {
+     "id": 25958,
+     "name": "Corrupted paddlefish"
+    },
+    {
+     "id": 23840,
+     "name": "Corrupted helm (basic)"
+    },
+    {
+     "id": 23841,
+     "name": "Corrupted helm (attuned)"
+    },
+    {
+     "id": 23842,
+     "name": "Corrupted helm (perfected)"
+    },
+    {
+     "id": 23843,
+     "name": "Corrupted body (basic)"
+    },
+    {
+     "id": 23844,
+     "name": "Corrupted body (attuned)"
+    },
+    {
+     "id": 23845,
+     "name": "Corrupted body (perfected)"
+    },
+    {
+     "id": 23846,
+     "name": "Corrupted legs (basic)"
+    },
+    {
+     "id": 23847,
+     "name": "Corrupted legs (attuned)"
+    },
+    {
+     "id": 23848,
+     "name": "Corrupted legs (perfected)"
+    },
+    {
+     "id": 23855,
+     "name": "Corrupted bow (basic)"
+    },
+    {
+     "id": 23856,
+     "name": "Corrupted bow (attuned)"
+    },
+    {
+     "id": 23857,
+     "name": "Corrupted bow (perfected)"
+    },
+    {
+     "id": 23852,
+     "name": "Corrupted staff (basic)"
+    },
+    {
+     "id": 23853,
+     "name": "Corrupted staff (attuned)"
+    },
+    {
+     "id": 23854,
+     "name": "Corrupted staff (perfected)"
+    },
+    {
+     "id": 23849,
+     "name": "Corrupted halberd (basic)"
+    },
+    {
+     "id": 23850,
+     "name": "Corrupted halberd (attuned)"
+    },
+    {
+     "id": 23851,
+     "name": "Corrupted halberd (perfected)"
+    },
+    {
+     "id": 27314,
+     "name": "Supplies (Tombs of Amascut)"
+    },
+    {
+     "id": 27321,
+     "name": "Nectar (1)"
+    },
+    {
+     "id": 27319,
+     "name": "Nectar (2)"
+    },
+    {
+     "id": 27317,
+     "name": "Nectar (3)"
+    },
+    {
+     "id": 27315,
+     "name": "Nectar (4)"
+    },
+    {
+     "id": 27333,
+     "name": "Tears of Elidinis (1)"
+    },
+    {
+     "id": 27331,
+     "name": "Tears of Elidinis (2)"
+    },
+    {
+     "id": 27329,
+     "name": "Tears of Elidinis (3)"
+    },
+    {
+     "id": 27327,
+     "name": "Tears of Elidinis (4)"
+    },
+    {
+     "id": 27325,
+     "name": "Silk dressing (1)"
+    },
+    {
+     "id": 27323,
+     "name": "Silk dressing (2)"
+    },
+    {
+     "id": 27349,
+     "name": "Ambrosia (1)"
+    },
+    {
+     "id": 27347,
+     "name": "Ambrosia (2)"
+    },
+    {
+     "id": 27341,
+     "name": "Liquid adrenaline (1)"
+    },
+    {
+     "id": 27339,
+     "name": "Liquid adrenaline (2)"
+    },
+    {
+     "id": 27337,
+     "name": "Blessed crystal scarab (1)"
+    },
+    {
+     "id": 27335,
+     "name": "Blessed crystal scarab (2)"
+    },
+    {
+     "id": 27345,
+     "name": "Smelling salts (1)"
+    },
+    {
+     "id": 27343,
+     "name": "Smelling salts (2)"
+    },
+    {
+     "id": 27351,
+     "name": "Honey locust"
+    },
+    {
+     "id": 29078,
+     "name": "Moonlight grub"
+    },
+    {
+     "id": 29079,
+     "name": "Moonlight grub paste"
+    },
+    {
+     "id": 29083,
+     "name": "Moonlight potion(1)"
+    },
+    {
+     "id": 29082,
+     "name": "Moonlight potion(2)"
+    },
+    {
+     "id": 29081,
+     "name": "Moonlight potion(3)"
+    },
+    {
+     "id": 29080,
+     "name": "Moonlight potion(4)"
+    },
+    {
+     "id": 29076,
+     "name": "Raw moss lizard"
+    },
+    {
+     "id": 29077,
+     "name": "Cooked moss lizard"
+    },
+    {
+     "id": 29217,
+     "name": "Cooked bream"
+    },
+    {
+     "id": 25730,
+     "name": "Bandages (Theatre of Blood)"
+    },
+    {
+     "id": 23905,
+     "name": "Tephra"
+    },
+    {
+     "id": 23906,
+     "name": "Refined tephra"
+    },
+    {
+     "id": 23907,
+     "name": "Imbued tephra"
+    }
+   ]
   }
  },
  "open": [

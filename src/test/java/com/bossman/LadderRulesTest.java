@@ -131,6 +131,18 @@ public class LadderRulesTest
 	}
 
 	@Test
+	public void containersFollowTheToolsSetting()
+	{
+		int vialOfWater = 227;
+		int plantPotPack = 13250;
+		assertTrue(rules.isAllowed(vialOfWater));
+		assertTrue(rules.isAllowed(plantPotPack));
+		freeTools = false;
+		assertFalse(rules.isAllowed(vialOfWater));
+		assertFalse(rules.isAllowed(plantPotPack));
+	}
+
+	@Test
 	public void bondFollowsItsSettingBothWays()
 	{
 		assertTrue(rules.isAllowed(ItemID.OSRS_BOND));

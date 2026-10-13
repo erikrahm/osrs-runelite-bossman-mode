@@ -196,6 +196,18 @@ public class BossmanDataTest
 	}
 
 	@Test
+	public void containersAreTools()
+	{
+		BossmanData d = load();
+		assertEquals(FreeKind.TOOL, d.getFreeItems().get(227));    // vial of water
+		assertEquals(FreeKind.TOOL, d.getFreeItems().get(1929));   // bucket of water
+		assertEquals(FreeKind.TOOL, d.getFreeItems().get(5354));   // filled plant pot
+		assertNull("bucket of milk", d.getFreeItems().get(1927));
+		assertNull("pot of flour", d.getFreeItems().get(1933));
+		assertNull("bucket of sand", d.getFreeItems().get(1783));
+	}
+
+	@Test
 	public void receiptRulesAreNarrow()
 	{
 		BossmanData d = load();

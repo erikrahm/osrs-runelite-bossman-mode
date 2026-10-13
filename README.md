@@ -12,7 +12,9 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   Once unlocked, copies from any source are fine (bronzeman semantics), and so are other forms of the same item: other
   potion doses, jewellery charges, degraded Barrows gear, charged and uncharged weapons. Coins are locked until Brutus
   drops some.
-- **Free items.** Everything on the wiki Tool page at base tier (`bossman/tools.json`), access equipment
+- **Free items.** Everything on the wiki Tool page at base tier and the basic containers, empty or holding water or
+  soil (vial of water, bucket of water, filled plant pot…) so herblore and planting boss-dropped seeds work
+  (`bossman/tools.json`), access equipment
   (`bossman/access.json`: slayer access gear, keys/totems, grapple, rope), the consumable slayer tools a task monster
   needs (rock hammer, bag of salt, ice cooler, fungicide…) and bonds are allowed by default. Each is its own config toggle
   ("Tools / Access gear / Slayer tools / Bonds are always unlocked") for stricter variants of the mode.

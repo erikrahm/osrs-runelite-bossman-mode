@@ -1,5 +1,5 @@
 {
- "source": "https://oldschool.runescape.wiki/w/Tool (base/shop tier only)",
+ "source": "https://oldschool.runescape.wiki/w/Tool (base/shop tier only) + the empty and water/soil-filled vessels from https://oldschool.runescape.wiki/w/Container",
  "rule": 2,
  "groups": {
   "general": [
@@ -95,21 +95,6 @@
    {
     "id": 1785,
     "name": "Glassblowing pipe"
-   },
-   {
-    "id": 1925,
-    "name": "Bucket",
-    "note": "empty bucket only — bucket of water etc. are containers (gated for use)"
-   },
-   {
-    "id": 8986,
-    "name": "Bucket",
-    "note": "empty bucket only — bucket of water etc. are containers (gated for use)"
-   },
-   {
-    "id": 9660,
-    "name": "Bucket",
-    "note": "empty bucket only — bucket of water etc. are containers (gated for use)"
    }
   ],
   "light sources": [
@@ -240,10 +225,6 @@
    {
     "id": 5325,
     "name": "Gardening trowel"
-   },
-   {
-    "id": 5350,
-    "name": "Empty plant pot"
    },
    {
     "id": 5341,
@@ -377,6 +358,100 @@
    {
     "id": 10029,
     "name": "Teasing stick"
+   }
+  ],
+  "containers": [
+   {
+    "id": 1925,
+    "name": "Bucket"
+   },
+   {
+    "id": 8986,
+    "name": "Bucket"
+   },
+   {
+    "id": 9660,
+    "name": "Bucket"
+   },
+   {
+    "id": 1929,
+    "name": "Bucket of water"
+   },
+   {
+    "id": 229,
+    "name": "Vial"
+   },
+   {
+    "id": 227,
+    "name": "Vial of water"
+   },
+   {
+    "id": 1935,
+    "name": "Jug"
+   },
+   {
+    "id": 1937,
+    "name": "Jug of water"
+   },
+   {
+    "id": 1923,
+    "name": "Bowl"
+   },
+   {
+    "id": 1921,
+    "name": "Bowl of water"
+   },
+   {
+    "id": 1931,
+    "name": "Pot"
+   },
+   {
+    "id": 2313,
+    "name": "Pie dish"
+   },
+   {
+    "id": 1887,
+    "name": "Cake tin"
+   },
+   {
+    "id": 1919,
+    "name": "Beer glass"
+   },
+   {
+    "id": 1980,
+    "name": "Empty cup"
+   },
+   {
+    "id": 4458,
+    "name": "Cup of water"
+   },
+   {
+    "id": 1831,
+    "name": "Waterskin(0)"
+   },
+   {
+    "id": 1829,
+    "name": "Waterskin(1)"
+   },
+   {
+    "id": 1827,
+    "name": "Waterskin(2)"
+   },
+   {
+    "id": 1825,
+    "name": "Waterskin(3)"
+   },
+   {
+    "id": 1823,
+    "name": "Waterskin(4)"
+   },
+   {
+    "id": 5350,
+    "name": "Empty plant pot"
+   },
+   {
+    "id": 5354,
+    "name": "Filled plant pot"
    }
   ]
  },

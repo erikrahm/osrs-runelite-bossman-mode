@@ -5,7 +5,7 @@ package com.bossman;
 
 enum FreeKind
 {
-	/** base tier of the wiki Tool page */
+	/** base tier of the wiki Tool page, and basic containers empty or holding water or soil */
 	TOOL,
 	/** gear that only gets you to a boss: slayer access gear, keys and totems, grapple, rope */
 	ACCESS,

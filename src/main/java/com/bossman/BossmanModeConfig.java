@@ -37,7 +37,7 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "freeTools", name = "Tools are always unlocked", position = 1, section = unlocksSection,
-		description = "Every base-tier item on the wiki Tool page (axes,<br>pickaxes, nets, rods, moulds, farming and hunter kit,<br>light sources) is usable without a boss drop. Turn<br>off for a stricter mode where even tools must drop.")
+		description = "Every base-tier item on the wiki Tool page (axes,<br>pickaxes, nets, rods, moulds, farming and hunter kit,<br>light sources) and the basic containers (vials, buckets,<br>jugs, bowls, plant pots, empty or holding water or soil)<br>is usable without a boss drop. Turn off for a stricter<br>mode where even tools must drop.")
 	default boolean freeTools()
 	{
 		return true;

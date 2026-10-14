@@ -247,6 +247,19 @@ public class LadderRulesTest
 	}
 
 	@Test
+	public void aSkillingBossCanBeDoneAheadOfTheLadder()
+	{
+		ledger.manualComplete.add("Brutus");
+		ledger.focus = "Wintertodt";
+		assertEquals("Wintertodt", rules.currentRung().boss);
+		ledger.focus = "Obor";   // not a skilling boss
+		assertEquals("Obor", rules.currentRung().boss);
+		ledger.focus = "Zalcano";
+		ledger.manualComplete.add("Zalcano");
+		assertEquals("Obor", rules.currentRung().boss);   // done: back to the ladder
+	}
+
+	@Test
 	public void jarsGateOnlyWhenSwitchedOnAndAreToldApartFromPets()
 	{
 		BossmanData.Rung gg = rung("Grotesque Guardians");

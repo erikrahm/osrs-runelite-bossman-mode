@@ -337,14 +337,38 @@ public class LadderRules
 	}
 
 	/**
-	 * Lowest incomplete rung = the boss the series is on; null once the ladder is done. Side bosses (non-blocking:
-	 * no log of their own, or a log shared with a bigger boss) never hold the ladder up.
+	 * The skilling boss the player chose to do first, until it is complete; otherwise the lowest incomplete rung, the
+	 * boss the series is on. Null once the ladder is done. Side bosses (non-blocking: no log of their own, or a log
+	 * shared with a bigger boss) never hold the ladder up.
 	 */
 	public BossmanData.Rung currentRung()
 	{
+		BossmanData.Rung focused = focusedRung();
+		if (focused != null)
+		{
+			return focused;
+		}
 		for (BossmanData.Rung r : data.orderedRungs())
 		{
 			if (r.blocking && !isRungComplete(r))
+			{
+				return r;
+			}
+		}
+		return null;
+	}
+
+	/** The skilling boss the player chose to do ahead of the ladder, while it is incomplete; else null. */
+	public BossmanData.Rung focusedRung()
+	{
+		String boss = ledger.get().focus;
+		if (boss == null)
+		{
+			return null;
+		}
+		for (BossmanData.Rung r : data.browsableRungs())
+		{
+			if (r.skilling && r.boss.equals(boss) && !isRungComplete(r))
 			{
 				return r;
 			}

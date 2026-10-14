@@ -29,6 +29,10 @@ public class BossmanDataTest
 		assertEquals("Brutus", d.orderedRungs().get(0).boss);
 		assertEquals("The Mimic", d.orderedRungs().get(5).boss);
 		assertTrue(d.orderedRungs().get(5).isFirstKillOnly());
+		assertEquals(69, d.browsableRungs().size());
+		assertEquals(d.orderedRungs(), d.browsableRungs().subList(0, 67));
+		assertEquals("Tempoross", d.browsableRungs().get(67).boss);
+		assertEquals("Wintertodt", d.browsableRungs().get(68).boss);
 		assertEquals(1351, (int) d.getTools().groups.get("general").get(0).id); // bronze axe
 	}
 

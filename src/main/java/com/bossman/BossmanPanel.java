@@ -48,8 +48,8 @@ public class BossmanPanel extends PluginPanel
 	private final java.util.Map<String, java.awt.image.BufferedImage> icons = new java.util.HashMap<>();
 	/** null = follow the current rung; otherwise the rung being browsed */
 	private Integer browsing;
-	/** Index of the current boss at the last refresh; when it moves forward we stay on the finished boss instead of auto-paging. */
-	private Integer lastCurrentIdx;
+	/** The current boss at the last refresh; once it's complete we stay on it instead of auto-paging. */
+	private BossmanData.Rung lastCurrent;
 	/** the ledger shown at the last refresh: a new one (login, account switch) starts over at the current boss */
 	private Ledger lastLedger;
 	/** the rung shown at the last refresh; showing another one scrolls back to the top */
@@ -194,7 +194,7 @@ public class BossmanPanel extends PluginPanel
 			// login or account switch: follow the current boss, and don't read the jump from the empty
 			// placeholder ledger (rung 1) to the real one as "a boss was just completed"
 			lastLedger = ledger;
-			lastCurrentIdx = null;
+			lastCurrent = null;
 			browsing = null;
 		}
 		if (ledger.getFile() == null && ledger.getSetAside() == null)
@@ -205,7 +205,7 @@ public class BossmanPanel extends PluginPanel
 			return;
 		}
 		BossmanData.Rung current = rules.currentRung();
-		List<BossmanData.Rung> rungs = plugin.getData().orderedRungs();
+		List<BossmanData.Rung> rungs = plugin.getData().browsableRungs();
 		if (rungs.isEmpty())
 		{
 			body.add(label("No ladder data.", MUTED));
@@ -213,7 +213,8 @@ public class BossmanPanel extends PluginPanel
 			repaint();
 			return;
 		}
-		int currentIdx = current == null ? rungs.size() - 1 : rungs.indexOf(current);
+		// the floating rungs sit after the ladder's last boss, which stays "current" once the ladder is done
+		int currentIdx = current == null ? plugin.getData().orderedRungs().size() - 1 : rungs.indexOf(current);
 		java.util.Set<BossmanData.Rung> complete = new java.util.HashSet<>();
 		for (BossmanData.Rung rr : rungs)
 		{
@@ -223,18 +224,18 @@ public class BossmanPanel extends PluginPanel
 			}
 		}
 		completeRungs = complete;
-		if (browsing == null && lastCurrentIdx != null && currentIdx > lastCurrentIdx)
+		if (browsing == null && lastCurrent != null && lastCurrent != current && complete.contains(lastCurrent))
 		{
 			// the boss just got completed: let the name go green and the bar fill; "Current" jumps to the next one
-			browsing = lastCurrentIdx;
+			browsing = rungs.indexOf(lastCurrent);
 		}
-		lastCurrentIdx = currentIdx;
+		lastCurrent = current;
 		int idx = browsing == null ? currentIdx : Math.max(0, Math.min(browsing, rungs.size() - 1));
 		BossmanData.Rung r = rungs.get(idx);
 
 		addBlock(header(idx, rungs.size(), current, r));
 		body.add(Box.createVerticalStrut(6));
-		addBlock(rungCard(r, r == current, rungs, idx, current));
+		addBlock(rungCard(r, r == current, rungs, idx, currentIdx));
 		body.add(Box.createVerticalStrut(6));
 		addBlock(logSection(r));
 		body.add(Box.createVerticalStrut(6));
@@ -328,7 +329,7 @@ public class BossmanPanel extends PluginPanel
 
 	/** The boss title doubles as the picker: it reads "Boss N: Name" in the state colour, and opens a list of every boss. */
 	private javax.swing.JComboBox<BossmanData.Rung> bossTitle(BossmanData.Rung r, boolean isCurrent, boolean complete,
-		List<BossmanData.Rung> rungs, int idx, BossmanData.Rung current)
+		List<BossmanData.Rung> rungs, int idx, int currentIdx)
 	{
 		javax.swing.JComboBox<BossmanData.Rung> box = new javax.swing.JComboBox<>(rungs.toArray(new BossmanData.Rung[0]));
 		box.setFont(FontManager.getRunescapeBoldFont());
@@ -339,8 +340,8 @@ public class BossmanPanel extends PluginPanel
 		box.setMaximumRowCount(16);
 		box.setAlignmentX(LEFT_ALIGNMENT);
 		box.setToolTipText(complete ? "Complete" : (isCurrent ? "In progress" + (r.isFirstKillOnly() ? " - first kill completes it" : "")
-			: (!r.blocking ? "Side boss - doesn't hold up the ladder" : "Locked - finish the bosses before it")));
-		final int currentIdx = current == null ? rungs.size() - 1 : rungs.indexOf(current);
+			: (r.skilling ? "Skilling boss - tick \"Do this boss now\" to take it on before the ladder's next"
+			: (!r.blocking ? "Side boss - doesn't hold up the ladder" : "Locked - finish the bosses before it"))));
 		final Color titleColor = complete ? OK : (isCurrent ? WARN : MUTED);
 		box.addPopupMenuListener(new javax.swing.event.PopupMenuListener()
 		{
@@ -376,7 +377,7 @@ public class BossmanPanel extends PluginPanel
 				// the closed box has the arrow button on its right; list cells have the scrollbar
 				int boxW = box.getWidth() > 0 ? box.getWidth() : TITLE_WIDTH + 30;
 				int avail = index == -1 ? boxW - 30 : TITLE_WIDTH;
-				String text = fit("Boss " + rr.rung + ": " + rr.boss, l.getFontMetrics(l.getFont()), avail);
+				String text = fit(rr.label(), l.getFontMetrics(l.getFont()), avail);
 				// colour via HTML so the look-and-feel can't repaint the closed box white
 				l.setText("<html><font color='" + hex(c) + "'>" + escape(text) + "</font></html>");
 				l.setOpaque(true);
@@ -414,11 +415,11 @@ public class BossmanPanel extends PluginPanel
 		return box;
 	}
 
-	private JPanel rungCard(BossmanData.Rung r, boolean isCurrent, List<BossmanData.Rung> rungs, int idx, BossmanData.Rung current)
+	private JPanel rungCard(BossmanData.Rung r, boolean isCurrent, List<BossmanData.Rung> rungs, int idx, int currentIdx)
 	{
 		JPanel p = card();
 		boolean complete = rules.isRungComplete(r);
-		p.add(bossTitle(r, isCurrent, complete, rungs, idx, current));
+		p.add(bossTitle(r, isCurrent, complete, rungs, idx, currentIdx));
 		p.add(Box.createVerticalStrut(6));
 
 		p.add(infoRow("Combat Level", r.combatLevel != null ? String.valueOf(r.combatLevel) : "n/a", null, Color.WHITE));
@@ -547,6 +548,22 @@ public class BossmanPanel extends PluginPanel
 			done.addActionListener(e -> plugin.markRungComplete(r, done.isSelected()));
 			p.add(Box.createVerticalStrut(4));
 			p.add(done);
+		}
+		if (r.skilling && !complete)
+		{
+			JCheckBox now = new JCheckBox("Do this boss now", rules.focusedRung() == r);
+			now.setToolTipText("Make it your current boss ahead of the ladder, until its log is done");
+			now.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+			now.setForeground(MUTED);
+			now.setAlignmentX(LEFT_ALIGNMENT);
+			now.setFont(FontManager.getRunescapeSmallFont());
+			now.addActionListener(e ->
+			{
+				browsing = null;
+				plugin.setFocus(now.isSelected() ? r : null);
+			});
+			p.add(Box.createVerticalStrut(4));
+			p.add(now);
 		}
 		return p;
 	}

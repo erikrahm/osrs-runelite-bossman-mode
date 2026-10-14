@@ -680,6 +680,17 @@ public class BossmanModePlugin extends Plugin
 		});
 	}
 
+	/** Make a skilling boss current ahead of the ladder; null goes back to following the ladder. */
+	public void setFocus(BossmanData.Rung r)
+	{
+		clientThread.invoke(() ->
+		{
+			Ledger l = ledger;
+			l.focus = r == null ? null : r.boss;
+			ledgerChanged(l);
+		});
+	}
+
 	/** Take back an unlock recorded by mistake (panel right-click, !bmrelock). */
 	public void relock(int itemId)
 	{
@@ -983,7 +994,7 @@ public class BossmanModePlugin extends Plugin
 			return;
 		}
 		LadderRules.Progress p = rules.progress(r);
-		reply(chatMessage, "Bossman boss " + r.rung + ": " + r.boss + " - " + p.have + "/" + p.need
+		reply(chatMessage, "Bossman " + r.label() + " - " + p.have + "/" + p.need
 			+ " to collect, KC " + rules.rungKc(r) + (r.log.expectedKc != null ? " (expected ~" + r.log.expectedKc + ")" : ""));
 	}
 

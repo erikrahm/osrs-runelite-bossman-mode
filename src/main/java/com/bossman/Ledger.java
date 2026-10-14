@@ -57,6 +57,8 @@ public class Ledger
 	public Map<String, Integer> kc = new ConcurrentHashMap<>();
 	/** boss names of rungs the player marked complete by hand (no-log rungs like the Gemstone Crab) */
 	public Set<String> manualComplete = ConcurrentHashMap.newKeySet();
+	/** boss name of the skilling rung the player is doing before the ladder's next boss; null follows the ladder */
+	public volatile String focus;
 	/** collection-log items moved to the backlog by hand, as "boss|item" (they stop gating the ladder) */
 	public Set<String> backlog = ConcurrentHashMap.newKeySet();
 	/** completed combat task titles as {@link #caKey}s, synced from the game's completion varps */

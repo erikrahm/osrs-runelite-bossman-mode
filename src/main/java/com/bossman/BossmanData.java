@@ -168,6 +168,8 @@ public class BossmanData
 		public String wikiPage;
 		public Integer rung;          // null for floating (Tempoross / Wintertodt)
 		public boolean floating;
+		/** fought with a skill (Tempoross, Wintertodt, Zalcano): the player may make it current ahead of the ladder */
+		public boolean skilling;
 		public boolean blocking;
 		public String completion;
 		public List<String> sources = new ArrayList<>();
@@ -184,6 +186,11 @@ public class BossmanData
 		public boolean isFirstKillOnly()
 		{
 			return completion != null && completion.startsWith("first kill");
+		}
+
+		public String label()
+		{
+			return (rung != null ? "Boss " + rung : "Skilling") + ": " + boss;
 		}
 	}
 
@@ -257,6 +264,8 @@ public class BossmanData
 	private volatile Map<String, String> eventsByLowerName = Collections.emptyMap();
 	/** the ladder in order, without the floating rungs (computed once on load) */
 	private List<Rung> orderedRungs = Collections.emptyList();
+	/** orderedRungs, then the floating ones: everything the panel can show */
+	private List<Rung> browsableRungs = Collections.emptyList();
 	/** the user's "extra sources" config, kept so the source sets can be rebuilt without re-reading the bundled files */
 	private String extraSources = "";
 
@@ -295,14 +304,15 @@ public class BossmanData
 			}
 		}
 		List<Rung> ordered = new ArrayList<>();
+		List<Rung> floating = new ArrayList<>();
 		for (Rung r : ladder.rungs)
 		{
-			if (!r.floating)
-			{
-				ordered.add(r);
-			}
+			(r.floating ? floating : ordered).add(r);
 		}
 		orderedRungs = Collections.unmodifiableList(ordered);
+		List<Rung> browsable = new ArrayList<>(ordered);
+		browsable.addAll(floating);
+		browsableRungs = Collections.unmodifiableList(browsable);
 		arenaRegions.clear();
 		accessNpcs.clear();
 		accessNpcIds.clear();
@@ -422,6 +432,11 @@ public class BossmanData
 	public List<Rung> orderedRungs()
 	{
 		return orderedRungs;
+	}
+
+	public List<Rung> browsableRungs()
+	{
+		return browsableRungs;
 	}
 
 	private static <T> T read(Gson gson, String path, Class<T> type)

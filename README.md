@@ -51,7 +51,8 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   stops gating; reversible). 1/5,000+ items are "meme grinds" (optional), as are mode-locked rewards (Challenge Mode, Hard
   Mode, high-invocation ToA). Rungs fed by several sources show each one's KC (the three Moons separately from the chest).
   Browse other bosses with `<` / `>`. Side bosses with no log of their own (Gemstone Crab, Mimic…) never hold the ladder
-  up, and can be marked complete by hand.
+  up, and can be marked complete by hand. The skilling bosses (Tempoross and Wintertodt, listed after the ladder, and
+  Zalcano) can be done out of order: tick "Do this boss now" on one and it is the current boss until its log is done.
 - **Pre-plugin drops.** Open a boss tab in the in-game collection log and every obtained item there is imported as an unlock (toggle: "Import from collection log"). Nothing is imported inside an instance such as a player-owned house, where another player's log can be shown.
 - **Combat Achievements** are read from the game's own task state (the completion varps + the task table in the cache), on
   login and whenever a task completes — tasks done before the plugin count, no interface needs opening.

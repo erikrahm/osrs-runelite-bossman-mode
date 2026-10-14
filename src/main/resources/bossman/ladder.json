@@ -20085,7 +20085,8 @@
      "rate": "1/8000",
      "in_log": true
     }
-   ]
+   ],
+   "skilling": true
   },
   {
    "boss": "Royal Titans (Branda & Eldric)",
@@ -46819,7 +46820,8 @@
      "rate": "1/8000",
      "in_log": true
     }
-   ]
+   ],
+   "skilling": true
   },
   {
    "boss": "Wintertodt",
@@ -47109,7 +47111,8 @@
      "rate": "1/10000",
      "in_log": true
     }
-   ]
+   ],
+   "skilling": true
   }
  ]
 }

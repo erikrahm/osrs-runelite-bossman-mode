@@ -220,12 +220,26 @@ public class BossmanDataTest
 	}
 
 	@Test
-	public void attackableQuestsAreQuestsRuneLiteKnows()
+	public void questDataNamesQuestsRuneLiteKnows()
 	{
-		for (String quest : load().getAttackable().quests.keySet())
+		for (String quest : load().getQuestNeeds().keySet())
 		{
 			net.runelite.api.Quest.valueOf(quest);
 		}
+	}
+
+	@Test
+	public void questItemsAddToTheHandMaintainedQuests()
+	{
+		BossmanData d = load();
+		java.util.function.BiPredicate<String, Integer> has = (quest, id) ->
+			d.getQuestNeeds().get(quest).items.stream().anyMatch(i -> i.id == id);
+		assertTrue("treasure scroll", has.test("X_MARKS_THE_SPOT", 23067));
+		assertTrue("anti-dragon shield", has.test("DRAGON_SLAYER_I", 1540));
+		assertTrue("fake beard, from attackable.json", has.test("THE_FEUD", 4593));
+		assertFalse(d.getQuestNeeds().get("THE_FEUD").npcs.isEmpty());
+		assertFalse("dragon platelegs", has.test("MY_ARMS_BIG_ADVENTURE", 4087));
+		assertTrue("attackable.json is left as it is", d.getAttackable().quests.get("X_MARKS_THE_SPOT") == null);
 	}
 
 	@Test

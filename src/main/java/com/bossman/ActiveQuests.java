@@ -1,6 +1,6 @@
 /*
- * Bossman Mode: what the started, unfinished quests on a boss's quest chain open up: the NPCs they have you fight and
- * the items they need that otherwise only come from shops or ordinary monsters.
+ * Bossman Mode: what the started, unfinished quests on a boss's quest chain open up: the NPCs they have you fight, the
+ * items they need that otherwise only come from shops or ordinary monsters, and the items the quest itself hands you.
  */
 package com.bossman;
 
@@ -43,7 +43,7 @@ final class ActiveQuests
 			catch (IllegalArgumentException ex)
 			{
 				// one quest RuneLite renamed must not take the rest of the plugin down with it
-				log.warn("attackable.json names a quest this RuneLite doesn't know: {}", e.getKey());
+				log.warn("Quest data names a quest this RuneLite doesn't know: {}", e.getKey());
 				continue;
 			}
 			List<String> names = new ArrayList<>();

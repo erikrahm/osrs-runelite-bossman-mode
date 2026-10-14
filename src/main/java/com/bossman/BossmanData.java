@@ -1,7 +1,8 @@
 /*
- * Bossman Mode: the hand-written model of the bundled rule files (tools / access / sources / ladder / attackable) and
- * lookups over them. tools, access, sources and ladder are generated in the series project (plugin-data/build_data.py,
- * then fix_data.py) from the OSRS wiki scrapes; attackable.json is maintained by hand.
+ * Bossman Mode: the hand-written model of the bundled rule files (tools / access / sources / ladder / attackable /
+ * quest_items) and lookups over them. tools, access, sources and ladder are generated in the series project
+ * (plugin-data/build_data.py, then fix_data.py) from the OSRS wiki scrapes; quest_items by plugin-data/quest_items.py;
+ * attackable.json is maintained by hand.
  */
 package com.bossman;
 
@@ -237,11 +238,19 @@ public class BossmanData
 		public Map<String, QuestNeeds> quests = new HashMap<>();
 	}
 
+	/** quest_items.json: the wiki's quest items for each quest on a boss's quest chain */
+	public static class QuestItems
+	{
+		public Map<String, List<ItemRef>> quests = new HashMap<>();
+	}
+
 	private Tools tools;
 	private Access access;
 	private Sources sources;
 	private Ladder ladder;
 	private Attackable attackable;
+	/** attackable.json's quests with quest_items.json's items added */
+	private Map<String, QuestNeeds> questNeeds = Collections.emptyMap();
 	private final Set<Integer> arenaRegions = new HashSet<>();
 	/** standardized names of the access NPCs listed without ids */
 	private final Set<String> accessNpcs = new HashSet<>();
@@ -274,6 +283,7 @@ public class BossmanData
 	public Sources getSources() { return sources; }
 	public Ladder getLadder() { return ladder; }
 	public Attackable getAttackable() { return attackable; }
+	public Map<String, QuestNeeds> getQuestNeeds() { return questNeeds; }
 	public Map<Integer, FreeKind> getFreeItems() { return freeItems; }
 	public Set<String> getEventSources() { return eventSources; }
 
@@ -284,6 +294,18 @@ public class BossmanData
 		sources = read(gson, "/bossman/sources.json", Sources.class);
 		ladder = read(gson, "/bossman/ladder.json", Ladder.class);
 		attackable = read(gson, "/bossman/attackable.json", Attackable.class);
+		QuestItems questItems = read(gson, "/bossman/quest_items.json", QuestItems.class);
+		Map<String, QuestNeeds> needs = new HashMap<>();
+		attackable.quests.forEach((quest, n) ->
+		{
+			QuestNeeds copy = new QuestNeeds();
+			copy.npcs = n.npcs;
+			copy.items = new ArrayList<>(n.items);
+			copy.wiki = n.wiki;
+			needs.put(quest, copy);
+		});
+		questItems.quests.forEach((quest, items) -> needs.computeIfAbsent(quest, q -> new QuestNeeds()).items.addAll(items));
+		questNeeds = Collections.unmodifiableMap(needs);
 
 		freeItems.clear();
 		for (List<ItemRef> group : tools.groups.values())

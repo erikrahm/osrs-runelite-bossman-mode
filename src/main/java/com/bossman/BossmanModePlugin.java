@@ -202,7 +202,7 @@ public class BossmanModePlugin extends Plugin
 	{
 		data.load(gson);
 		data.setExtraSources(config.extraSources());
-		activeQuests = new ActiveQuests(data.getAttackable().quests);
+		activeQuests = new ActiveQuests(data.getQuestNeeds());
 		ticksToQuestPoll = 0;
 		rules = new LadderRules(data, config, itemManager::canonicalize,
 			id -> ItemVariationMapping.getVariations(ItemVariationMapping.map(id)), () -> ledger,

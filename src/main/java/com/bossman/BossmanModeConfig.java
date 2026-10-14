@@ -136,7 +136,7 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "blockLockedActions", name = "Block using locked items", position = 3, section = restrictionsSection,
-		description = "Removes the actions listed below from locked items<br>(inventory, bank and equipment screens), so a locked<br>item can be carried, banked and dropped but not used.")
+		description = "Removes the actions listed below from locked items<br>(inventory, bank and equipment screens), so a locked<br>item can be carried and dropped but not used.")
 	default boolean blockLockedActions()
 	{
 		return true;
@@ -149,21 +149,28 @@ public interface BossmanModeConfig extends Config
 		return "Wield, Wear, Equip, Eat, Drink, Bury, Scatter, Rub, Light, Break, Teleport";
 	}
 
-	@ConfigItem(keyName = "allowTrading", name = "Allow player trading", position = 5, section = restrictionsSection,
+	@ConfigItem(keyName = "blockLockedBanking", name = "Locked items can't be banked", position = 5, section = restrictionsSection,
+		description = "Removes the deposit options from locked items at banks and<br>deposit boxes, and stops 'Deposit inventory' and 'Deposit<br>worn items' while you carry or wear one. Items already in<br>the bank can still be taken out.")
+	default boolean blockLockedBanking()
+	{
+		return true;
+	}
+
+	@ConfigItem(keyName = "allowTrading", name = "Allow player trading", position = 6, section = restrictionsSection,
 		description = "Allow trade requests (off by default — a bossman stands alone).")
 	default boolean allowTrading()
 	{
 		return false;
 	}
 
-	@ConfigItem(keyName = "restrictCombat", name = "Only fight bosses", position = 6, section = restrictionsSection,
+	@ConfigItem(keyName = "restrictCombat", name = "Only fight bosses", position = 7, section = restrictionsSection,
 		description = "Removes 'Attack' and combat spells from NPCs that aren't<br>bosses. Still attackable: anything in a boss's arena,<br>monsters that drop a boss's key or KC, your slayer task<br>(needs the Slayer plugin on) and NPCs fought in a started<br>quest on the way to a ladder boss. Type !bmattack and an<br>NPC's name to see why. Auto-retaliate still fights back:<br>turn it off.")
 	default boolean restrictCombat()
 	{
 		return true;
 	}
 
-	@ConfigItem(keyName = "extraAttackable", name = "Additional attackable enemies", position = 7, section = restrictionsSection,
+	@ConfigItem(keyName = "extraAttackable", name = "Additional attackable enemies", position = 8, section = restrictionsSection,
 		description = "Comma-separated NPC names or NPC ids (from the<br>wiki infobox) that may always be attacked, on top of<br>the bundled lists.")
 	default String extraAttackable()
 	{

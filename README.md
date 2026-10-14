@@ -33,7 +33,10 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
 - **Restrictions.** Locked items are dimmed with a lock marker in the inventory, bank and equipment; hidden in GE search
   results; cannot be *sold* on the GE (the `Offer` option is removed) or *bought* in shops (`Buy` removed); and cannot be
   *used*: the configurable "Blocked actions" list (default Wield, Wear, Equip, Eat, Drink, Bury, Scatter, Rub, Light,
-  Break, Teleport) is stripped from their menus. A locked item can still be picked up, carried, banked and dropped.
+  Break, Teleport) is stripped from their menus. They can't be banked either: their deposit options are removed at banks
+  and deposit boxes, and "Deposit inventory" / "Deposit worn items" refuse while one is carried or worn (toggle: "Locked
+  items can't be banked"; anything already in the bank can still be withdrawn). A locked item can still be picked up,
+  carried and dropped.
   `Use` is not blocked by default because quest hand-ins and skilling go through it — add it for a stricter mode.
 - **Only bosses can be fought** (toggle: "Only fight bosses", on by default). `Attack` and combat spells are removed
   from every other NPC. Still attackable (`bossman/attackable.json`): anything inside a boss's arena or a raid (adds,

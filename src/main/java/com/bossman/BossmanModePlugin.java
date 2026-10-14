@@ -819,7 +819,8 @@ public class BossmanModePlugin extends Plugin
 		{
 			return;
 		}
-		boolean block = MenuRules.strips(option, config.restrictGeSell(), config.restrictShops(), config.blockLockedActions(), blockedActions);
+		boolean block = MenuRules.strips(option, config.restrictGeSell(), config.restrictShops(), config.blockLockedActions(), blockedActions)
+			|| (config.blockLockedBanking() && MenuRules.isDeposit(option));
 		if (block && !rules.isAllowed(itemId))
 		{
 			client.getMenu().removeMenuEntry(entry);
@@ -857,7 +858,44 @@ public class BossmanModePlugin extends Plugin
 		{
 			e.consume();
 			sendChatMessage("You are a bossman. Only bosses can give you things.");
+			return;
 		}
+		if (config.blockLockedBanking())
+		{
+			String option = Text.removeTags(e.getMenuOption());
+			int lockedId = -1;
+			if (MenuRules.isDeposit(option) && e.getItemId() > 0 && !rules.isAllowed(e.getItemId()))
+			{
+				lockedId = e.getItemId();
+			}
+			else if (MenuRules.isDepositAll(option))
+			{
+				lockedId = firstLocked(client.getItemContainer(option.equals("Deposit worn items") ? InventoryID.WORN : InventoryID.INV));
+			}
+			if (lockedId > 0)
+			{
+				e.consume();
+				sendChatMessage("You are a bossman. " + itemManager.getItemComposition(lockedId).getMembersName()
+					+ " is locked: it can't go in the bank.");
+			}
+		}
+	}
+
+	/** The first item in the container that is locked, or -1. Client thread. */
+	private int firstLocked(ItemContainer container)
+	{
+		if (container == null)
+		{
+			return -1;
+		}
+		for (Item item : container.getItems())
+		{
+			if (item.getId() > 0 && !rules.isAllowed(item.getId()))
+			{
+				return item.getId();
+			}
+		}
+		return -1;
 	}
 
 	private void killSearchResults()

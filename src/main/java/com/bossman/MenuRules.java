@@ -36,6 +36,18 @@ final class MenuRules
 		return blockActions && blockedActions.contains(option.toLowerCase(Locale.ROOT));
 	}
 
+	/** An item's deposit option at a bank or deposit box, the remembered Deposit-X amount ("Deposit-14") included. */
+	static boolean isDeposit(String option)
+	{
+		return option != null && option.startsWith("Deposit-");
+	}
+
+	/** A bank or deposit box button that puts away everything carried or worn. */
+	static boolean isDepositAll(String option)
+	{
+		return "Deposit inventory".equals(option) || "Deposit worn items".equals(option);
+	}
+
 	/** A comma-separated config list, each entry through Text.standardize (blanks dropped). */
 	static Set<String> parseList(String csv)
 	{

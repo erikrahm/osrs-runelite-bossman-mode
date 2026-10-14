@@ -33,6 +33,20 @@ public class MenuRulesTest
 	}
 
 	@Test
+	public void everyDepositOptionIsADeposit()
+	{
+		for (String o : new String[]{"Deposit-1", "Deposit-5", "Deposit-10", "Deposit-X", "Deposit-All", "Deposit-14"})
+		{
+			assertTrue(o, MenuRules.isDeposit(o));
+		}
+		assertFalse(MenuRules.isDeposit("Withdraw-1"));
+		assertFalse(MenuRules.isDeposit("Deposit inventory"));
+		assertTrue(MenuRules.isDepositAll("Deposit inventory"));
+		assertTrue(MenuRules.isDepositAll("Deposit worn items"));
+		assertFalse(MenuRules.isDepositAll("Deposit-All"));
+	}
+
+	@Test
 	public void holdingAnItemIsNeverBlockedByDefault()
 	{
 		assertFalse(strips("Examine"));

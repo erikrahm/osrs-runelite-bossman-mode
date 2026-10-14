@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.IntFunction;
+import java.util.function.IntPredicate;
 import java.util.function.IntUnaryOperator;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -45,29 +46,40 @@ public class LadderRules
 	/** every id in an item's variation group: potion doses, jewellery charges, degraded and charged forms */
 	private final IntFunction<Collection<Integer>> variations;
 	private final Supplier<Ledger> ledger;
+	/** an item a started quest on a boss's quest chain needs (canonical id) */
+	private final IntPredicate questItem;
 	/** lower-cased names of everything unlocked, for the pet/jar fallback; rebuilt when the ledger or its size changes */
 	private Ledger namesOf;
 	private int namesSize = -1;
 	private Set<String> unlockedNames = new HashSet<>();
 
 	public LadderRules(BossmanData data, BossmanModeConfig config, IntUnaryOperator canonicalize,
-		IntFunction<Collection<Integer>> variations, Supplier<Ledger> ledger)
+		IntFunction<Collection<Integer>> variations, Supplier<Ledger> ledger, IntPredicate questItem)
 	{
 		this.data = data;
 		this.config = config;
 		this.canonicalize = canonicalize;
 		this.variations = variations;
 		this.ledger = ledger;
+		this.questItem = questItem;
 	}
 
 	/**
-	 * Unlocked by a boss, free under the Tool / access / bond rules, or a shop pack whose contents all are. Another
-	 * form of an unlocked item counts too: Prayer potion(3) once Prayer potion(4) dropped, a degraded Dharok's helm,
-	 * an uncharged Trident. Client thread.
+	 * Unlocked by a boss, free under the Tool / access / bond rules, a shop pack whose contents all are, or needed by
+	 * a started quest. Another form of an unlocked item counts too: Prayer potion(3) once Prayer potion(4) dropped, a
+	 * degraded Dharok's helm, an uncharged Trident. Client thread.
 	 */
 	public boolean isAllowed(int itemId)
 	{
-		return isAllowed(ledger.get(), canonicalize.applyAsInt(itemId));
+		int id = canonicalize.applyAsInt(itemId);
+		return isAllowed(ledger.get(), id) || questItem.test(id);
+	}
+
+	/** Allowed only while the quest that needs it is in progress. Client thread. */
+	public boolean isQuestItemOnly(int itemId)
+	{
+		int id = canonicalize.applyAsInt(itemId);
+		return questItem.test(id) && !isAllowed(ledger.get(), id);
 	}
 
 	private boolean isAllowed(Ledger l, int id)

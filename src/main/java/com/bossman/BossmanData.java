@@ -212,20 +212,22 @@ public class BossmanData
 		public String why;
 	}
 
-	public static class QuestKills
+	public static class QuestNeeds
 	{
 		public List<String> npcs = new ArrayList<>();
+		/** needed items that otherwise only come from shops or ordinary monsters */
+		public List<ItemRef> items = new ArrayList<>();
 		public String wiki;
 	}
 
-	/** What may be attacked besides the bosses themselves. */
+	/** What may be attacked besides the bosses themselves, and what a started quest opens up. */
 	public static class Attackable
 	{
 		public List<ArenaRegion> regions = new ArrayList<>();
 		@SerializedName("access_npcs")
 		public List<AccessNpc> accessNpcs = new ArrayList<>();
-		/** RuneLite Quest constant → the NPCs that quest has you fight */
-		public Map<String, QuestKills> quests = new HashMap<>();
+		/** RuneLite Quest constant → the NPCs that quest has you fight and the items it needs */
+		public Map<String, QuestNeeds> quests = new HashMap<>();
 	}
 
 	private Tools tools;

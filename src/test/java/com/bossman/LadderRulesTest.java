@@ -5,8 +5,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import net.runelite.api.gameval.ItemID;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +33,7 @@ public class LadderRulesTest
 	private boolean freeBossCraftables = true;
 	private boolean jarsGate;
 	private int memeThreshold = 5000;
+	private final Set<Integer> questItems = new HashSet<>();
 	private LadderRules rules;
 
 	@Before
@@ -96,7 +99,8 @@ public class LadderRulesTest
 				return memeThreshold;
 			}
 		};
-		rules = new LadderRules(data, config, id -> id, id -> groups.getOrDefault(id, Collections.singletonList(id)), () -> ledger);
+		rules = new LadderRules(data, config, id -> id, id -> groups.getOrDefault(id, Collections.singletonList(id)), () -> ledger,
+			questItems::contains);
 	}
 
 	private BossmanData.Rung rung(String boss)
@@ -159,6 +163,18 @@ public class LadderRulesTest
 		freeBossCraftables = false;
 		assertFalse(rules.isAllowed(rejuvenationPotion4));
 		assertFalse(rules.isAllowed(crystalBowPerfected));
+	}
+
+	@Test
+	public void aStartedQuestsItemsAreAllowedUntilItEnds()
+	{
+		int climbingBoots = 3105;
+		assertFalse(rules.isAllowed(climbingBoots));
+		questItems.add(climbingBoots);
+		assertTrue(rules.isAllowed(climbingBoots));
+		assertTrue(rules.isQuestItemOnly(climbingBoots));
+		unlock(climbingBoots);
+		assertFalse("unlocked for good: no quest icon", rules.isQuestItemOnly(climbingBoots));
 	}
 
 	@Test

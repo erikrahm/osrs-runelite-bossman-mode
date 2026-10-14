@@ -246,10 +246,11 @@ public class BossmanDataTest
 			assertTrue(n.name + ": empty id list", n.ids == null || !n.ids.isEmpty());
 			assertTrue(n.name + ": " + n.boss + " is not a boss the plugin knows", isKnownBoss(d, n.boss));
 		}
-		a.quests.forEach((quest, kills) ->
+		a.quests.forEach((quest, needs) ->
 		{
-			assertFalse(quest + ": no npcs", kills.npcs.isEmpty());
-			kills.npcs.forEach(n -> assertFalse(quest + ": blank npc name", n.trim().isEmpty()));
+			assertFalse(quest + ": no npcs or items", needs.npcs.isEmpty() && needs.items.isEmpty());
+			needs.npcs.forEach(n -> assertFalse(quest + ": blank npc name", n.trim().isEmpty()));
+			needs.items.forEach(i -> assertTrue(quest + ": item without an id", i.id > 0));
 		});
 	}
 

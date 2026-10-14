@@ -156,7 +156,7 @@ public class BossmanModePlugin extends Plugin
 	/** standardized NPC names and NPC ids from config that may always be attacked (replaced whole on the config thread) */
 	private volatile Set<String> extraAttackable = Collections.emptySet();
 	/** client thread */
-	private QuestFoes questFoes;
+	private ActiveQuests activeQuests;
 	/** ticks until the next quest-state read; set to 0 (from any thread) to read on the next tick */
 	private volatile int ticksToQuestPoll;
 	/** the restriction's first-login notice and Slayer plugin check are due on the next tick */
@@ -202,13 +202,14 @@ public class BossmanModePlugin extends Plugin
 	{
 		data.load(gson);
 		data.setExtraSources(config.extraSources());
+		activeQuests = new ActiveQuests(data.getAttackable().quests);
+		ticksToQuestPoll = 0;
 		rules = new LadderRules(data, config, itemManager::canonicalize,
-			id -> ItemVariationMapping.getVariations(ItemVariationMapping.map(id)), () -> ledger);
+			id -> ItemVariationMapping.getVariations(ItemVariationMapping.map(id)), () -> ledger,
+			id -> activeQuests.itemIds().contains(id));
 		combatTasks = new CombatTasks(client);
 		blockedActions = MenuRules.parseList(config.blockedActions());
 		extraAttackable = MenuRules.parseList(config.extraAttackable());
-		questFoes = new QuestFoes(data.getAttackable().quests);
-		ticksToQuestPoll = 0;
 		unlockImage = ImageUtil.loadImageResource(getClass(), "/item-unlocked.png");
 		unlockOverlay.updateScreenshotUnlock(config.screenshotUnlock(), config.includeFrame());
 		overlayManager.add(unlockOverlay);
@@ -271,7 +272,7 @@ public class BossmanModePlugin extends Plugin
 		{
 			loggingIn = false;
 			lastInventory = null;   // the first inventory the server sends is the baseline, not a gain
-			questFoes.reset();
+			activeQuests.reset();
 			ticksToQuestPoll = 0;
 			attackNoticesDue = true;
 			openLedger();
@@ -303,10 +304,10 @@ public class BossmanModePlugin extends Plugin
 		{
 			openLedger();
 		}
-		if (config.restrictCombat() && --ticksToQuestPoll <= 0)
+		if (--ticksToQuestPoll <= 0)
 		{
 			ticksToQuestPoll = QUEST_POLL_TICKS;
-			questFoes.refresh(q -> q.getState(client));
+			activeQuests.refresh(q -> q.getState(client));
 		}
 		if (attackNoticesDue)
 		{
@@ -353,9 +354,6 @@ public class BossmanModePlugin extends Plugin
 				break;
 			case "extraAttackable":
 				extraAttackable = MenuRules.parseList(config.extraAttackable());
-				break;
-			case "restrictCombat":
-				ticksToQuestPoll = 0;
 				break;
 			case "screenshotUnlock":
 			case "includeFrame":
@@ -827,7 +825,7 @@ public class BossmanModePlugin extends Plugin
 		// instanced fights (raids, the Gauntlet, DT2 bosses) are matched on the region they are copied from
 		int region = WorldPoint.fromLocalInstance(client, npc.getLocalLocation()).getRegionID();
 		String name = npc.getName() == null ? "" : Text.standardize(npc.getName());
-		return AttackRules.reason(npc.getId(), name, region, slayerService.getTargets().contains(npc), questFoes.npcs(),
+		return AttackRules.reason(npc.getId(), name, region, slayerService.getTargets().contains(npc), activeQuests.npcs(),
 			extraAttackable, data);
 	}
 

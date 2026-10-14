@@ -20,6 +20,9 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   area for use there: Wintertodt's rejuvenation potions, Chambers of Xeric potions and food, Gauntlet gear, Tombs of
   Amascut supplies) and bonds are allowed by default. Each is its own config toggle ("Tools / Access gear / Slayer
   tools / Boss area craftables / Bonds are always unlocked") for stricter variants of the mode.
+- **Quest items.** While a quest on a ladder boss's quest chain is in progress, the items it needs that otherwise only
+  come from shops or ordinary monsters (Druidic Ritual's raw meats, climbing boots, the Tourist Trap's desert robes…)
+  count as unlocked: they can be bought, worn and used, and carry a quest icon. They lock again when the quest is done.
 - **Ledger.** Every unlock is written to `~/.runelite/bossman-mode/<world type>-<account hash>/bossman-mode-ledger.json`
   with its source, the KC at that source, and a timestamp. A ledger file that can't be read is renamed to
   `*.corrupt-<time>` and never overwritten; pending changes are written on logout and when the client closes. Per-source
@@ -67,8 +70,8 @@ plugin for slayer-task monsters to stay attackable.
   retried), and one panel rebuild is queued on the Swing thread however many events arrive meanwhile.
 - `KcMessages`, `ReceiptDetector`, `MenuRules`, `AttackRules` — the chat KC parsing, the completion-reward detection,
   the menu stripping decision and who may be fought as plain functions, each with its own test.
-- `QuestFoes` — the NPCs of started, unfinished quests on a boss's quest chain, re-read every few ticks. Covered by
-  `QuestFoesTest`.
+- `ActiveQuests` — what started, unfinished quests on a boss's quest chain open up (their NPCs and items), re-read
+  every few ticks. Covered by `ActiveQuestsTest`.
 - `LadderRules` — the ruleset as pure queries (what is allowed, what gates a rung, which rung is current, its progress).
   No state of its own; reads data + ledger + config. Rung queries are safe from any thread; `isAllowed`/`freeKind` read the
   item cache, so the client thread. Covered by `LadderRulesTest`.
@@ -96,7 +99,8 @@ version) can be added in the plugin config without rebuilding.
 `attackable.json` is maintained by hand. Edit it when a boss gets an arena whose other NPCs must be fought (`regions`,
 by map region id), a non-boss monster starts dropping what opens a boss or a boss fight gains adds outside its arena
 (`access_npcs`, by name or by NPC id from the wiki infobox), or a ladder boss's gating quest, or one of its
-prerequisites, has you fight someone (`quests`, keyed by RuneLite's `Quest` constant).
+prerequisites, has you fight someone or needs an item that otherwise only comes from a shop or ordinary monsters
+(`quests`, keyed by RuneLite's `Quest` constant).
 
 ## Credits
 - Boss drop tables, drop rates, collection-log contents, Combat Achievement tasks and item IDs are derived from the

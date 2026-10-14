@@ -10,43 +10,48 @@ import net.runelite.api.QuestState;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class QuestFoesTest
+public class ActiveQuestsTest
 {
-	private static QuestFoes foes()
+	private static ActiveQuests foes()
 	{
-		Map<String, BossmanData.QuestKills> data = new HashMap<>();
-		BossmanData.QuestKills ds1 = new BossmanData.QuestKills();
+		Map<String, BossmanData.QuestNeeds> data = new HashMap<>();
+		BossmanData.QuestNeeds ds1 = new BossmanData.QuestNeeds();
 		ds1.npcs = Arrays.asList("Elvarg", "Melzar the Mad");
+		BossmanData.ItemRef mindBomb = new BossmanData.ItemRef();
+		mindBomb.id = 1907;
+		ds1.items = Arrays.asList(mindBomb);
 		data.put("DRAGON_SLAYER_I", ds1);
-		BossmanData.QuestKills renamed = new BossmanData.QuestKills();
+		BossmanData.QuestNeeds renamed = new BossmanData.QuestNeeds();
 		renamed.npcs = Arrays.asList("Nobody");
 		data.put("A_QUEST_RUNELITE_RENAMED", renamed);
-		return new QuestFoes(data);
+		return new ActiveQuests(data);
 	}
 
 	@Test
-	public void aStartedQuestOpensItsFoes()
+	public void aStartedQuestOpensItsFoesAndItems()
 	{
-		QuestFoes f = foes();
+		ActiveQuests f = foes();
 		f.refresh(q -> QuestState.IN_PROGRESS);
 		assertTrue(f.npcs().contains("elvarg"));
 		assertTrue(f.npcs().contains("melzar the mad"));
+		assertTrue(f.itemIds().contains(1907));
 	}
 
 	@Test
 	public void unstartedAndFinishedQuestsDont()
 	{
-		QuestFoes f = foes();
+		ActiveQuests f = foes();
 		f.refresh(q -> QuestState.NOT_STARTED);
 		assertTrue(f.npcs().isEmpty());
 		f.refresh(q -> QuestState.FINISHED);
 		assertTrue(f.npcs().isEmpty());
+		assertTrue(f.itemIds().isEmpty());
 	}
 
 	@Test
 	public void aFinishedQuestIsNotReadAgainUntilReset()
 	{
-		QuestFoes f = foes();
+		ActiveQuests f = foes();
 		Map<Quest, AtomicInteger> reads = new EnumMap<>(Quest.class);
 		f.refresh(q ->
 		{

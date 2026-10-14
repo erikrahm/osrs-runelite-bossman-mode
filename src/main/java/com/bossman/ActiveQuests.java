@@ -1,5 +1,6 @@
 /*
- * Bossman Mode: the NPCs a started, unfinished quest on a boss's quest chain has you fight.
+ * Bossman Mode: what the started, unfinished quests on a boss's quest chain open up: the NPCs they have you fight and
+ * the items they need that otherwise only come from shops or ordinary monsters.
  */
 package com.bossman;
 
@@ -17,19 +18,22 @@ import net.runelite.client.util.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-final class QuestFoes
+final class ActiveQuests
 {
-	private static final Logger log = LoggerFactory.getLogger(QuestFoes.class);
+	private static final Logger log = LoggerFactory.getLogger(ActiveQuests.class);
 
 	/** quest → the standardized names of the NPCs it has you fight */
-	private final Map<Quest, List<String>> kills = new HashMap<>();
+	private final Map<Quest, List<String>> foes = new HashMap<>();
+	/** quest → the items it needs */
+	private final Map<Quest, List<Integer>> items = new HashMap<>();
 	/** quests seen finished: they can't become unfinished, so their state isn't read again */
 	private final Set<Quest> finished = new HashSet<>();
 	private Set<String> npcs = Collections.emptySet();
+	private Set<Integer> itemIds = Collections.emptySet();
 
-	QuestFoes(Map<String, BossmanData.QuestKills> data)
+	ActiveQuests(Map<String, BossmanData.QuestNeeds> data)
 	{
-		for (Map.Entry<String, BossmanData.QuestKills> e : data.entrySet())
+		for (Map.Entry<String, BossmanData.QuestNeeds> e : data.entrySet())
 		{
 			Quest quest;
 			try
@@ -47,14 +51,26 @@ final class QuestFoes
 			{
 				names.add(Text.standardize(n));
 			}
-			kills.put(quest, names);
+			foes.put(quest, names);
+			List<Integer> ids = new ArrayList<>();
+			for (BossmanData.ItemRef r : e.getValue().items)
+			{
+				ids.add(r.id);
+			}
+			items.put(quest, ids);
 		}
 	}
 
-	/** Standardized names. */
+	/** Standardized names of the NPCs a started quest has you fight. */
 	Set<String> npcs()
 	{
 		return npcs;
+	}
+
+	/** Ids of the items a started quest needs. */
+	Set<Integer> itemIds()
+	{
+		return itemIds;
 	}
 
 	/** Another account logged in. */
@@ -62,6 +78,7 @@ final class QuestFoes
 	{
 		finished.clear();
 		npcs = Collections.emptySet();
+		itemIds = Collections.emptySet();
 	}
 
 	/**
@@ -71,9 +88,9 @@ final class QuestFoes
 	void refresh(Function<Quest, QuestState> state)
 	{
 		Set<String> names = new HashSet<>();
-		for (Map.Entry<Quest, List<String>> e : kills.entrySet())
+		Set<Integer> ids = new HashSet<>();
+		for (Quest quest : foes.keySet())
 		{
-			Quest quest = e.getKey();
 			if (finished.contains(quest))
 			{
 				continue;
@@ -85,9 +102,11 @@ final class QuestFoes
 			}
 			else if (s == QuestState.IN_PROGRESS)
 			{
-				names.addAll(e.getValue());
+				names.addAll(foes.get(quest));
+				ids.addAll(items.get(quest));
 			}
 		}
 		npcs = names;
+		itemIds = ids;
 	}
 }

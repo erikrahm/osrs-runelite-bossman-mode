@@ -1,5 +1,5 @@
 {
- "note": "Hand-maintained (no script generates it). What may be attacked besides the bosses in sources.json. regions: map region ids (instances matched on the map they are copied from) where every NPC may be fought; role is \"fight\" (the boss arena, adds and waves included) or \"access\" (monsters there drop what opens a boss), for the reader only. access_npcs: monsters that drop what opens a boss, and fight adds outside a known arena; an entry with ids matches only those NPC ids, otherwise the name. quests: the quests that gate a ladder boss and their prerequisite trees (RuneLite Quest constant -> NPCs that quest has you fight), attackable while it is in progress. Region data from RuneLite and open-source plugin sources, NPC and quest data from the OSRS Wiki, 2026-10-13.",
+ "note": "Hand-maintained (no script generates it). What may be attacked besides the bosses in sources.json. regions: map region ids (instances matched on the map they are copied from) where every NPC may be fought; role is \"fight\" (the boss arena, adds and waves included) or \"access\" (monsters there drop what opens a boss), for the reader only. access_npcs: monsters that drop what opens a boss, and fight adds outside a known arena; an entry with ids matches only those NPC ids, otherwise the name. quests: the quests that gate a ladder boss and their prerequisite trees (RuneLite Quest constant -> the NPCs it has you fight, and the items it needs that otherwise only come from shops or ordinary monsters); while the quest is in progress its NPCs may be fought and its items count as unlocked. Region data from RuneLite and open-source plugin sources, NPC and quest data from the OSRS Wiki, 2026-10-13.",
  "regions": [
   {
    "boss": "Chambers of Xeric",
@@ -810,6 +810,16 @@
   }
  ],
  "quests": {
+  "ANIMAL_MAGNETISM": {
+   "npcs": [],
+   "items": [
+    {
+     "id": 1739,
+     "name": "Cowhide"
+    }
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Animal_Magnetism"
+  },
   "A_KINGDOM_DIVIDED": {
    "npcs": [
     "Judge of Yama",
@@ -869,6 +879,16 @@
    ],
    "wiki": "https://oldschool.runescape.wiki/w/Biohazard"
   },
+  "BONE_VOYAGE": {
+   "npcs": [],
+   "items": [
+    {
+     "id": 2015,
+     "name": "Vodka"
+    }
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Bone_Voyage"
+  },
   "COLD_WAR": {
    "npcs": [
     "Icelord"
@@ -896,6 +916,12 @@
     "Kamil",
     "Fareed",
     "Damis"
+   ],
+   "items": [
+    {
+     "id": 3105,
+     "name": "Climbing boots"
+    }
    ],
    "wiki": "https://oldschool.runescape.wiki/w/Desert_Treasure_I"
   },
@@ -971,6 +997,46 @@
    ],
    "wiki": "https://oldschool.runescape.wiki/w/Dream_Mentor"
   },
+  "DRUIDIC_RITUAL": {
+   "npcs": [],
+   "items": [
+    {
+     "id": 2136,
+     "name": "Raw bear meat"
+    },
+    {
+     "id": 2134,
+     "name": "Raw rat meat"
+    },
+    {
+     "id": 2132,
+     "name": "Raw beef"
+    },
+    {
+     "id": 2138,
+     "name": "Raw chicken"
+    }
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Druidic_Ritual"
+  },
+  "EADGARS_RUSE": {
+   "npcs": [],
+   "items": [
+    {
+     "id": 3105,
+     "name": "Climbing boots"
+    },
+    {
+     "id": 2015,
+     "name": "Vodka"
+    },
+    {
+     "id": 2138,
+     "name": "Raw chicken"
+    }
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Eadgar's_Ruse"
+  },
   "ENAKHRAS_LAMENT": {
    "npcs": [
     "Boneguard"
@@ -996,7 +1062,23 @@
     "Khazard Ogre",
     "Bouncer"
    ],
+   "items": [
+    {
+     "id": 77,
+     "name": "Khali brew"
+    }
+   ],
    "wiki": "https://oldschool.runescape.wiki/w/Fight_Arena"
+  },
+  "GARDEN_OF_TRANQUILLITY": {
+   "npcs": [],
+   "items": [
+    {
+     "id": 6036,
+     "name": "Plant cure"
+    }
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Garden_of_Tranquillity"
   },
   "GHOSTS_AHOY": {
    "npcs": [
@@ -1017,6 +1099,20 @@
     "Ice Queen",
     "Entrana firebird"
    ],
+   "items": [
+    {
+     "id": 1165,
+     "name": "Black full helm"
+    },
+    {
+     "id": 1125,
+     "name": "Black platebody"
+    },
+    {
+     "id": 1077,
+     "name": "Black platelegs"
+    }
+   ],
    "wiki": "https://oldschool.runescape.wiki/w/Heroes'_Quest"
   },
   "HIS_FAITHFUL_SERVANTS": {
@@ -1034,6 +1130,12 @@
    "npcs": [
     "Possessed Priest",
     "Apparition"
+   ],
+   "items": [
+    {
+     "id": 4684,
+     "name": "Linen"
+    }
    ],
    "wiki": "https://oldschool.runescape.wiki/w/Icthlarin's_Little_Helper"
   },
@@ -1079,6 +1181,12 @@
     "Don't Know What",
     "Mother"
    ],
+   "items": [
+    {
+     "id": 8790,
+     "name": "Bolt of cloth"
+    }
+   ],
    "wiki": "https://oldschool.runescape.wiki/w/Making_Friends_with_My_Arm"
   },
   "MERLINS_CRYSTAL": {
@@ -1092,12 +1200,32 @@
    "npcs": [
     "Mourner"
    ],
+   "items": [
+    {
+     "id": 2243,
+     "name": "Premade t'd crunch"
+    },
+    {
+     "id": 2171,
+     "name": "Gianne dough"
+    },
+    {
+     "id": 2169,
+     "name": "Gnome spice"
+    }
+   ],
    "wiki": "https://oldschool.runescape.wiki/w/Mourning's_End_Part_I"
   },
   "MY_ARMS_BIG_ADVENTURE": {
    "npcs": [
     "Baby Roc",
     "Giant Roc"
+   ],
+   "items": [
+    {
+     "id": 3105,
+     "name": "Climbing boots"
+    }
    ],
    "wiki": "https://oldschool.runescape.wiki/w/My_Arm's_Big_Adventure"
   },
@@ -1130,6 +1258,16 @@
     "Monk of Zamorak"
    ],
    "wiki": "https://oldschool.runescape.wiki/w/Priest_in_Peril"
+  },
+  "PRINCE_ALI_RESCUE": {
+   "npcs": [],
+   "items": [
+    {
+     "id": 1013,
+     "name": "Pink skirt"
+    }
+   ],
+   "wiki": "https://oldschool.runescape.wiki/w/Prince_Ali_Rescue"
   },
   "RECRUITMENT_DRIVE": {
    "npcs": [
@@ -1206,6 +1344,12 @@
     "Monkey",
     "Jogre"
    ],
+   "items": [
+    {
+     "id": 431,
+     "name": "Karamjan rum"
+    }
+   ],
    "wiki": "https://oldschool.runescape.wiki/w/Tai_Bwo_Wannai_Trio"
   },
   "TALE_OF_THE_RIGHTEOUS": {
@@ -1260,6 +1404,16 @@
    "npcs": [
     "Bandit champion",
     "Tough Guy"
+   ],
+   "items": [
+    {
+     "id": 4591,
+     "name": "Kharidian headpiece"
+    },
+    {
+     "id": 4593,
+     "name": "Fake beard"
+    }
    ],
    "wiki": "https://oldschool.runescape.wiki/w/The_Feud"
   },
@@ -1329,6 +1483,20 @@
    "npcs": [
     "Mercenary Captain"
    ],
+   "items": [
+    {
+     "id": 1833,
+     "name": "Desert shirt"
+    },
+    {
+     "id": 1835,
+     "name": "Desert robe"
+    },
+    {
+     "id": 1837,
+     "name": "Desert boots"
+    }
+   ],
    "wiki": "https://oldschool.runescape.wiki/w/The_Tourist_Trap"
   },
   "TROLL_STRONGHOLD": {
@@ -1337,6 +1505,12 @@
     "Troll general",
     "Berry",
     "Twig"
+   ],
+   "items": [
+    {
+     "id": 3105,
+     "name": "Climbing boots"
+    }
    ],
    "wiki": "https://oldschool.runescape.wiki/w/Troll_Stronghold"
   },

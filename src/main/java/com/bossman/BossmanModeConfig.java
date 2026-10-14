@@ -177,7 +177,7 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "dimLocked", name = "Dim locked items", position = 0, section = displaySection,
-		description = "Draw locked items darker in the inventory,<br>bank and equipment, with a lock marker.")
+		description = "Draw locked items darker in the inventory,<br>bank and equipment, with a lock marker. Items a<br>started quest needs get a quest icon instead.")
 	default boolean dimLocked()
 	{
 		return true;

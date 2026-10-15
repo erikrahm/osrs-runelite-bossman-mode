@@ -10,8 +10,8 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   them) and anything received in the Gauntlet lobby (not bank withdrawals or items you take off). NPC kills use the loot
   the server reports, as the core Loot Tracker does. Shop item packs (bucket pack, feather pack, rune packs…) follow their contents. Slayer drops, clue caskets, shops, skilling and sea loot never unlock anything.
   Once unlocked, copies from any source are fine (bronzeman semantics), and so are other forms of the same item: other
-  potion doses, jewellery charges, degraded Barrows gear, charged and uncharged weapons. Coins are locked until Brutus
-  drops some.
+  potion doses, jewellery charges, degraded Barrows gear, charged and uncharged weapons. Free items count only as
+  themselves, so a raid's free overload doesn't open up the real one. Coins are locked until Brutus drops some.
 - **Free items.** Everything on the wiki Tool page at base tier and the basic containers, empty or holding water or
   soil (vial of water, bucket of water, filled plant pot…) so herblore and planting boss-dropped seeds work
   (`bossman/tools.json`), access equipment

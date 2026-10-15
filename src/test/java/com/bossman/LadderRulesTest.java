@@ -260,6 +260,18 @@ public class LadderRulesTest
 	}
 
 	@Test
+	public void aFreeItemDoesNotFreeItsOtherForms()
+	{
+		int raidBurntFish = 20854;
+		int burntFish = 323;
+		List<Integer> burnt = Arrays.asList(burntFish, raidBurntFish);
+		groups.put(burntFish, burnt);
+		groups.put(raidBurntFish, burnt);
+		assertTrue(rules.isAllowed(raidBurntFish));
+		assertFalse(rules.isAllowed(burntFish));
+	}
+
+	@Test
 	public void rarePetsAreMemeGrinds()
 	{
 		BossmanData.Rung wt = rung("Wintertodt");

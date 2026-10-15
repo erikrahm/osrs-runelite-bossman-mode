@@ -31,6 +31,7 @@ public class LadderRulesTest
 	private boolean freeAccessGear = true;
 	private boolean freeSlayerTools = true;
 	private boolean freeBossCraftables = true;
+	private boolean cookedFood = true;
 	private boolean jarsGate;
 	private int memeThreshold = 5000;
 	private final Set<Integer> questItems = new HashSet<>();
@@ -85,6 +86,12 @@ public class LadderRulesTest
 			public boolean freeBossCraftables()
 			{
 				return freeBossCraftables;
+			}
+
+			@Override
+			public boolean cookedFood()
+			{
+				return cookedFood;
 			}
 
 			@Override
@@ -257,6 +264,24 @@ public class LadderRulesTest
 		ledger.focus = "Zalcano";
 		ledger.manualComplete.add("Zalcano");
 		assertEquals("Obor", rules.currentRung().boss);   // done: back to the ladder
+	}
+
+	@Test
+	public void cookingAnUnlockedRawFoodKeepsItUnlocked()
+	{
+		int rawAnchovies = 321;
+		int anchovies = 319;
+		int burntFish = 323;
+		int rawShark = 383;
+		int shark = 385;
+		assertFalse(rules.isAllowed(anchovies));
+		unlock(rawAnchovies);
+		assertTrue(rules.isAllowed(anchovies));
+		assertTrue(rules.isAllowed(burntFish));
+		assertFalse("another fish's raw form", rules.isAllowed(shark));
+		assertFalse("cooking doesn't go backwards", rules.isAllowed(rawShark));
+		cookedFood = false;
+		assertFalse(rules.isAllowed(anchovies));
 	}
 
 	@Test

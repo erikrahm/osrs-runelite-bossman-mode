@@ -1,8 +1,8 @@
 /*
  * Bossman Mode: the hand-written model of the bundled rule files (tools / access / sources / ladder / attackable /
- * quest_items) and lookups over them. tools, access, sources and ladder are generated in the series project
- * (plugin-data/build_data.py, then fix_data.py) from the OSRS wiki scrapes; quest_items by plugin-data/quest_items.py;
- * attackable.json is maintained by hand.
+ * quest_items / cooked_food) and lookups over them. tools, access, sources and ladder are generated in the series
+ * project (plugin-data/build_data.py, then fix_data.py) from the OSRS wiki scrapes; quest_items and cooked_food by
+ * plugin-data/quest_items.py and cooked_food.py; attackable.json is maintained by hand.
  */
 package com.bossman;
 
@@ -238,6 +238,19 @@ public class BossmanData
 		public Map<String, QuestNeeds> quests = new HashMap<>();
 	}
 
+	/** cooked_food.json: each food cooked straight from raw fish or meat, burnt and ruined forms included */
+	public static class CookedFood
+	{
+		public List<Cooked> cooked = new ArrayList<>();
+	}
+
+	public static class Cooked
+	{
+		public int id;
+		public String name;
+		public List<Integer> raw = new ArrayList<>();
+	}
+
 	/** quest_items.json: the wiki's quest items for each quest on a boss's quest chain */
 	public static class QuestItems
 	{
@@ -251,6 +264,8 @@ public class BossmanData
 	private Attackable attackable;
 	/** attackable.json's quests with quest_items.json's items added */
 	private Map<String, QuestNeeds> questNeeds = Collections.emptyMap();
+	/** cooked food id → the raw items it is cooked from */
+	private final Map<Integer, List<Integer>> cookedFrom = new HashMap<>();
 	private final Set<Integer> arenaRegions = new HashSet<>();
 	/** standardized names of the access NPCs listed without ids */
 	private final Set<String> accessNpcs = new HashSet<>();
@@ -284,6 +299,7 @@ public class BossmanData
 	public Ladder getLadder() { return ladder; }
 	public Attackable getAttackable() { return attackable; }
 	public Map<String, QuestNeeds> getQuestNeeds() { return questNeeds; }
+	public Map<Integer, List<Integer>> getCookedFrom() { return cookedFrom; }
 	public Map<Integer, FreeKind> getFreeItems() { return freeItems; }
 	public Set<String> getEventSources() { return eventSources; }
 
@@ -306,6 +322,11 @@ public class BossmanData
 		});
 		questItems.quests.forEach((quest, items) -> needs.computeIfAbsent(quest, q -> new QuestNeeds()).items.addAll(items));
 		questNeeds = Collections.unmodifiableMap(needs);
+		cookedFrom.clear();
+		for (Cooked c : read(gson, "/bossman/cooked_food.json", CookedFood.class).cooked)
+		{
+			cookedFrom.put(c.id, c.raw);
+		}
 
 		freeItems.clear();
 		for (List<ItemRef> group : tools.groups.values())

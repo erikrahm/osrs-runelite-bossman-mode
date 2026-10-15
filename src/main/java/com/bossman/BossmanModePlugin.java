@@ -368,6 +368,7 @@ public class BossmanModePlugin extends Plugin
 			case "freeAccessGear":
 			case "freeSlayerTools":
 			case "freeBossCraftables":
+			case "cookedFood":
 				refreshPanel();
 				break;
 			case "resetCommand":

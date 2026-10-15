@@ -7,6 +7,7 @@
 package com.bossman;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -65,8 +66,8 @@ public class LadderRules
 	}
 
 	/**
-	 * Unlocked by a boss, free under the Tool / access / bond rules, a shop pack whose contents all are, or needed by
-	 * a started quest. Another form of an unlocked item counts too: Prayer potion(3) once Prayer potion(4) dropped, a
+	 * Unlocked by a boss, free under the Tool / access / bond rules, a shop pack whose contents all are, food cooked from
+	 * an allowed raw fish or meat, or needed by a started quest. Another form of an unlocked item counts too: Prayer potion(3) once Prayer potion(4) dropped, a
 	 * degraded Dharok's helm, an uncharged Trident. Free items count only as themselves: RuneLite groups a raid's
 	 * overload with the real one and the Gauntlet's crystal armour with the real set. Client thread.
 	 */
@@ -94,6 +95,16 @@ public class LadderRules
 			if (v != id && l.isUnlocked(v))
 			{
 				return true;
+			}
+		}
+		if (config.cookedFood())
+		{
+			for (int raw : data.getCookedFrom().getOrDefault(id, Collections.emptyList()))
+			{
+				if (isAllowed(l, raw))
+				{
+					return true;
+				}
 			}
 		}
 		List<Integer> contents = data.getSources().itemPacks.get(id);

@@ -85,6 +85,13 @@ public interface BossmanModeConfig extends Config
 		return true;
 	}
 
+	@ConfigItem(keyName = "cookedFood", name = "Cooking keeps food unlocked", position = 8, section = unlocksSection,
+		description = "A raw fish or piece of meat that's unlocked can be cooked and<br>eaten: the cooked, burnt and ruined forms count as unlocked.<br>Pies and other dishes made from several ingredients don't.")
+	default boolean cookedFood()
+	{
+		return true;
+	}
+
 	@Range(min = 2)
 	@ConfigItem(keyName = "memeThreshold", name = "Meme-grind threshold", position = 0, section = ladderSection,
 		description = "Collection-log items, pets and jars at 1 in this<br>many kills or rarer are 'meme grinds': shown but<br>optional, so they never block the next boss or go<br>to the backlog.")

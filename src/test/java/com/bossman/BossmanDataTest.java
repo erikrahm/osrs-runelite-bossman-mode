@@ -220,6 +220,18 @@ public class BossmanDataTest
 	}
 
 	@Test
+	public void dropTablesIncludeRowsWithoutAPlainRate()
+	{
+		BossmanData d = load();
+		java.util.function.BiPredicate<String, Integer> drops = (boss, id) -> d.getLadder().rungs.stream()
+			.filter(r -> r.boss.equals(boss)).anyMatch(r -> r.drops.stream().anyMatch(x -> x.ids.contains(id)));
+		assertTrue("Wintertodt crate: pure essence", drops.test("Wintertodt", 7936));
+		assertTrue("Wintertodt crate: oak logs", drops.test("Wintertodt", 1521));
+		assertTrue("Nex: blood rune", drops.test("Nex", 565));
+		assertTrue("Araxxor: coal", drops.test("Araxxor", 453));
+	}
+
+	@Test
 	public void questDataNamesQuestsRuneLiteKnows()
 	{
 		for (String quest : load().getQuestNeeds().keySet())

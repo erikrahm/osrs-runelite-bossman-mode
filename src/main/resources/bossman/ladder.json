@@ -42866,6 +42866,270 @@
      ],
      "rate": "1/3000",
      "in_log": true
+    },
+    {
+     "item": "Prayer potion(4)",
+     "ids": [
+      2434
+     ],
+     "rate": "1/8",
+     "in_log": false
+    },
+    {
+     "item": "Rune kiteshield",
+     "ids": [
+      1201
+     ],
+     "rate": "8/115",
+     "in_log": false
+    },
+    {
+     "item": "Rune platelegs",
+     "ids": [
+      1079
+     ],
+     "rate": "8/115",
+     "in_log": false
+    },
+    {
+     "item": "Spider cave teleport",
+     "ids": [
+      29782
+     ],
+     "rate": "8/115",
+     "in_log": false
+    },
+    {
+     "item": "Araxyte venom sac",
+     "ids": [
+      29784
+     ],
+     "rate": "1/16",
+     "in_log": false
+    },
+    {
+     "item": "Super combat potion(1)",
+     "ids": [
+      12701
+     ],
+     "rate": "1/16",
+     "in_log": false
+    },
+    {
+     "item": "Shark",
+     "ids": [
+      385
+     ],
+     "rate": "1/16",
+     "in_log": false
+    },
+    {
+     "item": "Wild pie",
+     "ids": [
+      7208
+     ],
+     "rate": "1/16",
+     "in_log": false
+    },
+    {
+     "item": "Dragon mace",
+     "ids": [
+      1434
+     ],
+     "rate": "6/115",
+     "in_log": false
+    },
+    {
+     "item": "Earth orb",
+     "ids": [
+      575
+     ],
+     "rate": "6/115",
+     "in_log": false
+    },
+    {
+     "item": "Death rune",
+     "ids": [
+      560
+     ],
+     "rate": "5/115",
+     "in_log": false
+    },
+    {
+     "item": "Yew seed",
+     "ids": [
+      5315
+     ],
+     "rate": "4/115",
+     "in_log": false
+    },
+    {
+     "item": "Coal",
+     "ids": [
+      453
+     ],
+     "rate": "4/115",
+     "in_log": false
+    },
+    {
+     "item": "Adamantite ore",
+     "ids": [
+      449
+     ],
+     "rate": "4/115",
+     "in_log": false
+    },
+    {
+     "item": "Raw shark",
+     "ids": [
+      383
+     ],
+     "rate": "4/115",
+     "in_log": false
+    },
+    {
+     "item": "Mort myre fungus",
+     "ids": [
+      2970
+     ],
+     "rate": "4/115",
+     "in_log": false
+    },
+    {
+     "item": "Antidote++(3)",
+     "ids": [
+      5954
+     ],
+     "rate": "4/115",
+     "in_log": false
+    },
+    {
+     "item": "Toadflax seed",
+     "ids": [
+      5296
+     ],
+     "rate": "3/115",
+     "in_log": false
+    },
+    {
+     "item": "Yew logs",
+     "ids": [
+      1515
+     ],
+     "rate": "3/115",
+     "in_log": false
+    },
+    {
+     "item": "Wine of Zamorak",
+     "ids": [
+      245
+     ],
+     "rate": "3/115",
+     "in_log": false
+    },
+    {
+     "item": "Nature rune",
+     "ids": [
+      561
+     ],
+     "rate": "2/115",
+     "in_log": false
+    },
+    {
+     "item": "Runite ore",
+     "ids": [
+      451
+     ],
+     "rate": "2/115",
+     "in_log": false
+    },
+    {
+     "item": "Red spiders' eggs",
+     "ids": [
+      223
+     ],
+     "rate": "2/115",
+     "in_log": false
+    },
+    {
+     "item": "Rune 2h sword",
+     "ids": [
+      1319
+     ],
+     "rate": "1/115",
+     "in_log": false
+    },
+    {
+     "item": "Dragon platelegs",
+     "ids": [
+      4087
+     ],
+     "rate": "1/115",
+     "in_log": false
+    },
+    {
+     "item": "Mud rune",
+     "ids": [
+      4698
+     ],
+     "rate": "1/115",
+     "in_log": false
+    },
+    {
+     "item": "Blood rune",
+     "ids": [
+      565
+     ],
+     "rate": "1/115",
+     "in_log": false
+    },
+    {
+     "item": "Ranarr seed",
+     "ids": [
+      5295
+     ],
+     "rate": "1/115",
+     "in_log": false
+    },
+    {
+     "item": "Snapdragon seed",
+     "ids": [
+      5300
+     ],
+     "rate": "1/115",
+     "in_log": false
+    },
+    {
+     "item": "Magic seed",
+     "ids": [
+      5316
+     ],
+     "rate": "1/115",
+     "in_log": false
+    },
+    {
+     "item": "Raw monkfish",
+     "ids": [
+      7944
+     ],
+     "rate": "1/115",
+     "in_log": false
+    },
+    {
+     "item": "Pure essence",
+     "ids": [
+      7936
+     ],
+     "rate": "1/115",
+     "in_log": false
+    },
+    {
+     "item": "Bark",
+     "ids": [
+      3239
+     ],
+     "rate": "1/115",
+     "in_log": false
     }
    ]
   },
@@ -43530,6 +43794,177 @@
      ],
      "rate": "1/516",
      "in_log": true
+    },
+    {
+     "item": "Blood rune",
+     "ids": [
+      565
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Death rune",
+     "ids": [
+      560
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Soul rune",
+     "ids": [
+      566
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Dragon bolts (unf)",
+     "ids": [
+      21930
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Steel cannonball",
+     "ids": [
+      2
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Air orb",
+     "ids": [
+      573
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Uncut ruby",
+     "ids": [
+      1619
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Uncut diamond",
+     "ids": [
+      1617
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Wine of Zamorak",
+     "ids": [
+      245
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Shark",
+     "ids": [
+      385
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Prayer potion(4)",
+     "ids": [
+      2434
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Saradomin brew(4)",
+     "ids": [
+      6685
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Super restore(4)",
+     "ids": [
+      3024
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Ecumenical key shard",
+     "ids": [
+      26388
+     ],
+     "rate": "Common",
+     "in_log": false
+    },
+    {
+     "item": "Air rune",
+     "ids": [
+      556
+     ],
+     "rate": "Uncommon",
+     "in_log": false
+    },
+    {
+     "item": "Fire rune",
+     "ids": [
+      554
+     ],
+     "rate": "Uncommon",
+     "in_log": false
+    },
+    {
+     "item": "Water rune",
+     "ids": [
+      555
+     ],
+     "rate": "Uncommon",
+     "in_log": false
+    },
+    {
+     "item": "Onyx bolts (e)",
+     "ids": [
+      9245
+     ],
+     "rate": "Uncommon",
+     "in_log": false
+    },
+    {
+     "item": "Coal",
+     "ids": [
+      453
+     ],
+     "rate": "Uncommon",
+     "in_log": false
+    },
+    {
+     "item": "Runite ore",
+     "ids": [
+      451
+     ],
+     "rate": "Uncommon",
+     "in_log": false
+    },
+    {
+     "item": "Coins",
+     "ids": [
+      617,
+      995,
+      6964,
+      8890
+     ],
+     "rate": "Uncommon",
+     "in_log": false
     }
    ]
   },
@@ -45205,6 +45640,14 @@
       33099
      ],
      "rate": "Always",
+     "in_log": false
+    },
+    {
+     "item": "Beef",
+     "ids": [
+      33124
+     ],
+     "rate": "1/400",
      "in_log": false
     }
    ]
@@ -47110,6 +47553,502 @@
      ],
      "rate": "1/10000",
      "in_log": true
+    },
+    {
+     "item": "Oak logs",
+     "ids": [
+      1521
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Willow logs",
+     "ids": [
+      1519
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Teak logs",
+     "ids": [
+      6333
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Maple logs",
+     "ids": [
+      1517
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Mahogany logs",
+     "ids": [
+      6332
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Yew logs",
+     "ids": [
+      1515
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Magic logs",
+     "ids": [
+      1513
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Uncut sapphire",
+     "ids": [
+      1623
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Uncut emerald",
+     "ids": [
+      1621
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Uncut ruby",
+     "ids": [
+      1619
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Uncut diamond",
+     "ids": [
+      1617
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Pure essence",
+     "ids": [
+      7936
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Limestone",
+     "ids": [
+      3211
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Silver ore",
+     "ids": [
+      442
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Iron ore",
+     "ids": [
+      440
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Coal",
+     "ids": [
+      453
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Gold ore",
+     "ids": [
+      444
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Mithril ore",
+     "ids": [
+      447
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Adamantite ore",
+     "ids": [
+      449
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Runite ore",
+     "ids": [
+      451
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy guam leaf",
+     "ids": [
+      199
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy marrentill",
+     "ids": [
+      201
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy tarromin",
+     "ids": [
+      203
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy harralander",
+     "ids": [
+      205
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy ranarr weed",
+     "ids": [
+      207
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy irit leaf",
+     "ids": [
+      209
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy avantoe",
+     "ids": [
+      211
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy kwuarm",
+     "ids": [
+      213
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy cadantine",
+     "ids": [
+      215
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy lantadyme",
+     "ids": [
+      2485
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy dwarf weed",
+     "ids": [
+      217
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Grimy torstol",
+     "ids": [
+      219
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Acorn",
+     "ids": [
+      5312
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Willow seed",
+     "ids": [
+      5313
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Maple seed",
+     "ids": [
+      5314
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Banana tree seed",
+     "ids": [
+      5284
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Teak seed",
+     "ids": [
+      21486
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Mahogany seed",
+     "ids": [
+      21488
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Yew seed",
+     "ids": [
+      5315
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Ranarr seed",
+     "ids": [
+      5295
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Tarromin seed",
+     "ids": [
+      5293
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Harralander seed",
+     "ids": [
+      5294
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Toadflax seed",
+     "ids": [
+      5296
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Irit seed",
+     "ids": [
+      5297
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Avantoe seed",
+     "ids": [
+      5298
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Kwuarm seed",
+     "ids": [
+      5299
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Snapdragon seed",
+     "ids": [
+      5300
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Cadantine seed",
+     "ids": [
+      5301
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Lantadyme seed",
+     "ids": [
+      5302
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Dwarf weed seed",
+     "ids": [
+      5303
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Watermelon seed",
+     "ids": [
+      5321
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Snape grass seed",
+     "ids": [
+      22879
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Spirit seed",
+     "ids": [
+      5317
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Magic seed",
+     "ids": [
+      5316
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Torstol seed",
+     "ids": [
+      5304
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Raw anchovies",
+     "ids": [
+      321
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Raw trout",
+     "ids": [
+      335
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Raw salmon",
+     "ids": [
+      331
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Raw tuna",
+     "ids": [
+      359
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Raw lobster",
+     "ids": [
+      377
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Raw swordfish",
+     "ids": [
+      371
+     ],
+     "rate": "varies",
+     "in_log": false
+    },
+    {
+     "item": "Raw shark",
+     "ids": [
+      383
+     ],
+     "rate": "varies",
+     "in_log": false
     }
    ],
    "skilling": true

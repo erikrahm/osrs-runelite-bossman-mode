@@ -725,7 +725,7 @@ public class BossmanPanel extends PluginPanel
 		boolean subHeader = false;
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
-			if (rules.isDebtItemGating(d))
+			if (rules.isDebtItemGating(d) || rules.isMeme(d))
 			{
 				continue;
 			}
@@ -753,7 +753,7 @@ public class BossmanPanel extends PluginPanel
 		return p;
 	}
 
-	/** Items that never gate: rarer than the meme threshold, or optional in the data (mode-locked rewards). */
+	/** Items that never gate: pets, jars and log items rarer than the meme threshold, or optional in the data (mode-locked rewards). */
 	private JPanel memeSection(BossmanData.Rung r)
 	{
 		List<BossmanData.GatingItem> memes = new ArrayList<>();
@@ -764,7 +764,15 @@ public class BossmanPanel extends PluginPanel
 				memes.add(gi);
 			}
 		}
-		if (memes.isEmpty())
+		List<BossmanData.DebtItem> memePets = new ArrayList<>();
+		for (BossmanData.DebtItem d : r.log.debtPetsJars)
+		{
+			if (rules.isMeme(d))
+			{
+				memePets.add(d);
+			}
+		}
+		if (memes.isEmpty() && memePets.isEmpty())
 		{
 			return null;
 		}
@@ -776,6 +784,13 @@ public class BossmanPanel extends PluginPanel
 			String why = gi.optional && gi.note != null ? gi.note : "meme grind";
 			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate + " - " + why, have ? OK : MUTED, MUTED);
 			attachMenu(row, r, gi.item, gi.ids, have, false);
+			p.add(row);
+		}
+		for (BossmanData.DebtItem d : memePets)
+		{
+			boolean have = rules.isDebtItemUnlocked(d);
+			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + " - meme grind", have ? OK : MUTED, MUTED);
+			attachMenu(row, r, d.item, d.ids, have, false);
 			p.add(row);
 		}
 		return p;

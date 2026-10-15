@@ -151,21 +151,28 @@ public class LadderRules
 		return gi.optional || (gi.denominator != null && gi.denominator >= config.memeThreshold());
 	}
 
+	/** A pet or jar at the meme threshold or rarer: optional, so it never gates and never goes to the backlog. */
+	public boolean isMeme(BossmanData.DebtItem d)
+	{
+		// debtAtKc is the rate's denominator
+		return d.debtAtKc != null && d.debtAtKc >= config.memeThreshold();
+	}
+
 	public boolean isJar(BossmanData.DebtItem d)
 	{
 		return d.item != null && d.item.toLowerCase(Locale.ROOT).startsWith("jar of");
 	}
 
-	/** Pets/jars gate only when the matching option is on. */
+	/** Pets/jars gate only when the matching option is on, and never when they are meme grinds. */
 	public boolean isDebtItemGating(BossmanData.DebtItem d)
 	{
-		return isJar(d) ? config.jarsGate() : config.petsGate();
+		return !isMeme(d) && (isJar(d) ? config.jarsGate() : config.petsGate());
 	}
 
-	/** Past the KC where the pet/jar is expected (false when its rate is unknown). */
+	/** Past the KC where the pet/jar is expected (false when its rate is unknown or it is a meme grind). */
 	public boolean isDebtOwed(BossmanData.Rung r, BossmanData.DebtItem d)
 	{
-		return d.debtAtKc != null && rungKc(r) >= d.debtAtKc;
+		return d.debtAtKc != null && !isMeme(d) && rungKc(r) >= d.debtAtKc;
 	}
 
 	public boolean isDebtItemUnlocked(BossmanData.DebtItem d)

@@ -87,7 +87,7 @@ public interface BossmanModeConfig extends Config
 
 	@Range(min = 2)
 	@ConfigItem(keyName = "memeThreshold", name = "Meme-grind threshold", position = 0, section = ladderSection,
-		description = "Collection-log items at 1 in this many kills or<br>rarer are 'meme grinds': shown in the log but<br>optional, so they never block the next boss.<br>Pets and jars are handled separately (backlog).")
+		description = "Collection-log items, pets and jars at 1 in this<br>many kills or rarer are 'meme grinds': shown but<br>optional, so they never block the next boss or go<br>to the backlog.")
 	default int memeThreshold()
 	{
 		return 5000;

@@ -52,7 +52,7 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
 - **Ladder panel.** The 67-rung boss ladder (`bossman/ladder.json`): current rung, gate, collection-log items gating it
   (with drop rates), KC vs expected KC, what the boss has unlocked for you and what it still could, and the **backlog** —
   pets/jars that fall into it once KC reaches their drop rate, plus any log item you right-click → "Move to backlog" (it
-  stops gating; reversible). 1/5,000+ items are "meme grinds" (optional), as are mode-locked rewards (Challenge Mode, Hard
+  stops gating; reversible). 1/5,000+ items, pets and jars included, are "meme grinds" (optional), as are mode-locked rewards (Challenge Mode, Hard
   Mode, high-invocation ToA). Rungs fed by several sources show each one's KC (the three Moons separately from the chest).
   Browse other bosses with `<` / `>`. Side bosses with no log of their own (Gemstone Crab, Mimic…) never hold the ladder
   up, and can be marked complete by hand. The skilling bosses (Tempoross and Wintertodt, listed after the ladder, and
@@ -63,7 +63,7 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
 - Chat commands: `!bmcount`, `!bmboss`, `!bmbackup`, `!bmrelock <item name or id>` (take back an unlock recorded by
   mistake; also a right-click on the panel's Unlocks rows), `!bmattack <npc name or id>`, `!bmreset` (opt-in, under Advanced; backs up first and does
   nothing if it can't).
-- Config: "Meme-grind threshold" (default 5000) — log items rarer than 1/N are optional and never block the ladder; "Pets gate the ladder" / "Jars gate the ladder" / "Combat Achievements gate the ladder" (default off); "Tools / Access gear are always unlocked" toggles for stricter variants.
+- Config: "Meme-grind threshold" (default 5000) — log items, pets and jars at 1/N or rarer are optional and never block the ladder; "Pets gate the ladder" / "Jars gate the ladder" / "Combat Achievements gate the ladder" (default off); "Tools / Access gear are always unlocked" toggles for stricter variants.
 
 Requires the **Loot Tracker** plugin to be enabled for chest/event sources (NPC kills work without it), and the **Slayer**
 plugin for slayer-task monsters to stay attackable.

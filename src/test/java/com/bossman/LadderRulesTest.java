@@ -260,11 +260,24 @@ public class LadderRulesTest
 	}
 
 	@Test
+	public void rarePetsAreMemeGrinds()
+	{
+		BossmanData.Rung wt = rung("Wintertodt");
+		BossmanData.DebtItem phoenix = wt.log.debtPetsJars.get(0);
+		assertTrue(rules.isMeme(phoenix));
+		petsGate = true;
+		assertFalse(rules.isDebtItemGating(phoenix));
+		ledger.setKcFromChat("Reward cart (Wintertodt)", "Reward cart (Wintertodt)", 6000);
+		assertFalse("never goes to the backlog", rules.isDebtOwed(wt, phoenix));
+		assertFalse(rules.isMeme(rung("King Black Dragon").log.debtPetsJars.get(0)));   // Prince black dragon, 1/3000
+	}
+
+	@Test
 	public void jarsGateOnlyWhenSwitchedOnAndAreToldApartFromPets()
 	{
-		BossmanData.Rung gg = rung("Grotesque Guardians");
-		BossmanData.DebtItem jar = gg.log.debtPetsJars.stream().filter(rules::isJar).findFirst().get();
-		BossmanData.DebtItem pet = gg.log.debtPetsJars.stream().filter(d -> !rules.isJar(d)).findFirst().get();
+		BossmanData.Rung kraken = rung("Kraken");
+		BossmanData.DebtItem jar = kraken.log.debtPetsJars.stream().filter(rules::isJar).findFirst().get();
+		BossmanData.DebtItem pet = kraken.log.debtPetsJars.stream().filter(d -> !rules.isJar(d)).findFirst().get();
 		assertFalse(rules.isDebtItemGating(jar));
 		jarsGate = true;
 		assertTrue(rules.isDebtItemGating(jar));

@@ -297,6 +297,21 @@ public class LadderRulesTest
 	}
 
 	@Test
+	public void petsWhoseOptionIsOffAreBackloggedWithoutTouchingTheLedger()
+	{
+		BossmanData.Rung kbd = rung("King Black Dragon");
+		BossmanData.DebtItem prince = kbd.log.debtPetsJars.get(0);
+		assertTrue(rules.isAutoBacklogged(prince));
+		ledger.backlog.add(LadderRules.backlogKey(kbd, prince.item));
+		petsGate = true;
+		assertFalse(rules.isAutoBacklogged(prince));
+		assertTrue("the hand-made backlog entry survives the toggle", rules.isBacklogged(kbd, prince.item));
+		petsGate = false;
+		assertTrue(rules.isAutoBacklogged(prince));
+		assertFalse("a meme-grind pet is optional, not backlogged", rules.isAutoBacklogged(rung("Wintertodt").log.debtPetsJars.get(0)));
+	}
+
+	@Test
 	public void rarePetsAreMemeGrinds()
 	{
 		BossmanData.Rung wt = rung("Wintertodt");

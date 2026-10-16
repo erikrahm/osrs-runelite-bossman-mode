@@ -721,29 +721,6 @@ public class BossmanPanel extends PluginPanel
 			attachMenu(row, r, d.item, d.ids, have, true);
 			p.add(row);
 		}
-		// non-gating pets/jars under their own sub-header
-		boolean subHeader = false;
-		for (BossmanData.DebtItem d : r.log.debtPetsJars)
-		{
-			if (rules.isDebtItemGating(d) || rules.isMeme(d))
-			{
-				continue;
-			}
-			if (!subHeader)
-			{
-				subHeader = true;
-				any = true;
-				p.add(Box.createVerticalStrut(6));
-				p.add(subTitle("Not Gating"));
-				p.add(Box.createVerticalStrut(4));
-			}
-			boolean have = rules.isDebtItemUnlocked(d);
-			boolean owed = rules.isDebtOwed(r, d);
-			String note = have || d.debtAtKc == null ? "" : (owed ? " - in backlog since KC " + d.debtAtKc : " - backlog at KC " + d.debtAtKc);
-			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + note, have ? OK : MUTED, owed && !have ? BAD : MUTED);
-			attachMenu(row, r, d.item, d.ids, have, false);
-			p.add(row);
-		}
 		if (!any)
 		{
 			p.add(wrapped(r.log.gatingItems.isEmpty()
@@ -796,7 +773,7 @@ public class BossmanPanel extends PluginPanel
 		return p;
 	}
 
-	/** The backlog: pets/jars past their KC that haven't dropped, plus anything moved here by hand. */
+	/** The backlog: pets/jars whose option is off, plus anything moved here by hand. */
 	private JPanel backlogSection(BossmanData.Rung r)
 	{
 		JPanel p = card();
@@ -814,26 +791,31 @@ public class BossmanPanel extends PluginPanel
 		}
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
-			if (rules.isDebtItemUnlocked(d))
+			if (rules.isDebtItemUnlocked(d) || rules.isMeme(d))
 			{
 				continue;
 			}
-			boolean manual = rules.isBacklogged(r, d.item);
-			boolean auto = !rules.isDebtItemGating(d) && rules.isDebtOwed(r, d);
-			if (manual || auto)
+			// the option wins while it's off; a hand-backlogged entry stays in the ledger for when it's back on
+			boolean auto = rules.isAutoBacklogged(d);
+			if (!auto && !rules.isBacklogged(r, d.item))
 			{
-				any = true;
-				JPanel row = logRow(d.ids, d.item, "Drop Rate: " + d.rate + (manual ? " - moved here by hand" : " - since KC " + d.debtAtKc), BAD, MUTED);
-				if (manual)
-				{
-					attachMenu(row, r, d.item, d.ids, false, true);
-				}
-				else
-				{
-					attachWikiMenu(row, d.item, d.ids);
-				}
-				p.add(row);
+				continue;
 			}
+			any = true;
+			boolean owed = rules.isDebtOwed(r, d);
+			String note = !auto ? " - moved here by hand"
+				: d.debtAtKc == null ? "" : (owed ? " - overdue since KC " : " - expected by KC ") + d.debtAtKc;
+			JPanel row = logRow(d.ids, d.item, "Drop Rate: " + d.rate + note, !auto || owed ? BAD : Color.WHITE, MUTED);
+			if (auto)
+			{
+				row.setToolTipText("Backlogged because " + (rules.isJar(d) ? "jars" : "pets") + " don't gate the ladder (setting)");
+				attachWikiMenu(row, d.item, d.ids);
+			}
+			else
+			{
+				attachMenu(row, r, d.item, d.ids, false, true);
+			}
+			p.add(row);
 		}
 		if (!any)
 		{

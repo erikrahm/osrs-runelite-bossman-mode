@@ -54,8 +54,8 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   banner ("+3 more"). Optional screenshot / chat / notification.
 - **Ladder panel.** The 67-rung boss ladder (`bossman/ladder.json`): current rung, gate, collection-log items gating it
   (with drop rates), KC vs expected KC, what the boss has unlocked for you and what it still could, and the **backlog** —
-  pets/jars that fall into it once KC reaches their drop rate, plus any log item you right-click → "Move to backlog" (it
-  stops gating; reversible). 1/5,000+ items, pets and jars included, are "meme grinds" (optional), as are mode-locked rewards (Challenge Mode, Hard
+  pets/jars while their "gate the ladder" option is off (marked overdue once KC passes their drop rate), plus any log
+  item you right-click → "Move to backlog" (it stops gating; reversible). 1/5,000+ items, pets and jars included, are "meme grinds" (optional), as are mode-locked rewards (Challenge Mode, Hard
   Mode, high-invocation ToA). Rungs fed by several sources show each one's KC (the three Moons separately from the chest).
   Browse other bosses with `<` / `>`. Side bosses with no log of their own (Gemstone Crab, Mimic…) never hold the ladder
   up, and can be marked complete by hand. The skilling bosses (Tempoross and Wintertodt, listed after the ladder, and

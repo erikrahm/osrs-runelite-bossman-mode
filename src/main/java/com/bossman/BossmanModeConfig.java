@@ -101,14 +101,14 @@ public interface BossmanModeConfig extends Config
 	}
 
 	@ConfigItem(keyName = "petsGate", name = "Pets gate the ladder", position = 1, section = ladderSection,
-		description = "Require a boss's pet before the next boss can<br>be started. Off by default: pets go on the<br>backlog once your KC reaches their drop rate.")
+		description = "Require a boss's pet before the next boss can<br>be started. Off by default: pets go straight to<br>the backlog. Pets you backlogged by hand stay<br>there when you turn this on.")
 	default boolean petsGate()
 	{
 		return false;
 	}
 
 	@ConfigItem(keyName = "jarsGate", name = "Jars gate the ladder", position = 2, section = ladderSection,
-		description = "Require a boss's jar before the next boss can<br>be started. Off by default: jars go on the<br>backlog once your KC reaches their drop rate.")
+		description = "Require a boss's jar before the next boss can<br>be started. Off by default: jars go straight to<br>the backlog. Jars you backlogged by hand stay<br>there when you turn this on.")
 	default boolean jarsGate()
 	{
 		return false;

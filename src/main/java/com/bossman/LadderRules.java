@@ -181,6 +181,15 @@ public class LadderRules
 		return !isMeme(d) && (isJar(d) ? config.jarsGate() : config.petsGate());
 	}
 
+	/**
+	 * In the backlog because its option is off. Worked out from the config on every call and never written to the
+	 * ledger, so toggling the option keeps the pets and jars the player backlogged by hand.
+	 */
+	public boolean isAutoBacklogged(BossmanData.DebtItem d)
+	{
+		return !isMeme(d) && !isDebtItemGating(d);
+	}
+
 	/** Past the KC where the pet/jar is expected (false when its rate is unknown or it is a meme grind). */
 	public boolean isDebtOwed(BossmanData.Rung r, BossmanData.DebtItem d)
 	{

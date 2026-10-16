@@ -622,7 +622,7 @@ public class BossmanModePlugin extends Plugin
 		ledger.unlocks.put(itemId, en);
 		if (announce)
 		{
-			String caption = kc != null ? source + " — KC " + kc : source;
+			String caption = kc != null ? source + " — KC " + Numbers.format(kc) : source;
 			if (config.unlockPopup())
 			{
 				unlockOverlay.addItemUnlock(itemId, caption);   // screenshots, if on, are taken as its banner ends
@@ -1017,7 +1017,8 @@ public class BossmanModePlugin extends Plugin
 		long drops = ledger.unlocks.values().stream().filter(x -> Ledger.KIND_DROP.equals(x.kind)).count();
 		long real = ledger.unlocks.values().stream().filter(x -> !Ledger.KIND_DEFAULT.equals(x.kind)).count();
 		long free = data.getFreeItems().keySet().stream().filter(id -> rules.freeKind(id) != null).count();
-		reply(chatMessage, "Bossman: " + real + " items unlocked (" + drops + " from boss drops), " + free + " free tools/access items.");
+		reply(chatMessage, "Bossman: " + Numbers.format(real) + " items unlocked (" + Numbers.format(drops) + " from boss drops), "
+			+ Numbers.format(free) + " free tools/access items.");
 	}
 
 	private void onRungCommand(ChatMessage chatMessage, String message)
@@ -1034,7 +1035,7 @@ public class BossmanModePlugin extends Plugin
 		}
 		LadderRules.Progress p = rules.progress(r);
 		reply(chatMessage, "Bossman " + r.label() + " - " + p.have + "/" + p.need
-			+ " to collect, KC " + rules.rungKc(r) + (r.log.expectedKc != null ? " (expected ~" + r.log.expectedKc + ")" : ""));
+			+ " to collect, KC " + Numbers.format(rules.rungKc(r)) + (r.log.expectedKc != null ? " (expected ~" + Numbers.format(r.log.expectedKc) + ")" : ""));
 	}
 
 	private void onBackupCommand(ChatMessage chatMessage, String message)

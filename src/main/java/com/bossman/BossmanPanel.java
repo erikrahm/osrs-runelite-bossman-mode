@@ -439,13 +439,13 @@ public class BossmanPanel extends PluginPanel
 
 		int kc = rules.rungKc(r);
 		boolean hasExpected = r.log.expectedKc != null && r.log.expectedKc > 0;
-		String kcText = hasExpected ? kc + "/~" + r.log.expectedKc : String.valueOf(kc);
+		String kcText = hasExpected ? Numbers.format(kc) + "/~" + Numbers.format(r.log.expectedKc) : Numbers.format(kc);
 		// past the expected KC without the log done = dry
 		Color kcColor = (hasExpected && kc > r.log.expectedKc && !complete) ? BAD : Color.WHITE;
 		JPanel kcRow = infoRow("Kill Count", kcText, null, kcColor);
 		if (hasExpected)
 		{
-			kcRow.setToolTipText("<html>~" + r.log.expectedKc + " is the expected kill count to finish this boss's log<br>(red = past it, going dry)</html>");
+			kcRow.setToolTipText("<html>~" + Numbers.format(r.log.expectedKc) + " is the expected kill count to finish this boss's log<br>(red = past it, going dry)</html>");
 		}
 		p.add(kcRow);
 		// rungs fed by several sources (the three Moons and their chest, the Barrows brothers): each one's own count
@@ -461,7 +461,7 @@ public class BossmanPanel extends PluginPanel
 		{
 			for (java.util.Map.Entry<String, Integer> en : bySource.entrySet())
 			{
-				p.add(infoRow("", en.getKey() + ": " + en.getValue(), null, MUTED));
+				p.add(infoRow("", en.getKey() + ": " + Numbers.format(en.getValue()), null, MUTED));
 			}
 		}
 
@@ -980,7 +980,7 @@ public class BossmanPanel extends PluginPanel
 		text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
 		text.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		text.add(wrapped(title, titleColor));
-		text.add(wrapped(sub, subColor));
+		text.add(wrapped(Numbers.withCommas(sub), subColor));
 		row.add(text, BorderLayout.CENTER);
 		row.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
 		Dimension pref = row.getPreferredSize();
@@ -1073,7 +1073,7 @@ public class BossmanPanel extends PluginPanel
 		if (!locked.isEmpty())
 		{
 			p.add(Box.createVerticalStrut(6));
-			p.add(subTitle("Still Locked (" + locked.size() + ")"));
+			p.add(subTitle("Still Locked (" + Numbers.format(locked.size()) + ")"));
 			p.add(Box.createVerticalStrut(4));
 			int shown = 0;
 			for (BossmanData.Drop d : locked)

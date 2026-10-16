@@ -17,6 +17,8 @@ import java.util.Objects;
 import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
+import net.runelite.api.gameval.InterfaceID;
+import net.runelite.api.widgets.Widget;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -25,7 +27,8 @@ import net.runelite.client.util.ImageCapture;
 
 /**
  * The "item unlocked" banner at the top of the screen, captioned with the source boss and KC. Items unlocked by the
- * same loot (one chest, one kill) share a banner: "+N more" rather than a five-second banner each.
+ * same loot (one chest, one kill) share a banner: "+N more" rather than a five-second banner each. It waits while the
+ * game's own popup (a collection log entry, a combat task) holds the same spot.
  */
 public class UnlockOverlay extends Overlay
 {
@@ -68,6 +71,8 @@ public class UnlockOverlay extends Overlay
 	private long lastFrame;
 	private boolean firstFrame;
 	private int slide;
+	/** the game's popup hid the banner last frame: slide it back in when the popup goes */
+	private boolean waiting;
 	private boolean screenshotUnlock;
 	private boolean includeFrame;
 	private Font captionFont;
@@ -133,6 +138,12 @@ public class UnlockOverlay extends Overlay
 			lastFrame = 0;   // time away isn't time shown
 			return null;
 		}
+		if (gamePopupShowing())
+		{
+			lastFrame = 0;
+			waiting = true;
+			return null;
+		}
 		Banner b;
 		synchronized (queue)
 		{
@@ -149,6 +160,11 @@ public class UnlockOverlay extends Overlay
 				lastFrame = 0;
 			}
 			b = current;
+		}
+		if (waiting)
+		{
+			waiting = false;
+			slide = -SLIDE;
 		}
 
 		if (captionFont == null)
@@ -208,5 +224,11 @@ public class UnlockOverlay extends Overlay
 			}
 		}
 		return new Dimension(w, h);
+	}
+
+	private boolean gamePopupShowing()
+	{
+		Widget popup = client.getWidget(InterfaceID.NotificationDisplay.CONTAINER);
+		return popup != null && !popup.isHidden();
 	}
 }

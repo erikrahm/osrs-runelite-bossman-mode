@@ -31,6 +31,17 @@ public class KcMessagesTest
 	}
 
 	@Test
+	public void collectionLogHeaderLinesGiveTheirSourcesKc()
+	{
+		KcMessages.Kc kc = KcMessages.parseCollectionLog("Wintertodt kills: 410", data::canonicalSource);
+		assertEquals("Reward cart (Wintertodt)", kc.source);
+		assertEquals(410, kc.count);
+		assertEquals(1054, KcMessages.parseCollectionLog("Vorkath kills: 1,054", data::canonicalSource).count);
+		assertNull(KcMessages.parseCollectionLog("Obtained: 12/16", data::canonicalSource));
+		assertNull(KcMessages.parseCollectionLog("Wintertodt", data::canonicalSource));
+	}
+
+	@Test
 	public void bossKillCounts()
 	{
 		assertKc("Your Vorkath kill count is: 14.", "Vorkath", "Vorkath", 14);

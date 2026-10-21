@@ -35,6 +35,8 @@ final class KcMessages
 	 * "Your Barrows chest count is: 3" (the name keeps "chest"; aliases map "barrows chest" to Barrows).
 	 */
 	private static final Pattern KC = Pattern.compile("Your (.+?) (?:kill |completion )?count is:? ?([\\d,]+)", Pattern.CASE_INSENSITIVE);
+	/** a collection log header line: "Wintertodt kills: 410", "Gauntlet completions: 7" */
+	private static final Pattern CLOG_LINE = Pattern.compile("^(.+?)(?: kills| completions| count)?: ?([\\d,]+)$", Pattern.CASE_INSENSITIVE);
 	/** a raid mode after the raid's name: "...: Hard Mode", "... Challenge Mode" */
 	private static final Pattern MODE = Pattern.compile("^(.+?)(?::\\s*|\\s+)((?:Challenge|Hard|Entry|Expert) Mode)$", Pattern.CASE_INSENSITIVE);
 
@@ -82,6 +84,29 @@ final class KcMessages
 			return null;
 		}
 		return new Kc(source, mode == null ? source : source + " (" + mode + ")", n);
+	}
+
+	/** The KC on a collection log header line, or null if the line isn't one or names no source. */
+	static Kc parseCollectionLog(String line, Function<String, String> canonicalSource)
+	{
+		Matcher m = CLOG_LINE.matcher(line.replace('\u00A0', ' ').trim());
+		if (!m.matches() || m.group(1).equalsIgnoreCase("Obtained"))
+		{
+			return null;
+		}
+		String source = canonicalSource.apply(m.group(1).trim());
+		if (source == null)
+		{
+			return null;
+		}
+		try
+		{
+			return new Kc(source, source, Integer.parseInt(m.group(2).replace(",", "")));
+		}
+		catch (NumberFormatException e)
+		{
+			return null;
+		}
 	}
 
 	private static String capitalise(String mode)

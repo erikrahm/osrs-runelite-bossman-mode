@@ -166,4 +166,17 @@ public class LedgerTest
 		l.addCaDone("Can’t Touch Me");
 		assertTrue(l.isCaDone("Can't  touch me"));
 	}
+
+	@Test
+	public void collectionLogKcFillsOnlySourcesChatDoesntReport()
+	{
+		Ledger l = new Ledger();
+		l.countLoot("Reward cart (Wintertodt)", 1);
+		assertTrue(l.setKcFromCollectionLog("Reward cart (Wintertodt)", 410));
+		assertEquals(410, l.getKc("Reward cart (Wintertodt)"));
+		assertFalse("unchanged", l.setKcFromCollectionLog("Reward cart (Wintertodt)", 410));
+		l.setKcFromChat("Vorkath", "Vorkath", 20);
+		assertFalse(l.setKcFromCollectionLog("Vorkath", 3));
+		assertEquals(20, l.getKc("Vorkath"));
+	}
 }

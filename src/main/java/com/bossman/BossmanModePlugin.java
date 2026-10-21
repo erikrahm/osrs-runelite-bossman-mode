@@ -177,6 +177,16 @@ public class BossmanModePlugin extends Plugin
 	private volatile Map<Integer, Integer> lastInventory;
 	/** worn items as of the last inventory change: an item that moved from here into the inventory wasn't received */
 	private Map<Integer, Integer> lastEquipment = Collections.emptyMap();
+	/** reward cart / pool menu target → the loot event a Big-search on it posts (one event for up to five claims) */
+	private static final Map<String, String> BIG_SEARCH = Map.of(
+		"reward cart", "Reward cart (Wintertodt)",
+		"reward pool", "Reward pool (Tempoross)");
+	private static final int BIG_SEARCH_CLAIMS = 5;
+	/** the loot arrives a tick or two after the click; anything later belongs to another claim */
+	private static final int BIG_SEARCH_TICKS = 10;
+	/** the event the last Big-search click will post, and the tick it was clicked */
+	private String bigSearchEvent;
+	private int bigSearchTick;
 	/** tick at which each receipt rule last matched, for its companions */
 	private final Map<String, Integer> receiptTicks = new HashMap<>();
 	/**
@@ -538,7 +548,14 @@ public class BossmanModePlugin extends Plugin
 		}
 		String source = data.canonicalSource(e.getName());
 		String name = source != null ? source : e.getName();
-		unlockLoot(e.getItems(), name, countLoot(name, Math.max(1, e.getAmount())));
+		int amount = Math.max(1, e.getAmount());
+		if (e.getName().equals(bigSearchEvent) && client.getTickCount() - bigSearchTick <= BIG_SEARCH_TICKS)
+		{
+			// the tracker posts one event per click; a Big-search claims up to five rewards, and the rates are per claim
+			amount = BIG_SEARCH_CLAIMS;
+			bigSearchEvent = null;
+		}
+		unlockLoot(e.getItems(), name, countLoot(name, amount));
 	}
 
 	/** KC after a loot event: counted here unless the game reports this source's KC in chat (or its loot isn't per kill). */
@@ -722,7 +739,8 @@ public class BossmanModePlugin extends Plugin
 
 	/**
 	 * When a boss tab of the in-game collection log is drawn, record every obtained item in it as an unlock
-	 * (kind "clog"): the account may have had the drop before the plugin was installed.
+	 * (kind "clog"): the account may have had the drop before the plugin was installed. Its KC lines set the KC of
+	 * sources the plugin can't read from chat (Wintertodt counts reward claims, which loot events undercount).
 	 */
 	private void importCollectionLogTab()
 	{
@@ -750,6 +768,15 @@ public class BossmanModePlugin extends Plugin
 		{
 			return; // not a tab we track (Slayer, Miscellaneous, All Pets, ...)
 		}
+		boolean kcChanged = false;
+		for (int i = 1; i < header.getChildren().length; i++)
+		{
+			KcMessages.Kc kc = KcMessages.parseCollectionLog(Text.removeTags(header.getChild(i).getText()), data::canonicalSource);
+			if (kc != null && tabRungs.stream().anyMatch(r -> r.sources.contains(kc.source)))
+			{
+				kcChanged |= ledger.setKcFromCollectionLog(kc.source, kc.count);
+			}
+		}
 		int imported = 0;
 		for (Widget child : items.getChildren())
 		{
@@ -771,6 +798,9 @@ public class BossmanModePlugin extends Plugin
 		if (imported > 0)
 		{
 			sendChatMessage("Bossman: imported " + imported + " item" + (imported == 1 ? "" : "s") + " from your " + tab + " collection log.");
+		}
+		if (imported > 0 || kcChanged)
+		{
 			ledgerChanged();
 		}
 	}
@@ -845,6 +875,11 @@ public class BossmanModePlugin extends Plugin
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked e)
 	{
+		if ("Big-search".equals(Text.removeTags(e.getMenuOption())))
+		{
+			bigSearchEvent = BIG_SEARCH.get(Text.standardize(e.getMenuTarget()));
+			bigSearchTick = client.getTickCount();
+		}
 		// another plugin may rebuild a menu after onMenuEntryAdded stripped it
 		NPC npc = e.getMenuEntry().getNpc();
 		if (npc != null && config.restrictCombat()

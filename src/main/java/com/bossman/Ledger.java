@@ -324,6 +324,20 @@ public class Ledger
 	}
 
 	/** A kill (or chest) seen through loot: counted unless the game reports this source's KC itself. */
+	/**
+	 * The KC a collection log tab shows, for a source whose KC the game never puts in chat in a form the plugin reads
+	 * (Wintertodt's reward claims). Exact, like chat; a source that does report in chat keeps its chat count.
+	 */
+	public boolean setKcFromCollectionLog(String source, int n)
+	{
+		if (kcFromChat.contains(source))
+		{
+			return false;
+		}
+		Integer old = kc.put(source, n);
+		return old == null || old != n;
+	}
+
 	public int countLoot(String source, int amount)
 	{
 		if (!kcFromChat.contains(source))

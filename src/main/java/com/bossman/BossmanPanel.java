@@ -690,37 +690,36 @@ public class BossmanPanel extends PluginPanel
 	{
 		JPanel p = card();
 		p.add(sectionTitle("Collection Log"));
-		int kc = rules.rungKc(r);
-		boolean any = false;
+		// gating items and gating pets/jars together
+		List<java.util.Map.Entry<Double, JPanel>> rows = new ArrayList<>();
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
 			if (rules.isMeme(gi))
 			{
 				continue;
 			}
-			any = true;
 			boolean have = rules.isLogItemUnlocked(gi);
 			boolean bl = rules.isBacklogged(r, gi.item);
 			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate + (bl && !have ? " - in backlog" : ""),
 				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
 			attachMenu(row, r, gi.item, gi.ids, have, true);
-			p.add(row);
+			rows.add(byRate(gi.rate, row));
 		}
-		// gating pets/jars sit with the other gating items
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
 		{
 			if (!rules.isDebtItemGating(d))
 			{
 				continue;
 			}
-			any = true;
 			boolean have = rules.isDebtItemUnlocked(d);
 			boolean bl = rules.isBacklogged(r, d.item);
 			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + (bl && !have ? " - in backlog" : ""),
 				have ? OK : (bl ? MUTED : Color.WHITE), MUTED);
 			attachMenu(row, r, d.item, d.ids, have, true);
-			p.add(row);
+			rows.add(byRate(d.rate, row));
 		}
+		addByRate(p, rows);
+		boolean any = !rows.isEmpty();
 		if (!any)
 		{
 			p.add(wrapped(r.log.gatingItems.isEmpty()
@@ -755,21 +754,23 @@ public class BossmanPanel extends PluginPanel
 		}
 		JPanel p = card();
 		p.add(sectionTitle("Optional Items"));
+		List<java.util.Map.Entry<Double, JPanel>> rows = new ArrayList<>();
 		for (BossmanData.GatingItem gi : memes)
 		{
 			boolean have = rules.isLogItemUnlocked(gi);
 			String why = gi.optional && gi.note != null ? gi.note : "meme grind";
 			JPanel row = logRow(gi.ids, (have ? "[x] " : "[ ] ") + gi.item, "Drop Rate: " + gi.rate + " - " + why, have ? OK : MUTED, MUTED);
 			attachMenu(row, r, gi.item, gi.ids, have, false);
-			p.add(row);
+			rows.add(byRate(gi.rate, row));
 		}
 		for (BossmanData.DebtItem d : memePets)
 		{
 			boolean have = rules.isDebtItemUnlocked(d);
 			JPanel row = logRow(d.ids, (have ? "[x] " : "[ ] ") + d.item, "Drop Rate: " + d.rate + " - meme grind", have ? OK : MUTED, MUTED);
 			attachMenu(row, r, d.item, d.ids, have, false);
-			p.add(row);
+			rows.add(byRate(d.rate, row));
 		}
+		addByRate(p, rows);
 		return p;
 	}
 
@@ -778,15 +779,14 @@ public class BossmanPanel extends PluginPanel
 	{
 		JPanel p = card();
 		p.add(sectionTitle("Backlog"));
-		boolean any = false;
+		List<java.util.Map.Entry<Double, JPanel>> rows = new ArrayList<>();
 		for (BossmanData.GatingItem gi : r.log.gatingItems)
 		{
 			if (rules.isBacklogged(r, gi.item) && !rules.isLogItemUnlocked(gi))
 			{
-				any = true;
 				JPanel row = logRow(gi.ids, gi.item, "Drop Rate: " + gi.rate + " - moved here by hand", BAD, MUTED);
 				attachMenu(row, r, gi.item, gi.ids, false, true);
-				p.add(row);
+				rows.add(byRate(gi.rate, row));
 			}
 		}
 		for (BossmanData.DebtItem d : r.log.debtPetsJars)
@@ -801,7 +801,6 @@ public class BossmanPanel extends PluginPanel
 			{
 				continue;
 			}
-			any = true;
 			boolean owed = rules.isDebtOwed(r, d);
 			String note = !auto ? " - moved here by hand"
 				: d.debtAtKc == null ? "" : (owed ? " - overdue since KC " : " - expected by KC ") + d.debtAtKc;
@@ -815,13 +814,29 @@ public class BossmanPanel extends PluginPanel
 			{
 				attachMenu(row, r, d.item, d.ids, false, true);
 			}
-			p.add(row);
+			rows.add(byRate(d.rate, row));
 		}
-		if (!any)
+		addByRate(p, rows);
+		if (rows.isEmpty())
 		{
 			p.add(wrapped("Nothing in the backlog for this boss.", MUTED, 160));
 		}
 		return p;
+	}
+
+	private static java.util.Map.Entry<Double, JPanel> byRate(String rate, JPanel row)
+	{
+		return new java.util.AbstractMap.SimpleEntry<>(LadderRules.dropChance(rate), row);
+	}
+
+	/** Add the rows commonest drop first; the sort is stable, so equal rates keep the data's order. */
+	private static void addByRate(JPanel p, List<java.util.Map.Entry<Double, JPanel>> rows)
+	{
+		rows.sort((a, b) -> Double.compare(b.getKey(), a.getKey()));
+		for (java.util.Map.Entry<Double, JPanel> en : rows)
+		{
+			p.add(en.getValue());
+		}
 	}
 
 	/** Client-property keys that describe a row to the shared context menu. */

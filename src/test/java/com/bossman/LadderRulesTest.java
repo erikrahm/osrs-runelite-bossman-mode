@@ -285,6 +285,16 @@ public class LadderRulesTest
 	}
 
 	@Test
+	public void dropRatesSortCommonestFirstAndUnknownLast()
+	{
+		assertEquals(1, LadderRules.dropChance("completion"), 0);
+		assertEquals(4 / 180.0, LadderRules.dropChance("4/180"), 1e-9);
+		assertEquals(1 / 5000.0, LadderRules.dropChance("1/5,000"), 1e-9);
+		assertEquals(-1, LadderRules.dropChance("varies"), 0);
+		assertTrue(LadderRules.dropChance("1/128") > LadderRules.dropChance("1/1000"));
+	}
+
+	@Test
 	public void aFreeItemDoesNotFreeItsOtherForms()
 	{
 		int raidBurntFish = 20854;

@@ -243,6 +243,32 @@ public class LadderRules
 		return false;
 	}
 
+	/**
+	 * Chance per kill from a drop-rate string, for sorting: "1/128" and "4/180" as fractions, a completion reward as
+	 * certain, and anything without a number ("varies") as -1 so it sorts last.
+	 */
+	public static double dropChance(String rate)
+	{
+		if (rate == null)
+		{
+			return -1;
+		}
+		String r = rate.replace(",", "").trim().toLowerCase(Locale.ROOT);
+		if (r.startsWith("completion") || r.startsWith("always"))
+		{
+			return 1;
+		}
+		int slash = r.indexOf('/');
+		try
+		{
+			return slash > 0 ? Double.parseDouble(r.substring(0, slash)) / Double.parseDouble(r.substring(slash + 1)) : -1;
+		}
+		catch (NumberFormatException e)
+		{
+			return -1;
+		}
+	}
+
 	public static String backlogKey(BossmanData.Rung r, String item)
 	{
 		return r.boss + "|" + item;

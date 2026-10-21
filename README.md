@@ -3,6 +3,8 @@
 A RuneLite plugin for a "bossman" account: a bronzeman-style ruleset where **items are only ever unlocked by boss drops**.
 Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronzeman-mode) (BSD-2).
 
+Made by: [youtube.com/@peasantsquest](https://youtube.com/@peasantsquest)
+
 ## What it does
 - **Source-gated unlocks.** An item becomes *unlocked* only when it drops from an allowlisted source: the 75 boss NPCs,
   the chest/event loot the RuneLite Loot Tracker reports (Barrows, Lunar Chest, CoX/ToB/ToA, Fortis Colosseum, Unsired,
@@ -60,7 +62,7 @@ Forked from [Another Bronzeman Mode](https://github.com/CodePanter/another-bronz
   Browse other bosses with `<` / `>`. Side bosses with no log of their own (Gemstone Crab, Mimic…) never hold the ladder
   up, and can be marked complete by hand. The skilling bosses (Tempoross and Wintertodt, listed after the ladder, and
   Zalcano) can be done out of order: tick "Do this boss now" on one and it is the current boss until its log is done.
-- **Pre-plugin drops.** Open a boss tab in the in-game collection log and every obtained item there is imported as an unlock (toggle: "Import from collection log"). Nothing is imported inside an instance such as a player-owned house, where another player's log can be shown.
+- **Pre-plugin drops.** Open a boss tab in the in-game collection log and every obtained item there is imported as an unlock (toggle: "Import from collection log"). The tab's kill count also sets the boss's KC where chat doesn't report it: Wintertodt's count is reward claims, and a Big-search claims five at once, which the Loot Tracker records as one. Nothing is imported inside an instance such as a player-owned house, where another player's log can be shown.
 - **Combat Achievements** are read from the game's own task state (the completion varps + the task table in the cache), on
   login and whenever a task completes — tasks done before the plugin count, no interface needs opening.
 - Chat commands: `!bmcount`, `!bmboss`, `!bmbackup`, `!bmrelock <item name or id>` (take back an unlock recorded by

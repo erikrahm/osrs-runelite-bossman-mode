@@ -23,7 +23,7 @@ dependencies {
 }
 
 group = 'com.bossman'
-version = '1.6.0'
+version = '1.6.1'
 sourceCompatibility = '11'
 
 tasks.withType(JavaCompile) {

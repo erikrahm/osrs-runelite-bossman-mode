@@ -709,6 +709,23 @@ public class BossmanModePlugin extends Plugin
 		});
 	}
 
+	/** Record a drop the plugin didn't see (on mobile, say) as an unlock from the rung's boss: the panel's "Mark as Obtained". */
+	public void markObtained(BossmanData.Rung r, int itemId)
+	{
+		clientThread.invoke(() ->
+		{
+			int canon = itemManager.canonicalize(itemId);
+			if (ledger.isUnlocked(canon))
+			{
+				return;
+			}
+			String source = r.sources.isEmpty() ? r.boss : r.sources.get(0);
+			recordUnlock(canon, Ledger.KIND_MANUAL, source, null, "marked as obtained by hand", false);
+			sendChatMessage("Bossman: marked " + ledger.unlocks.get(canon).name + " as obtained.");
+			ledgerChanged();
+		});
+	}
+
 	/** Take back an unlock recorded by mistake (panel right-click, !bmrelock). */
 	public void relock(int itemId)
 	{

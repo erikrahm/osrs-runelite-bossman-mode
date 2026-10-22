@@ -808,7 +808,7 @@ public class BossmanPanel extends PluginPanel
 			if (auto)
 			{
 				row.setToolTipText("Backlogged because " + (rules.isJar(d) ? "jars" : "pets") + " don't gate the ladder (setting)");
-				attachWikiMenu(row, d.item, d.ids);
+				attachMenu(row, r, d.item, d.ids, false, false);
 			}
 			else
 			{
@@ -846,6 +846,8 @@ public class BossmanPanel extends PluginPanel
 	private static final String ROW_BACKLOGABLE = "bm.backlogable";
 	/** set on unlock rows: the item id a "Re-lock" entry takes back */
 	private static final String ROW_RELOCK = "bm.relock";
+	/** set on boss item rows: whether the item is already unlocked, so the menu offers Re-lock instead of Mark as Obtained */
+	private static final String ROW_HAVE = "bm.have";
 
 	/**
 	 * One popup menu for every row. Swing hands show() the component that was clicked; we find the row it
@@ -885,22 +887,40 @@ public class BossmanPanel extends PluginPanel
 				add(mi);
 			}
 			Integer relockId = (Integer) row.getClientProperty(ROW_RELOCK);
+			Boolean have = (Boolean) row.getClientProperty(ROW_HAVE);
+			if (r != null && have != null && ids != null && !ids.isEmpty())
+			{
+				if (!have)
+				{
+					javax.swing.JMenuItem mark = new javax.swing.JMenuItem("Mark as Obtained");
+					mark.setFont(FontManager.getRunescapeSmallFont());
+					mark.addActionListener(e -> plugin.markObtained(r, ids.get(0)));
+					add(mark);
+				}
+				else if (relockId == null)
+				{
+					// the form that's in the ledger (pets can be recorded under their follower id)
+					relockId = ids.stream().filter(plugin.getLedger()::isUnlocked).findFirst().orElse(null);
+				}
+			}
 			if (relockId != null)
 			{
 				javax.swing.JMenuItem relock = new javax.swing.JMenuItem("Re-lock");
 				relock.setFont(FontManager.getRunescapeSmallFont());
-				relock.addActionListener(e -> plugin.relock(relockId));
+				int id = relockId;
+				relock.addActionListener(e -> plugin.relock(id));
 				add(relock);
 			}
 			super.show(invoker, x, y);
 		}
 	};
 
-	/** The wiki link plus the backlog toggle (only while the item is still locked and gating). */
+	/** The wiki link, Mark as Obtained or Re-lock, and the backlog toggle (only while the item is still locked and gating). */
 	private void attachMenu(JPanel row, BossmanData.Rung r, String item, List<Integer> ids, boolean have, boolean backlogable)
 	{
 		row.putClientProperty(ROW_RUNG, r);
 		row.putClientProperty(ROW_BACKLOGABLE, backlogable && !have);
+		row.putClientProperty(ROW_HAVE, have);
 		attachWikiMenu(row, item, ids);
 	}
 
@@ -1099,7 +1119,7 @@ public class BossmanPanel extends PluginPanel
 					break;
 				}
 				JPanel row = logRow(d.ids, "[ ] " + d.item, "Drop Rate: " + d.rate, Color.WHITE, MUTED);
-				attachWikiMenu(row, d.item, d.ids);
+				attachMenu(row, r, d.item, d.ids, false, false);
 				p.add(row);
 			}
 		}

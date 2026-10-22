@@ -36,6 +36,7 @@ public class Ledger
 	public static final String KIND_RECEIPT = "receipt";
 	public static final String KIND_DEFAULT = "default";
 	public static final String KIND_CLOG = "clog";       // imported from the in-game collection log (obtained before the plugin)
+	public static final String KIND_MANUAL = "manual";   // marked as obtained in the panel (a drop the plugin didn't see, e.g. on mobile)
 
 	public static class Entry
 	{
